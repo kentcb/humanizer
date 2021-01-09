@@ -1,7 +1,4 @@
+/// A Dart library to convert values into human-friendly [String]s.
 library humanizer;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/humanize_symbol_name.dart';
