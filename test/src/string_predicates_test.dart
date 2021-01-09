@@ -6,6 +6,7 @@ void main() {
   _isLowerCase();
   _isDigits();
   _isSymbols();
+  _isBlank();
 }
 
 void _isUpperCase() {
@@ -109,5 +110,29 @@ void _isSymbols() {
     verifyIsSymbols(input: '-+!@a', expected: false);
     verifyIsSymbols(input: '\$', expected: true);
     verifyIsSymbols(input: '+\$', expected: true);
+  });
+}
+
+void _isBlank() {
+  group('is blank', () {
+    void verifyIsBlank({
+      required String input,
+      required bool expected,
+    }) {
+      test(
+        '$input → $expected',
+        () {
+          final result = input.isBlank();
+          expect(result, expected);
+        },
+      );
+    }
+
+    verifyIsBlank(input: '', expected: true);
+    verifyIsBlank(input: ' ', expected: true);
+    verifyIsBlank(input: '\t', expected: true);
+    verifyIsBlank(input: ' \r \t\r\n  \t  ', expected: true);
+    verifyIsBlank(input: 'a', expected: false);
+    verifyIsBlank(input: '    a', expected: false);
   });
 }

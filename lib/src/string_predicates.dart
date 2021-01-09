@@ -25,4 +25,7 @@ extension StringPredicateExtensions on String {
 
   /// Returns `true` if this [String] consists entirely of symbol characters.
   bool isSymbols() => _symbolExpression.hasMatch(this);
+
+  /// Returns `true` if this [String] consists entirely of whitespace characters.
+  bool isBlank() => trim().isEmpty;
 }
