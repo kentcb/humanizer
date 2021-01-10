@@ -10,3 +10,4 @@ TODO: docs (for now, just keeping track of each feature as I add it)
 * `humanizeSymbolName`
 * `toSentenceCase`
 * `toTitleCase`
+* `truncate`
