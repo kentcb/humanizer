@@ -21,7 +21,12 @@ void _truncateFixedLength() {
       test(
         '$input : $length : $truncationIndicator : $truncateAt → $expected',
         () {
-          final result = StringTruncators.fixedLength(input, length, truncationIndicator, truncateAt);
+          final transformation = TruncateToFixedLengthTransformation(
+            length: length,
+            truncationIndicator: truncationIndicator,
+            truncateAt: truncateAt,
+          );
+          final result = transformation.transform(input, '');
           expect(result, expected);
         },
       );
@@ -107,7 +112,12 @@ void _truncateFixedNonWhitespaceLength() {
       test(
         '$input : $length : $truncationIndicator : $truncateAt → $expected',
         () {
-          final result = StringTruncators.fixedNonWhitespaceLength(input, length, truncationIndicator, truncateAt);
+          final transformation = TruncateToFixedNonWhitespaceLengthTransformation(
+            length: length,
+            truncationIndicator: truncationIndicator,
+            truncateAt: truncateAt,
+          );
+          final result = transformation.transform(input, '');
           expect(result, expected);
         },
       );
@@ -206,7 +216,12 @@ void _truncateFixedWordLength() {
       test(
         '$input : $length : $truncationIndicator : $truncateAt → $expected',
         () {
-          final result = StringTruncators.fixedWordLength(input, length, truncationIndicator, truncateAt);
+          final transformation = TruncateToFixedWordLengthTransformation(
+            length: length,
+            truncationIndicator: truncationIndicator,
+            truncateAt: truncateAt,
+          );
+          final result = transformation.transform(input, '');
           expect(result, expected);
         },
       );

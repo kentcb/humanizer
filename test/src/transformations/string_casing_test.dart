@@ -16,7 +16,8 @@ void _toSentenceCase() {
       test(
         '$input → $expected',
         () {
-          final result = input.toSentenceCase(convertAcryonyms: convertAcronyms);
+          final transformation = ToSentenceCaseTransformation(convertAcronyms: convertAcronyms);
+          final result = transformation.transform(input, '');
           expect(result, expected);
         },
       );
@@ -56,7 +57,8 @@ void _toTitleCase() {
       test(
         '$input → $expected',
         () {
-          final result = input.toTitleCase(convertAcryonyms: convertAcronyms);
+          final transformation = ToTitleCaseTransformation(convertAcronyms: convertAcronyms);
+          final result = transformation.transform(input, '');
           expect(result, expected);
         },
       );
