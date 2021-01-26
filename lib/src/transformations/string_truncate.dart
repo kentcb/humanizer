@@ -15,7 +15,7 @@ import 'package:humanizer/src/string_predicates.dart';
 /// );
 ///
 /// // 'A string th~'
-/// transformation.transform('A string that is too long');
+/// transformation.transform('A string that is too long', 'en_US');
 /// ```
 class TruncateToFixedLengthTransformation extends Transformation<String, String> {
   TruncateToFixedLengthTransformation({
@@ -78,7 +78,7 @@ class TruncateToFixedLengthTransformation extends Transformation<String, String>
 /// );
 ///
 /// // 'A string that~'
-/// transformation.transform('A string that is too long');
+/// transformation.transform('A string that is too long', 'en_US');
 /// ```
 class TruncateToFixedNonWhitespaceLengthTransformation extends Transformation<String, String> {
   TruncateToFixedNonWhitespaceLengthTransformation({

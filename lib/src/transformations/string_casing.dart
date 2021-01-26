@@ -49,7 +49,7 @@ class ToSentenceCaseTransformation extends Transformation<String, String> {
 /// final transformation = ToTitleCaseTransformation(convertAcronyms: false);
 ///
 /// // 'Here Is Some Text, FYI. I Hope You Like It! Peace'
-/// transformation.transform('here is some text, FYI. I hope you like it! peace');
+/// transformation.transform('here is some text, FYI. I hope you like it! peace', 'en_US');
 /// ```
 class ToTitleCaseTransformation extends Transformation<String, String> {
   const ToTitleCaseTransformation({
