@@ -2,6 +2,10 @@ import 'package:humanizer/src/transformations/string_casing.dart';
 import 'package:intl/intl.dart';
 
 /// Provides casing-related extension methods on [String].
+///
+/// See also:
+/// * [ToSentenceCaseTransformation]
+/// * [ToTitleCaseTransformation]
 extension StringCasing on String {
   /// Converts this [String] to sentence casing.
   ///
@@ -12,7 +16,10 @@ extension StringCasing on String {
   ///
   /// See also:
   /// * [ToSentenceCaseTransformation]
-  String toSentenceCase({bool convertAcryonyms = false, String? locale}) =>
+  String toSentenceCase({
+    bool convertAcryonyms = false,
+    String? locale,
+  }) =>
       ToSentenceCaseTransformation(convertAcronyms: convertAcryonyms)
           .transform(this, locale ?? Intl.getCurrentLocale());
 
@@ -25,6 +32,9 @@ extension StringCasing on String {
   ///
   /// See also:
   /// * [ToTitleCaseTransformation]
-  String toTitleCase({bool convertAcryonyms = false, String? locale}) =>
+  String toTitleCase({
+    bool convertAcryonyms = false,
+    String? locale,
+  }) =>
       ToTitleCaseTransformation(convertAcronyms: convertAcryonyms).transform(this, locale ?? Intl.getCurrentLocale());
 }
