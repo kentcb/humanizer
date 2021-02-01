@@ -14,10 +14,10 @@ natural naming scheme. Also, the API docs should all include examples of the ext
 * `truncate`
 * `humanizeRelativeDateTime`
 * `toPluralForm`/`toSingularForm`/`toPluralFormForQuantity`
+* `toOrdinalNumerical`/`toOrdinalWords`
 
 TODO:
 
-* `toOrdinal`/`toOrdinalWords` (OrdinalTransformation on int) : probably need to include GrammaticalGender here (neuter, male, female)
 * `toCardinalWords` (CardinalTransformation on int) : also needs grammatical gender
 * `ByteSize` implementation
 
