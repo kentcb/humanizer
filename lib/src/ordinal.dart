@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 /// * [OrdinalNumericalTransformation]
 /// * [OrdinalWordsTransformation]
 extension OrdinalExtensions on int {
-  /// Converts this [int] to numerical ordinal format, such as converting `1` to `'1st'`, or `42` to `'42nd'`.
+  /// Converts this [int] to ordinal numerical format, such as converting `1` to `'1st'`, or `42` to `'42nd'`.
   String toOrdinalNumerical({
     String? locale,
   }) {
@@ -16,7 +16,7 @@ extension OrdinalExtensions on int {
     return result;
   }
 
-  /// Converts this [int] to word ordinal format, such as converting `1` to `'first'`, or `42` to `'forty-second'`.
+  /// Converts this [int] to ordinal word format, such as converting `1` to `'first'`, or `42` to `'forty-second'`.
   String toOrdinalWords({
     String? locale,
   }) {
