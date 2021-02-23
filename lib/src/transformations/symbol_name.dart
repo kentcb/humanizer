@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/string_predicates.dart';
+import 'package:humanizer/src/string_predicate_extensions.dart';
 
 /// A transformation to convert a [String] containing a symbol name into a human-friendly representation thereof. The
 /// symbol name can be camel-, pascal-, snake-, or kebab-cased.
@@ -10,7 +10,7 @@ import 'package:humanizer/src/string_predicates.dart';
 /// * A single capital "I" is left alone.
 ///
 /// ```
-/// const transformation = HumanizeSymbolNameTransformation();
+/// const transformation = SymbolNameTransformation();
 ///
 /// // 'Some camel case symbol'
 /// transformation.transform('someCamelCaseSymbol', 'en_US');
@@ -30,7 +30,7 @@ import 'package:humanizer/src/string_predicates.dart';
 /// // 'You and I are awesome'
 /// transformation.transform('youAndIAreAwesome', 'en_US');
 /// ```
-class HumanizeSymbolNameTransformation extends Transformation<String, String> {
+class SymbolNameTransformation extends Transformation<String, String> {
   static final _camelOrPascalCaseWordPartsExpression = RegExp(
     r'[\p{Lu}]?[\p{Ll}]+|[0-9]+[\p{Ll}]*|[\p{Lu}]+(?=[\p{Lu}][\p{Ll}]|[0-9]|\b)|[\p{Lo}]+',
     unicode: true,
@@ -42,7 +42,7 @@ class HumanizeSymbolNameTransformation extends Transformation<String, String> {
   static final _underscoreOrHyphenExpression = RegExp(r'[_-]');
   static final _underscoreOrHyphenWithSurroundingSpaceExpression = RegExp(r'\s[_-]|[_-]\s');
 
-  const HumanizeSymbolNameTransformation();
+  const SymbolNameTransformation();
 
   @override
   String transform(String input, String locale) {

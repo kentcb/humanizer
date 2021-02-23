@@ -1,114 +1,9 @@
+import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/transformations/approximate_relative_time.dart';
 import 'package:test/test.dart';
 
 void main() {
-  _timeRange();
   _humanize();
-}
-
-void _timeRange() {
-  group('time range', () {
-    void verifyRound({
-      required String scenario,
-      required Duration timeRangeDuration,
-      required Unit roundTo,
-      required Duration expectedRoundedDuration,
-    }) {
-      test(scenario, () {
-        final timeRange = TimeRange.fromDuration(timeRangeDuration);
-        final result = timeRange.round(roundTo);
-        final expected = TimeRange.fromDuration(expectedRoundedDuration);
-        expect(result, expected);
-      });
-    }
-
-    group('round', () {
-      verifyRound(
-        scenario: 'rounding to seconds simply truncates smaller units',
-        timeRangeDuration: const Duration(minutes: 2, seconds: 45, milliseconds: 100, microseconds: 50),
-        roundTo: Unit.second,
-        expectedRoundedDuration: const Duration(minutes: 2, seconds: 45),
-      );
-
-      verifyRound(
-        scenario: 'rounding to minutes rounds down where appropriate',
-        timeRangeDuration: const Duration(minutes: 2, seconds: 29),
-        roundTo: Unit.minute,
-        expectedRoundedDuration: const Duration(minutes: 2),
-      );
-      verifyRound(
-        scenario: 'rounding to minutes rounds up where appropriate',
-        timeRangeDuration: const Duration(minutes: 2, seconds: 30),
-        roundTo: Unit.minute,
-        expectedRoundedDuration: const Duration(minutes: 3),
-      );
-
-      verifyRound(
-        scenario: 'rounding to hours rounds down where appropriate',
-        timeRangeDuration: const Duration(hours: 2, minutes: 29, seconds: 59),
-        roundTo: Unit.hour,
-        expectedRoundedDuration: const Duration(hours: 2),
-      );
-      verifyRound(
-        scenario: 'rounding to hours rounds up where appropriate',
-        timeRangeDuration: const Duration(hours: 2, minutes: 30, seconds: 12),
-        roundTo: Unit.hour,
-        expectedRoundedDuration: const Duration(hours: 3),
-      );
-
-      verifyRound(
-        scenario: 'rounding to days rounds down where appropriate',
-        timeRangeDuration: const Duration(days: 2, hours: 11, minutes: 59, seconds: 59),
-        roundTo: Unit.day,
-        expectedRoundedDuration: const Duration(days: 2),
-      );
-      verifyRound(
-        scenario: 'rounding to days rounds up where appropriate',
-        timeRangeDuration: const Duration(days: 2, hours: 12, minutes: 30, seconds: 12),
-        roundTo: Unit.day,
-        expectedRoundedDuration: const Duration(days: 3),
-      );
-
-      verifyRound(
-        scenario: 'rounding to weeks rounds down where appropriate',
-        timeRangeDuration: const Duration(days: 17, hours: 23, minutes: 59, seconds: 59),
-        roundTo: Unit.week,
-        expectedRoundedDuration: const Duration(days: 14),
-      );
-      verifyRound(
-        scenario: 'rounding to weeks rounds up where appropriate',
-        timeRangeDuration: const Duration(days: 18, hours: 1, minutes: 30, seconds: 12),
-        roundTo: Unit.week,
-        expectedRoundedDuration: const Duration(days: 21),
-      );
-
-      verifyRound(
-        scenario: 'rounding to months rounds down where appropriate',
-        timeRangeDuration: const Duration(days: 73, hours: 23, minutes: 59, seconds: 59),
-        roundTo: Unit.month,
-        expectedRoundedDuration: const Duration(days: 61),
-      );
-      verifyRound(
-        scenario: 'rounding to months rounds up where appropriate',
-        timeRangeDuration: const Duration(days: 74, hours: 1, minutes: 30, seconds: 12),
-        roundTo: Unit.month,
-        expectedRoundedDuration: const Duration(days: 92),
-      );
-
-      verifyRound(
-        scenario: 'rounding to years rounds down where appropriate',
-        timeRangeDuration: const Duration(days: 912, hours: 23, minutes: 59, seconds: 59),
-        roundTo: Unit.year,
-        expectedRoundedDuration: const Duration(days: 731),
-      );
-      verifyRound(
-        scenario: 'rounding to years rounds up where appropriate',
-        timeRangeDuration: const Duration(days: 913, hours: 1, minutes: 30, seconds: 12),
-        roundTo: Unit.year,
-        expectedRoundedDuration: const Duration(days: 1096),
-      );
-    });
-  });
 }
 
 void _humanize() {
@@ -994,7 +889,7 @@ void _humanize() {
           input: const Duration(days: 98),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: false,
-          matcher: 'over 3 months from now',
+          matcher: 'just over 3 months from now',
         );
       });
 
@@ -1003,25 +898,49 @@ void _humanize() {
           input: const Duration(days: 37),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: false,
-          matcher: 'over a month from now',
+          matcher: 'just over a month from now',
         );
         verifyHumanize(
           input: const Duration(days: -37),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: false,
-          matcher: 'over a month ago',
+          matcher: 'just over a month ago',
         );
         verifyHumanize(
           input: const Duration(days: 44),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: false,
-          matcher: 'under 2 months from now',
+          matcher: 'over a month from now',
         );
         verifyHumanize(
           input: const Duration(days: -44),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: false,
+          matcher: 'over a month ago',
+        );
+        verifyHumanize(
+          input: const Duration(days: 46),
+          granularity: Granularity.primaryAndSecondaryUnits,
+          round: false,
+          matcher: 'under 2 months from now',
+        );
+        verifyHumanize(
+          input: const Duration(days: -46),
+          granularity: Granularity.primaryAndSecondaryUnits,
+          round: false,
           matcher: 'under 2 months ago',
+        );
+        verifyHumanize(
+          input: const Duration(days: 60),
+          granularity: Granularity.primaryAndSecondaryUnits,
+          round: false,
+          matcher: 'just under 2 months from now',
+        );
+        verifyHumanize(
+          input: const Duration(days: -60),
+          granularity: Granularity.primaryAndSecondaryUnits,
+          round: false,
+          matcher: 'just under 2 months ago',
         );
       });
 
@@ -1039,13 +958,13 @@ void _humanize() {
           matcher: 'a month ago',
         );
         verifyHumanize(
-          input: const Duration(days: 44),
+          input: const Duration(days: 46),
           granularity: Granularity.primaryUnit,
           round: true,
           matcher: '2 months from now',
         );
         verifyHumanize(
-          input: const Duration(days: -44),
+          input: const Duration(days: -46),
           granularity: Granularity.primaryUnit,
           round: true,
           matcher: '2 months ago',
@@ -1057,25 +976,25 @@ void _humanize() {
           input: const Duration(days: 34),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
-          matcher: 'over a month from now',
+          matcher: 'just over a month from now',
         );
         verifyHumanize(
           input: const Duration(days: -34),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
-          matcher: 'over a month ago',
+          matcher: 'just over a month ago',
         );
         verifyHumanize(
-          input: const Duration(days: 41),
+          input: const Duration(days: 59),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
-          matcher: 'under 2 months from now',
+          matcher: 'just under 2 months from now',
         );
         verifyHumanize(
-          input: const Duration(days: -41),
+          input: const Duration(days: -59),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
-          matcher: 'under 2 months ago',
+          matcher: 'just under 2 months ago',
         );
       });
     });
@@ -1218,13 +1137,13 @@ void _humanize() {
           matcher: 'over a year ago',
         );
         verifyHumanize(
-          input: const Duration(days: 532),
+          input: const Duration(days: 590),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
           matcher: 'under 2 years from now',
         );
         verifyHumanize(
-          input: const Duration(days: -532),
+          input: const Duration(days: -590),
           granularity: Granularity.primaryAndSecondaryUnits,
           round: true,
           matcher: 'under 2 years ago',

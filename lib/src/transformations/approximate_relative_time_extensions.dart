@@ -2,7 +2,7 @@ import 'package:humanizer/humanizer.dart';
 import 'package:intl/intl.dart';
 
 /// Provides humanizing extensions on [DateTime].
-extension HumanizeApproximateRelativeTimeExtensions on DateTime {
+extension ApproximateRelativeTimeExtensions on DateTime {
   /// Gets a humanized transformation of this [DateTime] relative to [DateTime.now()].
   ///
   /// Only the primary unit is considered when humanizing the delta between this [DateTime] and [DateTime.now()] and

@@ -14,7 +14,7 @@ void _humanizeSymbolName() {
       test(
         '$input → $expected',
         () {
-          const transformation = HumanizeSymbolNameTransformation();
+          const transformation = SymbolNameTransformation();
           final result = transformation.transform(input, '');
           expect(result, expected);
         },

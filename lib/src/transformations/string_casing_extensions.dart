@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 /// See also:
 /// * [ToSentenceCaseTransformation]
 /// * [ToTitleCaseTransformation]
-extension StringCasing on String {
+extension StringCasingExtensions on String {
   /// Converts this [String] to sentence casing.
   ///
   /// ```

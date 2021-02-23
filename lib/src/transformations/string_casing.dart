@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/string_predicates.dart';
+import 'package:humanizer/src/string_predicate_extensions.dart';
 
 /// A transformation to convert a [String] into sentence case.
 ///

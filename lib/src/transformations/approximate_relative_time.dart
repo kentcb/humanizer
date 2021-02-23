@@ -1,4 +1,6 @@
+import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:meta/meta.dart';
 
 /// A transformation to convert a [Duration] representing an offset of time from "now", into an approximate,
@@ -62,6 +64,16 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
     required this.round,
   });
 
+  static final _supportedTimeUnits = <TimeUnit>{
+    TimeUnit.second,
+    TimeUnit.minute,
+    TimeUnit.hour,
+    TimeUnit.day,
+    TimeUnit.week,
+    TimeUnit.month,
+    TimeUnit.year,
+  };
+
   /// The [Granularity] to which the input [DateTime] will be humanized.
   final Granularity granularity;
 
@@ -73,22 +85,22 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
     final tense = input.isNegative ? _Tense.past : _Tense.future;
     input = input.abs();
 
-    var timeRange = TimeRange.fromDuration(input);
+    var time = input.inSeconds.seconds();
 
     // Perform rounding as dictated by [round] and [granularity].
     if (round) {
-      var roundTo = timeRange.mostSignificantUnit;
+      var roundTo = time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
 
       if (granularity == Granularity.primaryAndSecondaryUnits) {
         roundTo = roundTo.nextSmaller ?? roundTo;
       }
 
-      timeRange = timeRange.round(roundTo);
+      time = time.round(roundTo);
     }
 
     // Then transform the rounded value.
     final result = _transformFrom(
-      timeRange,
+      time,
       granularity,
       tense,
       locale,
@@ -97,65 +109,65 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
   }
 
   static String _transformFrom(
-    TimeRange timeRange,
+    Time time,
     Granularity granularity,
     _Tense tense,
     String locale,
   ) {
-    final primaryUnit = timeRange.mostSignificantUnit;
+    final primaryUnit = time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
     final secondaryUnit = granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
-    var primaryValue = timeRange.valueOfUnit(primaryUnit);
-    final secondaryValue = secondaryUnit == null ? null : timeRange.valueOfUnit(secondaryUnit);
-    final relativity = tense == _Tense.past ? 'ago' : 'from now';
 
+    final primaryValue = time.getUnits(primaryUnit);
+    var truncatedPrimaryValue = primaryValue.toInt();
+    int? truncatedSecondaryValue;
     var secondaryQuantifierText = '';
 
-    if (secondaryUnit != null && secondaryValue != null) {
-      final secondaryQuantifier = secondaryUnit.getSecondaryQuantifier(secondaryValue);
+    if (secondaryUnit != null) {
+      final remainingTime = time - Time.fromUnits(primaryUnit, di(truncatedPrimaryValue));
+      final secondaryValue = remainingTime.getUnits(secondaryUnit);
+      truncatedSecondaryValue = secondaryValue.toInt();
+      final fraction = primaryValue - primaryValue.truncate();
+      var secondaryQuantifier = _SecondaryQuantifier.none;
+
+      if (fraction != Decimal.zero) {
+        if (fraction >= Decimals.threeQuarters) {
+          secondaryQuantifier = _SecondaryQuantifier.justUnder;
+        } else if (fraction >= Decimals.half) {
+          secondaryQuantifier = _SecondaryQuantifier.under;
+        } else if (fraction >= Decimals.quarter) {
+          secondaryQuantifier = _SecondaryQuantifier.over;
+        } else {
+          secondaryQuantifier = _SecondaryQuantifier.justOver;
+        }
+      }
 
       if (secondaryQuantifier == _SecondaryQuantifier.under || secondaryQuantifier == _SecondaryQuantifier.justUnder) {
         // If the secondary value is close enough to the next primary value, we increment the primary value so that
         // things read correctly.
-        primaryValue += 1;
+        truncatedPrimaryValue += 1;
       }
 
       secondaryQuantifierText = secondaryQuantifier.toLocalizedString(locale);
     }
 
-    if (primaryUnit == Unit.second && primaryValue == 0) {
+    final relativity = tense == _Tense.past ? 'ago' : 'from now';
+
+    if (primaryUnit == TimeUnit.second && truncatedPrimaryValue == 0) {
       return 'now';
-    } else if (primaryUnit == Unit.second) {
-      final period = primaryValue == 1 ? 'a second' : '${primaryValue} seconds';
-      return '$period $relativity';
-    } else if (primaryUnit == Unit.minute) {
-      final period = primaryValue == 1 ? 'a minute' : '${primaryValue} minutes';
-      return '$secondaryQuantifierText$period $relativity';
-    } else if (primaryUnit == Unit.hour) {
-      final period = primaryValue == 1 ? 'an hour' : '${primaryValue} hours';
-      return '$secondaryQuantifierText$period $relativity';
-    } else if (primaryUnit == Unit.day) {
-      if (primaryValue == 1 && (secondaryValue ?? 0) == 0) {
-        if (tense == _Tense.past) {
-          return 'yesterday';
-        } else {
-          return 'tomorrow';
-        }
-      } else {
-        final period = primaryValue == 1 ? 'a day' : '${primaryValue} days';
-        return '$secondaryQuantifierText$period $relativity';
-      }
-    } else if (primaryUnit == Unit.week) {
-      final period = primaryValue == 1 ? 'a week' : '${primaryValue} weeks';
-      return '$secondaryQuantifierText$period $relativity';
-    } else if (primaryUnit == Unit.month) {
-      final period = primaryValue == 1 ? 'a month' : '${primaryValue} months';
-      return '$secondaryQuantifierText$period $relativity';
-    } else if (primaryUnit == Unit.year) {
-      final period = primaryValue == 1 ? 'a year' : '${primaryValue} years';
+    } else if (primaryUnit == TimeUnit.day && truncatedPrimaryValue == 1 && (truncatedSecondaryValue ?? 0) == 0) {
+      return tense == _Tense.past ? 'yesterday' : 'tomorrow';
+    } else {
+      final primaryUnitName = primaryUnit.getName(locale: locale).toPluralFormForQuantity(
+            quantity: truncatedPrimaryValue,
+            includeQuantity: false,
+            locale: locale,
+          );
+      // TODO: should be generalized and localized??
+      final article = primaryUnit == TimeUnit.hour ? 'an' : 'a';
+      final period =
+          truncatedPrimaryValue == 1 ? '$article $primaryUnitName' : '$truncatedPrimaryValue $primaryUnitName';
       return '$secondaryQuantifierText$period $relativity';
     }
-
-    return '';
   }
 }
 
@@ -166,122 +178,6 @@ enum Granularity {
 
   /// Both the primary and secondary units are considered when humanizing.
   primaryAndSecondaryUnits,
-}
-
-/// Defines the units that are calculated when humanizing a [DateTime] with a [ApproximateRelativeTimeTransformation].
-enum Unit {
-  /// A unit roughly equating to a year, which is averaged to `365.25` days.
-  year,
-
-  /// A unit roughly equating to a month, which is averaged to `30.4375` days.
-  month,
-
-  /// A unit equating to a week, which is 7 days.
-  week,
-
-  /// A unit equating to a day.
-  day,
-
-  /// A unit equating to an hour.
-  hour,
-
-  /// A unit equating to a minute.
-  minute,
-
-  /// A unit equating to a second.
-  second,
-}
-
-extension _UnitExtensions on Unit {
-  Unit? get nextSmaller {
-    switch (this) {
-      case Unit.year:
-        return Unit.month;
-      case Unit.month:
-        return Unit.week;
-      case Unit.week:
-        return Unit.day;
-      case Unit.day:
-        return Unit.hour;
-      case Unit.hour:
-        return Unit.minute;
-      case Unit.minute:
-        return Unit.second;
-      case Unit.second:
-        return null;
-    }
-  }
-
-  _SecondaryQuantifier getSecondaryQuantifier(int value) {
-    if (value == 0) {
-      return _SecondaryQuantifier.none;
-    }
-
-    switch (this) {
-      case Unit.month:
-        if (value < 3) {
-          return _SecondaryQuantifier.justOver;
-        } else if (value < 6) {
-          return _SecondaryQuantifier.over;
-        } else if (value < 9) {
-          return _SecondaryQuantifier.under;
-        } else {
-          return _SecondaryQuantifier.justUnder;
-        }
-      case Unit.week:
-        // This is not ideal because the first week of a month is classified as quantifier "none", the second as "over",
-        // and the third and fourth as "under", so it's not an even spread.
-        if (value == 1) {
-          return _SecondaryQuantifier.over;
-        } else if (value >= 2) {
-          return _SecondaryQuantifier.under;
-        }
-
-        return _SecondaryQuantifier.none;
-      case Unit.day:
-        if (value < 2) {
-          return _SecondaryQuantifier.justOver;
-        } else if (value < 4) {
-          return _SecondaryQuantifier.over;
-        } else if (value < 6) {
-          return _SecondaryQuantifier.under;
-        } else {
-          return _SecondaryQuantifier.justUnder;
-        }
-      case Unit.hour:
-        if (value < 6) {
-          return _SecondaryQuantifier.justOver;
-        } else if (value < 12) {
-          return _SecondaryQuantifier.over;
-        } else if (value < 18) {
-          return _SecondaryQuantifier.under;
-        } else {
-          return _SecondaryQuantifier.justUnder;
-        }
-      case Unit.minute:
-        if (value < 15) {
-          return _SecondaryQuantifier.justOver;
-        } else if (value < 30) {
-          return _SecondaryQuantifier.over;
-        } else if (value < 45) {
-          return _SecondaryQuantifier.under;
-        } else {
-          return _SecondaryQuantifier.justUnder;
-        }
-      case Unit.second:
-        if (value < 15) {
-          return _SecondaryQuantifier.justOver;
-        } else if (value < 30) {
-          return _SecondaryQuantifier.over;
-        } else if (value < 45) {
-          return _SecondaryQuantifier.under;
-        } else {
-          return _SecondaryQuantifier.justUnder;
-        }
-      default:
-        throw UnsupportedError('Cannot get secondary quantifier for units: $this');
-    }
-  }
 }
 
 enum _Tense {
@@ -314,186 +210,27 @@ extension _SecondaryQuantifierExtensions on _SecondaryQuantifier {
   }
 }
 
-@visibleForTesting
-@immutable
-class TimeRange {
-  TimeRange.fromDuration(this.duration) {
-    _calculateUnits();
-  }
-
-  static const averageDaysInYear = 365.25;
-  static const averageDaysInMonth = averageDaysInYear / 12;
-  static const daysInWeek = 7;
-
-  final Duration duration;
-
-  late final int years;
-  late final int months;
-  late final int weeks;
-  late final int days;
-  late final int hours;
-  late final int minutes;
-  late final int seconds;
-
-  Unit get mostSignificantUnit {
-    if (years > 0) {
-      return Unit.year;
-    } else if (months > 0) {
-      return Unit.month;
-    } else if (weeks > 0) {
-      return Unit.week;
-    } else if (days > 0) {
-      return Unit.day;
-    } else if (hours > 0) {
-      return Unit.hour;
-    } else if (minutes > 0) {
-      return Unit.minute;
-    } else {
-      return Unit.second;
+extension _TimeUnitExtensions on TimeUnit {
+  TimeUnit? get nextSmaller {
+    switch (this) {
+      case TimeUnit.century:
+        return TimeUnit.decade;
+      case TimeUnit.decade:
+        return TimeUnit.year;
+      case TimeUnit.year:
+        return TimeUnit.month;
+      case TimeUnit.month:
+        return TimeUnit.week;
+      case TimeUnit.week:
+        return TimeUnit.day;
+      case TimeUnit.day:
+        return TimeUnit.hour;
+      case TimeUnit.hour:
+        return TimeUnit.minute;
+      case TimeUnit.minute:
+        return TimeUnit.second;
+      default:
+        return null;
     }
-  }
-
-  int valueOfUnit(Unit unit) {
-    switch (unit) {
-      case Unit.year:
-        return years;
-      case Unit.month:
-        return months;
-      case Unit.week:
-        return weeks;
-      case Unit.day:
-        return days;
-      case Unit.hour:
-        return hours;
-      case Unit.minute:
-        return minutes;
-      case Unit.second:
-        return seconds;
-    }
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (!(other is TimeRange)) {
-      return false;
-    }
-
-    return duration == other.duration;
-  }
-
-  @override
-  int get hashCode {
-    var hash = 17;
-    hash = hash * 23 + duration.hashCode;
-    return hash;
-  }
-
-  @override
-  String toString() => '$duration';
-
-  /// Ensures that the largest non-zero unit is [roundTo], rounding it up if the next smallest unit exceeds its
-  /// midpoint.
-  TimeRange round(Unit roundTo) {
-    var roundedYears = years;
-    var roundedMonths = months;
-    var roundedWeeks = weeks;
-    var roundedDays = days;
-    var roundedHours = hours;
-    var roundedMinutes = minutes;
-    var roundedSeconds = seconds;
-
-    switch (roundTo) {
-      case Unit.year:
-        if (roundedMonths >= 6) {
-          ++roundedYears;
-        }
-
-        roundedMonths = roundedWeeks = roundedDays = roundedHours = roundedMinutes = roundedSeconds = 0;
-        break;
-      case Unit.month:
-        if (roundedWeeks >= 2) {
-          ++roundedMonths;
-        }
-
-        roundedWeeks = roundedDays = roundedHours = roundedMinutes = roundedSeconds = 0;
-        break;
-      case Unit.week:
-        if (roundedDays >= 4) {
-          ++roundedWeeks;
-        }
-
-        roundedDays = roundedHours = roundedMinutes = roundedSeconds = 0;
-        break;
-      case Unit.day:
-        if (roundedHours >= 12) {
-          ++roundedDays;
-        }
-
-        roundedHours = roundedMinutes = roundedSeconds = 0;
-        break;
-      case Unit.hour:
-        if (roundedMinutes >= 30) {
-          ++roundedHours;
-        }
-
-        roundedMinutes = roundedSeconds = 0;
-        break;
-      case Unit.minute:
-        if (roundedSeconds >= 30) {
-          ++roundedMinutes;
-        }
-
-        roundedSeconds = 0;
-        break;
-      case Unit.second:
-        break;
-    }
-
-    final roundedDuration = Duration(
-      days: (roundedYears * averageDaysInYear +
-              roundedMonths * averageDaysInMonth +
-              roundedWeeks * daysInWeek +
-              roundedDays)
-          .ceil(),
-      hours: roundedHours,
-      minutes: roundedMinutes,
-      seconds: roundedSeconds,
-    );
-    final result = TimeRange.fromDuration(roundedDuration);
-
-    return result;
-  }
-
-  void _calculateUnits() {
-    var runningDuration = duration;
-
-    years = runningDuration.inDays ~/ averageDaysInYear;
-    runningDuration -= Duration(days: (years * averageDaysInYear).toInt());
-
-    months = runningDuration.inDays ~/ averageDaysInMonth;
-    runningDuration -= Duration(days: (months * averageDaysInMonth).toInt());
-
-    weeks = runningDuration.inDays ~/ daysInWeek;
-    runningDuration -= Duration(days: weeks * daysInWeek);
-
-    days = runningDuration.inDays;
-    runningDuration -= Duration(days: days);
-
-    hours = runningDuration.inHours;
-    runningDuration -= Duration(hours: hours);
-
-    minutes = runningDuration.inMinutes;
-    runningDuration -= Duration(minutes: minutes);
-
-    seconds = runningDuration.inSeconds;
-    runningDuration -= Duration(seconds: seconds);
-
-    assert(years >= 0);
-    assert(months >= 0);
-    assert(weeks >= 0);
-    assert(days >= 0);
-    assert(hours >= 0 && hours < 24);
-    assert(minutes >= 0 && minutes < 60);
-    assert(seconds >= 0 && seconds < 60);
   }
 }
