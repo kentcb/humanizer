@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:test/test.dart';

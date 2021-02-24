@@ -437,26 +437,26 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     final supportedValueUnits = getPermissibleValueUnits();
     final supportedRateUnits = getPermissibleRateUnits();
     final supportedValueUnitSymbolPatternSpecifiers = Map.fromEntries(<MapEntry<String, TUnit?>>[
-      MapEntry(valueUnitSymbolFormatSpecifier, null),
+      const MapEntry(valueUnitSymbolFormatSpecifier, null),
       ...supportedValueUnits
           .map((unit) => MapEntry('$valueUnitSymbolFormatSpecifier:${getPatternSpecifierFor(unit)}', unit)),
     ]);
     final supportedValueUnitNamePatternSpecifiers = Map.fromEntries(<MapEntry<String, TUnit?>>[
-      MapEntry(valueUnitNameFormatSpecifier, null),
+      const MapEntry(valueUnitNameFormatSpecifier, null),
       ...supportedValueUnits
           .map((unit) => MapEntry('$valueUnitNameFormatSpecifier:${getPatternSpecifierFor(unit)}', unit)),
     ]);
     final supportedRateUnitSymbolPatternSpecifiers = Map.fromEntries(<MapEntry<String, RateUnit?>>[
-      MapEntry(rateUnitSymbolFormatSpecifier, null),
+      const MapEntry(rateUnitSymbolFormatSpecifier, null),
       ...supportedRateUnits.map((unit) => MapEntry('$rateUnitSymbolFormatSpecifier:${unit.patternSpecifier}', unit)),
     ]);
     final supportedRateUnitNamePatternSpecifiers = Map.fromEntries(<MapEntry<String, RateUnit?>>[
-      MapEntry(rateUnitNameFormatSpecifier, null),
+      const MapEntry(rateUnitNameFormatSpecifier, null),
       ...supportedRateUnits.map((unit) => MapEntry('$rateUnitNameFormatSpecifier:${unit.patternSpecifier}', unit)),
     ]);
 
     var index = 0;
-    var result = <_Node<TUnit>>[];
+    final result = <_Node<TUnit>>[];
 
     void throwIfEndOfInput(String reason) {
       if (index == pattern.length) {
@@ -548,8 +548,7 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     }
 
     String parseNumberFormat() {
-      final value = StringBuffer();
-      value.write(pattern[index]);
+      final value = StringBuffer()..write(pattern[index]);
 
       while (index < (pattern.length - 1) && isNumberFormat(pattern[index + 1])) {
         ++index;
@@ -560,8 +559,7 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     }
 
     String parseOther() {
-      final value = StringBuffer();
-      value.write(pattern[index]);
+      final value = StringBuffer()..write(pattern[index]);
 
       while (index < (pattern.length - 1) &&
           pattern[index + 1] != '\'' &&

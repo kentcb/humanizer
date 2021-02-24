@@ -4,7 +4,7 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 /// A transformation to convert a [String] into a truncated variant that contains at most [length] characters.
 ///
 /// If the input value exceeds [length] characters, it is truncated. If [truncationIndicator] does not exceed [length]
-/// characters, it is incorporated into the return value. The [input] will be truncated at either its start or end
+/// characters, it is incorporated into the return value. The input will be truncated at either its start or end
 /// according to [truncateAt].
 ///
 /// ```
@@ -67,7 +67,7 @@ class TruncateToFixedLengthTransformation extends Transformation<String, String>
 /// characters.
 ///
 /// If the input value exceeds [length] non-whitespace characters, it is truncated. If [truncationIndicator] does not
-/// exceed [length] characters, it is incorporated into the return value. The [input] will be truncated at either its
+/// exceed [length] characters, it is incorporated into the return value. The input will be truncated at either its
 /// start or end according to [truncateAt].
 ///
 /// ```
@@ -117,7 +117,7 @@ class TruncateToFixedNonWhitespaceLengthTransformation extends Transformation<St
     var buffer = <int>[];
     var nonWhitespaceLength = 0;
 
-    for (var i in inputIndexes) {
+    for (final i in inputIndexes) {
       final rune = inputRunes[i];
       final isWhitespace = String.fromCharCodes([rune]).isBlank();
 
@@ -202,7 +202,7 @@ class TruncateToFixedWordLengthTransformation extends Transformation<String, Str
     final buffer = <int>[];
     var wordCount = 0;
 
-    for (var i in wordMatchIndexes) {
+    for (final i in wordMatchIndexes) {
       final wordMatch = wordMatches[i];
       final word = isTruncatedAtStart ? wordMatch.group(1) : wordMatch.group(2);
       final wordWithOptionalWhitespace = wordMatch.group(0);

@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations, avoid_function_literals_in_foreach_calls
+
 import 'package:humanizer/src/transformations/localization.dart';
 import 'package:humanizer/src/transformations/ordinal.dart';
 import 'package:intl/intl.dart';

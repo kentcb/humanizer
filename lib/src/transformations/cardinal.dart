@@ -3,8 +3,8 @@ import 'package:humanizer/src/transformations/number_to_words.dart';
 
 /// A transformation to convert an input [int] into cardinal form.
 ///
-/// This transformation converts the input [input] to its cardinal form (`1` becomes `one`, `2` becomes `two`
-/// etcetera). Negative inputs are supported, in which case the output is prefixed with "negative".
+/// This transformation converts the input to its cardinal form (`1` becomes `one`, `2` becomes `two` etcetera).
+/// Negative inputs are supported, in which case the output is prefixed with "negative".
 ///
 /// ```
 /// const transformation = CardinalWordsTransformation();

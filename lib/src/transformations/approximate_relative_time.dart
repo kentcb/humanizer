@@ -9,7 +9,7 @@ import 'package:meta/meta.dart';
 /// This transformation produces a humanized description of the input [Duration], which represents some offset from
 /// "now". Positive values are considered to be in the future and negative values in the past.
 ///
-/// The input [Duration] is used to calculate a value for each supported [Unit]. The highest unit to have a non-zero
+/// The input [Duration] is used to calculate a value for each supported [TimeUnit]. The highest unit to have a non-zero
 /// value is considered the "primary" unit, and the next smaller unit is the "secondary" regardless of whether it has a
 /// non-zero value. In the case of the primary unit being the smallest supported unit (seconds), there is no secondary
 /// unit.

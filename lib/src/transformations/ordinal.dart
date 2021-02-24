@@ -5,10 +5,10 @@ import 'package:intl/intl.dart';
 
 /// A transformation to convert an input [int] into numerical ordinal form.
 ///
-/// This transformation converts the input [input] to its numerical ordinal form (`1` becomes `1st`, `2` becomes `2nd`
+/// This transformation converts the input to its numerical ordinal form (`1` becomes `1st`, `2` becomes `2nd`
 /// etcetera). Negative inputs are supported, even though the usage of negative ordinals is at best unorthodox.
 ///
-/// The input is formatted using [inputFormat], which defaults to [inputFormat.decimalPattern()] if unspecified. The
+/// The input is formatted using [numberFormat], which defaults to [inputFormat.decimalPattern()] if unspecified. The
 /// [grammaticalGender] can also be specified, though it currently has no effect (but may with future non-English
 /// implementations).
 ///
@@ -72,7 +72,7 @@ class OrdinalNumericalTransformation extends Transformation<int, String> {
 
 /// A transformation to convert an input [int] into word ordinal form.
 ///
-/// This transformation converts the input [input] to its word ordinal form (`1` becomes `first`, `2` becomes `second`
+/// This transformation converts the input to its word ordinal form (`1` becomes `first`, `2` becomes `second`
 /// etcetera). Negative inputs are supported, even though the usage of negative ordinals is at best unorthodox.
 ///
 /// The current implementation assumes the input [int] is representable in 64 bits, even though integers on the web are

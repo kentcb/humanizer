@@ -1,3 +1,5 @@
+// ignore_for_file: cascade_invocations, avoid_function_literals_in_foreach_calls
+
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
@@ -195,7 +197,13 @@ void _unitOfMeasurement() {
     });
 
     test('==', () {
-      void verifyEqual(QualityUnit unit1, int operand1, QualityUnit unit2, int operand2, bool expected) {
+      void verifyEqual({
+        required QualityUnit unit1,
+        required int operand1,
+        required QualityUnit unit2,
+        required int operand2,
+        required bool expected,
+      }) {
         final first = Quality.fromUnits(unit1, di(operand1));
         final second = Quality.fromUnits(unit2, di(operand2));
         final result = first == second;
@@ -204,12 +212,48 @@ void _unitOfMeasurement() {
         expect(first.hashCode == second.hashCode, expected);
       }
 
-      verifyEqual(QualityUnit.nanolovelace, 1, QualityUnit.nanolovelace, 0, false);
-      verifyEqual(QualityUnit.nanolovelace, 0, QualityUnit.nanolovelace, 1, false);
-      verifyEqual(QualityUnit.nanolovelace, 0, QualityUnit.nanolovelace, 0, true);
-      verifyEqual(QualityUnit.nanolovelace, 42, QualityUnit.nanolovelace, 42, true);
-      verifyEqual(QualityUnit.nanolovelace, 1000000, QualityUnit.millilovelace, 1, true);
-      verifyEqual(QualityUnit.nanolovelace, 1000001, QualityUnit.millilovelace, 1, false);
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 1,
+        unit2: QualityUnit.nanolovelace,
+        operand2: 0,
+        expected: false,
+      );
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 0,
+        unit2: QualityUnit.nanolovelace,
+        operand2: 1,
+        expected: false,
+      );
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 0,
+        unit2: QualityUnit.nanolovelace,
+        operand2: 0,
+        expected: true,
+      );
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 42,
+        unit2: QualityUnit.nanolovelace,
+        operand2: 42,
+        expected: true,
+      );
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 1000000,
+        unit2: QualityUnit.millilovelace,
+        operand2: 1,
+        expected: true,
+      );
+      verifyEqual(
+        unit1: QualityUnit.nanolovelace,
+        operand1: 1000001,
+        unit2: QualityUnit.millilovelace,
+        operand2: 1,
+        expected: false,
+      );
     });
 
     test('abs', () {
@@ -312,7 +356,11 @@ void _unitOfMeasurement() {
     });
 
     test('<', () {
-      void verifyLessThan(Decimal operand1, Decimal operand2, bool expected) {
+      void verifyLessThan({
+        required Decimal operand1,
+        required Decimal operand2,
+        required bool expected,
+      }) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = Quality.fromNanolovelaces(operand2);
         final result = first < second;
@@ -320,20 +368,64 @@ void _unitOfMeasurement() {
         expect(first.compareTo(second) < 0, expected);
       }
 
-      verifyLessThan(di(0), di(0), false);
-      verifyLessThan(di(1), di(0), false);
-      verifyLessThan(di(0), di(1), true);
-      verifyLessThan(di(-1), di(1), true);
-      verifyLessThan(di(42), di(42), false);
-      verifyLessThan(di(69), di(42), false);
-      verifyLessThan(di(42), di(69), true);
-      verifyLessThan(ds('10.5'), ds('10.5'), false);
-      verifyLessThan(ds('1.25'), ds('10.5'), true);
-      verifyLessThan(ds('10.5'), ds('1.25'), false);
+      verifyLessThan(
+        operand1: di(0),
+        operand2: di(0),
+        expected: false,
+      );
+      verifyLessThan(
+        operand1: di(1),
+        operand2: di(0),
+        expected: false,
+      );
+      verifyLessThan(
+        operand1: di(0),
+        operand2: di(1),
+        expected: true,
+      );
+      verifyLessThan(
+        operand1: di(-1),
+        operand2: di(1),
+        expected: true,
+      );
+      verifyLessThan(
+        operand1: di(42),
+        operand2: di(42),
+        expected: false,
+      );
+      verifyLessThan(
+        operand1: di(69),
+        operand2: di(42),
+        expected: false,
+      );
+      verifyLessThan(
+        operand1: di(42),
+        operand2: di(69),
+        expected: true,
+      );
+      verifyLessThan(
+        operand1: ds('10.5'),
+        operand2: ds('10.5'),
+        expected: false,
+      );
+      verifyLessThan(
+        operand1: ds('1.25'),
+        operand2: ds('10.5'),
+        expected: true,
+      );
+      verifyLessThan(
+        operand1: ds('10.5'),
+        operand2: ds('1.25'),
+        expected: false,
+      );
     });
 
     test('<=', () {
-      void verifyLessThanOrEqual(Decimal operand1, Decimal operand2, bool expected) {
+      void verifyLessThanOrEqual({
+        required Decimal operand1,
+        required Decimal operand2,
+        required bool expected,
+      }) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = Quality.fromNanolovelaces(operand2);
         final result = first <= second;
@@ -341,20 +433,64 @@ void _unitOfMeasurement() {
         expect(first.compareTo(second) > 0, !expected);
       }
 
-      verifyLessThanOrEqual(di(0), di(0), true);
-      verifyLessThanOrEqual(di(1), di(0), false);
-      verifyLessThanOrEqual(di(0), di(1), true);
-      verifyLessThanOrEqual(di(-1), di(1), true);
-      verifyLessThanOrEqual(di(42), di(42), true);
-      verifyLessThanOrEqual(di(69), di(42), false);
-      verifyLessThanOrEqual(di(42), di(69), true);
-      verifyLessThanOrEqual(ds('10.5'), ds('10.5'), true);
-      verifyLessThanOrEqual(ds('1.25'), ds('10.5'), true);
-      verifyLessThanOrEqual(ds('10.5'), ds('1.25'), false);
+      verifyLessThanOrEqual(
+        operand1: di(0),
+        operand2: di(0),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(1),
+        operand2: di(0),
+        expected: false,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(0),
+        operand2: di(1),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(-1),
+        operand2: di(1),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(42),
+        operand2: di(42),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(69),
+        operand2: di(42),
+        expected: false,
+      );
+      verifyLessThanOrEqual(
+        operand1: di(42),
+        operand2: di(69),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: ds('10.5'),
+        operand2: ds('10.5'),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: ds('1.25'),
+        operand2: ds('10.5'),
+        expected: true,
+      );
+      verifyLessThanOrEqual(
+        operand1: ds('10.5'),
+        operand2: ds('1.25'),
+        expected: false,
+      );
     });
 
     test('>', () {
-      void verifyGreaterThan(Decimal operand1, Decimal operand2, bool expected) {
+      void verifyGreaterThan({
+        required Decimal operand1,
+        required Decimal operand2,
+        required bool expected,
+      }) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = Quality.fromNanolovelaces(operand2);
         final result = first > second;
@@ -362,20 +498,64 @@ void _unitOfMeasurement() {
         expect(first.compareTo(second) > 0, expected);
       }
 
-      verifyGreaterThan(di(0), di(0), false);
-      verifyGreaterThan(di(1), di(0), true);
-      verifyGreaterThan(di(0), di(1), false);
-      verifyGreaterThan(di(-1), di(1), false);
-      verifyGreaterThan(di(42), di(42), false);
-      verifyGreaterThan(di(69), di(42), true);
-      verifyGreaterThan(di(42), di(69), false);
-      verifyGreaterThan(ds('10.5'), ds('10.5'), false);
-      verifyGreaterThan(ds('1.25'), ds('10.5'), false);
-      verifyGreaterThan(ds('10.5'), ds('1.25'), true);
+      verifyGreaterThan(
+        operand1: di(0),
+        operand2: di(0),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: di(1),
+        operand2: di(0),
+        expected: true,
+      );
+      verifyGreaterThan(
+        operand1: di(0),
+        operand2: di(1),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: di(-1),
+        operand2: di(1),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: di(42),
+        operand2: di(42),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: di(69),
+        operand2: di(42),
+        expected: true,
+      );
+      verifyGreaterThan(
+        operand1: di(42),
+        operand2: di(69),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: ds('10.5'),
+        operand2: ds('10.5'),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: ds('1.25'),
+        operand2: ds('10.5'),
+        expected: false,
+      );
+      verifyGreaterThan(
+        operand1: ds('10.5'),
+        operand2: ds('1.25'),
+        expected: true,
+      );
     });
 
     test('>=', () {
-      void verifyGreaterThanOrEqual(Decimal operand1, Decimal operand2, bool expected) {
+      void verifyGreaterThanOrEqual({
+        required Decimal operand1,
+        required Decimal operand2,
+        required bool expected,
+      }) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = Quality.fromNanolovelaces(operand2);
         final result = first >= second;
@@ -383,16 +563,56 @@ void _unitOfMeasurement() {
         expect(first.compareTo(second) < 0, !expected);
       }
 
-      verifyGreaterThanOrEqual(di(0), di(0), true);
-      verifyGreaterThanOrEqual(di(1), di(0), true);
-      verifyGreaterThanOrEqual(di(0), di(1), false);
-      verifyGreaterThanOrEqual(di(-1), di(1), false);
-      verifyGreaterThanOrEqual(di(42), di(42), true);
-      verifyGreaterThanOrEqual(di(69), di(42), true);
-      verifyGreaterThanOrEqual(di(42), di(69), false);
-      verifyGreaterThanOrEqual(ds('10.5'), ds('10.5'), true);
-      verifyGreaterThanOrEqual(ds('1.25'), ds('10.5'), false);
-      verifyGreaterThanOrEqual(ds('10.5'), ds('1.25'), true);
+      verifyGreaterThanOrEqual(
+        operand1: di(0),
+        operand2: di(0),
+        expected: true,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(1),
+        operand2: di(0),
+        expected: true,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(0),
+        operand2: di(1),
+        expected: false,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(-1),
+        operand2: di(1),
+        expected: false,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(42),
+        operand2: di(42),
+        expected: true,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(69),
+        operand2: di(42),
+        expected: true,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: di(42),
+        operand2: di(69),
+        expected: false,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: ds('10.5'),
+        operand2: ds('10.5'),
+        expected: true,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: ds('1.25'),
+        operand2: ds('10.5'),
+        expected: false,
+      );
+      verifyGreaterThanOrEqual(
+        operand1: ds('10.5'),
+        operand2: ds('1.25'),
+        expected: true,
+      );
     });
   });
 }

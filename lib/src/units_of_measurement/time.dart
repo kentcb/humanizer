@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 /// A unit of measurement representing time.
 class Time extends UnitOfMeasurement<TimeUnit, Time> {
-  /// Creates a [Tim] given a [unit] and decimal [value] for that unit.
+  /// Creates a [Time] given a [unit] and decimal [value] for that unit.
   Time.fromUnits(TimeUnit unit, Decimal value) : super.fromUnits(unit, value);
 
   /// Creates a [Time] representing the specified number of [nanoseconds].

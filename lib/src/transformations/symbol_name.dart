@@ -31,6 +31,8 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 /// transformation.transform('youAndIAreAwesome', 'en_US');
 /// ```
 class SymbolNameTransformation extends Transformation<String, String> {
+  const SymbolNameTransformation();
+
   static final _camelOrPascalCaseWordPartsExpression = RegExp(
     r'[\p{Lu}]?[\p{Ll}]+|[0-9]+[\p{Ll}]*|[\p{Lu}]+(?=[\p{Lu}][\p{Ll}]|[0-9]|\b)|[\p{Lo}]+',
     unicode: true,
@@ -41,8 +43,6 @@ class SymbolNameTransformation extends Transformation<String, String> {
   );
   static final _underscoreOrHyphenExpression = RegExp(r'[_-]');
   static final _underscoreOrHyphenWithSurroundingSpaceExpression = RegExp(r'\s[_-]|[_-]\s');
-
-  const SymbolNameTransformation();
 
   @override
   String transform(String input, String locale) {

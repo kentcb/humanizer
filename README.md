@@ -59,7 +59,6 @@ Special thanks to these inspirational open source libraries:
 
 ## TODO
 
-* analysis options
 * contributors integration
 * CI?
 * update flutter and deps

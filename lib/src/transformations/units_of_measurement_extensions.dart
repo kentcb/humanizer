@@ -1,3 +1,5 @@
+// ignore_for_file: use_to_and_as_if_applicable
+
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:intl/intl.dart';

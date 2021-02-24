@@ -98,8 +98,8 @@ class _PluralizationRules {
         replacement: replacement,
       ));
 
-  /// Adds a [pattern] that, when matched, is considered a word without a plural form and is therefore returned as is
-  /// when attempting to change pluralization.
+  /// Adds a [word] that, when matched, is considered a word without a plural form and is therefore returned as is when
+  /// attempting to change pluralization.
   void addUncountable(String word) => _uncountables.add(word.toLowerCase());
 
   /// Adds the appropriate rules to assume [singular] pluralizes to [plural] and vice-versa, which is useful for cases
@@ -250,12 +250,11 @@ typedef _ReplaceMatch = String Function(Match match);
 
 final _replacementsExpression = RegExp(r'\$(\d+)');
 
-_ReplaceMatch _getReplaceMatch(String pattern) =>
-    (Match match) => pattern.replaceAllMapped(_replacementsExpression, (m) {
-          final groupNumber = int.parse(m[1]!);
-          final result = match[groupNumber] ?? '';
-          return result;
-        });
+_ReplaceMatch _getReplaceMatch(String pattern) => (match) => pattern.replaceAllMapped(_replacementsExpression, (m) {
+      final groupNumber = int.parse(m[1]!);
+      final result = match[groupNumber] ?? '';
+      return result;
+    });
 
 _PluralizationRules _createEnglishPluralizationRules() {
   final result = _PluralizationRules();
