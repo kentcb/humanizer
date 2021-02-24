@@ -61,4 +61,3 @@ Special thanks to these inspirational open source libraries:
 
 * contributors integration
 * CI?
-* update flutter and deps
