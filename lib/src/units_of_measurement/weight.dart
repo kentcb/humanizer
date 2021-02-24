@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
+import 'package:meta/meta.dart';
 
 import 'decimals.dart';
 
@@ -90,16 +91,18 @@ class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
       );
 
   @override
-  Weight createValue(Decimal baseValue) => Weight.fromGrams(baseValue);
-
-  @override
   Decimal getUnits(WeightUnit unit) => baseValue / unit._gramCount;
 
   @override
-  Decimal getBaseValue(WeightUnit unit, Decimal value) => value * unit._gramCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  Weight createValue(Decimal baseValue) => Weight.fromGrams(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(WeightUnit unit, Decimal value) => value * unit._gramCount;
 }
 
 /// Defines supported units of weight.

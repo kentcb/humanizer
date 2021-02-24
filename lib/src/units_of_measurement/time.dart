@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 
 /// A unit of measurement representing time.
 class Time extends UnitOfMeasurement<TimeUnit, Time> {
@@ -119,16 +120,18 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
       );
 
   @override
-  Time createValue(Decimal baseValue) => Time.fromSeconds(baseValue);
-
-  @override
   Decimal getUnits(TimeUnit unit) => baseValue / unit._secondCount;
 
   @override
-  Decimal getBaseValue(TimeUnit unit, Decimal value) => value * unit._secondCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  Time createValue(Decimal baseValue) => Time.fromSeconds(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(TimeUnit unit, Decimal value) => value * unit._secondCount;
 }
 
 /// Defines supported units of time.

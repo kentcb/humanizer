@@ -16,16 +16,16 @@ import 'package:intl/intl.dart';
 /// const transformation = OrdinalNumericalTransformation();
 ///
 /// // '1st'
-/// transformation.transform(1);
+/// transformation.transform(1, 'en');
 ///
 /// // '2nd'
-/// transformation.transform(2);
+/// transformation.transform(2, 'en');
 ///
 /// // '104th'
-/// transformation.transform(104);
+/// transformation.transform(104, 'en');
 ///
 /// // '1,113th'
-/// transformation.transform(1113);
+/// transformation.transform(1113, 'en');
 /// ```
 class OrdinalNumericalTransformation extends Transformation<int, String> {
   const OrdinalNumericalTransformation({

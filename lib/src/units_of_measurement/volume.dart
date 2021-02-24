@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a three-dimensional volume.
 class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
@@ -212,16 +213,18 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       );
 
   @override
-  Volume createValue(Decimal baseValue) => Volume.fromCubicMeters(baseValue);
-
-  @override
   Decimal getUnits(VolumeUnit unit) => baseValue / unit._cubicMeterCount;
 
   @override
-  Decimal getBaseValue(VolumeUnit unit, Decimal value) => value * unit._cubicMeterCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  Volume createValue(Decimal baseValue) => Volume.fromCubicMeters(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(VolumeUnit unit, Decimal value) => value * unit._cubicMeterCount;
 }
 
 /// Defines supported units of volume.

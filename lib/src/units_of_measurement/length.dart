@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
@@ -119,16 +120,18 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
       );
 
   @override
-  Length createValue(Decimal baseValue) => Length.fromMeters(baseValue);
-
-  @override
   Decimal getUnits(LengthUnit unit) => baseValue / unit._meterCount;
 
   @override
-  Decimal getBaseValue(LengthUnit unit, Decimal value) => value * unit._meterCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  Length createValue(Decimal baseValue) => Length.fromMeters(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(LengthUnit unit, Decimal value) => value * unit._meterCount;
 }
 
 /// Defines supported units of length.

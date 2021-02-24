@@ -14,7 +14,7 @@ const defaultRatePattern =
 class AreaTransformation extends Transformation<Area, String> {
   /// Creates an [AreaTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  AreaTransformation({
+  const AreaTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = AreaUnits.commonSi,
   });
@@ -44,7 +44,7 @@ class AreaTransformation extends Transformation<Area, String> {
 class AreaRateTransformation extends Transformation<AreaRate, String> {
   /// Creates an [AreaRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  AreaRateTransformation({
+  const AreaRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = AreaUnits.commonSi,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -79,7 +79,7 @@ class AreaRateTransformation extends Transformation<AreaRate, String> {
 class InformationSizeTransformation extends Transformation<InformationSize, String> {
   /// Creates an [InformationSizeTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  InformationSizeTransformation({
+  const InformationSizeTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = InformationUnits.iecBytes,
   });
@@ -109,7 +109,7 @@ class InformationSizeTransformation extends Transformation<InformationSize, Stri
 class InformationRateTransformation extends Transformation<InformationRate, String> {
   /// Creates an [InformationRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  InformationRateTransformation({
+  const InformationRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = InformationUnits.iecBytes,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -144,7 +144,7 @@ class InformationRateTransformation extends Transformation<InformationRate, Stri
 class LengthTransformation extends Transformation<Length, String> {
   /// Creates a [LengthTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  LengthTransformation({
+  const LengthTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = LengthUnits.commonSi,
   });
@@ -174,7 +174,7 @@ class LengthTransformation extends Transformation<Length, String> {
 class LengthRateTransformation extends Transformation<LengthRate, String> {
   /// Creates a [LengthRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  LengthRateTransformation({
+  const LengthRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = LengthUnits.commonSi,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -209,7 +209,7 @@ class LengthRateTransformation extends Transformation<LengthRate, String> {
 class TemperatureTransformation extends Transformation<Temperature, String> {
   /// Creates a [TemperatureTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  TemperatureTransformation({
+  const TemperatureTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = TemperatureUnits.celsius,
   });
@@ -239,7 +239,7 @@ class TemperatureTransformation extends Transformation<Temperature, String> {
 class TemperatureRateTransformation extends Transformation<TemperatureRate, String> {
   /// Creates a [TemperatureRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  TemperatureRateTransformation({
+  const TemperatureRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = TemperatureUnits.celsius,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -274,7 +274,7 @@ class TemperatureRateTransformation extends Transformation<TemperatureRate, Stri
 class TimeTransformation extends Transformation<Time, String> {
   /// Creates a [TimeTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  TimeTransformation({
+  const TimeTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = TimeUnits.common,
   });
@@ -304,7 +304,7 @@ class TimeTransformation extends Transformation<Time, String> {
 class TimeRateTransformation extends Transformation<TimeRate, String> {
   /// Creates a [TimeRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  TimeRateTransformation({
+  const TimeRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = TimeUnits.common,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -339,7 +339,7 @@ class TimeRateTransformation extends Transformation<TimeRate, String> {
 class VolumeTransformation extends Transformation<Volume, String> {
   /// Creates a [VolumeTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  VolumeTransformation({
+  const VolumeTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = VolumeUnits.commonSi,
   });
@@ -369,7 +369,7 @@ class VolumeTransformation extends Transformation<Volume, String> {
 class VolumeRateTransformation extends Transformation<VolumeRate, String> {
   /// Creates a [VolumeRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  VolumeRateTransformation({
+  const VolumeRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = VolumeUnits.commonSi,
     this.permissibleRateUnits = RateUnits.hourOrLess,
@@ -404,7 +404,7 @@ class VolumeRateTransformation extends Transformation<VolumeRate, String> {
 class WeightTransformation extends Transformation<Weight, String> {
   /// Creates a [WeightTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
-  WeightTransformation({
+  const WeightTransformation({
     this.pattern = defaultValuePattern,
     this.permissibleValueUnits = WeightUnits.commonSi,
   });
@@ -434,7 +434,7 @@ class WeightTransformation extends Transformation<Weight, String> {
 class WeightRateTransformation extends Transformation<WeightRate, String> {
   /// Creates a [WeightRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
-  WeightRateTransformation({
+  const WeightRateTransformation({
     this.pattern = defaultRatePattern,
     this.permissibleValueUnits = WeightUnits.commonSi,
     this.permissibleRateUnits = RateUnits.hourOrLess,

@@ -7,10 +7,10 @@ extension SymbolNameExtensions on String {
   /// kebab-cased.
   ///
   /// ```
-  /// // 'Some symbol name'
+  /// // 'some symbol name'
   /// 'someSymbolName'.humanizeSymbolName();
   ///
-  /// // 'Another symbol name'
+  /// // 'another symbol name'
   /// 'another_symbol_name'.humanizeSymbolName();
   /// ```
   ///

@@ -3,6 +3,17 @@ import 'package:intl/intl.dart';
 
 /// Provides plurality-related extension methods on [String].
 ///
+/// ```
+/// // 'dogs'
+/// 'dog'.toPluralForm();
+///
+/// // 'dog'
+/// 'dogs'.toSingularForm();
+///
+/// // '2 dogs'
+/// 'dog'.toPluralFormForQuantity(2);
+/// ```
+///
 /// See also:
 /// * [PluralityTransformation]
 extension PluralityExtensions on String {

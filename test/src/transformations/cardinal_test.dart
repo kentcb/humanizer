@@ -1,3 +1,4 @@
+import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/transformations/cardinal.dart';
 import 'package:test/test.dart';
 

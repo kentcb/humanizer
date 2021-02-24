@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -744,22 +745,24 @@ class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
   Decimal get decilovelaces => getUnits(QualityUnit.decilovelace);
   Decimal get lovelaces => getUnits(QualityUnit.lovelace);
 
-  @override
-  Quality createValue(Decimal baseValue) => Quality.fromLovelaces(baseValue);
-
-  @override
-  Decimal getUnits(QualityUnit unit) => baseValue / unit._lovelaceCount;
-
-  @override
-  Decimal getBaseValue(QualityUnit unit, Decimal value) => value * unit._lovelaceCount;
-
   QualityRate per(Duration period) => QualityRate(
         value: this,
         period: period,
       );
 
   @override
+  Decimal getUnits(QualityUnit unit) => baseValue / unit._lovelaceCount;
+
+  @override
   String toString() => QualityFormat().format(this);
+
+  @override
+  @protected
+  Quality createValue(Decimal baseValue) => Quality.fromLovelaces(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(QualityUnit unit, Decimal value) => value * unit._lovelaceCount;
 }
 
 enum QualityUnit {

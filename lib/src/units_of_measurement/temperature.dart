@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
+import 'package:meta/meta.dart';
 
 import 'decimals.dart';
 
@@ -77,7 +78,7 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
       );
 
   @override
-  Temperature createValue(Decimal baseValue) => Temperature.fromKelvins(baseValue);
+  String toString() => humanize();
 
   @override
   Decimal getUnits(TemperatureUnit unit) {
@@ -94,6 +95,11 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
   }
 
   @override
+  @protected
+  Temperature createValue(Decimal baseValue) => Temperature.fromKelvins(baseValue);
+
+  @override
+  @protected
   Decimal getBaseValue(TemperatureUnit unit, Decimal value) {
     switch (unit) {
       case TemperatureUnit.celsius:
@@ -106,9 +112,6 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
         return value * unit._kelvinCount;
     }
   }
-
-  @override
-  String toString() => humanize();
 }
 
 /// Defines supported units of temperature.

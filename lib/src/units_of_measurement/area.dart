@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a two-dimensional area.
 class Area extends UnitOfMeasurement<AreaUnit, Area> {
@@ -128,16 +129,18 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
       );
 
   @override
-  Area createValue(Decimal baseValue) => Area.fromSquareNanometers(baseValue);
-
-  @override
   Decimal getUnits(AreaUnit unit) => baseValue / unit._squareMeterCount;
 
   @override
-  Decimal getBaseValue(AreaUnit unit, Decimal value) => value * unit._squareMeterCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  Area createValue(Decimal baseValue) => Area.fromSquareNanometers(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(AreaUnit unit, Decimal value) => value * unit._squareMeterCount;
 }
 
 /// Defines supported units of area.

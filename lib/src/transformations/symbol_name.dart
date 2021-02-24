@@ -12,22 +12,22 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 /// ```
 /// const transformation = SymbolNameTransformation();
 ///
-/// // 'Some camel case symbol'
+/// // 'some camel case symbol'
 /// transformation.transform('someCamelCaseSymbol', 'en_US');
 ///
-/// // 'Some pascal case symbol'
+/// // 'some pascal case symbol'
 /// transformation.transform('SomePascalCaseSymbol', 'en_US');
 ///
-/// // 'Some snake case symbol'
+/// // 'some snake case symbol'
 /// transformation.transform('some_snake_case_symbol', 'en_US');
 ///
-/// // 'Some kebab case symbol'
+/// // 'some kebab case symbol'
 /// transformation.transform('some-kebab-case-symbol', 'en_US');
 ///
-/// // 'Some HTML reference'
+/// // 'some HTML reference'
 /// transformation.transform('someHTMLReference', 'en_US');
 ///
-/// // 'You and I are awesome'
+/// // 'you and I are awesome'
 /// transformation.transform('youAndIAreAwesome', 'en_US');
 /// ```
 class SymbolNameTransformation extends Transformation<String, String> {
@@ -76,6 +76,6 @@ class SymbolNameTransformation extends Transformation<String, String> {
       }
     }).join(' ');
 
-    return result.isNotEmpty ? '${result[0].toUpperCase()}${result.substring(1)}' : result;
+    return result;
   }
 }

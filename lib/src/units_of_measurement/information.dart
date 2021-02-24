@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:meta/meta.dart';
 
 /// A unit of measurement representing information size.
 class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize> {
@@ -264,16 +265,18 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
       );
 
   @override
-  InformationSize createValue(Decimal baseValue) => InformationSize.fromBytes(baseValue);
-
-  @override
   Decimal getUnits(InformationUnit unit) => baseValue / unit._byteCount;
 
   @override
-  Decimal getBaseValue(InformationUnit unit, Decimal value) => value * unit._byteCount;
+  String toString() => humanize();
 
   @override
-  String toString() => humanize();
+  @protected
+  InformationSize createValue(Decimal baseValue) => InformationSize.fromBytes(baseValue);
+
+  @override
+  @protected
+  Decimal getBaseValue(InformationUnit unit, Decimal value) => value * unit._byteCount;
 }
 
 /// Defines supported units of information.

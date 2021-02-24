@@ -3,6 +3,14 @@ import 'package:intl/intl.dart';
 
 /// Provides cardinal-related extensions on [int].
 ///
+/// ```
+/// // 'forty-two'
+/// 42.toCardinalWords();
+///
+/// // 'one hundred and four'
+/// 104.toCardinalWords();
+/// ```
+///
 /// See also:
 /// * [CardinalWordsTransformation]
 extension CardinalExtensions on int {
