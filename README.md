@@ -1,4 +1,7 @@
 # Humanizer
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![pub package](https://img.shields.io/pub/v/humanizer.svg)](https://pub.dartlang.org/packages/humanizer)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -42,6 +45,17 @@ Note that whilst this library is locale-aware, it currently only includes an Eng
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://kent-boogaart.com/"><img src="https://avatars.githubusercontent.com/u/1901832?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kent Boogaart</b></sub></a><br /><a href="https://github.com/kentcb/humanizer/commits?author=kentcb" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
@@ -50,3 +64,16 @@ Special thanks to these inspirational open source libraries:
 * [Humanizer](https://github.com/Humanizr/Humanizer) (.NET)
 * [Pluralize](https://github.com/plurals/pluralize)
 * [ByteSize](https://github.com/omar/ByteSize)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
