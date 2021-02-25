@@ -3,6 +3,7 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+> Humanizer is currently in preview. APIs are not yet finalized. We welcome feedback and suggestions as we work towards a stable release.
 ## What?
 
 A Dart library to convert values into human-friendly representations.
@@ -13,14 +14,7 @@ When writing user interfaces we often want to present data we have in a raw form
 
 ## Where?
 
-You can install this library via pub by adding the following to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  humanizer: ^0.0.1
-```
-
-To import Humanizer, include this in your Dart source:
+Firstly, [install the humanizer package](https://pub.dev/packages/humanizer/install), then you can import Humanizer into your Dart code as follows:
 
 ```dart
 import 'package:humanizer/humanizer.dart';
@@ -56,8 +50,3 @@ Special thanks to these inspirational open source libraries:
 * [Humanizer](https://github.com/Humanizr/Humanizer) (.NET)
 * [Pluralize](https://github.com/plurals/pluralize)
 * [ByteSize](https://github.com/omar/ByteSize)
-
-## TODO
-
-* contributors integration
-* CI?
