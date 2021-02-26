@@ -1,5 +1,5 @@
 name: humanizer
-description: Convert Dart values into human-friendly representations.
+description: A library to convert Dart values into human-friendly representations.
 version: 0.0.1-nullsafety
 repository: https://github.com/kentcb/humanizer
 
