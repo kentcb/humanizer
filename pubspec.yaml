@@ -1,6 +1,6 @@
 name: humanizer
 description: A library to convert Dart values into human-friendly representations.
-version: 0.0.2-nullsafety
+version: 0.0.2
 repository: https://github.com/kentcb/humanizer
 
 environment:
@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   collection: ^1.15.0
-  decimal: ^1.0.0-nullsafety
+  decimal: ^1.0.0
   intl: ^0.17.0
   meta: ^1.3.0
 
