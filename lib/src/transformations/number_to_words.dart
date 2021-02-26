@@ -99,7 +99,8 @@ class NumberToWordsConverter {
         var lastPart = _tensNames[value ~/ 10];
 
         if ((value % 10) > 0) {
-          lastPart = '$lastPart-${_getUnitName(value: value % 10, isOrdinal: isOrdinal)}';
+          lastPart =
+              '$lastPart-${_getUnitName(value: value % 10, isOrdinal: isOrdinal)}';
         } else if (isOrdinal) {
           lastPart = '${_removeSuffix(lastPart, 'y')}ieth';
         }

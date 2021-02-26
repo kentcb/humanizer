@@ -7,43 +7,56 @@ import 'decimals.dart';
 /// A unit of measurement representing a weight.
 class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
   /// Creates a [Weight] given a [unit] and decimal [value] for that unit.
-  Weight.fromUnits(WeightUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Weight.fromUnits(WeightUnit unit, Decimal value)
+      : super.fromUnits(unit, value);
 
   /// Creates a [Weight] representing the specified number of [nanograms].
-  factory Weight.fromNanograms(Decimal nanograms) => Weight.fromUnits(WeightUnit.nanogram, nanograms);
+  factory Weight.fromNanograms(Decimal nanograms) =>
+      Weight.fromUnits(WeightUnit.nanogram, nanograms);
 
   /// Creates a [Weight] representing the specified number of [micrograms].
-  factory Weight.fromMicrograms(Decimal micrograms) => Weight.fromUnits(WeightUnit.microgram, micrograms);
+  factory Weight.fromMicrograms(Decimal micrograms) =>
+      Weight.fromUnits(WeightUnit.microgram, micrograms);
 
   /// Creates a [Weight] representing the specified number of [milligrams].
-  factory Weight.fromMilligrams(Decimal milligrams) => Weight.fromUnits(WeightUnit.milligram, milligrams);
+  factory Weight.fromMilligrams(Decimal milligrams) =>
+      Weight.fromUnits(WeightUnit.milligram, milligrams);
 
   /// Creates a [Weight] representing the specified number of [grams].
-  factory Weight.fromGrams(Decimal grams) => Weight.fromUnits(WeightUnit.gram, grams);
+  factory Weight.fromGrams(Decimal grams) =>
+      Weight.fromUnits(WeightUnit.gram, grams);
 
   /// Creates a [Weight] representing the specified number of [ounces].
-  factory Weight.fromOunces(Decimal ounces) => Weight.fromUnits(WeightUnit.ounce, ounces);
+  factory Weight.fromOunces(Decimal ounces) =>
+      Weight.fromUnits(WeightUnit.ounce, ounces);
 
   /// Creates a [Weight] representing the specified number of [pounds].
-  factory Weight.fromPounds(Decimal pounds) => Weight.fromUnits(WeightUnit.pound, pounds);
+  factory Weight.fromPounds(Decimal pounds) =>
+      Weight.fromUnits(WeightUnit.pound, pounds);
 
   /// Creates a [Weight] representing the specified number of [kilograms].
-  factory Weight.fromKilograms(Decimal kilograms) => Weight.fromUnits(WeightUnit.kilogram, kilograms);
+  factory Weight.fromKilograms(Decimal kilograms) =>
+      Weight.fromUnits(WeightUnit.kilogram, kilograms);
 
   /// Creates a [Weight] representing the specified number of [usTons].
-  factory Weight.fromUsTons(Decimal usTons) => Weight.fromUnits(WeightUnit.usTon, usTons);
+  factory Weight.fromUsTons(Decimal usTons) =>
+      Weight.fromUnits(WeightUnit.usTon, usTons);
 
   /// Creates a [Weight] representing the specified number of [tonnes].
-  factory Weight.fromTonnes(Decimal tonnes) => Weight.fromUnits(WeightUnit.tonne, tonnes);
+  factory Weight.fromTonnes(Decimal tonnes) =>
+      Weight.fromUnits(WeightUnit.tonne, tonnes);
 
   /// Creates a [Weight] representing the specified number of [imperialTons].
-  factory Weight.fromImperialTons(Decimal imperialTons) => Weight.fromUnits(WeightUnit.imperialTon, imperialTons);
+  factory Weight.fromImperialTons(Decimal imperialTons) =>
+      Weight.fromUnits(WeightUnit.imperialTon, imperialTons);
 
   /// Creates a [Weight] representing the specified number of [megatonnes].
-  factory Weight.fromMegatonnes(Decimal megatonnes) => Weight.fromUnits(WeightUnit.megatonne, megatonnes);
+  factory Weight.fromMegatonnes(Decimal megatonnes) =>
+      Weight.fromUnits(WeightUnit.megatonne, megatonnes);
 
   /// Creates a [Weight] representing the specified number of [gigatonnes].
-  factory Weight.fromGigatonnes(Decimal gigatonnes) => Weight.fromUnits(WeightUnit.gigatonne, gigatonnes);
+  factory Weight.fromGigatonnes(Decimal gigatonnes) =>
+      Weight.fromUnits(WeightUnit.gigatonne, gigatonnes);
 
   /// A [Weight] of size zero.
   static final zero = Weight.fromNanograms(Decimal.zero);
@@ -102,7 +115,8 @@ class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
 
   @override
   @protected
-  Decimal getBaseValue(WeightUnit unit, Decimal value) => value * unit._gramCount;
+  Decimal getBaseValue(WeightUnit unit, Decimal value) =>
+      value * unit._gramCount;
 }
 
 /// Defines supported units of weight.
@@ -371,7 +385,8 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
 /// * [UnitOfMeasurementFormat]
 class WeightFormat extends _BaseWeightFormat<Weight> {
   WeightFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
     String? locale,
   }) : super._(
@@ -382,10 +397,12 @@ class WeightFormat extends _BaseWeightFormat<Weight> {
         );
 
   @override
-  WeightUnit getLargestUnit(Weight input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  WeightUnit getLargestUnit(Weight input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Weight input, WeightUnit unit) => input.getUnits(unit);
+  Decimal getUnitQuantity(Weight input, WeightUnit unit) =>
+      input.getUnits(unit);
 
   @override
   Weight scaleToRateUnit(Weight input, RateUnit rateUnit) =>
@@ -430,21 +447,26 @@ class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
         );
 
   @override
-  WeightUnit getLargestUnit(WeightRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  WeightUnit getLargestUnit(WeightRate input) =>
+      input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(WeightRate input, WeightUnit unit) => input.value.getUnits(unit);
+  Decimal getUnitQuantity(WeightRate input, WeightUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   WeightRate scaleToRateUnit(WeightRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
-    final result = Weight.fromGrams(input.value.grams * scale).per(scaledPeriod);
+    final scale =
+        di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final result =
+        Weight.fromGrams(input.value.grams * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseWeightFormat<TInput> extends UnitOfMeasurementFormat<TInput, WeightUnit> {
+abstract class _BaseWeightFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, WeightUnit> {
   _BaseWeightFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -459,7 +481,8 @@ abstract class _BaseWeightFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(WeightUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(WeightUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -468,8 +491,10 @@ abstract class _BaseWeightFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   Set<WeightUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(WeightUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(WeightUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(WeightUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(WeightUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

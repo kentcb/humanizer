@@ -17,5 +17,6 @@ extension SymbolNameExtensions on String {
   /// See also:
   /// * [SymbolNameTransformation]
   String humanizeSymbolName({String? locale}) =>
-      const SymbolNameTransformation().transform(this, locale ?? Intl.getCurrentLocale());
+      const SymbolNameTransformation()
+          .transform(this, locale ?? Intl.getCurrentLocale());
 }

@@ -112,9 +112,12 @@ void ordinalNumerical() {
 
       test('a custom number format can be used', () {
         final numberFormat = NumberFormat('000');
-        verifyTransform(input: 1, expected: '001st', numberFormat: numberFormat);
-        verifyTransform(input: 33, expected: '033rd', numberFormat: numberFormat);
-        verifyTransform(input: 3471, expected: '3471st', numberFormat: numberFormat);
+        verifyTransform(
+            input: 1, expected: '001st', numberFormat: numberFormat);
+        verifyTransform(
+            input: 33, expected: '033rd', numberFormat: numberFormat);
+        verifyTransform(
+            input: 3471, expected: '3471st', numberFormat: numberFormat);
       });
 
       test('grammatical gender is irrelevant', () {
@@ -135,32 +138,58 @@ void ordinalNumerical() {
           verifyTransform(input: 7, expected: '7th', grammaticalGender: gender);
           verifyTransform(input: 8, expected: '8th', grammaticalGender: gender);
           verifyTransform(input: 9, expected: '9th', grammaticalGender: gender);
-          verifyTransform(input: 10, expected: '10th', grammaticalGender: gender);
-          verifyTransform(input: 11, expected: '11th', grammaticalGender: gender);
-          verifyTransform(input: 12, expected: '12th', grammaticalGender: gender);
-          verifyTransform(input: 13, expected: '13th', grammaticalGender: gender);
-          verifyTransform(input: 14, expected: '14th', grammaticalGender: gender);
-          verifyTransform(input: 15, expected: '15th', grammaticalGender: gender);
-          verifyTransform(input: 16, expected: '16th', grammaticalGender: gender);
-          verifyTransform(input: 17, expected: '17th', grammaticalGender: gender);
-          verifyTransform(input: 18, expected: '18th', grammaticalGender: gender);
-          verifyTransform(input: 19, expected: '19th', grammaticalGender: gender);
-          verifyTransform(input: 20, expected: '20th', grammaticalGender: gender);
-          verifyTransform(input: 21, expected: '21st', grammaticalGender: gender);
-          verifyTransform(input: 22, expected: '22nd', grammaticalGender: gender);
-          verifyTransform(input: 23, expected: '23rd', grammaticalGender: gender);
-          verifyTransform(input: 24, expected: '24th', grammaticalGender: gender);
-          verifyTransform(input: 25, expected: '25th', grammaticalGender: gender);
-          verifyTransform(input: 26, expected: '26th', grammaticalGender: gender);
-          verifyTransform(input: 27, expected: '27th', grammaticalGender: gender);
-          verifyTransform(input: 28, expected: '28th', grammaticalGender: gender);
-          verifyTransform(input: 29, expected: '29th', grammaticalGender: gender);
-          verifyTransform(input: 30, expected: '30th', grammaticalGender: gender);
-          verifyTransform(input: 101, expected: '101st', grammaticalGender: gender);
-          verifyTransform(input: 103, expected: '103rd', grammaticalGender: gender);
-          verifyTransform(input: 105, expected: '105th', grammaticalGender: gender);
-          verifyTransform(input: 111, expected: '111th', grammaticalGender: gender);
-          verifyTransform(input: 113, expected: '113th', grammaticalGender: gender);
+          verifyTransform(
+              input: 10, expected: '10th', grammaticalGender: gender);
+          verifyTransform(
+              input: 11, expected: '11th', grammaticalGender: gender);
+          verifyTransform(
+              input: 12, expected: '12th', grammaticalGender: gender);
+          verifyTransform(
+              input: 13, expected: '13th', grammaticalGender: gender);
+          verifyTransform(
+              input: 14, expected: '14th', grammaticalGender: gender);
+          verifyTransform(
+              input: 15, expected: '15th', grammaticalGender: gender);
+          verifyTransform(
+              input: 16, expected: '16th', grammaticalGender: gender);
+          verifyTransform(
+              input: 17, expected: '17th', grammaticalGender: gender);
+          verifyTransform(
+              input: 18, expected: '18th', grammaticalGender: gender);
+          verifyTransform(
+              input: 19, expected: '19th', grammaticalGender: gender);
+          verifyTransform(
+              input: 20, expected: '20th', grammaticalGender: gender);
+          verifyTransform(
+              input: 21, expected: '21st', grammaticalGender: gender);
+          verifyTransform(
+              input: 22, expected: '22nd', grammaticalGender: gender);
+          verifyTransform(
+              input: 23, expected: '23rd', grammaticalGender: gender);
+          verifyTransform(
+              input: 24, expected: '24th', grammaticalGender: gender);
+          verifyTransform(
+              input: 25, expected: '25th', grammaticalGender: gender);
+          verifyTransform(
+              input: 26, expected: '26th', grammaticalGender: gender);
+          verifyTransform(
+              input: 27, expected: '27th', grammaticalGender: gender);
+          verifyTransform(
+              input: 28, expected: '28th', grammaticalGender: gender);
+          verifyTransform(
+              input: 29, expected: '29th', grammaticalGender: gender);
+          verifyTransform(
+              input: 30, expected: '30th', grammaticalGender: gender);
+          verifyTransform(
+              input: 101, expected: '101st', grammaticalGender: gender);
+          verifyTransform(
+              input: 103, expected: '103rd', grammaticalGender: gender);
+          verifyTransform(
+              input: 105, expected: '105th', grammaticalGender: gender);
+          verifyTransform(
+              input: 111, expected: '111th', grammaticalGender: gender);
+          verifyTransform(
+              input: 113, expected: '113th', grammaticalGender: gender);
         });
       });
     });
@@ -218,7 +247,8 @@ void _ordinalWords() {
         verifyTransform(input: 123, expected: 'hundred and twenty-third');
         verifyTransform(
           input: 13238189,
-          expected: 'thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
+          expected:
+              'thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
         );
       });
 
@@ -257,10 +287,12 @@ void _ordinalWords() {
         verifyTransform(input: -103, expected: 'negative hundred and third');
         verifyTransform(input: -105, expected: 'negative hundred and fifth');
         verifyTransform(input: -111, expected: 'negative hundred and eleventh');
-        verifyTransform(input: -123, expected: 'negative hundred and twenty-third');
+        verifyTransform(
+            input: -123, expected: 'negative hundred and twenty-third');
         verifyTransform(
           input: -13238189,
-          expected: 'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
+          expected:
+              'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
         );
       });
     });

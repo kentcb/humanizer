@@ -16,7 +16,8 @@ extension TransformationExtensions<T, U, V> on Transformation<T, U> {
   ///
   /// This method can be used to compose compatible transformations. The output type of the first transformation must
   /// match the input type of the second.
-  Transformation<T, V> then(Transformation<U, V> transformation) => _ComposedTransition(
+  Transformation<T, V> then(Transformation<U, V> transformation) =>
+      _ComposedTransition(
         first: this,
         second: transformation,
       );

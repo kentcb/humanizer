@@ -7,7 +7,8 @@ import 'decimals.dart';
 /// A unit of measurement representing a temperature.
 class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
   /// Creates a [Temperature] given a [unit] and decimal [value] for that unit.
-  Temperature.fromUnits(TemperatureUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Temperature.fromUnits(TemperatureUnit unit, Decimal value)
+      : super.fromUnits(unit, value);
 
   /// Creates a [Temperature] representing the specified number of [nanokelvins].
   factory Temperature.fromNanokelvins(Decimal nanokelvins) =>
@@ -30,10 +31,12 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
       Temperature.fromUnits(TemperatureUnit.decikelvin, decikelvins);
 
   /// Creates a [Temperature] representing the specified number of [kelvins].
-  factory Temperature.fromKelvins(Decimal kelvins) => Temperature.fromUnits(TemperatureUnit.kelvin, kelvins);
+  factory Temperature.fromKelvins(Decimal kelvins) =>
+      Temperature.fromUnits(TemperatureUnit.kelvin, kelvins);
 
   /// Creates a [Temperature] representing the specified number of [celsius].
-  factory Temperature.fromCelsius(Decimal celsius) => Temperature.fromUnits(TemperatureUnit.celsius, celsius);
+  factory Temperature.fromCelsius(Decimal celsius) =>
+      Temperature.fromUnits(TemperatureUnit.celsius, celsius);
 
   /// Creates a [Temperature] representing the specified number of [fahrenheit].
   factory Temperature.fromFahrenheit(Decimal fahrenheit) =>
@@ -88,7 +91,9 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
         return baseValue - _kelvinToCelsiusBaseline;
       case TemperatureUnit.fahrenheit:
         // F = (k - 273.15) x (9/5) + 32
-        return (baseValue - _kelvinToCelsiusBaseline) * _kelvinToFahrenheitFactor + _kelvinToFahrenheitOffset;
+        return (baseValue - _kelvinToCelsiusBaseline) *
+                _kelvinToFahrenheitFactor +
+            _kelvinToFahrenheitOffset;
       default:
         return baseValue / unit._kelvinCount;
     }
@@ -96,7 +101,8 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
 
   @override
   @protected
-  Temperature createValue(Decimal baseValue) => Temperature.fromKelvins(baseValue);
+  Temperature createValue(Decimal baseValue) =>
+      Temperature.fromKelvins(baseValue);
 
   @override
   @protected
@@ -107,7 +113,8 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
         return value + _kelvinToCelsiusBaseline;
       case TemperatureUnit.fahrenheit:
         // k = (F - 32) x (5/9) + 273.15
-        return (value - _kelvinToFahrenheitOffset) * _fahrenheitToKelvinFactor + _kelvinToCelsiusBaseline;
+        return (value - _kelvinToFahrenheitOffset) * _fahrenheitToKelvinFactor +
+            _kelvinToCelsiusBaseline;
       default:
         return value * unit._kelvinCount;
     }
@@ -308,7 +315,8 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// * [UnitOfMeasurementFormat]
 class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
   TemperatureFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
     String? locale,
   }) : super._(
@@ -319,10 +327,12 @@ class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
         );
 
   @override
-  TemperatureUnit getLargestUnit(Temperature input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  TemperatureUnit getLargestUnit(Temperature input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Temperature input, TemperatureUnit unit) => input.getUnits(unit);
+  Decimal getUnitQuantity(Temperature input, TemperatureUnit unit) =>
+      input.getUnits(unit);
 
   @override
   Temperature scaleToRateUnit(Temperature input, RateUnit rateUnit) =>
@@ -372,18 +382,22 @@ class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
       input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(TemperatureRate input, TemperatureUnit unit) => input.value.getUnits(unit);
+  Decimal getUnitQuantity(TemperatureRate input, TemperatureUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   TemperatureRate scaleToRateUnit(TemperatureRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
-    final result = Temperature.fromKelvins(input.value.kelvins * scale).per(scaledPeriod);
+    final scale =
+        di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final result =
+        Temperature.fromKelvins(input.value.kelvins * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseTemperatureFormat<TInput> extends UnitOfMeasurementFormat<TInput, TemperatureUnit> {
+abstract class _BaseTemperatureFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, TemperatureUnit> {
   _BaseTemperatureFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -398,7 +412,8 @@ abstract class _BaseTemperatureFormat<TInput> extends UnitOfMeasurementFormat<TI
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(TemperatureUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(TemperatureUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -407,8 +422,10 @@ abstract class _BaseTemperatureFormat<TInput> extends UnitOfMeasurementFormat<TI
   Set<TemperatureUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(TemperatureUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(TemperatureUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(TemperatureUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(TemperatureUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

@@ -112,7 +112,8 @@ void _truncateFixedNonWhitespaceLength() {
       test(
         '$input : $length : $truncationIndicator : $truncateAt → $expected',
         () {
-          final transformation = TruncateToFixedNonWhitespaceLengthTransformation(
+          final transformation =
+              TruncateToFixedNonWhitespaceLengthTransformation(
             length: length,
             truncationIndicator: truncationIndicator,
             truncateAt: truncateAt,

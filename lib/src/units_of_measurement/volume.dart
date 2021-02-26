@@ -6,14 +6,16 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a three-dimensional volume.
 class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
   /// Creates a [Volume] given a [unit] and decimal [value] for that unit.
-  Volume.fromUnits(VolumeUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Volume.fromUnits(VolumeUnit unit, Decimal value)
+      : super.fromUnits(unit, value);
 
   /// Creates a [Volume] representing the specified number of [cubicNanometers].
   factory Volume.fromCubicNanometers(Decimal cubicNanometers) =>
       Volume.fromUnits(VolumeUnit.cubicNanometer, cubicNanometers);
 
   /// Creates a [Volume] representing the specified number of [cubicThous].
-  factory Volume.fromCubicThous(Decimal cubicThous) => Volume.fromUnits(VolumeUnit.cubicThou, cubicThous);
+  factory Volume.fromCubicThous(Decimal cubicThous) =>
+      Volume.fromUnits(VolumeUnit.cubicThou, cubicThous);
 
   /// Creates a [Volume] representing the specified number of [cubicMicrometers].
   factory Volume.fromCubicMicrometers(Decimal cubicMicrometers) =>
@@ -24,20 +26,24 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.cubicMillimeter, cubicMillimeters);
 
   /// Creates a [Volume] representing the specified number of [milliliters].
-  factory Volume.fromMilliliters(Decimal milliliters) => Volume.fromUnits(VolumeUnit.milliliter, milliliters);
+  factory Volume.fromMilliliters(Decimal milliliters) =>
+      Volume.fromUnits(VolumeUnit.milliliter, milliliters);
 
   /// Creates a [Volume] representing the specified number of [imperialTeaspoons].
   factory Volume.fromImperialTeaspoons(Decimal imperialTeaspoons) =>
       Volume.fromUnits(VolumeUnit.imperialTeaspoon, imperialTeaspoons);
 
   /// Creates a [Volume] representing the specified number of [usTeaspoons].
-  factory Volume.fromUsTeaspoons(Decimal usTeaspoons) => Volume.fromUnits(VolumeUnit.usTeaspoon, usTeaspoons);
+  factory Volume.fromUsTeaspoons(Decimal usTeaspoons) =>
+      Volume.fromUnits(VolumeUnit.usTeaspoon, usTeaspoons);
 
   /// Creates a [Volume] representing the specified number of [usLegalCups].
-  factory Volume.fromUsLegalCups(Decimal usLegalCups) => Volume.fromUnits(VolumeUnit.usLegalCup, usLegalCups);
+  factory Volume.fromUsLegalCups(Decimal usLegalCups) =>
+      Volume.fromUnits(VolumeUnit.usLegalCup, usLegalCups);
 
   /// Creates a [Volume] representing the specified number of [usFluidOunces].
-  factory Volume.fromUsFluidOunces(Decimal usFluidOunces) => Volume.fromUnits(VolumeUnit.usFluidOunce, usFluidOunces);
+  factory Volume.fromUsFluidOunces(Decimal usFluidOunces) =>
+      Volume.fromUnits(VolumeUnit.usFluidOunce, usFluidOunces);
 
   /// Creates a [Volume] representing the specified number of [imperialFluidOunces].
   factory Volume.fromImperialFluidOunces(Decimal imperialFluidOunces) =>
@@ -48,13 +54,16 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.imperialTablespoon, imperialTablespoons);
 
   /// Creates a [Volume] representing the specified number of [cubicInches].
-  factory Volume.fromCubicInches(Decimal cubicInches) => Volume.fromUnits(VolumeUnit.cubicInch, cubicInches);
+  factory Volume.fromCubicInches(Decimal cubicInches) =>
+      Volume.fromUnits(VolumeUnit.cubicInch, cubicInches);
 
   /// Creates a [Volume] representing the specified number of [usTablespoons].
-  factory Volume.fromUsTablespoons(Decimal usTablespoons) => Volume.fromUnits(VolumeUnit.usTablespoon, usTablespoons);
+  factory Volume.fromUsTablespoons(Decimal usTablespoons) =>
+      Volume.fromUnits(VolumeUnit.usTablespoon, usTablespoons);
 
   /// Creates a [Volume] representing the specified number of [liters].
-  factory Volume.fromLiters(Decimal liters) => Volume.fromUnits(VolumeUnit.liter, liters);
+  factory Volume.fromLiters(Decimal liters) =>
+      Volume.fromUnits(VolumeUnit.liter, liters);
 
   /// Creates a [Volume] representing the specified number of [usLiquidQuarts].
   factory Volume.fromUsLiquidQuarts(Decimal usLiquidQuarts) =>
@@ -65,13 +74,16 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.usCustomaryCup, usCustomaryCups);
 
   /// Creates a [Volume] representing the specified number of [imperialPints].
-  factory Volume.fromImperialPints(Decimal imperialPints) => Volume.fromUnits(VolumeUnit.imperialPint, imperialPints);
+  factory Volume.fromImperialPints(Decimal imperialPints) =>
+      Volume.fromUnits(VolumeUnit.imperialPint, imperialPints);
 
   /// Creates a [Volume] representing the specified number of [usLiquidPints].
-  factory Volume.fromUsLiquidPints(Decimal usLiquidPints) => Volume.fromUnits(VolumeUnit.usLiquidPint, usLiquidPints);
+  factory Volume.fromUsLiquidPints(Decimal usLiquidPints) =>
+      Volume.fromUnits(VolumeUnit.usLiquidPint, usLiquidPints);
 
   /// Creates a [Volume] representing the specified number of [imperialCups].
-  factory Volume.fromImperialCups(Decimal imperialCups) => Volume.fromUnits(VolumeUnit.imperialCup, imperialCups);
+  factory Volume.fromImperialCups(Decimal imperialCups) =>
+      Volume.fromUnits(VolumeUnit.imperialCup, imperialCups);
 
   /// Creates a [Volume] representing the specified number of [imperialGallons].
   factory Volume.fromImperialGallons(Decimal imperialGallons) =>
@@ -86,13 +98,16 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.imperialQuart, imperialQuarts);
 
   /// Creates a [Volume] representing the specified number of [cubicFeet].
-  factory Volume.fromCubicFeet(Decimal cubicFeet) => Volume.fromUnits(VolumeUnit.cubicFoot, cubicFeet);
+  factory Volume.fromCubicFeet(Decimal cubicFeet) =>
+      Volume.fromUnits(VolumeUnit.cubicFoot, cubicFeet);
 
   /// Creates a [Volume] representing the specified number of [cubicMeters].
-  factory Volume.fromCubicMeters(Decimal cubicMeters) => Volume.fromUnits(VolumeUnit.cubicMeter, cubicMeters);
+  factory Volume.fromCubicMeters(Decimal cubicMeters) =>
+      Volume.fromUnits(VolumeUnit.cubicMeter, cubicMeters);
 
   /// Creates a [Volume] representing the specified number of [cubicYards].
-  factory Volume.fromCubicYards(Decimal cubicYards) => Volume.fromUnits(VolumeUnit.cubicYard, cubicYards);
+  factory Volume.fromCubicYards(Decimal cubicYards) =>
+      Volume.fromUnits(VolumeUnit.cubicYard, cubicYards);
 
   /// Creates a [Volume] representing the specified number of [cubicDecameters].
   factory Volume.fromCubicDecameters(Decimal cubicDecameters) =>
@@ -103,7 +118,8 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.cubicKilometer, cubicKilometers);
 
   /// Creates a [Volume] representing the specified number of [cubicMiles].
-  factory Volume.fromCubicMiles(Decimal cubicMiles) => Volume.fromUnits(VolumeUnit.cubicMile, cubicMiles);
+  factory Volume.fromCubicMiles(Decimal cubicMiles) =>
+      Volume.fromUnits(VolumeUnit.cubicMile, cubicMiles);
 
   /// Creates a [Volume] representing the specified number of [cubicMegameters].
   factory Volume.fromCubicMegameters(Decimal cubicMegameters) =>
@@ -224,7 +240,8 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
 
   @override
   @protected
-  Decimal getBaseValue(VolumeUnit unit, Decimal value) => value * unit._cubicMeterCount;
+  Decimal getBaseValue(VolumeUnit unit, Decimal value) =>
+      value * unit._cubicMeterCount;
 }
 
 /// Defines supported units of volume.
@@ -407,7 +424,8 @@ class VolumeUnits {
 
 /// Contains extensions for [VolumeUnit].
 extension VolumeUnitExtensions on VolumeUnit {
-  static final _cubicMetersInCubicNanometer = ds('0.000000000000000000000000001');
+  static final _cubicMetersInCubicNanometer =
+      ds('0.000000000000000000000000001');
   static final _cubicMetersInCubicThou = ds('0.00000000000006387');
   static final _cubicMetersInCubicMicrometer = ds('0.000000000000000001');
   static final _cubicMetersInCubicMillimeter = ds('0.000000001');
@@ -436,7 +454,8 @@ extension VolumeUnitExtensions on VolumeUnit {
   static final _cubicMetersInCubicKilometer = di(1000000000);
   static final _cubicMetersInCubicMile = di(4168000000);
   static final _cubicMetersInCubicMegameter = di(1000000000000000000);
-  static final _cubicMetersInCubicGigameter = ds('1000000000000000000000000000');
+  static final _cubicMetersInCubicGigameter =
+      ds('1000000000000000000000000000');
 
   Decimal get _cubicMeterCount {
     switch (this) {
@@ -748,7 +767,8 @@ class VolumeRate extends UnitOfMeasurementRate<Volume> {
 /// * [UnitOfMeasurementFormat]
 class VolumeFormat extends _BaseVolumeFormat<Volume> {
   VolumeFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
     String? locale,
   }) : super._(
@@ -759,10 +779,12 @@ class VolumeFormat extends _BaseVolumeFormat<Volume> {
         );
 
   @override
-  VolumeUnit getLargestUnit(Volume input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  VolumeUnit getLargestUnit(Volume input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Volume input, VolumeUnit unit) => input.getUnits(unit);
+  Decimal getUnitQuantity(Volume input, VolumeUnit unit) =>
+      input.getUnits(unit);
 
   @override
   Volume scaleToRateUnit(Volume input, RateUnit rateUnit) =>
@@ -808,21 +830,26 @@ class VolumeRateFormat extends _BaseVolumeFormat<VolumeRate> {
         );
 
   @override
-  VolumeUnit getLargestUnit(VolumeRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  VolumeUnit getLargestUnit(VolumeRate input) =>
+      input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(VolumeRate input, VolumeUnit unit) => input.value.getUnits(unit);
+  Decimal getUnitQuantity(VolumeRate input, VolumeUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   VolumeRate scaleToRateUnit(VolumeRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
-    final result = Volume.fromCubicMeters(input.value.cubicMeters * scale).per(scaledPeriod);
+    final scale =
+        di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final result = Volume.fromCubicMeters(input.value.cubicMeters * scale)
+        .per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseVolumeFormat<TInput> extends UnitOfMeasurementFormat<TInput, VolumeUnit> {
+abstract class _BaseVolumeFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, VolumeUnit> {
   _BaseVolumeFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -837,7 +864,8 @@ abstract class _BaseVolumeFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(VolumeUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(VolumeUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -846,8 +874,10 @@ abstract class _BaseVolumeFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   Set<VolumeUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(VolumeUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(VolumeUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(VolumeUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(VolumeUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

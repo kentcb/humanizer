@@ -83,7 +83,8 @@ void _plurality() {
     ];
 
     test('leading whitespace is left intact', () {
-      whitespaceVariants.forEach((whitespaceVariant) => _singularToPluralMap.forEach((singular, plural) {
+      whitespaceVariants.forEach((whitespaceVariant) =>
+          _singularToPluralMap.forEach((singular, plural) {
             verifyPlurality(
               input: '$whitespaceVariant$plural',
               targetPlurality: Plurality.singular,
@@ -100,7 +101,8 @@ void _plurality() {
     });
 
     test('trailing whitespace is left intact', () {
-      whitespaceVariants.forEach((whitespaceVariant) => _singularToPluralMap.forEach((singular, plural) {
+      whitespaceVariants.forEach((whitespaceVariant) =>
+          _singularToPluralMap.forEach((singular, plural) {
             verifyPlurality(
               input: '$plural$whitespaceVariant',
               targetPlurality: Plurality.singular,

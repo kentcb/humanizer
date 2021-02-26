@@ -42,7 +42,8 @@ class SymbolNameTransformation extends Transformation<String, String> {
     unicode: true,
   );
   static final _underscoreOrHyphenExpression = RegExp(r'[_-]');
-  static final _underscoreOrHyphenWithSurroundingSpaceExpression = RegExp(r'\s[_-]|[_-]\s');
+  static final _underscoreOrHyphenWithSurroundingSpaceExpression =
+      RegExp(r'\s[_-]|[_-]\s');
 
   @override
   String transform(String input, String locale) {
@@ -50,11 +51,14 @@ class SymbolNameTransformation extends Transformation<String, String> {
       return input;
     }
 
-    final isCamelOrPascalCased = !input.contains(_underscoreOrHyphenExpression) ||
-        input.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
+    final isCamelOrPascalCased =
+        !input.contains(_underscoreOrHyphenExpression) ||
+            input.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
     final result = _determineUsingRegExp(
       input,
-      isCamelOrPascalCased ? _camelOrPascalCaseWordPartsExpression : _snakeOrKebabCaseWordPartsExpression,
+      isCamelOrPascalCased
+          ? _camelOrPascalCaseWordPartsExpression
+          : _snakeOrKebabCaseWordPartsExpression,
     );
 
     return result;
@@ -69,7 +73,9 @@ class SymbolNameTransformation extends Transformation<String, String> {
       }
 
       if (value.isUpperCase() &&
-          (value.length > 1 || (match.start > 0 && input[match.start - 1] == ' ') || value == 'I')) {
+          (value.length > 1 ||
+              (match.start > 0 && input[match.start - 1] == ' ') ||
+              value == 'I')) {
         return value;
       } else {
         return value.toLowerCase();

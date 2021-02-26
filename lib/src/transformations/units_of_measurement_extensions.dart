@@ -837,10 +837,12 @@ extension AreaExtensions on Area {
   /// Humanizes this [Area] using the specified [pattern], which is forwarded to an [AreaTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
     String? locale,
   }) {
     final transformation = AreaTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -855,10 +857,14 @@ extension AreaRateExtensions on AreaRate {
   /// Humanizes this [AreaRate] using the specified [pattern], which is forwarded to an [AreaRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = AreaRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -874,10 +880,12 @@ extension InformationSizeExtensions on InformationSize {
   /// [InformationSizeTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
     String? locale,
   }) {
     final transformation = InformationSizeTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -893,10 +901,14 @@ extension InformationRateExtensions on InformationRate {
   /// [InformationRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = InformationRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -911,10 +923,12 @@ extension LengthExtensions on Length {
   /// Humanizes this [Length] using the specified [pattern], which is forwarded to a [LengthTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
     String? locale,
   }) {
     final transformation = LengthTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -929,10 +943,14 @@ extension LengthRateExtensions on LengthRate {
   /// Humanizes this [LengthRate] using the specified [pattern], which is forwarded to a [LengthRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = LengthRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -947,10 +965,12 @@ extension TemperatureExtensions on Temperature {
   /// Humanizes this [Temperature] using the specified [pattern], which is forwarded to a [TemperatureTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
     String? locale,
   }) {
     final transformation = TemperatureTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -966,10 +986,14 @@ extension TemperatureRateExtensions on TemperatureRate {
   /// [TemperatureRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = TemperatureRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -984,10 +1008,12 @@ extension TimeExtensions on Time {
   /// Humanizes this [Time] using the specified [pattern], which is forwarded to a [TimeTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
     String? locale,
   }) {
     final transformation = TimeTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -1002,10 +1028,14 @@ extension TimeRateExtensions on TimeRate {
   /// Humanizes this [TimeRate] using the specified [pattern], which is forwarded to a [TimeRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = TimeRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -1020,10 +1050,12 @@ extension VolumeExtensions on Volume {
   /// Humanizes this [Volume] using the specified [pattern], which is forwarded to a [VolumeTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
     String? locale,
   }) {
     final transformation = VolumeTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -1038,10 +1070,14 @@ extension VolumeRateExtensions on VolumeRate {
   /// Humanizes this [VolumeRate] using the specified [pattern], which is forwarded to a [VolumeRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = VolumeRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
@@ -1056,10 +1092,12 @@ extension WeightExtensions on Weight {
   /// Humanizes this [Weight] using the specified [pattern], which is forwarded to a [WeightTransformation].
   String humanize({
     String pattern = defaultValuePattern,
+    Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
     String? locale,
   }) {
     final transformation = WeightTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
     );
     final result = transformation.transform(
       this,
@@ -1074,10 +1112,14 @@ extension WeightRateExtensions on WeightRate {
   /// Humanizes this [WeightRate] using the specified [pattern], which is forwarded to a [WeightRateTransformation].
   String humanize({
     String pattern = defaultRatePattern,
+    Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
+    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,
   }) {
     final transformation = WeightRateTransformation(
       pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
     );
     final result = transformation.transform(
       this,
