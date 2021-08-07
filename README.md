@@ -28,16 +28,16 @@ This library has a broad API surface, and in fact has multiple API layers as dis
 
 | Feature | Description |
 |-|-|
-| [Symbols](doc/symbols.md) | Transform programming symbol names into human-friendly representations. |
+| [Approximate relative time](doc/approximate_relative_time.md) | Describes a `DateTime` relative to "now" in a human-friendly manner. |
+| [Cardinal numbers](doc/cardinal_numbers.md) | Converts an integral value to cardinal form (`one`, `two`, `three` etc). |
+| [Ordinal numbers](doc/ordinal_numbers.md) | Converts an integral value to ordinal form (`1st` / `first`, `2nd` / `second` etc). |
+| [Plurality](doc/plurality.md) | Alters the plurality of an input word. |
 | [String casing](doc/string_casing.md) | Transforms input strings to `Sentence case` or `Title Case`. |
 | [String truncation](doc/string_truncation.md) | Intelligently truncates input strings. |
-| [Approximate relative time](doc/approximate_relative_time.md) | Describes a `DateTime` relative to "now" in a human-friendly manner. |
-| [Plurality](doc/plurality.md) | Alters the plurality of an input word. |
-| [Ordinal numbers](doc/ordinal_numbers.md) | Converts an integral value to ordinal form (`1st` / `first`, `2nd` / `second` etc). |
-| [Cardinal numbers](doc/cardinal_numbers.md) | Converts an integral value to cardinal form (`one`, `two`, `three` etc). |
+| [Symbols](doc/symbols.md) | Transform programming symbol names into human-friendly representations. |
 | [Units of measurement](doc/units_of_measurement.md) | Provides types to represent common units of measurement and the ability to convert those types to a human-readable form. |
 
-Note that whilst this library is locale-aware, it currently only includes an English implementation.
+> Note that whilst this library is locale-aware, it currently only includes an English implementation.
 
 ## Who?
 
