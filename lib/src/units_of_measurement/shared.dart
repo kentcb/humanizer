@@ -1,4 +1,5 @@
 import 'package:decimal/decimal.dart';
+import 'package:decimal/intl.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
 import 'package:intl/intl.dart';
@@ -672,8 +673,7 @@ class _NumberFormatNode<TValueUnit> extends _Node<TValueUnit> {
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) {
     final numberFormat = NumberFormat(format, context.locale);
-    // TODO: improve this if this is resolved: https://github.com/a14n/dart-decimal/issues/35
-    final result = numberFormat.format(context.value.toDouble());
+    final result = numberFormat.format(DecimalIntl(context.value));
     return result;
   }
 }
