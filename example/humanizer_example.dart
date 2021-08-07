@@ -24,8 +24,7 @@ void _symbols() {
   ];
 
   for (final symbolName in symbolNames) {
-    print(
-        "'$symbolName'.humanizeSymbolName() => '${symbolName.humanizeSymbolName()}'");
+    print("'$symbolName'.humanizeSymbolName() => '${symbolName.humanizeSymbolName()}'");
   }
 }
 
@@ -51,16 +50,13 @@ void _stringTruncation() {
   ];
 
   for (final input in inputs) {
-    print(
-        "'$input'.truncateToFixedLength(12) => '${input.truncateToFixedLength(12)}'");
+    print("'$input'.truncateToFixedLength(12) => '${input.truncateToFixedLength(12)}'");
     print(
         "'$input'.truncateToFixedLength(12, truncateAt: TruncateAt.start) => '${input.truncateToFixedLength(12, truncateAt: TruncateAt.start)}'");
-    print(
-        "'$input'.truncateToFixedNonWhitespaceLength(12) => '${input.truncateToFixedNonWhitespaceLength(12)}'");
+    print("'$input'.truncateToFixedNonWhitespaceLength(12) => '${input.truncateToFixedNonWhitespaceLength(12)}'");
     print(
         "'$input'.truncateToFixedNonWhitespaceLength(12, truncateAt: TruncateAt.start) => '${input.truncateToFixedNonWhitespaceLength(12, truncateAt: TruncateAt.start)}'");
-    print(
-        "'$input'.truncateToFixedWordLength(3) => '${input.truncateToFixedWordLength(3)}'");
+    print("'$input'.truncateToFixedWordLength(3) => '${input.truncateToFixedWordLength(3)}'");
     print(
         "'$input'.truncateToFixedWordLength(3, truncateAt: TruncateAt.start) => '${input.truncateToFixedWordLength(3, truncateAt: TruncateAt.start)}'");
   }
@@ -73,12 +69,10 @@ void _approximateRelativeTime() {
   final startOfMonth = DateTime(now.year, now.month, 1);
   final startOfDay = DateTime(now.year, now.month, now.day);
 
-  print(
-      "startOfMonth.humanizeRelativeDateTime() => '${startOfMonth.humanizeRelativeDateTime()}'");
+  print("startOfMonth.humanizeRelativeDateTime() => '${startOfMonth.humanizeRelativeDateTime()}'");
   print(
       "startOfMonth.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits) => '${startOfMonth.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits)}'");
-  print(
-      "startOfDay.humanizeRelativeDateTime() => '${startOfDay.humanizeRelativeDateTime()}'");
+  print("startOfDay.humanizeRelativeDateTime() => '${startOfDay.humanizeRelativeDateTime()}'");
   print(
       "startOfDay.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits) => '${startOfDay.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits)}'");
 }
@@ -143,8 +137,7 @@ void _unitsOfMeasurement() {
   print("fileSize.humanize() => '${fileSize.humanize()}'");
   print(
       "fileSize.humanize(permissibleValueUnits: InformationUnits.siBytes) => '${fileSize.humanize(permissibleValueUnits: InformationUnits.siBytes)}'");
-  print(
-      "fileSize.humanize(pattern: '###,##0 U:B') => '${fileSize.humanize(pattern: '###,##0 U:B')}'");
+  print("fileSize.humanize(pattern: '###,##0 U:B') => '${fileSize.humanize(pattern: '###,##0 U:B')}'");
 
   // You can use arithmetic on units of measurement values.
   final weight = 79.kilograms() + 28.grams();
@@ -158,8 +151,7 @@ void _unitsOfMeasurement() {
   // Any unit of measurement value can be turned into a "rated" value via the per method.
   final speed = length.per(const Duration(seconds: 1));
   print("speed.humanize() => '${speed.humanize()}'");
-  print(
-      "speed.humanize(pattern: \"0.# U 'per' R:hr\") => '${speed.humanize(pattern: "0.# U 'per' R:hr")}'");
+  print("speed.humanize(pattern: \"0.# U 'per' R:hr\") => '${speed.humanize(pattern: "0.# U 'per' R:hr")}'");
 }
 
 // A simple example of using the transformations API directly rather than the extensions layer.
@@ -184,8 +176,7 @@ void _transformationsLayer() {
   ];
 
   for (final symbolName in symbolNames) {
-    print(
-        "transformation.transform('$symbolName', 'en') => '${transformation.transform(symbolName, 'en')}'");
+    print("transformation.transform('$symbolName', 'en') => '${transformation.transform(symbolName, 'en')}'");
   }
 }
 

@@ -57,8 +57,7 @@ void _cardinalWords() {
         verifyTransform(input: 123, expected: 'one hundred and twenty-three');
         verifyTransform(
           input: 13238189,
-          expected:
-              'thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
+          expected: 'thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
         );
       });
 
@@ -94,17 +93,13 @@ void _cardinalWords() {
         verifyTransform(input: -29, expected: 'negative twenty-nine');
         verifyTransform(input: -30, expected: 'negative thirty');
         verifyTransform(input: -101, expected: 'negative one hundred and one');
-        verifyTransform(
-            input: -103, expected: 'negative one hundred and three');
+        verifyTransform(input: -103, expected: 'negative one hundred and three');
         verifyTransform(input: -105, expected: 'negative one hundred and five');
-        verifyTransform(
-            input: -111, expected: 'negative one hundred and eleven');
-        verifyTransform(
-            input: -123, expected: 'negative one hundred and twenty-three');
+        verifyTransform(input: -111, expected: 'negative one hundred and eleven');
+        verifyTransform(input: -123, expected: 'negative one hundred and twenty-three');
         verifyTransform(
           input: -13238189,
-          expected:
-              'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
+          expected: 'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
         );
       });
     });

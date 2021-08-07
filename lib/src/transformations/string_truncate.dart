@@ -17,8 +17,7 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 /// // 'A string th~'
 /// transformation.transform('A string that is too long', 'en_US');
 /// ```
-class TruncateToFixedLengthTransformation
-    extends Transformation<String, String> {
+class TruncateToFixedLengthTransformation extends Transformation<String, String> {
   const TruncateToFixedLengthTransformation({
     required this.length,
     required this.truncationIndicator,
@@ -46,20 +45,17 @@ class TruncateToFixedLengthTransformation
     } else if (truncationIndicator.runes.length > length) {
       // Can't use the truncation indicator because it's longer than the desired length, so we'll just truncate without
       // it.
-      final result = truncateAt == TruncateAt.end
-          ? input.substring(0, length)
-          : input.substring(input.length - length);
+      final result = truncateAt == TruncateAt.end ? input.substring(0, length) : input.substring(input.length - length);
       return result;
     } else {
       // We need to incorporate the truncation indicator and take its length into account during truncation.
       if (truncateAt == TruncateAt.start) {
-        final suffix = String.fromCharCodes(inputRunes.skip(
-            inputRunes.length - length + truncationIndicator.runes.length));
+        final suffix =
+            String.fromCharCodes(inputRunes.skip(inputRunes.length - length + truncationIndicator.runes.length));
         final result = '$truncationIndicator$suffix';
         return result;
       } else {
-        final prefix = String.fromCharCodes(
-            inputRunes.take(length - truncationIndicator.runes.length));
+        final prefix = String.fromCharCodes(inputRunes.take(length - truncationIndicator.runes.length));
         final result = '$prefix$truncationIndicator';
         return result;
       }
@@ -84,8 +80,7 @@ class TruncateToFixedLengthTransformation
 /// // 'A string that~'
 /// transformation.transform('A string that is too long', 'en_US');
 /// ```
-class TruncateToFixedNonWhitespaceLengthTransformation
-    extends Transformation<String, String> {
+class TruncateToFixedNonWhitespaceLengthTransformation extends Transformation<String, String> {
   const TruncateToFixedNonWhitespaceLengthTransformation({
     required this.length,
     required this.truncationIndicator,
@@ -117,10 +112,8 @@ class TruncateToFixedNonWhitespaceLengthTransformation
       input.length,
       (i) => isTruncatedAtStart ? inputRunes.length - 1 - i : i,
     );
-    final includeTruncationIndicator =
-        truncationIndicator.runes.length < length;
-    final truncationIndicatorLength =
-        includeTruncationIndicator ? truncationIndicator.runes.length : 0;
+    final includeTruncationIndicator = truncationIndicator.runes.length < length;
+    final truncationIndicatorLength = includeTruncationIndicator ? truncationIndicator.runes.length : 0;
     var buffer = <int>[];
     var nonWhitespaceLength = 0;
 
@@ -166,8 +159,7 @@ class TruncateToFixedNonWhitespaceLengthTransformation
 /// // 'A string that is~'
 /// transformation.transform('A string that is too long', 'en_US');
 /// ```
-class TruncateToFixedWordLengthTransformation
-    extends Transformation<String, String> {
+class TruncateToFixedWordLengthTransformation extends Transformation<String, String> {
   const TruncateToFixedWordLengthTransformation({
     required this.length,
     required this.truncationIndicator,
@@ -199,9 +191,8 @@ class TruncateToFixedWordLengthTransformation
     }
 
     final isTruncatedAtStart = truncateAt == TruncateAt.start;
-    final wordExpression = isTruncatedAtStart
-        ? _wordWithTrailingWhitespaceExpression
-        : _wordWithLeadingWhitespaceExpression;
+    final wordExpression =
+        isTruncatedAtStart ? _wordWithTrailingWhitespaceExpression : _wordWithLeadingWhitespaceExpression;
     final wordMatches = wordExpression.allMatches(input).toList();
     final wordMatchIndexes = Iterable<int>.generate(
       wordMatches.length,

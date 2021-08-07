@@ -12,8 +12,7 @@ extension OrdinalExtensions on int {
     String? locale,
   }) {
     const transformation = OrdinalNumericalTransformation();
-    final result =
-        transformation.transform(this, locale ?? Intl.getCurrentLocale());
+    final result = transformation.transform(this, locale ?? Intl.getCurrentLocale());
     return result;
   }
 
@@ -22,8 +21,7 @@ extension OrdinalExtensions on int {
     String? locale,
   }) {
     const transformation = OrdinalWordsTransformation();
-    final result =
-        transformation.transform(this, locale ?? Intl.getCurrentLocale());
+    final result = transformation.transform(this, locale ?? Intl.getCurrentLocale());
     return result;
   }
 }

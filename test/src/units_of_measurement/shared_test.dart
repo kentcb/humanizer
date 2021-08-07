@@ -31,8 +31,7 @@ void _unitOfMeasurement() {
       });
 
       QualityUnits.all.skip(1).forEach((unit) {
-        final sut = Quality.fromUnits(unit, ds('69')) +
-            Quality.fromNanolovelaces(di(1));
+        final sut = Quality.fromUnits(unit, ds('69')) + Quality.fromNanolovelaces(di(1));
         expect(sut.getUnits(unit), greaterThan(ds('69')));
         expect(sut.getUnits(unit), lessThan(ds('69.1')));
       });
@@ -63,8 +62,7 @@ void _unitOfMeasurement() {
 
         values.forEach((nanolovelaces, expected) {
           final sut = Quality.fromNanolovelaces(nanolovelaces);
-          expect(
-              sut.getLargestUnit(permissibleUnits: QualityUnits.all), expected);
+          expect(sut.getLargestUnit(permissibleUnits: QualityUnits.all), expected);
         });
       });
 
@@ -122,8 +120,7 @@ void _unitOfMeasurement() {
         );
       });
 
-      test('smallest unit is returned if all permissible units are too large',
-          () {
+      test('smallest unit is returned if all permissible units are too large', () {
         final sut = Quality.fromMicrolovelaces(di(1));
 
         expect(
@@ -261,8 +258,7 @@ void _unitOfMeasurement() {
 
     test('abs', () {
       expect(ds('42'), Quality.fromNanolovelaces(ds('42')).abs().nanolovelaces);
-      expect(
-          ds('42'), Quality.fromNanolovelaces(ds('-42')).abs().nanolovelaces);
+      expect(ds('42'), Quality.fromNanolovelaces(ds('-42')).abs().nanolovelaces);
     });
 
     test('+', () {
@@ -285,8 +281,7 @@ void _unitOfMeasurement() {
     });
 
     test('-', () {
-      void verifySubtract(
-          Decimal operand1, Decimal operand2, Decimal expected) {
+      void verifySubtract(Decimal operand1, Decimal operand2, Decimal expected) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = Quality.fromNanolovelaces(operand2);
         final result = first - second;
@@ -321,8 +316,7 @@ void _unitOfMeasurement() {
     });
 
     test('*', () {
-      void verifyMultiply(
-          Decimal operand1, Decimal operand2, Decimal expected) {
+      void verifyMultiply(Decimal operand1, Decimal operand2, Decimal expected) {
         final first = Quality.fromNanolovelaces(operand1);
         final second = operand2;
         final result = first * second;
@@ -634,9 +628,7 @@ void _unitOfMeasurementFormat() {
             );
           },
           throwsA(
-            predicate((o) =>
-                o is FormatException &&
-                o.message == 'Unexpected end of input: unterminated string'),
+            predicate((o) => o is FormatException && o.message == 'Unexpected end of input: unterminated string'),
           ),
         );
       });
@@ -649,10 +641,8 @@ void _unitOfMeasurementFormat() {
             );
           },
           throwsA(
-            predicate((e) =>
-                e is FormatException &&
-                e.message ==
-                    'Unexpected end of input: escape sequence incomplete'),
+            predicate(
+                (e) => e is FormatException && e.message == 'Unexpected end of input: escape sequence incomplete'),
           ),
         );
       });
@@ -668,15 +658,12 @@ void _unitOfMeasurementFormat() {
             );
           },
           throwsA(
-            predicate((o) =>
-                o is FormatException &&
-                o.message == 'Unsupported unit specifier: u:nll'),
+            predicate((o) => o is FormatException && o.message == 'Unsupported unit specifier: u:nll'),
           ),
         );
       });
 
-      test('throws if format includes both dynamic and fixed unit specifiers',
-          () {
+      test('throws if format includes both dynamic and fixed unit specifiers', () {
         expect(
           () {
             QualityFormat(
@@ -686,15 +673,12 @@ void _unitOfMeasurementFormat() {
           throwsA(
             predicate((o) =>
                 o is FormatException &&
-                o.message ==
-                    'Cannot include both dynamic and fixed units in the format string'),
+                o.message == 'Cannot include both dynamic and fixed units in the format string'),
           ),
         );
       });
 
-      test(
-          'throws if format includes more than one unique fixed unit specifier',
-          () {
+      test('throws if format includes more than one unique fixed unit specifier', () {
         expect(
           () {
             QualityFormat(
@@ -702,9 +686,7 @@ void _unitOfMeasurementFormat() {
             );
           },
           throwsA(
-            predicate((o) =>
-                o is FormatException &&
-                o.message == 'Cannot include more than one unique fixed unit'),
+            predicate((o) => o is FormatException && o.message == 'Cannot include more than one unique fixed unit'),
           ),
         );
       });
@@ -755,8 +737,7 @@ void _unitOfMeasurementFormat() {
           pattern: '',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('42'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('42')).per(const Duration(seconds: 1)),
           expected: '',
         );
 
@@ -771,8 +752,7 @@ void _unitOfMeasurementFormat() {
           pattern: '0.#',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1200'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1200')).per(const Duration(seconds: 1)),
           expected: '72',
         );
       });
@@ -803,8 +783,7 @@ void _unitOfMeasurementFormat() {
           pattern: 'u r',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: 'µll min',
         );
 
@@ -812,8 +791,7 @@ void _unitOfMeasurementFormat() {
           pattern: 'U R',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: 'microlovelaces minute',
         );
 
@@ -821,20 +799,16 @@ void _unitOfMeasurementFormat() {
           pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
-          expected:
-              '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+          expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
         );
 
         verifyQualityRateFormat(
           pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(minutes: 1)),
-          expected:
-              '61.4 µll hr (61.44 microlovelaces per hour, to be more precise)',
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(minutes: 1)),
+          expected: '61.4 µll hr (61.44 microlovelaces per hour, to be more precise)',
         );
       });
 
@@ -878,8 +852,7 @@ void _unitOfMeasurementFormat() {
           pattern: 'u:cll r:min',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: 'cll min',
         );
 
@@ -887,20 +860,16 @@ void _unitOfMeasurementFormat() {
           pattern: 'U:cll R:min',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: 'centilovelaces minute',
         );
 
         verifyQualityRateFormat(
-          pattern:
-              "0.# u:µll r:min '('0.## U:µll 'per' R:min', to be more precise)'",
+          pattern: "0.# u:µll r:min '('0.## U:µll 'per' R:min', to be more precise)'",
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
-          expected:
-              '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+          expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
         );
       });
 
@@ -947,8 +916,7 @@ void _unitOfMeasurementFormat() {
           pattern: '0.# u:µll r:s',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: '1 µll s',
         );
 
@@ -956,8 +924,7 @@ void _unitOfMeasurementFormat() {
           pattern: '0.# u:µll r:day',
           valueUnits: QualityUnits.all,
           rateUnits: RateUnits.all,
-          input: Quality.fromNanolovelaces(ds('1024'))
-              .per(const Duration(seconds: 1)),
+          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
           expected: '88473.6 µll day',
         );
       });
@@ -967,8 +934,7 @@ void _unitOfMeasurementFormat() {
 
 // https://en.wikipedia.org/wiki/List_of_humorous_units_of_measurement#Quality:_Lovelace
 class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
-  Quality.fromUnits(QualityUnit unit, Decimal value)
-      : super.fromUnits(unit, value);
+  Quality.fromUnits(QualityUnit unit, Decimal value) : super.fromUnits(unit, value);
 
   factory Quality.fromNanolovelaces(Decimal nanolovelaces) =>
       Quality.fromUnits(QualityUnit.nanolovelace, nanolovelaces);
@@ -985,13 +951,10 @@ class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
   factory Quality.fromDecilovelaces(Decimal decilovelaces) =>
       Quality.fromUnits(QualityUnit.decilovelace, decilovelaces);
 
-  factory Quality.fromLovelaces(Decimal lovelaces) =>
-      Quality.fromUnits(QualityUnit.lovelace, lovelaces);
+  factory Quality.fromLovelaces(Decimal lovelaces) => Quality.fromUnits(QualityUnit.lovelace, lovelaces);
 
-  factory Quality.fromCompromisedEngineerings(
-          Decimal compromisedEngineerings) =>
-      Quality.fromUnits(
-          QualityUnit.compromisedEngineering, compromisedEngineerings);
+  factory Quality.fromCompromisedEngineerings(Decimal compromisedEngineerings) =>
+      Quality.fromUnits(QualityUnit.compromisedEngineering, compromisedEngineerings);
 
   static final zero = Quality.fromNanolovelaces(di(0));
 
@@ -1019,8 +982,7 @@ class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
 
   @override
   @protected
-  Decimal getBaseValue(QualityUnit unit, Decimal value) =>
-      value * unit._lovelaceCount;
+  Decimal getBaseValue(QualityUnit unit, Decimal value) => value * unit._lovelaceCount;
 }
 
 enum QualityUnit {
@@ -1129,8 +1091,7 @@ extension IntExtensions on int {
   Quality centilovelaces() => Quality.fromCentilovelaces(di(this));
   Quality decilovelaces() => Quality.fromDecilovelaces(di(this));
   Quality lovelaces() => Quality.fromLovelaces(di(this));
-  Quality compromisedEngineerings() =>
-      Quality.fromCompromisedEngineerings(di(this));
+  Quality compromisedEngineerings() => Quality.fromCompromisedEngineerings(di(this));
 }
 
 class QualityRate extends UnitOfMeasurementRate<Quality> {
@@ -1148,8 +1109,7 @@ class QualityRate extends UnitOfMeasurementRate<Quality> {
 
 class QualityFormat extends BaseQualityFormat<Quality> {
   QualityFormat({
-    String pattern =
-        '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<QualityUnit> valueUnits = QualityUnits.all,
     String? locale,
   }) : super(
@@ -1160,12 +1120,10 @@ class QualityFormat extends BaseQualityFormat<Quality> {
         );
 
   @override
-  QualityUnit getLargestUnit(Quality input) =>
-      input.getLargestUnit(permissibleUnits: valueUnits);
+  QualityUnit getLargestUnit(Quality input) => input.getLargestUnit(permissibleUnits: valueUnits);
 
   @override
-  Decimal getUnitQuantity(Quality input, QualityUnit unit) =>
-      input.getUnits(unit);
+  Decimal getUnitQuantity(Quality input, QualityUnit unit) => input.getUnits(unit);
 
   @override
   Quality scaleToRateUnit(Quality input, RateUnit rateUnit) =>
@@ -1187,26 +1145,21 @@ class QualityRateFormat extends BaseQualityFormat<QualityRate> {
         );
 
   @override
-  QualityUnit getLargestUnit(QualityRate input) =>
-      input.value.getLargestUnit(permissibleUnits: valueUnits);
+  QualityUnit getLargestUnit(QualityRate input) => input.value.getLargestUnit(permissibleUnits: valueUnits);
 
   @override
-  Decimal getUnitQuantity(QualityRate input, QualityUnit unit) =>
-      input.value.getUnits(unit);
+  Decimal getUnitQuantity(QualityRate input, QualityUnit unit) => input.value.getUnits(unit);
 
   @override
   QualityRate scaleToRateUnit(QualityRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale =
-        di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
-    final result =
-        Quality.fromLovelaces(input.value.lovelaces * scale).per(scaledPeriod);
+    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final result = Quality.fromLovelaces(input.value.lovelaces * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class BaseQualityFormat<TInput>
-    extends UnitOfMeasurementFormat<TInput, QualityUnit> {
+abstract class BaseQualityFormat<TInput> extends UnitOfMeasurementFormat<TInput, QualityUnit> {
   BaseQualityFormat({
     required String pattern,
     required this.valueUnits,
@@ -1221,8 +1174,7 @@ abstract class BaseQualityFormat<TInput>
   final Set<RateUnit> rateUnits;
 
   @override
-  String getPatternSpecifierFor(QualityUnit valueUnit) =>
-      valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(QualityUnit valueUnit) => valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => rateUnits;
@@ -1231,10 +1183,8 @@ abstract class BaseQualityFormat<TInput>
   Set<QualityUnit> getPermissibleValueUnits() => valueUnits;
 
   @override
-  String getUnitName(QualityUnit unit, String locale) =>
-      unit.getName(locale: locale);
+  String getUnitName(QualityUnit unit, String locale) => unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(QualityUnit unit, String locale) =>
-      unit.getSymbol(locale: locale);
+  String getUnitSymbol(QualityUnit unit, String locale) => unit.getSymbol(locale: locale);
 }
