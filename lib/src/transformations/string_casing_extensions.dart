@@ -36,6 +36,5 @@ extension StringCasingExtensions on String {
     bool convertAcryonyms = false,
     String? locale,
   }) =>
-      ToTitleCaseTransformation(convertAcronyms: convertAcryonyms)
-          .transform(this, locale ?? Intl.getCurrentLocale());
+      ToTitleCaseTransformation(convertAcronyms: convertAcryonyms).transform(this, locale ?? Intl.getCurrentLocale());
 }

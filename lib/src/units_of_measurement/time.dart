@@ -9,36 +9,28 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
   Time.fromUnits(TimeUnit unit, Decimal value) : super.fromUnits(unit, value);
 
   /// Creates a [Time] representing the specified number of [nanoseconds].
-  factory Time.fromNanoseconds(Decimal nanoseconds) =>
-      Time.fromUnits(TimeUnit.nanosecond, nanoseconds);
+  factory Time.fromNanoseconds(Decimal nanoseconds) => Time.fromUnits(TimeUnit.nanosecond, nanoseconds);
 
   /// Creates a [Time] representing the specified number of [microseconds].
-  factory Time.fromMicroseconds(Decimal microseconds) =>
-      Time.fromUnits(TimeUnit.microsecond, microseconds);
+  factory Time.fromMicroseconds(Decimal microseconds) => Time.fromUnits(TimeUnit.microsecond, microseconds);
 
   /// Creates a [Time] representing the specified number of [milliseconds].
-  factory Time.fromMilliseconds(Decimal milliseconds) =>
-      Time.fromUnits(TimeUnit.millisecond, milliseconds);
+  factory Time.fromMilliseconds(Decimal milliseconds) => Time.fromUnits(TimeUnit.millisecond, milliseconds);
 
   /// Creates a [Time] representing the specified number of [centiseconds].
-  factory Time.fromCentiseconds(Decimal centiseconds) =>
-      Time.fromUnits(TimeUnit.centisecond, centiseconds);
+  factory Time.fromCentiseconds(Decimal centiseconds) => Time.fromUnits(TimeUnit.centisecond, centiseconds);
 
   /// Creates a [Time] representing the specified number of [deciseconds].
-  factory Time.fromDeciseconds(Decimal deciseconds) =>
-      Time.fromUnits(TimeUnit.decisecond, deciseconds);
+  factory Time.fromDeciseconds(Decimal deciseconds) => Time.fromUnits(TimeUnit.decisecond, deciseconds);
 
   /// Creates a [Time] representing the specified number of [seconds].
-  factory Time.fromSeconds(Decimal seconds) =>
-      Time.fromUnits(TimeUnit.second, seconds);
+  factory Time.fromSeconds(Decimal seconds) => Time.fromUnits(TimeUnit.second, seconds);
 
   /// Creates a [Time] representing the specified number of [decaseconds].
-  factory Time.fromDecaseconds(Decimal decaseconds) =>
-      Time.fromUnits(TimeUnit.decasecond, decaseconds);
+  factory Time.fromDecaseconds(Decimal decaseconds) => Time.fromUnits(TimeUnit.decasecond, decaseconds);
 
   /// Creates a [Time] representing the specified number of [minutes].
-  factory Time.fromMinutes(Decimal minutes) =>
-      Time.fromUnits(TimeUnit.minute, minutes);
+  factory Time.fromMinutes(Decimal minutes) => Time.fromUnits(TimeUnit.minute, minutes);
 
   /// Creates a [Time] representing the specified number of [hours].
   factory Time.fromHours(Decimal hours) => Time.fromUnits(TimeUnit.hour, hours);
@@ -50,27 +42,22 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
   factory Time.fromWeeks(Decimal weeks) => Time.fromUnits(TimeUnit.week, weeks);
 
   /// Creates a [Time] representing the specified number of [fortnights].
-  factory Time.fromFortnights(Decimal fortnights) =>
-      Time.fromUnits(TimeUnit.fortnight, fortnights);
+  factory Time.fromFortnights(Decimal fortnights) => Time.fromUnits(TimeUnit.fortnight, fortnights);
 
   /// Creates a [Time] representing the specified number of [months].
-  factory Time.fromMonths(Decimal months) =>
-      Time.fromUnits(TimeUnit.month, months);
+  factory Time.fromMonths(Decimal months) => Time.fromUnits(TimeUnit.month, months);
 
   /// Creates a [Time] representing the specified number of [quarters].
-  factory Time.fromQuarters(Decimal quarters) =>
-      Time.fromUnits(TimeUnit.quarter, quarters);
+  factory Time.fromQuarters(Decimal quarters) => Time.fromUnits(TimeUnit.quarter, quarters);
 
   /// Creates a [Time] representing the specified number of [years].
   factory Time.fromYears(Decimal years) => Time.fromUnits(TimeUnit.year, years);
 
   /// Creates a [Time] representing the specified number of [decades].
-  factory Time.fromDecades(Decimal decades) =>
-      Time.fromUnits(TimeUnit.decade, decades);
+  factory Time.fromDecades(Decimal decades) => Time.fromUnits(TimeUnit.decade, decades);
 
   /// Creates a [Time] representing the specified number of [centuries].
-  factory Time.fromCenturies(Decimal centuries) =>
-      Time.fromUnits(TimeUnit.century, centuries);
+  factory Time.fromCenturies(Decimal centuries) => Time.fromUnits(TimeUnit.century, centuries);
 
   /// A [Time] of zero duration.
   static final zero = Time.fromSeconds(Decimal.zero);
@@ -144,8 +131,7 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
 
   @override
   @protected
-  Decimal getBaseValue(TimeUnit unit, Decimal value) =>
-      value * unit._secondCount;
+  Decimal getBaseValue(TimeUnit unit, Decimal value) => value * unit._secondCount;
 }
 
 /// Defines supported units of time.
@@ -443,8 +429,7 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// * [UnitOfMeasurementFormat]
 class TimeFormat extends _BaseTimeFormat<Time> {
   TimeFormat({
-    String pattern =
-        '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
     String? locale,
   }) : super._(
@@ -455,15 +440,13 @@ class TimeFormat extends _BaseTimeFormat<Time> {
         );
 
   @override
-  TimeUnit getLargestUnit(Time input) =>
-      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  TimeUnit getLargestUnit(Time input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
   Decimal getUnitQuantity(Time input, TimeUnit unit) => input.getUnits(unit);
 
   @override
-  Time scaleToRateUnit(Time input, RateUnit rateUnit) =>
-      throw UnsupportedError('Cannot scale Time to a RateUnit');
+  Time scaleToRateUnit(Time input, RateUnit rateUnit) => throw UnsupportedError('Cannot scale Time to a RateUnit');
 }
 
 /// Allows a [TimeRate] to be formatted.
@@ -504,26 +487,21 @@ class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
         );
 
   @override
-  TimeUnit getLargestUnit(TimeRate input) =>
-      input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  TimeUnit getLargestUnit(TimeRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(TimeRate input, TimeUnit unit) =>
-      input.value.getUnits(unit);
+  Decimal getUnitQuantity(TimeRate input, TimeUnit unit) => input.value.getUnits(unit);
 
   @override
   TimeRate scaleToRateUnit(TimeRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale =
-        di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
-    final result =
-        Time.fromSeconds(input.value.seconds * scale).per(scaledPeriod);
+    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final result = Time.fromSeconds(input.value.seconds * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseTimeFormat<TInput>
-    extends UnitOfMeasurementFormat<TInput, TimeUnit> {
+abstract class _BaseTimeFormat<TInput> extends UnitOfMeasurementFormat<TInput, TimeUnit> {
   _BaseTimeFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -538,8 +516,7 @@ abstract class _BaseTimeFormat<TInput>
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(TimeUnit valueUnit) =>
-      valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(TimeUnit valueUnit) => valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -548,10 +525,8 @@ abstract class _BaseTimeFormat<TInput>
   Set<TimeUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(TimeUnit unit, String locale) =>
-      unit.getName(locale: locale);
+  String getUnitName(TimeUnit unit, String locale) => unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(TimeUnit unit, String locale) =>
-      unit.getSymbol(locale: locale);
+  String getUnitSymbol(TimeUnit unit, String locale) => unit.getSymbol(locale: locale);
 }

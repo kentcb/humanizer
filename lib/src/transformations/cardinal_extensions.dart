@@ -19,8 +19,7 @@ extension CardinalExtensions on int {
     String? locale,
   }) {
     const transformation = CardinalWordsTransformation();
-    final result =
-        transformation.transform(this, locale ?? Intl.getCurrentLocale());
+    final result = transformation.transform(this, locale ?? Intl.getCurrentLocale());
     return result;
   }
 }

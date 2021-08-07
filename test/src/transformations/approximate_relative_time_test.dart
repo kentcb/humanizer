@@ -148,8 +148,7 @@ void _humanize() {
         );
       });
 
-      test('granularity makes no difference when the primary unit is seconds',
-          () {
+      test('granularity makes no difference when the primary unit is seconds', () {
         verifyHumanize(
           input: const Duration(seconds: 1),
           granularity: Granularity.primaryAndSecondaryUnits,
@@ -313,8 +312,7 @@ void _humanize() {
         );
       });
 
-      test('rounding considers seconds if granularity is primary unit only',
-          () {
+      test('rounding considers seconds if granularity is primary unit only', () {
         verifyHumanize(
           input: const Duration(minutes: 1, seconds: 29),
           granularity: Granularity.primaryUnit,
@@ -478,8 +476,7 @@ void _humanize() {
         );
       });
 
-      test('rounding considers minutes if granularity is primary unit only',
-          () {
+      test('rounding considers minutes if granularity is primary unit only', () {
         verifyHumanize(
           input: const Duration(hours: 1, minutes: 29),
           granularity: Granularity.primaryUnit,
@@ -506,9 +503,7 @@ void _humanize() {
         );
       });
 
-      test(
-          'rounding considers seconds if granularity is primary and secondary units',
-          () {
+      test('rounding considers seconds if granularity is primary and secondary units', () {
         verifyHumanize(
           input: const Duration(hours: 1, minutes: 29, seconds: 29),
           granularity: Granularity.primaryAndSecondaryUnits,
@@ -672,9 +667,7 @@ void _humanize() {
         );
       });
 
-      test(
-          'rounding considers minutes if granularity is primary and secondary units',
-          () {
+      test('rounding considers minutes if granularity is primary and secondary units', () {
         verifyHumanize(
           input: const Duration(days: 1, hours: 11, minutes: 29),
           granularity: Granularity.primaryAndSecondaryUnits,
@@ -826,9 +819,7 @@ void _humanize() {
         );
       });
 
-      test(
-          'rounding considers hours if granularity is primary and secondary units',
-          () {
+      test('rounding considers hours if granularity is primary and secondary units', () {
         verifyHumanize(
           input: const Duration(days: 10, hours: 11),
           granularity: Granularity.primaryAndSecondaryUnits,
@@ -980,9 +971,7 @@ void _humanize() {
         );
       });
 
-      test(
-          'rounding considers days if granularity is primary and secondary units',
-          () {
+      test('rounding considers days if granularity is primary and secondary units', () {
         verifyHumanize(
           input: const Duration(days: 34),
           granularity: Granularity.primaryAndSecondaryUnits,
@@ -1134,9 +1123,7 @@ void _humanize() {
         );
       });
 
-      test(
-          'rounding considers weeks if granularity is primary and secondary units',
-          () {
+      test('rounding considers weeks if granularity is primary and secondary units', () {
         verifyHumanize(
           input: const Duration(days: 525),
           granularity: Granularity.primaryAndSecondaryUnits,

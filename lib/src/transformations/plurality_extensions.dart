@@ -21,10 +21,8 @@ extension PluralityExtensions on String {
   String toSingularForm({
     String? locale,
   }) {
-    const transformation =
-        PluralityTransformation(targetPlurality: Plurality.singular);
-    final result =
-        transformation.transform(this, locale ?? Intl.getCurrentLocale());
+    const transformation = PluralityTransformation(targetPlurality: Plurality.singular);
+    final result = transformation.transform(this, locale ?? Intl.getCurrentLocale());
     return result;
   }
 
@@ -32,10 +30,8 @@ extension PluralityExtensions on String {
   String toPluralForm({
     String? locale,
   }) {
-    const transformation =
-        PluralityTransformation(targetPlurality: Plurality.plural);
-    final result =
-        transformation.transform(this, locale ?? Intl.getCurrentLocale());
+    const transformation = PluralityTransformation(targetPlurality: Plurality.plural);
+    final result = transformation.transform(this, locale ?? Intl.getCurrentLocale());
     return result;
   }
 
@@ -46,9 +42,7 @@ extension PluralityExtensions on String {
     bool includeQuantity = true,
     String? locale,
   }) {
-    final pluralized = quantity == 1
-        ? toSingularForm(locale: locale)
-        : toPluralForm(locale: locale);
+    final pluralized = quantity == 1 ? toSingularForm(locale: locale) : toPluralForm(locale: locale);
     final result = '${includeQuantity ? '$quantity ' : ''}$pluralized';
     return result;
   }

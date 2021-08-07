@@ -58,8 +58,7 @@ import 'package:meta/meta.dart';
 /// transformation.transform(Duration(hours: -1), 'en_US');
 /// ```
 @immutable
-class ApproximateRelativeTimeTransformation
-    extends Transformation<Duration, String> {
+class ApproximateRelativeTimeTransformation extends Transformation<Duration, String> {
   const ApproximateRelativeTimeTransformation({
     required this.granularity,
     required this.round,
@@ -115,10 +114,8 @@ class ApproximateRelativeTimeTransformation
     _Tense tense,
     String locale,
   ) {
-    final primaryUnit =
-        time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
-    final secondaryUnit =
-        granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
+    final primaryUnit = time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
+    final secondaryUnit = granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
 
     final primaryValue = time.getUnits(primaryUnit);
     var truncatedPrimaryValue = primaryValue.toInt();
@@ -126,8 +123,7 @@ class ApproximateRelativeTimeTransformation
     var secondaryQuantifierText = '';
 
     if (secondaryUnit != null) {
-      final remainingTime =
-          time - Time.fromUnits(primaryUnit, di(truncatedPrimaryValue));
+      final remainingTime = time - Time.fromUnits(primaryUnit, di(truncatedPrimaryValue));
       final secondaryValue = remainingTime.getUnits(secondaryUnit);
       truncatedSecondaryValue = secondaryValue.toInt();
       final fraction = primaryValue - primaryValue.truncate();
@@ -145,8 +141,7 @@ class ApproximateRelativeTimeTransformation
         }
       }
 
-      if (secondaryQuantifier == _SecondaryQuantifier.under ||
-          secondaryQuantifier == _SecondaryQuantifier.justUnder) {
+      if (secondaryQuantifier == _SecondaryQuantifier.under || secondaryQuantifier == _SecondaryQuantifier.justUnder) {
         // If the secondary value is close enough to the next primary value, we increment the primary value so that
         // things read correctly.
         truncatedPrimaryValue += 1;
@@ -159,22 +154,18 @@ class ApproximateRelativeTimeTransformation
 
     if (primaryUnit == TimeUnit.second && truncatedPrimaryValue == 0) {
       return 'now';
-    } else if (primaryUnit == TimeUnit.day &&
-        truncatedPrimaryValue == 1 &&
-        (truncatedSecondaryValue ?? 0) == 0) {
+    } else if (primaryUnit == TimeUnit.day && truncatedPrimaryValue == 1 && (truncatedSecondaryValue ?? 0) == 0) {
       return tense == _Tense.past ? 'yesterday' : 'tomorrow';
     } else {
-      final primaryUnitName =
-          primaryUnit.getName(locale: locale).toPluralFormForQuantity(
-                quantity: truncatedPrimaryValue,
-                includeQuantity: false,
-                locale: locale,
-              );
+      final primaryUnitName = primaryUnit.getName(locale: locale).toPluralFormForQuantity(
+            quantity: truncatedPrimaryValue,
+            includeQuantity: false,
+            locale: locale,
+          );
       // TODO: should be generalized and localized??
       final article = primaryUnit == TimeUnit.hour ? 'an' : 'a';
-      final period = truncatedPrimaryValue == 1
-          ? '$article $primaryUnitName'
-          : '$truncatedPrimaryValue $primaryUnitName';
+      final period =
+          truncatedPrimaryValue == 1 ? '$article $primaryUnitName' : '$truncatedPrimaryValue $primaryUnitName';
       return '$secondaryQuantifierText$period $relativity';
     }
   }

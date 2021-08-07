@@ -1,8 +1,7 @@
 import 'package:humanizer/humanizer.dart';
 
 /// The default pattern used to format unit of measurement values.
-const defaultValuePattern =
-    '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}';
+const defaultValuePattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}';
 
 /// The default pattern used to format rated unit of measurement values.
 const defaultRatePattern =
@@ -77,8 +76,7 @@ class AreaRateTransformation extends Transformation<AreaRate, String> {
 ///
 /// See also:
 /// * [InformationSizeFormat]
-class InformationSizeTransformation
-    extends Transformation<InformationSize, String> {
+class InformationSizeTransformation extends Transformation<InformationSize, String> {
   /// Creates an [InformationSizeTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits].
   const InformationSizeTransformation({
@@ -108,8 +106,7 @@ class InformationSizeTransformation
 ///
 /// See also:
 /// * [InformationRateFormat]
-class InformationRateTransformation
-    extends Transformation<InformationRate, String> {
+class InformationRateTransformation extends Transformation<InformationRate, String> {
   /// Creates an [InformationRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
   const InformationRateTransformation({
@@ -239,8 +236,7 @@ class TemperatureTransformation extends Transformation<Temperature, String> {
 ///
 /// See also:
 /// * [TemperatureRateFormat]
-class TemperatureRateTransformation
-    extends Transformation<TemperatureRate, String> {
+class TemperatureRateTransformation extends Transformation<TemperatureRate, String> {
   /// Creates a [TemperatureRateTransformation] that will format values using the specified [pattern], only using
   /// [permissibleValueUnits] and [permissibleRateUnits].
   const TemperatureRateTransformation({
