@@ -1,8 +1,8 @@
 /// A Dart library to convert values into human-friendly [String]s.
 library humanizer;
 
-export 'src/transformations/approximate_relative_time.dart';
-export 'src/transformations/approximate_relative_time_extensions.dart';
+export 'src/transformations/approximate_time.dart';
+export 'src/transformations/approximate_time_extensions.dart';
 export 'src/transformations/cardinal.dart';
 export 'src/transformations/cardinal_extensions.dart';
 export 'src/transformations/ordinal.dart';
