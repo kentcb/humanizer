@@ -1,14 +1,15 @@
 import 'package:humanizer/humanizer.dart';
 
 void main() {
-  _symbols();
+  _approximateTime();
+  _cardinalNumbers();
+  _ordinalNumbers();
+  _plurality();
   _stringCasing();
   _stringTruncation();
-  _approximateRelativeTime();
-  _plurality();
-  _ordinalNumbers();
-  _cardinalNumbers();
+  _symbols();
   _unitsOfMeasurement();
+
   _transformationsLayer();
 }
 
@@ -62,19 +63,30 @@ void _stringTruncation() {
   }
 }
 
-void _approximateRelativeTime() {
-  _printTitle('Approximate Relative Time');
+void _approximateTime() {
+  _printTitle('Approximate Time');
 
-  final now = DateTime.now();
-  final startOfMonth = DateTime(now.year, now.month, 1);
-  final startOfDay = DateTime(now.year, now.month, now.day);
-
-  print("startOfMonth.humanizeRelativeDateTime() => '${startOfMonth.humanizeRelativeDateTime()}'");
+  print("Duration.zero.toApproximateTime() => '${Duration.zero.toApproximateTime()}'");
   print(
-      "startOfMonth.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits) => '${startOfMonth.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits)}'");
-  print("startOfDay.humanizeRelativeDateTime() => '${startOfDay.humanizeRelativeDateTime()}'");
+      "Duration.zero.toApproximateTime(isRelativeToNow: false) => '${Duration.zero.toApproximateTime(isRelativeToNow: false)}'");
+  print("const Duration(seconds: 28).toApproximateTime() => '${const Duration(seconds: 28).toApproximateTime()}'");
   print(
-      "startOfDay.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits) => '${startOfDay.humanizeRelativeDateTime(granularity: Granularity.primaryAndSecondaryUnits)}'");
+      "const Duration(seconds: 28).toApproximateTime(isRelativeToNow: false) => '${const Duration(seconds: 28).toApproximateTime(isRelativeToNow: false)}'");
+  print("const Duration(seconds: -28).toApproximateTime() => '${const Duration(seconds: -28).toApproximateTime()}'");
+  print(
+      "const Duration(seconds: -28).toApproximateTime(isRelativeToNow: false) => '${const Duration(seconds: -28).toApproximateTime(isRelativeToNow: false)}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime() => '${const Duration(hours: 2, minutes: 40).toApproximateTime()}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false) => '${const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false)}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime(round: false) => '${const Duration(hours: 2, minutes: 40).toApproximateTime(round: false)}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false, round: false) => '${const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false, round: false)}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime(granularity: Granularity.primaryAndSecondaryUnits) => '${const Duration(hours: 2, minutes: 40).toApproximateTime(granularity: Granularity.primaryAndSecondaryUnits)}'");
+  print(
+      "const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false, granularity: Granularity.primaryAndSecondaryUnits) => '${const Duration(hours: 2, minutes: 40).toApproximateTime(isRelativeToNow: false, granularity: Granularity.primaryAndSecondaryUnits)}'");
 }
 
 void _plurality() {

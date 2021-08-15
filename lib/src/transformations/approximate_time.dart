@@ -3,21 +3,24 @@ import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:meta/meta.dart';
 
-/// A transformation to convert a [Duration] representing an offset of time from "now", into an approximate,
-/// human-friendly description.
+/// A transformation to convert a [Duration] representing an offset of time into an approximate, human-friendly
+/// description.
 ///
-/// This transformation produces a humanized description of the input [Duration], which represents some offset from
-/// "now". Positive values are considered to be in the future and negative values in the past.
+/// This transformation produces a humanized description of an input [Duration], which is used to calculate a value for
+/// each supported [TimeUnit]. The highest unit to have a non-zero value is considered the "primary" unit, and the next
+/// smaller unit is the "secondary" regardless of whether it has a non-zero value. In the case of the primary unit being
+/// the smallest supported unit (seconds), there is no secondary unit.
 ///
-/// The input [Duration] is used to calculate a value for each supported [TimeUnit]. The highest unit to have a non-zero
-/// value is considered the "primary" unit, and the next smaller unit is the "secondary" regardless of whether it has a
-/// non-zero value. In the case of the primary unit being the smallest supported unit (seconds), there is no secondary
-/// unit.
+/// If [isRelativeToNow] is `true`, the input [Duration] is assumed to be relative to now, which allows for additional
+/// context to be included in the output. A negative input is considered to be in the past, whilst a positive input is
+/// in the future. For example, an output of `'tomorrow'` only makes sense when the input is relative to now. If
+/// [isRelativeToNow] is `false`, a simpler output will be produced making no assumptions about the relativity of the
+/// input. In addition, the sign of the input is ignored.
 ///
 /// The [granularity] argument determines whether only the primary unit affects the output, or whether the secondary
 /// unit is used to provide a lengthier, but more refined description. For example, a [Duration] of 1 hour and 5 minutes
-/// will be described at "an hour from now" for a primary-only granularity, or "just over an hour from now" for a
-/// primary and secondary granularity.
+/// will be described at `'an hour from now'` for a primary-only granularity, or `'just over an hour from now'` for a
+/// primary and secondary granularity (assuming [isRelativeToNow] is `true` in both examples).
 ///
 /// Prior to transformation, the calculated tally of units can optionally be rounded by setting [round] is `true`.
 /// Rounding involves examining the highest unit value _not_ included in the output (i.e. the secondary unit value if
@@ -27,25 +30,30 @@ import 'package:meta/meta.dart';
 ///
 /// The table below gives some examples of how given inputs are transformed when using the specified configuration:
 ///
-/// | Duration | Granularity | Round | Output |
+/// | Duration | Granularity | Round | Is Relative to Now | Output |
 /// |-|-|-|-|
-/// | 0 seconds | N/A | N/A | `now` |
-/// | 1 second | N/A | N/A | `a second from now` |
-/// | -1 second | N/A | N/A | `a second ago` |
-/// | 3 seconds | N/A | N/A | `3 seconds from now` |
-/// | 1 minute, 30 seconds | `primaryUnit` | `false` | `a minute from now` |
-/// | 1 minute, 30 seconds | `primaryUnit` | `true` | `2 minutes from now` |
-/// | 1 minute, 5 seconds | `primaryAndSecondaryUnits` | N/A | `just over a minute from now` |
-/// | 1 minute, 55 seconds | `primaryAndSecondaryUnits` | N/A | `just under 2 minutes from now` |
-/// | 1 hour, 29 minutes, 30 seconds | `primaryUnit` | `true` | `an hour from now` |
-/// | 1 hour, 30 minutes, 30 seconds | `primaryUnit` | `true` | `2 hours from now` |
-/// | 1 hour, 29 minutes, 29 seconds | `primaryAndSecondaryUnits` | `true` | `over an hour from now` |
-/// | 1 hour, 29 minutes, 30 seconds | `primaryAndSecondaryUnits` | `true` | `under 2 hours from now` |
+/// | 0 seconds | N/A | N/A | `true` | `now` |
+/// | 0 seconds | N/A | N/A | `false` | `zero` |
+/// | 1 second | N/A | N/A | `true` | `a second from now` |
+/// | 1 second | N/A | N/A | `false` | `1 second` |
+/// | -1 second | N/A | N/A | `true` | `a second ago` |
+/// | -1 second | N/A | N/A | `false` | `1 second` |
+/// | 3 seconds | N/A | N/A | `true` | `3 seconds from now` |
+/// | 3 seconds | N/A | N/A | `false` | `3 seconds` |
+/// | 1 minute, 30 seconds | `primaryUnit` | `false` | `true` | `a minute from now` |
+/// | 1 minute, 30 seconds | `primaryUnit` | `true` | `true` | `2 minutes from now` |
+/// | 1 minute, 5 seconds | `primaryAndSecondaryUnits` | N/A | `true` | `just over a minute from now` |
+/// | 1 minute, 55 seconds | `primaryAndSecondaryUnits` | N/A | `true` | `just under 2 minutes from now` |
+/// | 1 hour, 29 minutes, 30 seconds | `primaryUnit` | `true` | `true` | `an hour from now` |
+/// | 1 hour, 30 minutes, 30 seconds | `primaryUnit` | `true` | `true` | `2 hours from now` |
+/// | 1 hour, 29 minutes, 29 seconds | `primaryAndSecondaryUnits` | `true` | `true` | `over an hour from now` |
+/// | 1 hour, 29 minutes, 30 seconds | `primaryAndSecondaryUnits` | `true` | `true` / `under 2 hours from now` |
 ///
 /// ```
-/// final transformation = ApproximateRelativeTimeTransformation(
+/// final transformation = ApproximateTimeTransformation(
 ///   granularity: Granularity.primaryAndSecondaryUnits,
 ///   round: true,
+///   isRelativeToNow: true,
 /// );
 ///
 /// // 'over an hour from now'
@@ -58,10 +66,11 @@ import 'package:meta/meta.dart';
 /// transformation.transform(Duration(hours: -1), 'en_US');
 /// ```
 @immutable
-class ApproximateRelativeTimeTransformation extends Transformation<Duration, String> {
-  const ApproximateRelativeTimeTransformation({
+class ApproximateTimeTransformation extends Transformation<Duration, String> {
+  const ApproximateTimeTransformation({
     required this.granularity,
     required this.round,
+    required this.isRelativeToNow,
   });
 
   static final _supportedTimeUnits = <TimeUnit>{
@@ -80,9 +89,13 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
   /// Whether to round the input [Duration] prior to humanizing it.
   final bool round;
 
+  /// If `true`, the input [Duration] will be interpreted as relative to now. Doing so allows the output to be tailored
+  /// under that assumption, such as producing `'now'` or `'tomorrow'`.
+  final bool isRelativeToNow;
+
   @override
   String transform(Duration input, String locale) {
-    final tense = input.isNegative ? _Tense.past : _Tense.future;
+    final sign = input.isNegative ? _Sign.negative : _Sign.positive;
     input = input.abs();
 
     var time = input.inSeconds.seconds();
@@ -101,8 +114,9 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
     // Then transform the rounded value.
     final result = _transformFrom(
       time,
+      isRelativeToNow,
       granularity,
-      tense,
+      sign,
       locale,
     );
     return result;
@@ -110,8 +124,9 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
 
   static String _transformFrom(
     Time time,
+    bool isRelativeToNow,
     Granularity granularity,
-    _Tense tense,
+    _Sign sign,
     String locale,
   ) {
     final primaryUnit = time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
@@ -120,7 +135,7 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
     final primaryValue = time.getUnits(primaryUnit);
     var truncatedPrimaryValue = primaryValue.toInt();
     int? truncatedSecondaryValue;
-    var secondaryQuantifierText = '';
+    String? secondaryQuantifierText;
 
     if (secondaryUnit != null) {
       final remainingTime = time - Time.fromUnits(primaryUnit, di(truncatedPrimaryValue));
@@ -150,28 +165,38 @@ class ApproximateRelativeTimeTransformation extends Transformation<Duration, Str
       secondaryQuantifierText = secondaryQuantifier.toLocalizedString(locale);
     }
 
-    final relativity = tense == _Tense.past ? 'ago' : 'from now';
-
-    if (primaryUnit == TimeUnit.second && truncatedPrimaryValue == 0) {
+    if (!isRelativeToNow && time == Time.zero) {
+      return 'zero';
+    } else if (isRelativeToNow && primaryUnit == TimeUnit.second && truncatedPrimaryValue == 0) {
       return 'now';
-    } else if (primaryUnit == TimeUnit.day && truncatedPrimaryValue == 1 && (truncatedSecondaryValue ?? 0) == 0) {
-      return tense == _Tense.past ? 'yesterday' : 'tomorrow';
+    } else if (isRelativeToNow &&
+        primaryUnit == TimeUnit.day &&
+        truncatedPrimaryValue == 1 &&
+        (truncatedSecondaryValue ?? 0) == 0) {
+      return sign == _Sign.negative ? 'yesterday' : 'tomorrow';
     } else {
       final primaryUnitName = primaryUnit.getName(locale: locale).toPluralFormForQuantity(
             quantity: truncatedPrimaryValue,
             includeQuantity: false,
             locale: locale,
           );
-      // TODO: should be generalized and localized??
-      final article = primaryUnit == TimeUnit.hour ? 'an' : 'a';
-      final period =
-          truncatedPrimaryValue == 1 ? '$article $primaryUnitName' : '$truncatedPrimaryValue $primaryUnitName';
-      return '$secondaryQuantifierText$period $relativity';
+
+      return <String>[
+        if (secondaryQuantifierText != null) secondaryQuantifierText,
+        if (isRelativeToNow && truncatedPrimaryValue == 1)
+          // TODO: should be generalized and localized??
+          if (primaryUnit == TimeUnit.hour) 'an' else 'a'
+        else
+          truncatedPrimaryValue.toString(),
+        primaryUnitName,
+        if (isRelativeToNow)
+          if (sign == _Sign.negative) 'ago' else 'from now',
+      ].join(' ');
     }
   }
 }
 
-/// Defines levels of granularity a [DateTime] can be humanized by a [ApproximateRelativeTimeTransformation].
+/// Defines levels of granularity a [DateTime] can be humanized by a [ApproximateTimeTransformation].
 enum Granularity {
   /// Only the primary unit is considered when humanizing.
   primaryUnit,
@@ -180,9 +205,9 @@ enum Granularity {
   primaryAndSecondaryUnits,
 }
 
-enum _Tense {
-  past,
-  future,
+enum _Sign {
+  positive,
+  negative,
 }
 
 enum _SecondaryQuantifier {
@@ -199,13 +224,13 @@ extension _SecondaryQuantifierExtensions on _SecondaryQuantifier {
       case _SecondaryQuantifier.none:
         return '';
       case _SecondaryQuantifier.justOver:
-        return 'just over ';
+        return 'just over';
       case _SecondaryQuantifier.over:
-        return 'over ';
+        return 'over';
       case _SecondaryQuantifier.under:
-        return 'under ';
+        return 'under';
       case _SecondaryQuantifier.justUnder:
-        return 'just under ';
+        return 'just under';
     }
   }
 }
