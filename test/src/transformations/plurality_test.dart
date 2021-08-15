@@ -4,12 +4,94 @@ import 'package:humanizer/src/transformations/plurality.dart';
 import 'package:test/test.dart';
 
 void main() {
-  _plurality();
+  _toSingular();
+  _toPlural();
+  _both();
 }
 
-void _plurality() {
-  group('humanize', () {
-    void verifyPlurality({
+void _toSingular() {
+  group('to singular', () {
+    void verify({
+      required String input,
+      required String expected,
+      required bool inputMayAlreadyHaveTargetPlurality,
+    }) {
+      final transformation = PluralityTransformation(
+        targetPlurality: Plurality.singular,
+        inputMayAlreadyHaveTargetPlurality: inputMayAlreadyHaveTargetPlurality,
+      );
+      final result = transformation.transform(input, '');
+      expect(result, expected);
+    }
+
+    test('can singularize when plurality is unknown', () {
+      _singularToPluralMap.forEach((singular, plural) {
+        verify(
+          input: plural,
+          expected: singular,
+          inputMayAlreadyHaveTargetPlurality: true,
+        );
+        verify(
+          input: singular,
+          expected: singular,
+          inputMayAlreadyHaveTargetPlurality: true,
+        );
+      });
+    });
+
+    test('can singularize when plurality is known', () {
+      _singularToPluralMap.forEach((singular, plural) => verify(
+            input: plural,
+            expected: singular,
+            inputMayAlreadyHaveTargetPlurality: false,
+          ));
+    });
+  });
+}
+
+void _toPlural() {
+  group('to plural', () {
+    void verify({
+      required String input,
+      required String expected,
+      required bool inputMayAlreadyHaveTargetPlurality,
+    }) {
+      final transformation = PluralityTransformation(
+        targetPlurality: Plurality.plural,
+        inputMayAlreadyHaveTargetPlurality: inputMayAlreadyHaveTargetPlurality,
+      );
+      final result = transformation.transform(input, '');
+      expect(result, expected);
+    }
+
+    test('can pluralize when plurality is unknown', () {
+      _singularToPluralMap.forEach((singular, plural) {
+        verify(
+          input: singular,
+          expected: plural,
+          inputMayAlreadyHaveTargetPlurality: true,
+        );
+        verify(
+          input: plural,
+          expected: plural,
+          inputMayAlreadyHaveTargetPlurality: true,
+        );
+      });
+    });
+
+    test('can pluralize when plurality is known', () {
+      _singularToPluralMap.forEach((singular, plural) => verify(
+            input: singular,
+            expected: plural,
+            inputMayAlreadyHaveTargetPlurality: false,
+          ));
+    });
+  });
+}
+
+void _both() {
+  group('both', () {
+    void verify({
       required String input,
       required Plurality targetPlurality,
       required String expected,
@@ -23,58 +105,6 @@ void _plurality() {
       expect(result, expected);
     }
 
-    test('can pluralize when plurality is unknown', () {
-      _singularToPluralMap.forEach((singular, plural) {
-        verifyPlurality(
-          input: singular,
-          targetPlurality: Plurality.plural,
-          expected: plural,
-          inputMayAlreadyHaveTargetPlurality: true,
-        );
-        verifyPlurality(
-          input: plural,
-          targetPlurality: Plurality.plural,
-          expected: plural,
-          inputMayAlreadyHaveTargetPlurality: true,
-        );
-      });
-    });
-
-    test('can pluralize when plurality is known', () {
-      _singularToPluralMap.forEach((singular, plural) => verifyPlurality(
-            input: singular,
-            targetPlurality: Plurality.plural,
-            expected: plural,
-            inputMayAlreadyHaveTargetPlurality: false,
-          ));
-    });
-
-    test('can singularize when plurality is unknown', () {
-      _singularToPluralMap.forEach((singular, plural) {
-        verifyPlurality(
-          input: plural,
-          targetPlurality: Plurality.singular,
-          expected: singular,
-          inputMayAlreadyHaveTargetPlurality: true,
-        );
-        verifyPlurality(
-          input: singular,
-          targetPlurality: Plurality.singular,
-          expected: singular,
-          inputMayAlreadyHaveTargetPlurality: true,
-        );
-      });
-    });
-
-    test('can singularize when plurality is known', () {
-      _singularToPluralMap.forEach((singular, plural) => verifyPlurality(
-            input: plural,
-            targetPlurality: Plurality.singular,
-            expected: singular,
-            inputMayAlreadyHaveTargetPlurality: false,
-          ));
-    });
-
     final whitespaceVariants = [
       ' ',
       '    ',
@@ -84,13 +114,13 @@ void _plurality() {
 
     test('leading whitespace is left intact', () {
       whitespaceVariants.forEach((whitespaceVariant) => _singularToPluralMap.forEach((singular, plural) {
-            verifyPlurality(
+            verify(
               input: '$whitespaceVariant$plural',
               targetPlurality: Plurality.singular,
               expected: '$whitespaceVariant$singular',
               inputMayAlreadyHaveTargetPlurality: false,
             );
-            verifyPlurality(
+            verify(
               input: '$whitespaceVariant$singular',
               targetPlurality: Plurality.plural,
               expected: '$whitespaceVariant$plural',
@@ -101,13 +131,13 @@ void _plurality() {
 
     test('trailing whitespace is left intact', () {
       whitespaceVariants.forEach((whitespaceVariant) => _singularToPluralMap.forEach((singular, plural) {
-            verifyPlurality(
+            verify(
               input: '$plural$whitespaceVariant',
               targetPlurality: Plurality.singular,
               expected: '$singular$whitespaceVariant',
               inputMayAlreadyHaveTargetPlurality: false,
             );
-            verifyPlurality(
+            verify(
               input: '$singular$whitespaceVariant',
               targetPlurality: Plurality.plural,
               expected: '$plural$whitespaceVariant',
@@ -117,7 +147,13 @@ void _plurality() {
     });
 
     test('multiple words are treated as one', () {
-      verifyPlurality(
+      verify(
+        input: 'ship fox ox',
+        targetPlurality: Plurality.singular,
+        expected: 'ship fox ox',
+        inputMayAlreadyHaveTargetPlurality: false,
+      );
+      verify(
         input: 'ship fox ox',
         targetPlurality: Plurality.plural,
         expected: 'ship fox oxen',

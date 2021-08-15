@@ -11,7 +11,7 @@ void main() {
 
 void _truncateFixedLength() {
   group('truncate fixed length', () {
-    void verifyTruncateFixedLength({
+    void verify({
       required String input,
       required int length,
       required String expected,
@@ -32,46 +32,46 @@ void _truncateFixedLength() {
       );
     }
 
-    verifyTruncateFixedLength(
+    verify(
       input: '',
       length: 0,
       expected: '',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: '',
       length: 10,
       expected: '',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: 'A',
       length: 1,
       expected: 'A',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: 'A',
       length: 10,
       expected: 'A',
     );
 
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: 'Some text…',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: '… too long',
       truncateAt: TruncateAt.start,
     );
 
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: 'Some te---',
       truncationIndicator: '---',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: '---oo long',
@@ -79,19 +79,19 @@ void _truncateFixedLength() {
       truncationIndicator: '---',
     );
 
-    verifyTruncateFixedLength(
+    verify(
       input: 'Text',
       length: 2,
       expected: 'Te',
       truncationIndicator: '---',
     );
 
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 19,
       expected: 'Some text with 😎 a…',
     );
-    verifyTruncateFixedLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 13,
       expected: '…h 😎 an emoji',
@@ -102,7 +102,7 @@ void _truncateFixedLength() {
 
 void _truncateFixedNonWhitespaceLength() {
   group('truncate fixed non-whitespace length', () {
-    void verifyTruncateFixedNonWhitespaceLength({
+    void verify({
       required String input,
       required int length,
       required String expected,
@@ -123,46 +123,46 @@ void _truncateFixedNonWhitespaceLength() {
       );
     }
 
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: '',
       length: 0,
       expected: '',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: '',
       length: 10,
       expected: '',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'A',
       length: 1,
       expected: 'A',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'A',
       length: 10,
       expected: 'A',
     );
 
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: 'Some text t…',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: '…is too long',
       truncateAt: TruncateAt.start,
     );
 
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: 'Some tex---',
       truncationIndicator: '---',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text that is too long',
       length: 10,
       expected: '---too long',
@@ -170,19 +170,19 @@ void _truncateFixedNonWhitespaceLength() {
       truncationIndicator: '---',
     );
 
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Text',
       length: 2,
       expected: 'Te',
       truncationIndicator: '---',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: '    T  e  x  t  ',
       length: 2,
       expected: '    T  e',
       truncationIndicator: '---',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: '  T  e  x  t    ',
       length: 2,
       expected: 'x  t    ',
@@ -190,12 +190,12 @@ void _truncateFixedNonWhitespaceLength() {
       truncationIndicator: '---',
     );
 
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 15,
       expected: 'Some text with 😎 a…',
     );
-    verifyTruncateFixedNonWhitespaceLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 10,
       expected: '…h 😎 an emoji',
@@ -206,7 +206,7 @@ void _truncateFixedNonWhitespaceLength() {
 
 void _truncateFixedWordLength() {
   group('truncate fixed word length', () {
-    void verifyTruncateFixedWordLength({
+    void verify({
       required String input,
       required int length,
       required String expected,
@@ -227,64 +227,64 @@ void _truncateFixedWordLength() {
       );
     }
 
-    verifyTruncateFixedWordLength(
+    verify(
       input: '',
       length: 0,
       expected: '…',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: '',
       length: 0,
       expected: '…',
       truncateAt: TruncateAt.start,
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: '',
       length: 10,
       expected: '',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: '',
       length: 10,
       expected: '',
       truncateAt: TruncateAt.start,
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'A',
       length: 1,
       expected: 'A',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'A',
       length: 1,
       expected: 'A',
       truncateAt: TruncateAt.start,
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'A',
       length: 10,
       expected: 'A',
     );
 
-    verifyTruncateFixedWordLength(
+    verify(
       input: '  Some text that is too long  ',
       length: 4,
       expected: '  Some text that is…',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: '  Some text that is too long  ',
       length: 4,
       expected: '…that is too long  ',
       truncateAt: TruncateAt.start,
     );
 
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some text that is too long',
       length: 4,
       expected: 'Some text that is---',
       truncationIndicator: '---',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some text that is too long',
       length: 4,
       expected: '---that is too long',
@@ -292,24 +292,24 @@ void _truncateFixedWordLength() {
       truncationIndicator: '---',
     );
 
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some   text  that  is    too  long  ',
       length: 4,
       expected: 'Some   text  that  is…',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some   text  that  is    too  long  ',
       length: 4,
       expected: '…that  is    too  long  ',
       truncateAt: TruncateAt.start,
     );
 
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 5,
       expected: 'Some text with 😎 an…',
     );
-    verifyTruncateFixedWordLength(
+    verify(
       input: 'Some text with 😎 an emoji',
       length: 4,
       expected: '…with 😎 an emoji',
