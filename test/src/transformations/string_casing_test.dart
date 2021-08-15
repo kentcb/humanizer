@@ -8,7 +8,7 @@ void main() {
 
 void _toSentenceCase() {
   group('to sentence case', () {
-    void verifyToSentenceCase({
+    void verify({
       required String input,
       required String expected,
       bool convertAcronyms = false,
@@ -23,25 +23,25 @@ void _toSentenceCase() {
       );
     }
 
-    verifyToSentenceCase(input: '', expected: '');
-    verifyToSentenceCase(input: 'Abc', expected: 'Abc');
-    verifyToSentenceCase(input: 'abc', expected: 'Abc');
-    verifyToSentenceCase(input: 'ABC', expected: 'ABC');
-    verifyToSentenceCase(input: 'ABC', expected: 'Abc', convertAcronyms: true);
-    verifyToSentenceCase(input: 'ACRONYM first', expected: 'ACRONYM first');
-    verifyToSentenceCase(input: 'ACRONYM first', expected: 'Acronym first', convertAcronyms: true);
-    verifyToSentenceCase(input: 'acronym SECOND', expected: 'Acronym SECOND');
-    verifyToSentenceCase(input: 'acronym SECOND', expected: 'Acronym second', convertAcronyms: true);
-    verifyToSentenceCase(input: 'first sentence. second sentence.', expected: 'First sentence. Second sentence.');
-    verifyToSentenceCase(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST sentence. SECOND sentence.');
-    verifyToSentenceCase(
+    verify(input: '', expected: '');
+    verify(input: 'Abc', expected: 'Abc');
+    verify(input: 'abc', expected: 'Abc');
+    verify(input: 'ABC', expected: 'ABC');
+    verify(input: 'ABC', expected: 'Abc', convertAcronyms: true);
+    verify(input: 'ACRONYM first', expected: 'ACRONYM first');
+    verify(input: 'ACRONYM first', expected: 'Acronym first', convertAcronyms: true);
+    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
+    verify(input: 'acronym SECOND', expected: 'Acronym second', convertAcronyms: true);
+    verify(input: 'first sentence. second sentence.', expected: 'First sentence. Second sentence.');
+    verify(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST sentence. SECOND sentence.');
+    verify(
         input: 'FIRST sentence. SECOND sentence.', expected: 'First sentence. Second sentence.', convertAcronyms: true);
-    verifyToSentenceCase(input: 'first. \tsecond.', expected: 'First. \tSecond.');
-    verifyToSentenceCase(input: 'extra whitespace .   second .  ', expected: 'Extra whitespace .   Second .  ');
-    verifyToSentenceCase(
+    verify(input: 'first. \tsecond.', expected: 'First. \tSecond.');
+    verify(input: 'extra whitespace .   second .  ', expected: 'Extra whitespace .   Second .  ');
+    verify(
         input: 'alternative punctuation! see? cool: one — two',
         expected: 'Alternative punctuation! See? Cool: One — Two');
-    verifyToSentenceCase(
+    verify(
         input: 'here is some text, FYI. I hope you like it! peace',
         expected: 'Here is some text, FYI. I hope you like it! Peace');
   });
@@ -49,7 +49,7 @@ void _toSentenceCase() {
 
 void _toTitleCase() {
   group('to title case', () {
-    void verifyToTitleCase({
+    void verify({
       required String input,
       required String expected,
       bool convertAcronyms = false,
@@ -64,25 +64,25 @@ void _toTitleCase() {
       );
     }
 
-    verifyToTitleCase(input: '', expected: '');
-    verifyToTitleCase(input: 'Abc', expected: 'Abc');
-    verifyToTitleCase(input: 'abc', expected: 'Abc');
-    verifyToTitleCase(input: 'ABC', expected: 'ABC');
-    verifyToTitleCase(input: 'ABC', expected: 'Abc', convertAcronyms: true);
-    verifyToTitleCase(input: 'ACRONYM first', expected: 'ACRONYM First');
-    verifyToTitleCase(input: 'ACRONYM first', expected: 'Acronym First', convertAcronyms: true);
-    verifyToTitleCase(input: 'acronym SECOND', expected: 'Acronym SECOND');
-    verifyToTitleCase(input: 'acronym SECOND', expected: 'Acronym Second', convertAcronyms: true);
-    verifyToTitleCase(input: 'first sentence. second sentence.', expected: 'First Sentence. Second Sentence.');
-    verifyToTitleCase(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST Sentence. SECOND Sentence.');
-    verifyToTitleCase(
+    verify(input: '', expected: '');
+    verify(input: 'Abc', expected: 'Abc');
+    verify(input: 'abc', expected: 'Abc');
+    verify(input: 'ABC', expected: 'ABC');
+    verify(input: 'ABC', expected: 'Abc', convertAcronyms: true);
+    verify(input: 'ACRONYM first', expected: 'ACRONYM First');
+    verify(input: 'ACRONYM first', expected: 'Acronym First', convertAcronyms: true);
+    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
+    verify(input: 'acronym SECOND', expected: 'Acronym Second', convertAcronyms: true);
+    verify(input: 'first sentence. second sentence.', expected: 'First Sentence. Second Sentence.');
+    verify(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST Sentence. SECOND Sentence.');
+    verify(
         input: 'FIRST sentence. SECOND sentence.', expected: 'First Sentence. Second Sentence.', convertAcronyms: true);
-    verifyToTitleCase(input: 'first. \tsecond.', expected: 'First. \tSecond.');
-    verifyToTitleCase(input: 'extra whitespace .   second .  ', expected: 'Extra Whitespace .   Second .  ');
-    verifyToTitleCase(
+    verify(input: 'first. \tsecond.', expected: 'First. \tSecond.');
+    verify(input: 'extra whitespace .   second .  ', expected: 'Extra Whitespace .   Second .  ');
+    verify(
         input: 'alternative punctuation! see? cool: one — two',
         expected: 'Alternative Punctuation! See? Cool: One — Two');
-    verifyToTitleCase(
+    verify(
         input: 'here is some text, FYI. I hope you like it! peace',
         expected: 'Here Is Some Text, FYI. I Hope You Like It! Peace');
   });
