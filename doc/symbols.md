@@ -4,26 +4,28 @@ This feature allows you to convert programming symbol names into human-friendly 
 
 ## Extensions
 
-The `humanizeSymbolName` extension method implements the extensions layer for this feature.
+The `toHumanizedName` extension method implements the extensions layer for this feature.
 
 ```dart
 // 'some symbol name'
-'someSymbolName'.humanizeSymbolName();
+SymbolName('someSymbolName').toHumanizedName();
 
 // 'another symbol name'
-'another_symbol_name'.humanizeSymbolName();
+SymbolName('another_symbol_name').toHumanizedName();
 
 // 'you and I are GOAT'
-'YouAndIAreGOAT'.humanizeSymbolName();
+SymbolName('YouAndIAreGOAT').toHumanizedName();
 ```
+
+Note the use of the `SymbolName` wrapper type, avoiding the need to define the extension method against `String`, which would pollute code completion.
 
 ## Transformations
 
-The `SymbolNameTransformation` class implements the transformation layer for this feature.
+The `SymbolToHumanizedNameTransformation` class implements the transformation layer for this feature.
 
 ```dart
-const transformation = SymbolNameTransformation();
+const transformation = SymbolToHumanizedNameTransformation();
 
 // 'you and I are GOAT'
-transformation.transform('YouAndIAreGOAT', 'en');
+transformation.transform(SymbolName('YouAndIAreGOAT'), 'en');
 ```

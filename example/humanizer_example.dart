@@ -25,7 +25,7 @@ void _symbols() {
   ];
 
   for (final symbolName in symbolNames) {
-    print("'$symbolName'.humanizeSymbolName() => '${symbolName.humanizeSymbolName()}'");
+    print("SymbolName('$symbolName').toHumanizedName() => '${SymbolName(symbolName).toHumanizedName()}'");
   }
 }
 
@@ -171,7 +171,7 @@ void _transformationsLayer() {
   _printTitle('Transformations Layer');
 
   // We're composing multiple transformations together here by using 'then'.
-  final transformation = const SymbolNameTransformation()
+  final transformation = const SymbolToHumanizedNameTransformation()
       .then(const ToSentenceCaseTransformation(convertAcronyms: false))
       .then(const TruncateToFixedWordLengthTransformation(
         length: 3,
@@ -188,7 +188,8 @@ void _transformationsLayer() {
   ];
 
   for (final symbolName in symbolNames) {
-    print("transformation.transform('$symbolName', 'en') => '${transformation.transform(symbolName, 'en')}'");
+    print(
+        "transformation.transform(SymbolName('$symbolName'), 'en') => '${transformation.transform(SymbolName(symbolName), 'en')}'");
   }
 }
 

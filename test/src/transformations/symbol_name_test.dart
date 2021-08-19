@@ -2,10 +2,10 @@ import 'package:test/test.dart';
 import 'package:humanizer/humanizer.dart';
 
 void main() {
-  _humanizeSymbolName();
+  _symbolToHumanizedName();
 }
 
-void _humanizeSymbolName() {
+void _symbolToHumanizedName() {
   void verify({
     required String input,
     required String expected,
@@ -13,8 +13,8 @@ void _humanizeSymbolName() {
     test(
       '$input → $expected',
       () {
-        const transformation = SymbolNameTransformation();
-        final result = transformation.transform(input, '');
+        const transformation = SymbolToHumanizedNameTransformation();
+        final result = transformation.transform(SymbolName(input), '');
         expect(result, expected);
       },
     );
