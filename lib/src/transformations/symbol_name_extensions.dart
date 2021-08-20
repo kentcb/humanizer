@@ -1,21 +1,21 @@
 import 'package:humanizer/src/transformations/symbol_name.dart';
 import 'package:intl/intl.dart';
 
-/// Provides symbol-related humanizing extensions on [String].
-extension SymbolNameExtensions on String {
-  /// Gets a humanized transformation of this [String] under the assumption that it is camel-, pascal-, snake-, or
+/// Provides symbol-related humanizing extensions on [SymbolName].
+extension SymbolNameExtensions on SymbolName {
+  /// Gets a humanized transformation of this [SymbolName] under the assumption that it is camel-, pascal-, snake-, or
   /// kebab-cased.
   ///
   /// ```
   /// // 'some symbol name'
-  /// 'someSymbolName'.humanizeSymbolName();
+  /// SymbolName('someSymbolName').toHumanizedName();
   ///
   /// // 'another symbol name'
-  /// 'another_symbol_name'.humanizeSymbolName();
+  /// SymbolName('another_symbol_name').toHumanizedName();
   /// ```
   ///
   /// See also:
-  /// * [SymbolNameTransformation]
-  String humanizeSymbolName({String? locale}) =>
-      const SymbolNameTransformation().transform(this, locale ?? Intl.getCurrentLocale());
+  /// * [SymbolToHumanizedNameTransformation]
+  String toHumanizedName({String? locale}) =>
+      const SymbolToHumanizedNameTransformation().transform(this, locale ?? Intl.getCurrentLocale());
 }

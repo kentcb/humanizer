@@ -1,8 +1,20 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
 
-/// A transformation to convert a [String] containing a symbol name into a human-friendly representation thereof. The
-/// symbol name can be camel-, pascal-, snake-, or kebab-cased.
+/// Represents the name of a symbol.
+///
+/// Whilst it may seem that we could use Dart's built-in [Symbol] class, it validates that symbol names adhere to Dart
+/// standards, which disallows kebab-casing, for example. Humanizer is intended to address use cases across a variety of
+/// languages and platforms and having a class specific to Humanizer allows this.
+class SymbolName {
+  const SymbolName(this.value);
+
+  /// The symbol's name.
+  final String value;
+}
+
+/// A transformation to convert a [SymbolName] into a human-friendly representation. The symbol's name can be camel-,
+/// pascal-, snake-, or kebab-cased.
 ///
 /// These special considerations are applied during transformation:
 ///
@@ -10,28 +22,28 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 /// * A single capital "I" is left alone.
 ///
 /// ```
-/// const transformation = SymbolNameTransformation();
+/// const transformation = SymbolToHumanizedNameTransformation();
 ///
 /// // 'some camel case symbol'
-/// transformation.transform('someCamelCaseSymbol', 'en_US');
+/// transformation.transform(SymbolName('someCamelCaseSymbol'), 'en_US');
 ///
 /// // 'some pascal case symbol'
-/// transformation.transform('SomePascalCaseSymbol', 'en_US');
+/// transformation.transform(SymbolName('SomePascalCaseSymbol'), 'en_US');
 ///
 /// // 'some snake case symbol'
-/// transformation.transform('some_snake_case_symbol', 'en_US');
+/// transformation.transform(SymbolName('some_snake_case_symbol'), 'en_US');
 ///
 /// // 'some kebab case symbol'
-/// transformation.transform('some-kebab-case-symbol', 'en_US');
+/// transformation.transform(SymbolName('some-kebab-case-symbol'), 'en_US');
 ///
 /// // 'some HTML reference'
-/// transformation.transform('someHTMLReference', 'en_US');
+/// transformation.transform(SymbolName('someHTMLReference'), 'en_US');
 ///
 /// // 'you and I are awesome'
-/// transformation.transform('youAndIAreAwesome', 'en_US');
+/// transformation.transform(SymbolName('youAndIAreAwesome'), 'en_US');
 /// ```
-class SymbolNameTransformation extends Transformation<String, String> {
-  const SymbolNameTransformation();
+class SymbolToHumanizedNameTransformation extends Transformation<SymbolName, String> {
+  const SymbolToHumanizedNameTransformation();
 
   static final _camelOrPascalCaseWordPartsExpression = RegExp(
     r'[\p{Lu}]?[\p{Ll}]+|[0-9]+[\p{Ll}]*|[\p{Lu}]+(?=[\p{Lu}][\p{Ll}]|[0-9]|\b)|[\p{Lo}]+',
@@ -45,15 +57,17 @@ class SymbolNameTransformation extends Transformation<String, String> {
   static final _underscoreOrHyphenWithSurroundingSpaceExpression = RegExp(r'\s[_-]|[_-]\s');
 
   @override
-  String transform(String input, String locale) {
-    if (input.isUpperCase()) {
-      return input;
+  String transform(SymbolName input, String locale) {
+    final name = input.value;
+
+    if (name.isUpperCase()) {
+      return name;
     }
 
-    final isCamelOrPascalCased = !input.contains(_underscoreOrHyphenExpression) ||
-        input.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
+    final isCamelOrPascalCased = !name.contains(_underscoreOrHyphenExpression) ||
+        name.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
     final result = _determineUsingRegExp(
-      input,
+      name,
       isCamelOrPascalCased ? _camelOrPascalCaseWordPartsExpression : _snakeOrKebabCaseWordPartsExpression,
     );
 
