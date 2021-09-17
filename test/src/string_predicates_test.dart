@@ -1,5 +1,5 @@
-import 'package:test/test.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
+import 'package:test/test.dart';
 
 void main() {
   _isUpperCase();
