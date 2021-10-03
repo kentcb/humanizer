@@ -148,7 +148,9 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
       InformationSize.fromUnits(InformationUnit.yobibyte, yobibytes);
 
   /// An [InformationSize] of size zero.
-  static final zero = InformationSize.fromBits(Decimal.zero);
+  static final zero = InformationSize.fromBits(Decimals.zero);
+
+  static final _defaultFormat = InformationSizeFormat();
 
   /// Gets the number of bits in this [InformationSize], including any fractional portion.
   Decimal get bits => getUnits(InformationUnit.bit);
@@ -268,7 +270,7 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
   Decimal getUnits(InformationUnit unit) => baseValue / unit._byteCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -432,8 +434,8 @@ class InformationUnits {
     InformationUnit.yobibyte,
   };
 
+  /// Contains International Engineering Consortium (IEC) [InformationUnit]s of byte granularity.
   static const iecBytes = <InformationUnit>{
-    InformationUnit.bit,
     InformationUnit.byte,
     InformationUnit.kibibyte,
     InformationUnit.mebibyte,
@@ -445,6 +447,7 @@ class InformationUnits {
     InformationUnit.yobibyte,
   };
 
+  /// Contains International Engineering Consortium (IEC) [InformationUnit]s of bit granularity.
   static const iecBits = <InformationUnit>{
     InformationUnit.bit,
     InformationUnit.kibibit,
@@ -489,7 +492,7 @@ extension InformationUnitExtensions on InformationUnit {
   static final _bytesInBit = ds('0.125');
   static final _bytesInCrumb = ds('0.25');
   static final _bytesInNibble = ds('0.5');
-  static final _bytesInByte = di(1);
+  static final _bytesInByte = Decimals.one;
   static final _bytesInKilobit = di(125);
   static final _bytesInKibibit = di(128);
   static final _bytesInKilobyte = di(1000);
@@ -776,8 +779,10 @@ class InformationRate extends UnitOfMeasurementRate<InformationSize> {
           period: period,
         );
 
+  static final _defaultFormat = InformationRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows an [InformationSize] to be formatted.
@@ -827,10 +832,10 @@ class InformationRate extends UnitOfMeasurementRate<InformationSize> {
 /// ```
 /// final informationSize = 42000.bytes();
 ///
-/// // '41.02 KiB'
+/// // '41.02KiB'
 /// final result1 = InformationSizeFormat().format(informationSize);
 ///
-/// // '42 KB'
+/// // '42KB'
 /// final result2 = InformationSizeFormat(
 /// permissibleValueUnits: InformationUnits.siBytes,
 /// ).format(informationSize);
@@ -846,7 +851,7 @@ class InformationRate extends UnitOfMeasurementRate<InformationSize> {
 /// * [UnitOfMeasurementFormat]
 class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
   InformationSizeFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
     String? locale,
   }) : super._(
@@ -876,7 +881,7 @@ class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
 /// ```
 /// final informationRate = 42.kilobytes().per(const Duration(seconds: 1));
 ///
-/// // '41.02 KiB/s'
+/// // '41.02KiB/s'
 /// final result1 = InformationRateFormat().format(informationRate);
 ///
 /// // '41.02 kibibytes per second'
@@ -895,7 +900,7 @@ class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
 class InformationRateFormat extends _BaseInformationFormat<InformationRate> {
   InformationRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

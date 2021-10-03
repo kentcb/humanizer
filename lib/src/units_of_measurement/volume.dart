@@ -114,7 +114,9 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       Volume.fromUnits(VolumeUnit.cubicGigameter, cubicGigameters);
 
   /// A [Volume] of size zero.
-  static final zero = Volume.fromCubicNanometers(Decimal.zero);
+  static final zero = Volume.fromCubicNanometers(Decimals.zero);
+
+  static final _defaultFormat = VolumeFormat();
 
   /// Gets the number of cubic nanometers in this [Volume], including any fractional portion.
   Decimal get cubicNanometers => getUnits(VolumeUnit.cubicNanometer);
@@ -216,7 +218,7 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
   Decimal getUnits(VolumeUnit unit) => baseValue / unit._cubicMeterCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -430,7 +432,7 @@ extension VolumeUnitExtensions on VolumeUnit {
   static final _cubicMetersInUsLiquidGallon = ds('0.00378541');
   static final _cubicMetersInImperialQuart = ds('0.00113652');
   static final _cubicMetersInCubicFoot = ds('0.0283168');
-  static final _cubicMetersInCubicMeter = Decimal.one;
+  static final _cubicMetersInCubicMeter = Decimals.one;
   static final _cubicMetersInCubicYard = ds('0.764555');
   static final _cubicMetersInCubicDecameter = di(1000);
   static final _cubicMetersInCubicKilometer = di(1000000000);
@@ -585,7 +587,7 @@ extension VolumeUnitExtensions on VolumeUnit {
       case VolumeUnit.cubicMillimeter:
         return 'mm³';
       case VolumeUnit.milliliter:
-        return 'mL³';
+        return 'mL';
       case VolumeUnit.imperialTeaspoon:
         return 'tsp';
       case VolumeUnit.usTeaspoon:
@@ -686,8 +688,10 @@ class VolumeRate extends UnitOfMeasurementRate<Volume> {
           period: period,
         );
 
+  static final _defaultFormat = VolumeRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows a [Volume] to be formatted.
@@ -731,7 +735,7 @@ class VolumeRate extends UnitOfMeasurementRate<Volume> {
 /// ```
 /// final volume = 42.liters();
 ///
-/// // '42 L'
+/// // '42L'
 /// final result1 = VolumeFormat().format(volume);
 ///
 /// // '42 Liters'
@@ -748,7 +752,7 @@ class VolumeRate extends UnitOfMeasurementRate<Volume> {
 /// * [UnitOfMeasurementFormat]
 class VolumeFormat extends _BaseVolumeFormat<Volume> {
   VolumeFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
     String? locale,
   }) : super._(
@@ -776,7 +780,7 @@ class VolumeFormat extends _BaseVolumeFormat<Volume> {
 /// ```
 /// final volumeRate = 42.liters().per(const Duration(minutes: 1));
 ///
-/// // '2520 L/hr'
+/// // '2520L/hr'
 /// final result1 = VolumeRateFormat().format(volumeRate);
 ///
 /// // '2520 Liters per hour'
@@ -796,7 +800,7 @@ class VolumeFormat extends _BaseVolumeFormat<Volume> {
 class VolumeRateFormat extends _BaseVolumeFormat<VolumeRate> {
   VolumeRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

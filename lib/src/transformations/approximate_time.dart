@@ -1,4 +1,3 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:meta/meta.dart';
@@ -144,7 +143,7 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
       final fraction = primaryValue - primaryValue.truncate();
       var secondaryQuantifier = _SecondaryQuantifier.none;
 
-      if (fraction != Decimal.zero) {
+      if (fraction != Decimals.zero) {
         if (fraction >= Decimals.threeQuarters) {
           secondaryQuantifier = _SecondaryQuantifier.justUnder;
         } else if (fraction >= Decimals.half) {

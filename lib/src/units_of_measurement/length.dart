@@ -60,7 +60,9 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
   factory Length.fromGigameters(Decimal gigameters) => Length.fromUnits(LengthUnit.gigameter, gigameters);
 
   /// A [Length] of size zero.
-  static final zero = Length.fromNanometers(Decimal.zero);
+  static final zero = Length.fromNanometers(Decimals.zero);
+
+  static final _defaultFormat = LengthFormat();
 
   /// Gets the number of nanometers in this [Length], including any fractional portion.
   Decimal get nanometers => getUnits(LengthUnit.nanometer);
@@ -123,7 +125,7 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
   Decimal getUnits(LengthUnit unit) => baseValue / unit._meterCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -266,7 +268,7 @@ extension LengthUnitExtensions on LengthUnit {
   static final _metersInDecimeter = ds('0.1');
   static final _metersInFoot = ds('0.3048');
   static final _metersInYard = ds('0.9144');
-  static final _metersInMeter = Decimal.one;
+  static final _metersInMeter = Decimals.one;
   static final _metersInDecameter = Decimals.ten;
   static final _metersInHectometer = di(100);
   static final _metersInKilometer = di(1000);
@@ -413,8 +415,10 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
           period: period,
         );
 
+  static final _defaultFormat = LengthRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows a [Length] to be formatted.
@@ -445,7 +449,7 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
 /// ```
 /// final length = 42.kilometers();
 ///
-/// // '42 km'
+/// // '42km'
 /// final result1 = LengthFormat().format(length);
 ///
 /// // '42 kilometers'
@@ -459,7 +463,7 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
 /// * [UnitOfMeasurementFormat]
 class LengthFormat extends _BaseLengthFormat<Length> {
   LengthFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
     String? locale,
   }) : super._(
@@ -487,7 +491,7 @@ class LengthFormat extends _BaseLengthFormat<Length> {
 /// ```
 /// final lengthRate = 42.meters().per(const Duration(seconds: 1));
 ///
-/// // '42 m/s'
+/// // '42m/s'
 /// final result1 = LengthRateFormat().format(lengthRate);
 ///
 /// // '42 meters per second'
@@ -506,7 +510,7 @@ class LengthFormat extends _BaseLengthFormat<Length> {
 class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
   LengthRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

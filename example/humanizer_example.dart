@@ -146,24 +146,28 @@ void _unitsOfMeasurement() {
   _printTitle('Units of Measurement');
 
   final fileSize = 3417885.bytes();
-  print("fileSize.humanize() => '${fileSize.humanize()}'");
+  print("fileSize.toString() => '$fileSize'");
+  print("InformationSizeFormat().format(fileSize) => '${InformationSizeFormat().format(fileSize)}'");
   print(
-      "fileSize.humanize(permissibleValueUnits: InformationUnits.siBytes) => '${fileSize.humanize(permissibleValueUnits: InformationUnits.siBytes)}'");
-  print("fileSize.humanize(pattern: '###,##0 U:B') => '${fileSize.humanize(pattern: '###,##0 U:B')}'");
+      "InformationSizeFormat(permissibleValueUnits: InformationUnits.siBytes).format(fileSize) => '${InformationSizeFormat(permissibleValueUnits: InformationUnits.siBytes).format(fileSize)}'");
+  print(
+      "InformationSizeFormat(pattern: '###,##0 U:B').format(fileSize) => '${InformationSizeFormat(pattern: '###,##0 U:B').format(fileSize)}'");
 
   // You can use arithmetic on units of measurement values.
   final weight = 79.kilograms() + 28.grams();
-  print("weight.humanize() => '${weight.humanize()}'");
+  print("weight.toString() => '$weight'");
   print(
-      "weight.humanize(permissibleValueUnits: WeightUnits.usImperial) => '${weight.humanize(permissibleValueUnits: WeightUnits.usImperial)}'");
+      "WeightFormat(permissibleValueUnits: WeightUnits.usImperial).format(weight) => '${WeightFormat(permissibleValueUnits: WeightUnits.usImperial).format(weight)}'");
 
   final length = 20.meters() + 38.centimeters();
-  print("length.humanize() => '${length.humanize()}'");
+  print("length.toString() => '$length'");
 
   // Any unit of measurement value can be turned into a "rated" value via the per method.
   final speed = length.per(const Duration(seconds: 1));
-  print("speed.humanize() => '${speed.humanize()}'");
-  print("speed.humanize(pattern: \"0.# U 'per' R:hr\") => '${speed.humanize(pattern: "0.# U 'per' R:hr")}'");
+  print("speed.toString() => '$speed'");
+
+  print(
+      "LengthRateFormat(pattern: \"0.# U 'per' R:hr\").format(speed) => '${LengthRateFormat(pattern: "0.# U 'per' R:hr").format(speed)}'");
 }
 
 // A simple example of using the transformations API directly rather than the extensions layer.
