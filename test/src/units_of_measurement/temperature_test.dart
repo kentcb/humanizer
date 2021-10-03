@@ -8,6 +8,7 @@ void main() {
   _temperatureUnits();
   _celsius();
   _fahrenheit();
+  _toString();
 }
 
 void _temperatureUnits() {
@@ -38,6 +39,32 @@ void _fahrenheit() {
         final sut = Temperature.fromFahrenheit(di(value));
         expect(sut.fahrenheit, di(value));
       });
+    });
+  });
+}
+
+void _toString() {
+  group('toString', () {
+    test('Temperature toString formats using defaults', () {
+      void verify({
+        required Temperature value,
+        required String expected,
+      }) =>
+          expect(value.toString(), expected);
+
+      verify(value: Temperature.fromCelsius(di(3)), expected: '3°C');
+      verify(value: Temperature.fromFahrenheit(ds('812.7161')), expected: '433.73°C');
+    });
+
+    test('TemperatureRate toString formats using defaults', () {
+      void verify({
+        required TemperatureRate value,
+        required String expected,
+      }) =>
+          expect(value.toString(), expected);
+
+      verify(value: Temperature.fromCelsius(di(30)).per(const Duration(minutes: 1)), expected: '30°C/min');
+      verify(value: Temperature.fromFahrenheit(ds('0.1')).per(const Duration(minutes: 1)), expected: '-17.72°C/min');
     });
   });
 }

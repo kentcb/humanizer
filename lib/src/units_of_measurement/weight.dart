@@ -46,7 +46,9 @@ class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
   factory Weight.fromGigatonnes(Decimal gigatonnes) => Weight.fromUnits(WeightUnit.gigatonne, gigatonnes);
 
   /// A [Weight] of size zero.
-  static final zero = Weight.fromNanograms(Decimal.zero);
+  static final zero = Weight.fromNanograms(Decimals.zero);
+
+  static final _defaultFormat = WeightFormat();
 
   /// Gets the number of nanograms in this [Weight], including any fractional portion.
   Decimal get nanograms => getUnits(WeightUnit.nanogram);
@@ -94,7 +96,7 @@ class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
   Decimal getUnits(WeightUnit unit) => baseValue / unit._gramCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -202,7 +204,7 @@ extension WeightUnitExtensions on WeightUnit {
   static final _gramsInNanogram = ds('0.000000001');
   static final _gramsInMicrogram = ds('0.000001');
   static final _gramsInMilligram = ds('0.001');
-  static final _gramsInGram = Decimal.one;
+  static final _gramsInGram = Decimals.one;
   static final _gramsInOunce = ds('28.3495');
   static final _gramsInPound = ds('453.592');
   static final _gramsInKilogram = di(1000);
@@ -330,8 +332,10 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
           period: period,
         );
 
+  static final _defaultFormat = WeightRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows a [Weight] to be formatted.
@@ -357,7 +361,7 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
 /// ```
 /// final weight = 42.kilograms();
 ///
-/// // '42 kg'
+/// // '42kg'
 /// final result1 = WeightFormat().format(weight);
 ///
 /// // '42 kilograms'
@@ -371,7 +375,7 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
 /// * [UnitOfMeasurementFormat]
 class WeightFormat extends _BaseWeightFormat<Weight> {
   WeightFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
     String? locale,
   }) : super._(
@@ -399,7 +403,7 @@ class WeightFormat extends _BaseWeightFormat<Weight> {
 /// ```
 /// final weightRate = 42.kilograms().per(const Duration(seconds: 1));
 ///
-/// // '42 kg/s'
+/// // '42kg/s'
 /// final result1 = WeightRateFormat().format(weightRate);
 ///
 /// // '42 kilograms per second'
@@ -418,7 +422,7 @@ class WeightFormat extends _BaseWeightFormat<Weight> {
 class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
   WeightRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

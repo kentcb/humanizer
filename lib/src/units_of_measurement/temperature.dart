@@ -40,7 +40,9 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
       Temperature.fromUnits(TemperatureUnit.fahrenheit, fahrenheit);
 
   /// A [Temperature] of zero kelvins.
-  static final zero = Temperature.fromNanokelvins(Decimal.zero);
+  static final zero = Temperature.fromNanokelvins(Decimals.zero);
+
+  static final _defaultFormat = TemperatureFormat();
 
   static final _kelvinToCelsiusBaseline = ds('273.15');
   static final _kelvinToFahrenheitFactor = ds('1.8');
@@ -78,7 +80,7 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
       );
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   Decimal getUnits(TemperatureUnit unit) {
@@ -183,7 +185,7 @@ extension TemperatureUnitExtensions on TemperatureUnit {
   static final _kelvinsInMillikelvin = ds('0.001');
   static final _kelvinsInCentikelvin = ds('0.01');
   static final _kelvinsInDecikelvin = ds('0.1');
-  static final _kelvinsInKelvin = Decimal.one;
+  static final _kelvinsInKelvin = Decimals.one;
 
   Decimal get _kelvinCount {
     switch (this) {
@@ -268,8 +270,10 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
           period: period,
         );
 
+  static final _defaultFormat = TemperatureRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows a [Length] to be formatted.
@@ -291,7 +295,7 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// ```
 /// final temperature = 42.celsius();
 ///
-/// // '42 °C'
+/// // '42°C'
 /// final result1 = TemperatureFormat().format(temperature);
 ///
 /// // '42 Celsius'
@@ -308,7 +312,7 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// * [UnitOfMeasurementFormat]
 class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
   TemperatureFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
     String? locale,
   }) : super._(
@@ -337,7 +341,7 @@ class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
 /// ```
 /// final temperatureRate = 42.kelvins().per(const Duration(minutes: 1));
 ///
-/// // '2246.85 °C/hr'
+/// // '2246.85°C/hr'
 /// final result1 = TemperatureRateFormat().format(temperatureRate);
 ///
 /// // '2246.85 Celsius per hour'
@@ -356,7 +360,7 @@ class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
 class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
   TemperatureRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

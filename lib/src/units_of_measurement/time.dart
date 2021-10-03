@@ -60,7 +60,9 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
   factory Time.fromCenturies(Decimal centuries) => Time.fromUnits(TimeUnit.century, centuries);
 
   /// A [Time] of zero duration.
-  static final zero = Time.fromSeconds(Decimal.zero);
+  static final zero = Time.fromSeconds(Decimals.zero);
+
+  static final _defaultFormat = TimeFormat();
 
   /// Gets the number of nanoseconds in this [Time], including any fractional portion.
   Decimal get nanoseconds => getUnits(TimeUnit.nanosecond);
@@ -123,7 +125,7 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
   Decimal getUnits(TimeUnit unit) => baseValue / unit._secondCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -231,7 +233,7 @@ extension TimeUnitExtensions on TimeUnit {
   static final _secondsInMillisecond = ds('0.001');
   static final _secondsInCentisecond = ds('0.01');
   static final _secondsInDecisecond = ds('0.1');
-  static final _secondsInSecond = Decimal.one;
+  static final _secondsInSecond = Decimals.one;
   static final _secondsInDecasecond = di(10);
   static final _secondsInMinute = di(60);
   static final _secondsInHour = di(3600);
@@ -383,8 +385,10 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
           period: period,
         );
 
+  static final _defaultFormat = TimeRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows a [Time] to be formatted.
@@ -415,7 +419,7 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// ```
 /// final time = 42.minutes();
 ///
-/// // '42 min'
+/// // '42min'
 /// final result1 = TimeFormat().format(time);
 ///
 /// // '42 minutes'
@@ -429,7 +433,7 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// * [UnitOfMeasurementFormat]
 class TimeFormat extends _BaseTimeFormat<Time> {
   TimeFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
     String? locale,
   }) : super._(
@@ -456,7 +460,7 @@ class TimeFormat extends _BaseTimeFormat<Time> {
 /// ```
 /// final timeRate = 42.seconds().per(const Duration(minutes: 1));
 ///
-/// // '42 s/min'
+/// // '42s/min'
 /// final result1 = TimeRateFormat().format(timeRate);
 ///
 /// // '42 seconds per minute'
@@ -475,7 +479,7 @@ class TimeFormat extends _BaseTimeFormat<Time> {
 class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
   TimeRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

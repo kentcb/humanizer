@@ -22,7 +22,7 @@ export 'src/transformations/units_of_measurement_extensions.dart';
 export 'src/units_of_measurement/area.dart';
 export 'src/units_of_measurement/information.dart';
 export 'src/units_of_measurement/length.dart';
-export 'src/units_of_measurement/shared.dart';
+export 'src/units_of_measurement/shared.dart' hide ComparableRatedValue;
 export 'src/units_of_measurement/temperature.dart';
 export 'src/units_of_measurement/time.dart';
 export 'src/units_of_measurement/volume.dart';

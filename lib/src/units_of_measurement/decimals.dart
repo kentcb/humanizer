@@ -10,6 +10,8 @@ class Decimals {
   static final quarter = ds('0.25');
   static final half = ds('0.5');
   static final threeQuarters = ds('0.75');
+  static final zero = Decimal.zero;
+  static final one = Decimal.one;
   static final two = di(2);
   static final ten = di(10);
 }

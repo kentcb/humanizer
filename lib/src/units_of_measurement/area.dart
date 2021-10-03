@@ -69,7 +69,9 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
       Area.fromUnits(AreaUnit.squareGigameter, squareGigameters);
 
   /// An [Area] of size zero.
-  static final zero = Area.fromSquareNanometers(Decimal.zero);
+  static final zero = Area.fromSquareNanometers(Decimals.zero);
+
+  static final _defaultFormat = AreaFormat();
 
   /// Gets the number of square nanometers in this [Area], including any fractional portion.
   Decimal get squareNanometers => getUnits(AreaUnit.squareNanometer);
@@ -132,7 +134,7 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
   Decimal getUnits(AreaUnit unit) => baseValue / unit._squareMeterCount;
 
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 
   @override
   @protected
@@ -276,7 +278,7 @@ extension AreaUnitExtensions on AreaUnit {
   static final _squareMetersInSquareDecimeter = ds('0.01');
   static final _squareMetersInSquareFoot = ds('0.092903');
   static final _squareMetersInSquareYard = ds('0.836127');
-  static final _squareMetersInSquareMeter = Decimal.one;
+  static final _squareMetersInSquareMeter = Decimals.one;
   static final _squareMetersInSquareDecameter = di(100);
   static final _squareMetersInAcre = ds('4046.86');
   static final _squareMetersInHectare = di(10000);
@@ -424,8 +426,10 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
           period: period,
         );
 
+  static final _defaultFormat = AreaRateFormat();
+
   @override
-  String toString() => humanize();
+  String toString() => _defaultFormat.format(this);
 }
 
 /// Allows an [Area] to be formatted.
@@ -456,7 +460,7 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
 /// ```
 /// final area = 42.hectares();
 ///
-/// // '42 ha'
+/// // '42ha'
 /// final result1 = AreaFormat().format(area);
 ///
 /// // '42 hectares'
@@ -470,7 +474,7 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
 /// * [UnitOfMeasurementFormat]
 class AreaFormat extends _BaseAreaFormat<Area> {
   AreaFormat({
-    String pattern = '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
     String? locale,
   }) : super._(
@@ -497,7 +501,7 @@ class AreaFormat extends _BaseAreaFormat<Area> {
 /// ```
 /// final areaRate = 42.hectares().per(const Duration(seconds: 1));
 ///
-/// // '42 ha/s'
+/// // '42ha/s'
 /// final result1 = AreaRateFormat().format(areaRate);
 ///
 /// // '42 hectares per second'
@@ -513,7 +517,7 @@ class AreaFormat extends _BaseAreaFormat<Area> {
 class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
   AreaRateFormat({
     String pattern =
-        "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
+        "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
     Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
     Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
     String? locale,

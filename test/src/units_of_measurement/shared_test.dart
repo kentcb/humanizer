@@ -3,13 +3,133 @@
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/shared.dart';
 import 'package:meta/meta.dart';
 import 'package:test/test.dart';
 
 void main() {
+  _comparableRatedValue();
   _rateUnits();
   _unitOfMeasurement();
   _unitOfMeasurementFormat();
+}
+
+enum _ComparisonResult {
+  preferFirst,
+  preferSecond,
+  equalPreference,
+}
+
+extension _ComparisonResultExtensions on _ComparisonResult {
+  _ComparisonResult get opposite {
+    switch (this) {
+      case _ComparisonResult.equalPreference:
+        return _ComparisonResult.equalPreference;
+      case _ComparisonResult.preferFirst:
+        return _ComparisonResult.preferSecond;
+      case _ComparisonResult.preferSecond:
+        return _ComparisonResult.preferFirst;
+    }
+  }
+
+  String get describe {
+    switch (this) {
+      case _ComparisonResult.equalPreference:
+        return 'equal preference';
+      case _ComparisonResult.preferFirst:
+        return 'first preferred';
+      case _ComparisonResult.preferSecond:
+        return 'second preferred';
+    }
+  }
+}
+
+extension _ComparisonResultIntExtensions on int {
+  _ComparisonResult get comparisonResult {
+    if (this < 0) {
+      return _ComparisonResult.preferFirst;
+    } else if (this > 0) {
+      return _ComparisonResult.preferSecond;
+    }
+    return _ComparisonResult.equalPreference;
+  }
+}
+
+void _comparableRatedValue() {
+  group('comparable rated value', () {
+    void verifyComparableRateCompare({
+      required Decimal firstValue,
+      required Decimal secondValue,
+      required _ComparisonResult expected,
+    }) {
+      final first = ComparableRatedValue(firstValue, RateUnit.second);
+      final second = ComparableRatedValue(secondValue, RateUnit.second);
+      expect(
+        first.compareTo(second).comparisonResult,
+        expected,
+        reason: 'comparison of first value ($first) and second value ($second) should result in ${expected.describe}',
+      );
+      expect(
+        second.compareTo(first).comparisonResult,
+        expected.opposite,
+        reason:
+            'comparison of second value ($second) and first value ($first) should result in ${expected.opposite.describe}',
+      );
+    }
+
+    test('finite precision takes precedence over infinite precision', () {
+      verifyComparableRateCompare(
+        firstValue: di(10000000),
+        secondValue: di(1) / di(3),
+        expected: _ComparisonResult.preferFirst,
+      );
+    });
+
+    test('lower precision takes precedence over higher precision', () {
+      verifyComparableRateCompare(
+        firstValue: ds('10.23'),
+        secondValue: ds('1.0234'),
+        expected: _ComparisonResult.preferFirst,
+      );
+    });
+
+    test('lower scale takes precedence over higher scale', () {
+      verifyComparableRateCompare(
+        firstValue: ds('10.123'),
+        secondValue: ds('1.1234'),
+        expected: _ComparisonResult.preferFirst,
+      );
+    });
+
+    test('closer to one takes precedence over further away', () {
+      verifyComparableRateCompare(
+        firstValue: di(2),
+        secondValue: di(3),
+        expected: _ComparisonResult.preferFirst,
+      );
+      verifyComparableRateCompare(
+        firstValue: di(0),
+        secondValue: di(2),
+        // Both 1 away from 1.
+        expected: _ComparisonResult.equalPreference,
+      );
+      verifyComparableRateCompare(
+        firstValue: di(-1),
+        secondValue: di(4),
+        expected: _ComparisonResult.preferFirst,
+      );
+      verifyComparableRateCompare(
+        firstValue: ds('1.123'),
+        secondValue: ds('2.123'),
+        expected: _ComparisonResult.preferFirst,
+      );
+      verifyComparableRateCompare(
+        firstValue: di(1) + (di(1) / di(3)),
+        secondValue: di(1) + (di(2) / di(3)),
+        expected: _ComparisonResult.preferFirst,
+      );
+    });
+  });
 }
 
 void _rateUnits() {
@@ -693,240 +813,253 @@ void _unitOfMeasurementFormat() {
     });
 
     group('format', () {
-      void verifyQualityFormat({
-        required String pattern,
-        required Set<QualityUnit> valueUnits,
-        required Quality input,
-        required String expected,
-      }) {
-        final sut = QualityFormat(
-          pattern: pattern,
-          valueUnits: valueUnits,
-          locale: 'en',
-        );
-        final result = sut.format(input);
-        expect(result, expected);
-      }
+      group('unit of measurement', () {
+        void verifyQualityFormat({
+          required String pattern,
+          required Set<QualityUnit> valueUnits,
+          required Quality input,
+          required String expected,
+        }) {
+          final sut = QualityFormat(
+            pattern: pattern,
+            valueUnits: valueUnits,
+            locale: 'en',
+          );
+          final result = sut.format(input);
+          expect(result, expected);
+        }
 
-      void verifyQualityRateFormat({
-        required String pattern,
-        required Set<QualityUnit> valueUnits,
-        required Set<RateUnit> rateUnits,
-        required QualityRate input,
-        required String expected,
-      }) {
-        final sut = QualityRateFormat(
-          pattern: pattern,
-          valueUnits: valueUnits,
-          rateUnits: rateUnits,
-          locale: 'en',
-        );
-        final result = sut.format(input);
-        expect(result, expected);
-      }
+        test('works without dynamic or fixed units', () {
+          verifyQualityFormat(
+            pattern: '',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('42')),
+            expected: '',
+          );
 
-      test('works without dynamic or fixed units', () {
-        verifyQualityFormat(
-          pattern: '',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('42')),
-          expected: '',
-        );
+          verifyQualityFormat(
+            pattern: '0.#',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1200')),
+            expected: '1.2',
+          );
+        });
 
-        verifyQualityRateFormat(
-          pattern: '',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('42')).per(const Duration(seconds: 1)),
-          expected: '',
-        );
+        test('works with dynamic units', () {
+          verifyQualityFormat(
+            pattern: 'u',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1200')),
+            expected: 'µll',
+          );
 
-        verifyQualityFormat(
-          pattern: '0.#',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1200')),
-          expected: '1.2',
-        );
+          verifyQualityFormat(
+            pattern: 'U',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1200')),
+            expected: 'microlovelaces',
+          );
 
-        verifyQualityRateFormat(
-          pattern: '0.#',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1200')).per(const Duration(seconds: 1)),
-          expected: '72',
-        );
+          verifyQualityFormat(
+            pattern: "0.# u '('0.## U', to be more precise)'",
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: '1.2 µll (1.21 microlovelaces, to be more precise)',
+          );
+        });
+
+        test('works with fixed units', () {
+          verifyQualityFormat(
+            pattern: 'u:µll',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: 'µll',
+          );
+
+          verifyQualityFormat(
+            pattern: 'U:µll',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: 'microlovelaces',
+          );
+
+          verifyQualityFormat(
+            pattern: 'U:zl',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: 'compromised engineerings',
+          );
+
+          verifyQualityFormat(
+            pattern: '0.# u:nll',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: '1210 nll',
+          );
+
+          verifyQualityFormat(
+            pattern: '0.# u:µll',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: '1.2 µll',
+          );
+        });
+
+        test('respects supported units', () {
+          verifyQualityFormat(
+            pattern: '0.# u',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: '1.2 µll',
+          );
+
+          verifyQualityFormat(
+            pattern: '0.# u',
+            valueUnits: <QualityUnit>{
+              QualityUnit.nanolovelace,
+              QualityUnit.millilovelace,
+            },
+            input: Quality.fromNanolovelaces(ds('1210')),
+            expected: '1210 nll',
+          );
+
+          verifyQualityFormat(
+            pattern: '0.# u',
+            valueUnits: <QualityUnit>{
+              QualityUnit.nanolovelace,
+              QualityUnit.millilovelace,
+            },
+            input: Quality.fromLovelaces(di(1)),
+            expected: '1000 mll',
+          );
+
+          verifyQualityFormat(
+            pattern: '0.# u',
+            valueUnits: <QualityUnit>{
+              QualityUnit.nanolovelace,
+              QualityUnit.millilovelace,
+              QualityUnit.decilovelace,
+            },
+            input: Quality.fromLovelaces(di(1)),
+            expected: '10 dll',
+          );
+        });
       });
 
-      test('works with dynamic units', () {
-        verifyQualityFormat(
-          pattern: 'u',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1200')),
-          expected: 'µll',
-        );
+      // The formatting logic for UoM rates is quite different in some respects, so tests are in a separate group.
+      group('unit of measurement rate', () {
+        void verifyQualityRateFormat({
+          required String pattern,
+          required Set<QualityUnit> valueUnits,
+          required Set<RateUnit> rateUnits,
+          required QualityRate input,
+          required String expected,
+        }) {
+          final sut = QualityRateFormat(
+            pattern: pattern,
+            valueUnits: valueUnits,
+            rateUnits: rateUnits,
+            locale: 'en',
+          );
+          final result = sut.format(input);
+          expect(result, expected);
+        }
 
-        verifyQualityFormat(
-          pattern: 'U',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1200')),
-          expected: 'microlovelaces',
-        );
+        test('works without dynamic or fixed units', () {
+          verifyQualityRateFormat(
+            pattern: '',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('42')).per(const Duration(seconds: 1)),
+            expected: '',
+          );
 
-        verifyQualityFormat(
-          pattern: "0.# u '('0.## U', to be more precise)'",
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: '1.2 µll (1.21 microlovelaces, to be more precise)',
-        );
+          verifyQualityRateFormat(
+            pattern: '0.#',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1200')).per(const Duration(seconds: 1)),
+            expected: '72',
+          );
+        });
 
-        verifyQualityRateFormat(
-          pattern: 'u r',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: 'µll min',
-        );
+        test('works with dynamic units', () {
+          verifyQualityRateFormat(
+            pattern: 'u r',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: 'µll min',
+          );
 
-        verifyQualityRateFormat(
-          pattern: 'U R',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: 'microlovelaces minute',
-        );
+          verifyQualityRateFormat(
+            pattern: 'U R',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: 'microlovelaces minute',
+          );
 
-        verifyQualityRateFormat(
-          pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
-        );
+          verifyQualityRateFormat(
+            pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
+          );
 
-        verifyQualityRateFormat(
-          pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(minutes: 1)),
-          expected: '61.4 µll hr (61.44 microlovelaces per hour, to be more precise)',
-        );
-      });
+          verifyQualityRateFormat(
+            pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(minutes: 1)),
+            expected: '61.4 µll hr (61.44 microlovelaces per hour, to be more precise)',
+          );
+        });
 
-      test('works with fixed units', () {
-        verifyQualityFormat(
-          pattern: 'u:µll',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: 'µll',
-        );
+        test('works with fixed units', () {
+          verifyQualityRateFormat(
+            pattern: 'u:cll r:min',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: 'cll min',
+          );
 
-        verifyQualityFormat(
-          pattern: 'U:µll',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: 'microlovelaces',
-        );
+          verifyQualityRateFormat(
+            pattern: 'U:cll R:min',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: 'centilovelaces minute',
+          );
 
-        verifyQualityFormat(
-          pattern: 'U:zl',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: 'compromised engineerings',
-        );
+          verifyQualityRateFormat(
+            pattern: "0.# u:µll r:min '('0.## U:µll 'per' R:min', to be more precise)'",
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
+          );
+        });
 
-        verifyQualityFormat(
-          pattern: '0.# u:nll',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: '1210 nll',
-        );
+        test('respects supported units', () {
+          verifyQualityRateFormat(
+            pattern: '0.# u:µll r:s',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.hourOrLess,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: '1 µll s',
+          );
 
-        verifyQualityFormat(
-          pattern: '0.# u:µll',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: '1.2 µll',
-        );
-
-        verifyQualityRateFormat(
-          pattern: 'u:cll r:min',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: 'cll min',
-        );
-
-        verifyQualityRateFormat(
-          pattern: 'U:cll R:min',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: 'centilovelaces minute',
-        );
-
-        verifyQualityRateFormat(
-          pattern: "0.# u:µll r:min '('0.## U:µll 'per' R:min', to be more precise)'",
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
-        );
-      });
-
-      test('respects supported units', () {
-        verifyQualityFormat(
-          pattern: '0.# u',
-          valueUnits: QualityUnits.all,
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: '1.2 µll',
-        );
-
-        verifyQualityFormat(
-          pattern: '0.# u',
-          valueUnits: <QualityUnit>{
-            QualityUnit.nanolovelace,
-            QualityUnit.millilovelace,
-          },
-          input: Quality.fromNanolovelaces(ds('1210')),
-          expected: '1210 nll',
-        );
-
-        verifyQualityFormat(
-          pattern: '0.# u',
-          valueUnits: <QualityUnit>{
-            QualityUnit.nanolovelace,
-            QualityUnit.millilovelace,
-          },
-          input: Quality.fromLovelaces(di(1)),
-          expected: '1000 mll',
-        );
-
-        verifyQualityFormat(
-          pattern: '0.# u',
-          valueUnits: <QualityUnit>{
-            QualityUnit.nanolovelace,
-            QualityUnit.millilovelace,
-            QualityUnit.decilovelace,
-          },
-          input: Quality.fromLovelaces(di(1)),
-          expected: '10 dll',
-        );
-
-        verifyQualityRateFormat(
-          pattern: '0.# u:µll r:s',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.hourOrLess,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: '1 µll s',
-        );
-
-        verifyQualityRateFormat(
-          pattern: '0.# u:µll r:day',
-          valueUnits: QualityUnits.all,
-          rateUnits: RateUnits.all,
-          input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
-          expected: '88473.6 µll day',
-        );
+          verifyQualityRateFormat(
+            pattern: '0.# u:µll r:day',
+            valueUnits: QualityUnits.all,
+            rateUnits: RateUnits.all,
+            input: Quality.fromNanolovelaces(ds('1024')).per(const Duration(seconds: 1)),
+            expected: '88473.6 µll day',
+          );
+        });
       });
     });
   });
@@ -955,6 +1088,9 @@ class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
 
   factory Quality.fromCompromisedEngineerings(Decimal compromisedEngineerings) =>
       Quality.fromUnits(QualityUnit.compromisedEngineering, compromisedEngineerings);
+
+  factory Quality.fromWeirdlovelaces(Decimal weirdlovelaces) =>
+      Quality.fromUnits(QualityUnit.weirdlovelace, weirdlovelaces);
 
   static final zero = Quality.fromNanolovelaces(di(0));
 
@@ -995,10 +1131,12 @@ enum QualityUnit {
   lovelace,
   // I just need something with a multi-word name for testing, and just drawing on my experience for the name :)
   compromisedEngineering,
+  // And need something non-metric so we can scale rates to weird values (like infinite precision numbers)
+  weirdlovelace,
 }
 
 class QualityUnits {
-  static const all = <QualityUnit>{
+  static const metric = <QualityUnit>{
     QualityUnit.nanolovelace,
     QualityUnit.microlovelace,
     QualityUnit.millilovelace,
@@ -1006,6 +1144,15 @@ class QualityUnits {
     QualityUnit.decilovelace,
     QualityUnit.lovelace,
     QualityUnit.compromisedEngineering,
+  };
+
+  static const imperial = <QualityUnit>{
+    QualityUnit.weirdlovelace,
+  };
+
+  static const all = <QualityUnit>{
+    ...metric,
+    ...imperial,
   };
 }
 
@@ -1015,8 +1162,9 @@ extension QualityUnitExtensions on QualityUnit {
   static final _lovelacesInMillilovelace = Decimals.thousandth;
   static final _lovelacesInCentilovelace = Decimals.hundredth;
   static final _lovelacesInDecilovelace = Decimals.tenth;
-  static final _lovelacesInLovelace = di(1);
+  static final _lovelacesInLovelace = Decimals.one;
   static final _lovelacesInCompromisedEngineering = Decimals.ten;
+  static final _lovelacesInWeirdlovelace = di(3);
 
   Decimal get _lovelaceCount {
     switch (this) {
@@ -1034,6 +1182,8 @@ extension QualityUnitExtensions on QualityUnit {
         return _lovelacesInLovelace;
       case QualityUnit.compromisedEngineering:
         return _lovelacesInCompromisedEngineering;
+      case QualityUnit.weirdlovelace:
+        return _lovelacesInWeirdlovelace;
     }
   }
 
@@ -1055,6 +1205,8 @@ extension QualityUnitExtensions on QualityUnit {
         return 'lovelace';
       case QualityUnit.compromisedEngineering:
         return 'compromised engineering';
+      case QualityUnit.weirdlovelace:
+        return 'weirdlovelace';
     }
   }
 
@@ -1076,6 +1228,8 @@ extension QualityUnitExtensions on QualityUnit {
         return 'll';
       case QualityUnit.compromisedEngineering:
         return 'zl';
+      case QualityUnit.weirdlovelace:
+        return 'wll';
     }
   }
 
@@ -1092,6 +1246,7 @@ extension IntExtensions on int {
   Quality decilovelaces() => Quality.fromDecilovelaces(di(this));
   Quality lovelaces() => Quality.fromLovelaces(di(this));
   Quality compromisedEngineerings() => Quality.fromCompromisedEngineerings(di(this));
+  Quality weirdlovelaces() => Quality.fromWeirdlovelaces(di(this));
 }
 
 class QualityRate extends UnitOfMeasurementRate<Quality> {

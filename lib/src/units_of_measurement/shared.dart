@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:decimal/intl.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
+import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -67,7 +68,7 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
       // Logic is counterintuitive. If the number of units for a given unit is less than the current largest units,
       // and is more than one, that means we have at least one of those units and it is larger than the currently
       // selected unit because there are fewer of them.
-      if (units >= Decimal.one && (largestUnits == null || units < largestUnits)) {
+      if (units >= Decimals.one && (largestUnits == null || units < largestUnits)) {
         largestUnit = unit;
         largestUnits = units;
       }
@@ -397,21 +398,19 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
       rateUnit = fixedRateUnit;
 
       if (rateUnit == null) {
-        // Choose the most appropriate rate unit by scaling the value to it and seeing if the resulting quantity is
-        // greater than one.
-        for (final supportedRateUnit in getPermissibleRateUnits().toList().reversed) {
+        // Find the best rate unit to use by determining what the scaled value would be for each rate, then sorting
+        // those values by how human-readable they are.
+        final preferredRatedValue = (getPermissibleRateUnits().map((supportedRateUnit) {
           final scaled = scaleToRateUnit(input, supportedRateUnit);
           final valueUnit = fixedValueUnit ?? getLargestUnit(scaled);
-          final quantity = getUnitQuantity(input, valueUnit);
+          final quantity = getUnitQuantity(scaled, valueUnit);
 
-          if (quantity.abs() > Decimal.one) {
-            rateUnit = supportedRateUnit;
-            break;
-          }
-        }
+          return ComparableRatedValue(quantity, supportedRateUnit);
+        }).toList(growable: false)
+              ..sort())
+            .first;
 
-        // Couldn't find any rate that caused the quantity to exceed zero, so just use the first.
-        rateUnit ??= getPermissibleRateUnits().first;
+        rateUnit = preferredRatedValue.rateUnit;
       }
 
       // Now that we know the rate unit, we need to scale the input accordingly.
@@ -783,4 +782,49 @@ extension _StringExtensions on String {
     final result = split.join(' ');
     return result;
   }
+}
+
+// I hate to expose this even with @visibleForTesting, but I really want to test its logic directly rather than
+// requiring mental gymnastics to determine what inputs to feed into formatting a rated unit of measurement to exercise
+// the logic within this class.
+@visibleForTesting
+class ComparableRatedValue implements Comparable<ComparableRatedValue> {
+  const ComparableRatedValue(
+    this.value,
+    this.rateUnit,
+  );
+
+  final Decimal value;
+  final RateUnit rateUnit;
+
+  @override
+  int compareTo(ComparableRatedValue other) {
+    if (value.hasFinitePrecision && !other.value.hasFinitePrecision) {
+      return -1;
+    } else if (!value.hasFinitePrecision && other.value.hasFinitePrecision) {
+      return 1;
+    }
+
+    if (value.hasFinitePrecision) {
+      final comparePrecision = value.precision.compareTo(other.value.precision);
+
+      if (comparePrecision != 0) {
+        return comparePrecision;
+      }
+
+      final compareScale = value.scale.compareTo(other.value.scale);
+
+      if (compareScale != 0) {
+        return compareScale;
+      }
+    }
+
+    final currentDistanceFrom1 = (value - Decimals.one).abs();
+    final proposedDistanceFrom1 = (other.value - Decimals.one).abs();
+
+    return currentDistanceFrom1.compareTo(proposedDistanceFrom1);
+  }
+
+  @override
+  String toString() => value.toString();
 }
