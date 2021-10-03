@@ -49,7 +49,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://kent-boogaart.com/"><img src="https://avatars.githubusercontent.com/u/1901832?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kent Boogaart</b></sub></a><br /><a href="https://github.com/kentcb/humanizer/commits?author=kentcb" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.arunprakashg.com"><img src="https://avatars.githubusercontent.com/u/10849725?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Arun Prakash</b></sub></a><br /><a href="https://github.com/kentcb/humanizer/commits?author=ArunPrakashG" title="Code">💻</a></td>
+    <td align="center"><a href="https://www.arunprakashg.com"><img src="https://avatars.githubusercontent.com/u/10849725?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Arun Prakash</b></sub></a><br /><a href="https://github.com/kentcb/humanizer/commits?author=ArunPrakashG" title="Code">💻</a></td>
   </tr>
 </table>
 
