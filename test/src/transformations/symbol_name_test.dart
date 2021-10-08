@@ -3,6 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   _symbolToHumanizedName();
+  _enumToHumanizedName();
 }
 
 void _symbolToHumanizedName() {
@@ -91,4 +92,37 @@ void _symbolToHumanizedName() {
         expected: 'x first word is single capital letter followed by space');
     verify(input: 'contains-?\')-Symbol@-Characters', expected: 'contains symbol characters');
   });
+}
+
+void _enumToHumanizedName() {
+  void verify({
+    required Enum value,
+    required String expected,
+  }) {
+    test('$value → $expected', () {
+      final actual = value.toHumanizedName();
+      expect(actual, expected);
+    });
+  }
+
+  group('enumerations', () {
+    verify(
+      value: _ExampleEnum.simple,
+      expected: 'simple',
+    );
+    verify(
+      value: _ExampleEnum.aMoreComplexExample,
+      expected: 'a more complex example',
+    );
+    verify(
+      value: _ExampleEnum.anExampleWITHAnAcronym,
+      expected: 'an example WITH an acronym',
+    );
+  });
+}
+
+enum _ExampleEnum {
+  simple,
+  aMoreComplexExample,
+  anExampleWITHAnAcronym,
 }
