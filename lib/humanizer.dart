@@ -5,7 +5,6 @@ export 'src/transformations/approximate_time.dart';
 export 'src/transformations/approximate_time_extensions.dart';
 export 'src/transformations/cardinal.dart';
 export 'src/transformations/cardinal_extensions.dart';
-export 'src/transformations/enum_extensions.dart';
 export 'src/transformations/ordinal.dart';
 export 'src/transformations/ordinal_extensions.dart';
 export 'src/transformations/plurality.dart';
