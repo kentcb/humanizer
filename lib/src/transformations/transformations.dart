@@ -10,6 +10,28 @@ abstract class Transformation<T, U> {
   U transform(T input, String locale);
 }
 
+/// A definition for functions that can be passed into [FunctionTransformation].
+typedef TransformationFunction<T, U> = U Function(T input, String locale);
+
+/// A [Transformation] that invokes a given function of type [TransformationFunction].
+///
+/// This class is intended as a convenience, and is typically used in conjunction with a lambda. It can be used when
+/// a transformation is required as part of a larger transformation, but that transformation is not typically useful
+/// outside that context.
+///
+/// ```
+/// final letterCountForNumber = const CardinalWordsTransformation().then(FunctionTransformation<String, String>(
+///     (input, locale) => 'That number has ${input.length} characters when written in cardinal form'));
+/// ```
+class FunctionTransformation<T, U> extends Transformation<T, U> {
+  const FunctionTransformation(this.lambda);
+
+  final TransformationFunction<T, U> lambda;
+
+  @override
+  U transform(T input, String locale) => lambda(input, locale);
+}
+
 /// Provides useful extensions against [Transformation].
 extension TransformationExtensions<T, U, V> on Transformation<T, U> {
   /// Chains together two transformations where the output of the first transformation becomes the input of the second.
