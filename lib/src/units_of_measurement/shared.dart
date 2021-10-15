@@ -497,7 +497,7 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
               case '\'':
                 literalValue.write('\'');
                 break;
-              case '\"':
+              case '"':
                 literalValue.write('"');
                 break;
               case '\\':

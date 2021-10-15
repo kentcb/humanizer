@@ -1,3 +1,11 @@
+## 1.0.0 - 16th Oct, 2021
+
+* Improved the design and implementation of units of measurement, particularly around formatting
+* Add ability to humanize `Enum` instances
+* Symbol related extensions now operate against a `SymbolName` class rather than `String`
+* Generalize approximate relative time to approximate time
+* Switch to using `DecimalIntl` now that [this issue](https://github.com/a14n/dart-decimal/issues/35) is resolved
+
 ## 0.0.2 - 26th Feb, 2021
 
 * Add permissible units to units of measurement `humanize` extensions
