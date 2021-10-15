@@ -2,7 +2,6 @@
 
 import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:intl/intl.dart';
 
 /// Provides extensions on [int] related to units of measurement.
 extension UnitsOfMeasurementIntExtensions on int {
