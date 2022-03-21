@@ -17,7 +17,7 @@ Duration(days: 1).toApproximateTime();
 Duration(days: 1).toApproximateTime(isRelativeToNow: false);
 
 // 'yesterday'
-Duration(days: 01).toApproximateTime();
+Duration(days: -1).toApproximateTime();
 
 // '3 hours from now'
 Duration(hours: 2, minutes: 40).toApproximateTime();
