@@ -1,128 +1,128 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
+import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a two-dimensional area.
 class Area extends UnitOfMeasurement<AreaUnit, Area> {
   /// Creates an [Area] given a [unit] and decimal [value] for that unit.
-  Area.fromUnits(AreaUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Area.fromUnits(AreaUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates an [Area] representing the specified number of [squareNanometers].
-  factory Area.fromSquareNanometers(Decimal squareNanometers) =>
+  factory Area.fromSquareNanometers(Rational squareNanometers) =>
       Area.fromUnits(AreaUnit.squareNanometer, squareNanometers);
 
   /// Creates an [Area] representing the specified number of [squareMicrometers].
-  factory Area.fromSquareMicrometers(Decimal squareMicrometers) =>
+  factory Area.fromSquareMicrometers(Rational squareMicrometers) =>
       Area.fromUnits(AreaUnit.squareMicrometer, squareMicrometers);
 
   /// Creates an [Area] representing the specified number of [squareThous].
-  factory Area.fromSquareThous(Decimal squareThous) => Area.fromUnits(AreaUnit.squareThou, squareThous);
+  factory Area.fromSquareThous(Rational squareThous) => Area.fromUnits(AreaUnit.squareThou, squareThous);
 
   /// Creates an [Area] representing the specified number of [squareMillimeters].
-  factory Area.fromSquareMillimeters(Decimal squareMillimeters) =>
+  factory Area.fromSquareMillimeters(Rational squareMillimeters) =>
       Area.fromUnits(AreaUnit.squareMillimeter, squareMillimeters);
 
   /// Creates an [Area] representing the specified number of [squareCentimeters].
-  factory Area.fromSquareCentimeters(Decimal squareCentimeters) =>
+  factory Area.fromSquareCentimeters(Rational squareCentimeters) =>
       Area.fromUnits(AreaUnit.squareCentimeter, squareCentimeters);
 
   /// Creates an [Area] representing the specified number of [squareInches].
-  factory Area.fromSquareInches(Decimal squareInches) => Area.fromUnits(AreaUnit.squareInch, squareInches);
+  factory Area.fromSquareInches(Rational squareInches) => Area.fromUnits(AreaUnit.squareInch, squareInches);
 
   /// Creates an [Area] representing the specified number of [squareDecimeters].
-  factory Area.fromSquareDecimeters(Decimal squareDecimeters) =>
+  factory Area.fromSquareDecimeters(Rational squareDecimeters) =>
       Area.fromUnits(AreaUnit.squareDecimeter, squareDecimeters);
 
   /// Creates an [Area] representing the specified number of [squareFeet].
-  factory Area.fromSquareFeet(Decimal squareFeet) => Area.fromUnits(AreaUnit.squareFoot, squareFeet);
+  factory Area.fromSquareFeet(Rational squareFeet) => Area.fromUnits(AreaUnit.squareFoot, squareFeet);
 
   /// Creates an [Area] representing the specified number of [squareYards].
-  factory Area.fromSquareYards(Decimal squareYards) => Area.fromUnits(AreaUnit.squareYard, squareYards);
+  factory Area.fromSquareYards(Rational squareYards) => Area.fromUnits(AreaUnit.squareYard, squareYards);
 
   /// Creates an [Area] representing the specified number of [squareMeters].
-  factory Area.fromSquareMeters(Decimal squareMeters) => Area.fromUnits(AreaUnit.squareMeter, squareMeters);
+  factory Area.fromSquareMeters(Rational squareMeters) => Area.fromUnits(AreaUnit.squareMeter, squareMeters);
 
   /// Creates an [Area] representing the specified number of [squareDecameters].
-  factory Area.fromSquareDecameters(Decimal squareDecameters) =>
+  factory Area.fromSquareDecameters(Rational squareDecameters) =>
       Area.fromUnits(AreaUnit.squareDecameter, squareDecameters);
 
   /// Creates an [Area] representing the specified number of [acres].
-  factory Area.fromAcres(Decimal acres) => Area.fromUnits(AreaUnit.acre, acres);
+  factory Area.fromAcres(Rational acres) => Area.fromUnits(AreaUnit.acre, acres);
 
   /// Creates an [Area] representing the specified number of [hectares].
-  factory Area.fromHectares(Decimal hectares) => Area.fromUnits(AreaUnit.hectare, hectares);
+  factory Area.fromHectares(Rational hectares) => Area.fromUnits(AreaUnit.hectare, hectares);
 
   /// Creates an [Area] representing the specified number of [squareKilometers].
-  factory Area.fromSquareKilometers(Decimal squareKilometers) =>
+  factory Area.fromSquareKilometers(Rational squareKilometers) =>
       Area.fromUnits(AreaUnit.squareKilometer, squareKilometers);
 
   /// Creates an [Area] representing the specified number of [squareMiles].
-  factory Area.fromSquareMiles(Decimal squareMiles) => Area.fromUnits(AreaUnit.squareMile, squareMiles);
+  factory Area.fromSquareMiles(Rational squareMiles) => Area.fromUnits(AreaUnit.squareMile, squareMiles);
 
   /// Creates an [Area] representing the specified number of [squareMegameters].
-  factory Area.fromSquareMegameters(Decimal squareMegameters) =>
+  factory Area.fromSquareMegameters(Rational squareMegameters) =>
       Area.fromUnits(AreaUnit.squareMegameter, squareMegameters);
 
   /// Creates an [Area] representing the specified number of [squareGigameters].
-  factory Area.fromSquareGigameters(Decimal squareGigameters) =>
+  factory Area.fromSquareGigameters(Rational squareGigameters) =>
       Area.fromUnits(AreaUnit.squareGigameter, squareGigameters);
 
   /// An [Area] of size zero.
-  static final zero = Area.fromSquareNanometers(Decimals.zero);
+  static final zero = Area.fromSquareNanometers(Rationals.zero);
 
   static final _defaultFormat = AreaFormat();
 
   /// Gets the number of square nanometers in this [Area], including any fractional portion.
-  Decimal get squareNanometers => getUnits(AreaUnit.squareNanometer);
+  Rational get squareNanometers => getUnits(AreaUnit.squareNanometer);
 
   /// Gets the number of square micrometers in this [Area], including any fractional portion.
-  Decimal get squareMicrometers => getUnits(AreaUnit.squareMicrometer);
+  Rational get squareMicrometers => getUnits(AreaUnit.squareMicrometer);
 
   /// Gets the number of square thous in this [Area], including any fractional portion.
-  Decimal get squareThous => getUnits(AreaUnit.squareThou);
+  Rational get squareThous => getUnits(AreaUnit.squareThou);
 
   /// Gets the number of square millimeters in this [Area], including any fractional portion.
-  Decimal get squareMillimeters => getUnits(AreaUnit.squareMillimeter);
+  Rational get squareMillimeters => getUnits(AreaUnit.squareMillimeter);
 
   /// Gets the number of square centimeters in this [Area], including any fractional portion.
-  Decimal get squareCentimeters => getUnits(AreaUnit.squareCentimeter);
+  Rational get squareCentimeters => getUnits(AreaUnit.squareCentimeter);
 
   /// Gets the number of square inches in this [Area], including any fractional portion.
-  Decimal get squareInches => getUnits(AreaUnit.squareInch);
+  Rational get squareInches => getUnits(AreaUnit.squareInch);
 
   /// Gets the number of square decimeters in this [Area], including any fractional portion.
-  Decimal get squareDecimeters => getUnits(AreaUnit.squareDecimeter);
+  Rational get squareDecimeters => getUnits(AreaUnit.squareDecimeter);
 
   /// Gets the number of square feet in this [Area], including any fractional portion.
-  Decimal get squareFeet => getUnits(AreaUnit.squareFoot);
+  Rational get squareFeet => getUnits(AreaUnit.squareFoot);
 
   /// Gets the number of square yards in this [Area], including any fractional portion.
-  Decimal get squareYards => getUnits(AreaUnit.squareYard);
+  Rational get squareYards => getUnits(AreaUnit.squareYard);
 
   /// Gets the number of square meters in this [Area], including any fractional portion.
-  Decimal get squareMeters => getUnits(AreaUnit.squareMeter);
+  Rational get squareMeters => getUnits(AreaUnit.squareMeter);
 
   /// Gets the number of square decameters in this [Area], including any fractional portion.
-  Decimal get squareDecameters => getUnits(AreaUnit.squareDecameter);
+  Rational get squareDecameters => getUnits(AreaUnit.squareDecameter);
 
   /// Gets the number of acres in this [Area], including any fractional portion.
-  Decimal get acres => getUnits(AreaUnit.acre);
+  Rational get acres => getUnits(AreaUnit.acre);
 
   /// Gets the number of hectares in this [Area], including any fractional portion.
-  Decimal get hectares => getUnits(AreaUnit.hectare);
+  Rational get hectares => getUnits(AreaUnit.hectare);
 
   /// Gets the number of square kilometers in this [Area], including any fractional portion.
-  Decimal get squareKilometers => getUnits(AreaUnit.squareKilometer);
+  Rational get squareKilometers => getUnits(AreaUnit.squareKilometer);
 
   /// Gets the number of square miles in this [Area], including any fractional portion.
-  Decimal get squareMiles => getUnits(AreaUnit.squareMile);
+  Rational get squareMiles => getUnits(AreaUnit.squareMile);
 
   /// Gets the number of square megameters in this [Area], including any fractional portion.
-  Decimal get squareMegameters => getUnits(AreaUnit.squareMegameter);
+  Rational get squareMegameters => getUnits(AreaUnit.squareMegameter);
 
   /// Gets the number of square gigameters in this [Area], including any fractional portion.
-  Decimal get squareGigameters => getUnits(AreaUnit.squareGigameter);
+  Rational get squareGigameters => getUnits(AreaUnit.squareGigameter);
 
   /// Creates an [AreaRate] with the specified [period] from this value.
   AreaRate per(Duration period) => AreaRate._(
@@ -131,18 +131,18 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
       );
 
   @override
-  Decimal getUnits(AreaUnit unit) => baseValue / unit._squareMeterCount;
+  Rational getUnits(AreaUnit unit) => baseValue / unit._squareMeterCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  Area createValue(Decimal baseValue) => Area.fromSquareNanometers(baseValue);
+  Area createValue(Rational baseValue) => Area.fromSquareNanometers(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(AreaUnit unit, Decimal value) => value * unit._squareMeterCount;
+  Rational getBaseValue(AreaUnit unit, Rational value) => value * unit._squareMeterCount;
 }
 
 /// Defines supported units of area.
@@ -269,25 +269,25 @@ class AreaUnits {
 
 /// Contains extensions for [AreaUnit].
 extension AreaUnitExtensions on AreaUnit {
-  static final _squareMetersInSquareNanometer = ds('0.000000000000000001');
-  static final _squareMetersInSquareMicrometer = ds('0.000000000001');
-  static final _squareMetersInSquareThou = ds('0.00000000064516');
-  static final _squareMetersInSquareMillimeter = ds('0.000001');
-  static final _squareMetersInSquareCentimeter = ds('0.0001');
-  static final _squareMetersInSquareInch = ds('0.00064516');
-  static final _squareMetersInSquareDecimeter = ds('0.01');
-  static final _squareMetersInSquareFoot = ds('0.092903');
-  static final _squareMetersInSquareYard = ds('0.836127');
-  static final _squareMetersInSquareMeter = Decimals.one;
-  static final _squareMetersInSquareDecameter = di(100);
-  static final _squareMetersInAcre = ds('4046.86');
-  static final _squareMetersInHectare = di(10000);
-  static final _squareMetersInSquareKilometer = di(1000000);
-  static final _squareMetersInSquareMile = di(2590000);
-  static final _squareMetersInSquareMegameter = di(1000000000000);
-  static final _squareMetersInSquareGigameter = di(1000000000000000000);
+  static final _squareMetersInSquareNanometer = rs('0.000000000000000001');
+  static final _squareMetersInSquareMicrometer = rs('0.000000000001');
+  static final _squareMetersInSquareThou = rs('0.00000000064516');
+  static final _squareMetersInSquareMillimeter = rs('0.000001');
+  static final _squareMetersInSquareCentimeter = rs('0.0001');
+  static final _squareMetersInSquareInch = rs('0.00064516');
+  static final _squareMetersInSquareDecimeter = rs('0.01');
+  static final _squareMetersInSquareFoot = rs('0.092903');
+  static final _squareMetersInSquareYard = rs('0.836127');
+  static final _squareMetersInSquareMeter = Rationals.one;
+  static final _squareMetersInSquareDecameter = ri(100);
+  static final _squareMetersInAcre = rs('4046.86');
+  static final _squareMetersInHectare = ri(10000);
+  static final _squareMetersInSquareKilometer = ri(1000000);
+  static final _squareMetersInSquareMile = ri(2590000);
+  static final _squareMetersInSquareMegameter = ri(1000000000000);
+  static final _squareMetersInSquareGigameter = ri(1000000000000000000);
 
-  Decimal get _squareMeterCount {
+  Rational get _squareMeterCount {
     switch (this) {
       case AreaUnit.squareNanometer:
         return _squareMetersInSquareNanometer;
@@ -488,7 +488,7 @@ class AreaFormat extends _BaseAreaFormat<Area> {
   AreaUnit getLargestUnit(Area input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Area input, AreaUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Area input, AreaUnit unit) => input.getUnits(unit);
 
   @override
   Area scaleToRateUnit(Area input, RateUnit rateUnit) => throw UnsupportedError('Cannot scale Area to a RateUnit');
@@ -532,12 +532,12 @@ class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
   AreaUnit getLargestUnit(AreaRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(AreaRate input, AreaUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(AreaRate input, AreaUnit unit) => input.value.getUnits(unit);
 
   @override
   AreaRate scaleToRateUnit(AreaRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
     final result = Area.fromSquareMeters(input.value.squareMeters * scale).per(scaledPeriod);
     return result;
   }

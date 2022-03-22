@@ -1,119 +1,119 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
+import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
   /// Creates a [Length] given a [unit] and decimal [value] for that unit.
-  Length.fromUnits(LengthUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Length.fromUnits(LengthUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Length] representing the specified number of [nanometers].
-  factory Length.fromNanometers(Decimal nanometers) => Length.fromUnits(LengthUnit.nanometer, nanometers);
+  factory Length.fromNanometers(Rational nanometers) => Length.fromUnits(LengthUnit.nanometer, nanometers);
 
   /// Creates a [Length] representing the specified number of [micrometers].
-  factory Length.fromMicrometers(Decimal micrometers) => Length.fromUnits(LengthUnit.micrometer, micrometers);
+  factory Length.fromMicrometers(Rational micrometers) => Length.fromUnits(LengthUnit.micrometer, micrometers);
 
   /// Creates a [Length] representing the specified number of [thous].
-  factory Length.fromThous(Decimal thous) => Length.fromUnits(LengthUnit.thou, thous);
+  factory Length.fromThous(Rational thous) => Length.fromUnits(LengthUnit.thou, thous);
 
   /// Creates a [Length] representing the specified number of [millimeters].
-  factory Length.fromMillimeters(Decimal millimeters) => Length.fromUnits(LengthUnit.millimeter, millimeters);
+  factory Length.fromMillimeters(Rational millimeters) => Length.fromUnits(LengthUnit.millimeter, millimeters);
 
   /// Creates a [Length] representing the specified number of [lines].
-  factory Length.fromLines(Decimal lines) => Length.fromUnits(LengthUnit.line, lines);
+  factory Length.fromLines(Rational lines) => Length.fromUnits(LengthUnit.line, lines);
 
   /// Creates a [Length] representing the specified number of [centimeters].
-  factory Length.fromCentimeters(Decimal centimeters) => Length.fromUnits(LengthUnit.centimeter, centimeters);
+  factory Length.fromCentimeters(Rational centimeters) => Length.fromUnits(LengthUnit.centimeter, centimeters);
 
   /// Creates a [Length] representing the specified number of [inches].
-  factory Length.fromInches(Decimal inches) => Length.fromUnits(LengthUnit.inch, inches);
+  factory Length.fromInches(Rational inches) => Length.fromUnits(LengthUnit.inch, inches);
 
   /// Creates a [Length] representing the specified number of [decimeters].
-  factory Length.fromDecimeters(Decimal decimeters) => Length.fromUnits(LengthUnit.decimeter, decimeters);
+  factory Length.fromDecimeters(Rational decimeters) => Length.fromUnits(LengthUnit.decimeter, decimeters);
 
   /// Creates a [Length] representing the specified number of [feet].
-  factory Length.fromFeet(Decimal feet) => Length.fromUnits(LengthUnit.foot, feet);
+  factory Length.fromFeet(Rational feet) => Length.fromUnits(LengthUnit.foot, feet);
 
   /// Creates a [Length] representing the specified number of [yards].
-  factory Length.fromYards(Decimal yards) => Length.fromUnits(LengthUnit.yard, yards);
+  factory Length.fromYards(Rational yards) => Length.fromUnits(LengthUnit.yard, yards);
 
   /// Creates a [Length] representing the specified number of [meters].
-  factory Length.fromMeters(Decimal meters) => Length.fromUnits(LengthUnit.meter, meters);
+  factory Length.fromMeters(Rational meters) => Length.fromUnits(LengthUnit.meter, meters);
 
   /// Creates a [Length] representing the specified number of [decameters].
-  factory Length.fromDecameters(Decimal decameters) => Length.fromUnits(LengthUnit.decameter, decameters);
+  factory Length.fromDecameters(Rational decameters) => Length.fromUnits(LengthUnit.decameter, decameters);
 
   /// Creates a [Length] representing the specified number of [hectometers].
-  factory Length.fromHectometers(Decimal hectometers) => Length.fromUnits(LengthUnit.hectometer, hectometers);
+  factory Length.fromHectometers(Rational hectometers) => Length.fromUnits(LengthUnit.hectometer, hectometers);
 
   /// Creates a [Length] representing the specified number of [kilometers].
-  factory Length.fromKilometers(Decimal kilometers) => Length.fromUnits(LengthUnit.kilometer, kilometers);
+  factory Length.fromKilometers(Rational kilometers) => Length.fromUnits(LengthUnit.kilometer, kilometers);
 
   /// Creates a [Length] representing the specified number of [miles].
-  factory Length.fromMiles(Decimal miles) => Length.fromUnits(LengthUnit.mile, miles);
+  factory Length.fromMiles(Rational miles) => Length.fromUnits(LengthUnit.mile, miles);
 
   /// Creates a [Length] representing the specified number of [megameters].
-  factory Length.fromMegameters(Decimal megameters) => Length.fromUnits(LengthUnit.megameter, megameters);
+  factory Length.fromMegameters(Rational megameters) => Length.fromUnits(LengthUnit.megameter, megameters);
 
   /// Creates a [Length] representing the specified number of [gigameters].
-  factory Length.fromGigameters(Decimal gigameters) => Length.fromUnits(LengthUnit.gigameter, gigameters);
+  factory Length.fromGigameters(Rational gigameters) => Length.fromUnits(LengthUnit.gigameter, gigameters);
 
   /// A [Length] of size zero.
-  static final zero = Length.fromNanometers(Decimals.zero);
+  static final zero = Length.fromNanometers(Rationals.zero);
 
   static final _defaultFormat = LengthFormat();
 
   /// Gets the number of nanometers in this [Length], including any fractional portion.
-  Decimal get nanometers => getUnits(LengthUnit.nanometer);
+  Rational get nanometers => getUnits(LengthUnit.nanometer);
 
   /// Gets the number of micrometers in this [Length], including any fractional portion.
-  Decimal get micrometers => getUnits(LengthUnit.micrometer);
+  Rational get micrometers => getUnits(LengthUnit.micrometer);
 
   /// Gets the number of thous in this [Length], including any fractional portion.
-  Decimal get thous => getUnits(LengthUnit.thou);
+  Rational get thous => getUnits(LengthUnit.thou);
 
   /// Gets the number of millimeters in this [Length], including any fractional portion.
-  Decimal get millimeters => getUnits(LengthUnit.millimeter);
+  Rational get millimeters => getUnits(LengthUnit.millimeter);
 
   /// Gets the number of lines in this [Length], including any fractional portion.
-  Decimal get lines => getUnits(LengthUnit.line);
+  Rational get lines => getUnits(LengthUnit.line);
 
   /// Gets the number of centimeters in this [Length], including any fractional portion.
-  Decimal get centimeters => getUnits(LengthUnit.centimeter);
+  Rational get centimeters => getUnits(LengthUnit.centimeter);
 
   /// Gets the number of inches in this [Length], including any fractional portion.
-  Decimal get inches => getUnits(LengthUnit.inch);
+  Rational get inches => getUnits(LengthUnit.inch);
 
   /// Gets the number of decimeters in this [Length], including any fractional portion.
-  Decimal get decimeters => getUnits(LengthUnit.decimeter);
+  Rational get decimeters => getUnits(LengthUnit.decimeter);
 
   /// Gets the number of feet in this [Length], including any fractional portion.
-  Decimal get feet => getUnits(LengthUnit.foot);
+  Rational get feet => getUnits(LengthUnit.foot);
 
   /// Gets the number of yards in this [Length], including any fractional portion.
-  Decimal get yards => getUnits(LengthUnit.yard);
+  Rational get yards => getUnits(LengthUnit.yard);
 
   /// Gets the number of meters in this [Length], including any fractional portion.
-  Decimal get meters => getUnits(LengthUnit.meter);
+  Rational get meters => getUnits(LengthUnit.meter);
 
   /// Gets the number of decameters in this [Length], including any fractional portion.
-  Decimal get decameters => getUnits(LengthUnit.decameter);
+  Rational get decameters => getUnits(LengthUnit.decameter);
 
   /// Gets the number of hectometers in this [Length], including any fractional portion.
-  Decimal get hectometers => getUnits(LengthUnit.hectometer);
+  Rational get hectometers => getUnits(LengthUnit.hectometer);
 
   /// Gets the number of kilometers in this [Length], including any fractional portion.
-  Decimal get kilometers => getUnits(LengthUnit.kilometer);
+  Rational get kilometers => getUnits(LengthUnit.kilometer);
 
   /// Gets the number of miles in this [Length], including any fractional portion.
-  Decimal get miles => getUnits(LengthUnit.mile);
+  Rational get miles => getUnits(LengthUnit.mile);
 
   /// Gets the number of megameters in this [Length], including any fractional portion.
-  Decimal get megameters => getUnits(LengthUnit.megameter);
+  Rational get megameters => getUnits(LengthUnit.megameter);
 
   /// Gets the number of gigameters in this [Length], including any fractional portion.
-  Decimal get gigameters => getUnits(LengthUnit.gigameter);
+  Rational get gigameters => getUnits(LengthUnit.gigameter);
 
   /// Creates a [LengthRate] with the specified [period] from this value.
   LengthRate per(Duration period) => LengthRate._(
@@ -122,18 +122,18 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
       );
 
   @override
-  Decimal getUnits(LengthUnit unit) => baseValue / unit._meterCount;
+  Rational getUnits(LengthUnit unit) => baseValue / unit._meterCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  Length createValue(Decimal baseValue) => Length.fromMeters(baseValue);
+  Length createValue(Rational baseValue) => Length.fromMeters(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(LengthUnit unit, Decimal value) => value * unit._meterCount;
+  Rational getBaseValue(LengthUnit unit, Rational value) => value * unit._meterCount;
 }
 
 /// Defines supported units of length.
@@ -258,25 +258,25 @@ class LengthUnits {
 
 /// Contains extensions for [LengthUnit].
 extension LengthUnitExtensions on LengthUnit {
-  static final _metersInNanometer = ds('0.000000001');
-  static final _metersInMicrometer = ds('0.000001');
-  static final _metersInThou = ds('0.0000254');
-  static final _metersInMillimeter = ds('0.001');
-  static final _metersInLine = ds('0.00211666');
-  static final _metersInCentimeter = ds('0.01');
-  static final _metersInInch = ds('0.0254');
-  static final _metersInDecimeter = ds('0.1');
-  static final _metersInFoot = ds('0.3048');
-  static final _metersInYard = ds('0.9144');
-  static final _metersInMeter = Decimals.one;
-  static final _metersInDecameter = Decimals.ten;
-  static final _metersInHectometer = di(100);
-  static final _metersInKilometer = di(1000);
-  static final _metersInMile = ds('1609.34');
-  static final _metersInMegameter = di(1000000);
-  static final _metersInGigameter = di(1000000000);
+  static final _metersInNanometer = rs('0.000000001');
+  static final _metersInMicrometer = rs('0.000001');
+  static final _metersInThou = rs('0.0000254');
+  static final _metersInMillimeter = rs('0.001');
+  static final _metersInLine = rs('0.00211666');
+  static final _metersInCentimeter = rs('0.01');
+  static final _metersInInch = rs('0.0254');
+  static final _metersInDecimeter = rs('0.1');
+  static final _metersInFoot = rs('0.3048');
+  static final _metersInYard = rs('0.9144');
+  static final _metersInMeter = Rationals.one;
+  static final _metersInDecameter = Rationals.ten;
+  static final _metersInHectometer = ri(100);
+  static final _metersInKilometer = ri(1000);
+  static final _metersInMile = rs('1609.34');
+  static final _metersInMegameter = ri(1000000);
+  static final _metersInGigameter = ri(1000000000);
 
-  Decimal get _meterCount {
+  Rational get _meterCount {
     switch (this) {
       case LengthUnit.nanometer:
         return _metersInNanometer;
@@ -477,7 +477,7 @@ class LengthFormat extends _BaseLengthFormat<Length> {
   LengthUnit getLargestUnit(Length input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Length input, LengthUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Length input, LengthUnit unit) => input.getUnits(unit);
 
   @override
   Length scaleToRateUnit(Length input, RateUnit rateUnit) =>
@@ -525,12 +525,12 @@ class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
   LengthUnit getLargestUnit(LengthRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(LengthRate input, LengthUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(LengthRate input, LengthUnit unit) => input.value.getUnits(unit);
 
   @override
   LengthRate scaleToRateUnit(LengthRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
     final result = Length.fromMeters(input.value.meters * scale).per(scaledPeriod);
     return result;
   }

@@ -1,90 +1,89 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
-
-import 'decimals.dart';
+import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a weight.
 class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
   /// Creates a [Weight] given a [unit] and decimal [value] for that unit.
-  Weight.fromUnits(WeightUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Weight.fromUnits(WeightUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Weight] representing the specified number of [nanograms].
-  factory Weight.fromNanograms(Decimal nanograms) => Weight.fromUnits(WeightUnit.nanogram, nanograms);
+  factory Weight.fromNanograms(Rational nanograms) => Weight.fromUnits(WeightUnit.nanogram, nanograms);
 
   /// Creates a [Weight] representing the specified number of [micrograms].
-  factory Weight.fromMicrograms(Decimal micrograms) => Weight.fromUnits(WeightUnit.microgram, micrograms);
+  factory Weight.fromMicrograms(Rational micrograms) => Weight.fromUnits(WeightUnit.microgram, micrograms);
 
   /// Creates a [Weight] representing the specified number of [milligrams].
-  factory Weight.fromMilligrams(Decimal milligrams) => Weight.fromUnits(WeightUnit.milligram, milligrams);
+  factory Weight.fromMilligrams(Rational milligrams) => Weight.fromUnits(WeightUnit.milligram, milligrams);
 
   /// Creates a [Weight] representing the specified number of [grams].
-  factory Weight.fromGrams(Decimal grams) => Weight.fromUnits(WeightUnit.gram, grams);
+  factory Weight.fromGrams(Rational grams) => Weight.fromUnits(WeightUnit.gram, grams);
 
   /// Creates a [Weight] representing the specified number of [ounces].
-  factory Weight.fromOunces(Decimal ounces) => Weight.fromUnits(WeightUnit.ounce, ounces);
+  factory Weight.fromOunces(Rational ounces) => Weight.fromUnits(WeightUnit.ounce, ounces);
 
   /// Creates a [Weight] representing the specified number of [pounds].
-  factory Weight.fromPounds(Decimal pounds) => Weight.fromUnits(WeightUnit.pound, pounds);
+  factory Weight.fromPounds(Rational pounds) => Weight.fromUnits(WeightUnit.pound, pounds);
 
   /// Creates a [Weight] representing the specified number of [kilograms].
-  factory Weight.fromKilograms(Decimal kilograms) => Weight.fromUnits(WeightUnit.kilogram, kilograms);
+  factory Weight.fromKilograms(Rational kilograms) => Weight.fromUnits(WeightUnit.kilogram, kilograms);
 
   /// Creates a [Weight] representing the specified number of [usTons].
-  factory Weight.fromUsTons(Decimal usTons) => Weight.fromUnits(WeightUnit.usTon, usTons);
+  factory Weight.fromUsTons(Rational usTons) => Weight.fromUnits(WeightUnit.usTon, usTons);
 
   /// Creates a [Weight] representing the specified number of [tonnes].
-  factory Weight.fromTonnes(Decimal tonnes) => Weight.fromUnits(WeightUnit.tonne, tonnes);
+  factory Weight.fromTonnes(Rational tonnes) => Weight.fromUnits(WeightUnit.tonne, tonnes);
 
   /// Creates a [Weight] representing the specified number of [imperialTons].
-  factory Weight.fromImperialTons(Decimal imperialTons) => Weight.fromUnits(WeightUnit.imperialTon, imperialTons);
+  factory Weight.fromImperialTons(Rational imperialTons) => Weight.fromUnits(WeightUnit.imperialTon, imperialTons);
 
   /// Creates a [Weight] representing the specified number of [megatonnes].
-  factory Weight.fromMegatonnes(Decimal megatonnes) => Weight.fromUnits(WeightUnit.megatonne, megatonnes);
+  factory Weight.fromMegatonnes(Rational megatonnes) => Weight.fromUnits(WeightUnit.megatonne, megatonnes);
 
   /// Creates a [Weight] representing the specified number of [gigatonnes].
-  factory Weight.fromGigatonnes(Decimal gigatonnes) => Weight.fromUnits(WeightUnit.gigatonne, gigatonnes);
+  factory Weight.fromGigatonnes(Rational gigatonnes) => Weight.fromUnits(WeightUnit.gigatonne, gigatonnes);
 
   /// A [Weight] of size zero.
-  static final zero = Weight.fromNanograms(Decimals.zero);
+  static final zero = Weight.fromNanograms(Rationals.zero);
 
   static final _defaultFormat = WeightFormat();
 
   /// Gets the number of nanograms in this [Weight], including any fractional portion.
-  Decimal get nanograms => getUnits(WeightUnit.nanogram);
+  Rational get nanograms => getUnits(WeightUnit.nanogram);
 
   /// Gets the number of micrograms in this [Weight], including any fractional portion.
-  Decimal get micrograms => getUnits(WeightUnit.microgram);
+  Rational get micrograms => getUnits(WeightUnit.microgram);
 
   /// Gets the number of milligrams in this [Weight], including any fractional portion.
-  Decimal get milligrams => getUnits(WeightUnit.milligram);
+  Rational get milligrams => getUnits(WeightUnit.milligram);
 
   /// Gets the number of grams in this [Weight], including any fractional portion.
-  Decimal get grams => getUnits(WeightUnit.gram);
+  Rational get grams => getUnits(WeightUnit.gram);
 
   /// Gets the number of ounces in this [Weight], including any fractional portion.
-  Decimal get ounces => getUnits(WeightUnit.ounce);
+  Rational get ounces => getUnits(WeightUnit.ounce);
 
   /// Gets the number of pounds in this [Weight], including any fractional portion.
-  Decimal get pounds => getUnits(WeightUnit.pound);
+  Rational get pounds => getUnits(WeightUnit.pound);
 
   /// Gets the number of kilograms in this [Weight], including any fractional portion.
-  Decimal get kilograms => getUnits(WeightUnit.kilogram);
+  Rational get kilograms => getUnits(WeightUnit.kilogram);
 
   /// Gets the number of usTons in this [Weight], including any fractional portion.
-  Decimal get usTons => getUnits(WeightUnit.usTon);
+  Rational get usTons => getUnits(WeightUnit.usTon);
 
   /// Gets the number of tonnes in this [Weight], including any fractional portion.
-  Decimal get tonnes => getUnits(WeightUnit.tonne);
+  Rational get tonnes => getUnits(WeightUnit.tonne);
 
   /// Gets the number of imperialTons in this [Weight], including any fractional portion.
-  Decimal get imperialTons => getUnits(WeightUnit.imperialTon);
+  Rational get imperialTons => getUnits(WeightUnit.imperialTon);
 
   /// Gets the number of megatonnes in this [Weight], including any fractional portion.
-  Decimal get megatonnes => getUnits(WeightUnit.megatonne);
+  Rational get megatonnes => getUnits(WeightUnit.megatonne);
 
   /// Gets the number of gigatonnes in this [Weight], including any fractional portion.
-  Decimal get gigatonnes => getUnits(WeightUnit.gigatonne);
+  Rational get gigatonnes => getUnits(WeightUnit.gigatonne);
 
   /// Creates a [WeightRate] with the specified [period] from this value.
   WeightRate per(Duration period) => WeightRate._(
@@ -93,18 +92,18 @@ class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
       );
 
   @override
-  Decimal getUnits(WeightUnit unit) => baseValue / unit._gramCount;
+  Rational getUnits(WeightUnit unit) => baseValue / unit._gramCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  Weight createValue(Decimal baseValue) => Weight.fromGrams(baseValue);
+  Weight createValue(Rational baseValue) => Weight.fromGrams(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(WeightUnit unit, Decimal value) => value * unit._gramCount;
+  Rational getBaseValue(WeightUnit unit, Rational value) => value * unit._gramCount;
 }
 
 /// Defines supported units of weight.
@@ -201,20 +200,20 @@ class WeightUnits {
 
 /// Contains extensions for [WeightUnit].
 extension WeightUnitExtensions on WeightUnit {
-  static final _gramsInNanogram = ds('0.000000001');
-  static final _gramsInMicrogram = ds('0.000001');
-  static final _gramsInMilligram = ds('0.001');
-  static final _gramsInGram = Decimals.one;
-  static final _gramsInOunce = ds('28.3495');
-  static final _gramsInPound = ds('453.592');
-  static final _gramsInKilogram = di(1000);
-  static final _gramsInUsTon = di(907185);
-  static final _gramsInTonne = di(1000000);
-  static final _gramsInImperialTon = di(1016000);
-  static final _gramsInMegatonne = di(1000000000000);
-  static final _gramsInGigatonne = di(1000000000000000);
+  static final _gramsInNanogram = rs('0.000000001');
+  static final _gramsInMicrogram = rs('0.000001');
+  static final _gramsInMilligram = rs('0.001');
+  static final _gramsInGram = Rationals.one;
+  static final _gramsInOunce = rs('28.3495');
+  static final _gramsInPound = rs('453.592');
+  static final _gramsInKilogram = ri(1000);
+  static final _gramsInUsTon = ri(907185);
+  static final _gramsInTonne = ri(1000000);
+  static final _gramsInImperialTon = ri(1016000);
+  static final _gramsInMegatonne = ri(1000000000000);
+  static final _gramsInGigatonne = ri(1000000000000000);
 
-  Decimal get _gramCount {
+  Rational get _gramCount {
     switch (this) {
       case WeightUnit.nanogram:
         return _gramsInNanogram;
@@ -389,7 +388,7 @@ class WeightFormat extends _BaseWeightFormat<Weight> {
   WeightUnit getLargestUnit(Weight input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Weight input, WeightUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Weight input, WeightUnit unit) => input.getUnits(unit);
 
   @override
   Weight scaleToRateUnit(Weight input, RateUnit rateUnit) =>
@@ -437,12 +436,12 @@ class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
   WeightUnit getLargestUnit(WeightRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(WeightRate input, WeightUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(WeightRate input, WeightUnit unit) => input.value.getUnits(unit);
 
   @override
   WeightRate scaleToRateUnit(WeightRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
     final result = Weight.fromGrams(input.value.grams * scale).per(scaledPeriod);
     return result;
   }

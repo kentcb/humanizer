@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -26,9 +26,9 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Volume.fromCubicMeters(di(3)), expected: '3000L');
-      verify(value: Volume.fromMilliliters(di(3)), expected: '3mL');
-      verify(value: Volume.fromCubicMeters(ds('812.71615')), expected: '812716.15L');
+      verify(value: Volume.fromCubicMeters(ri(3)), expected: '3000L');
+      verify(value: Volume.fromMilliliters(ri(3)), expected: '3mL');
+      verify(value: Volume.fromCubicMeters(rs('812.71615')), expected: '812716.15L');
     });
 
     test('VolumeRate toString formats using defaults', () {
@@ -38,8 +38,8 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Volume.fromCubicMeters(di(30)).per(const Duration(minutes: 1)), expected: '500L/s');
-      verify(value: Volume.fromCubicMeters(ds('0.1')).per(const Duration(minutes: 1)), expected: '100L/min');
+      verify(value: Volume.fromCubicMeters(ri(30)).per(const Duration(minutes: 1)), expected: '500L/s');
+      verify(value: Volume.fromCubicMeters(rs('0.1')).per(const Duration(minutes: 1)), expected: '100L/min');
     });
   });
 }

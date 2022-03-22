@@ -2,9 +2,10 @@ import 'package:decimal/decimal.dart';
 import 'package:decimal/intl.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
+import 'package:rational/rational.dart';
 
 /// Base class for units of measurement.
 ///
@@ -23,28 +24,29 @@ import 'package:meta/meta.dart';
 abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, dynamic>>
     implements Comparable<TValue> {
   /// Creates a unit of measurement value with the specified [unit] and [value].
+  @protected
   UnitOfMeasurement.fromUnits(
     TUnit unit,
-    Decimal value,
+    Rational value,
   ) {
     baseValue = getBaseValue(unit, value);
   }
 
   /// The underlying base value of the unit of measurement.
   @protected
-  late final Decimal baseValue;
+  late final Rational baseValue;
 
   /// Creates a unit of measurement value with the specified [baseValue].
   @protected
-  TValue createValue(Decimal baseValue);
+  TValue createValue(Rational baseValue);
 
   /// Gets the number of [unit] units in this unit of measurement.
   @protected
-  Decimal getUnits(TUnit unit);
+  Rational getUnits(TUnit unit);
 
   /// Gets the base value for a unit of measurement of [unit] and [value].
   @protected
-  Decimal getBaseValue(TUnit unit, Decimal value);
+  Rational getBaseValue(TUnit unit, Rational value);
 
   /// Determines the largest unit that has a value of at least `1`.
   ///
@@ -58,9 +60,9 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
     }
 
     TUnit? largestUnit;
-    Decimal? largestUnits;
+    Rational? largestUnits;
     TUnit? smallestUnit;
-    Decimal? smallestUnits;
+    Rational? smallestUnits;
 
     for (final unit in permissibleUnits) {
       final units = getUnits(unit);
@@ -68,7 +70,7 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
       // Logic is counterintuitive. If the number of units for a given unit is less than the current largest units,
       // and is more than one, that means we have at least one of those units and it is larger than the currently
       // selected unit because there are fewer of them.
-      if (units >= Decimals.one && (largestUnits == null || units < largestUnits)) {
+      if (units >= Rationals.one && (largestUnits == null || units < largestUnits)) {
         largestUnit = unit;
         largestUnits = units;
       }
@@ -90,7 +92,7 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
   /// Rounds this unit of measurement such that the [roundTo] unit will be rounded towards the nearest integer.
   TValue round(TUnit roundTo) {
     final units = getUnits(roundTo);
-    final roundedUnits = units.round();
+    final roundedUnits = units.round().toRational();
     final baseValue = getBaseValue(roundTo, roundedUnits);
     final result = createValue(baseValue);
     return result;
@@ -119,10 +121,10 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
   TValue operator -(TValue other) => createValue(baseValue - other.baseValue);
 
   /// Multiplies this value by [factor].
-  TValue operator *(Decimal factor) => createValue(baseValue * factor);
+  TValue operator *(Rational factor) => createValue(baseValue * factor);
 
   /// Divides this value by [divisor].
-  TValue operator /(Decimal divisor) => createValue(baseValue / divisor);
+  TValue operator /(Rational divisor) => createValue(baseValue / divisor);
 
   /// Determines whether this value is less than [other].
   bool operator <(TValue other) => baseValue < other.baseValue;
@@ -358,7 +360,7 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
 
   /// Determines how many units of [unit] the [input] contains, including any fractional portion.
   @protected
-  Decimal getUnitQuantity(TValue input, TUnit unit);
+  Rational getUnitQuantity(TValue input, TUnit unit);
 
   /// Determines the largest denomination of unit in [input] that has a value of at least `1`.
   @protected
@@ -645,7 +647,7 @@ class _NodeEvaluationContext<TValueUnit> {
   final String valueUnitSymbol;
   final String valueUnitName;
   final RateUnit? rateUnit;
-  final Decimal value;
+  final Rational value;
   final String locale;
 }
 
@@ -672,7 +674,8 @@ class _NumberFormatNode<TValueUnit> extends _Node<TValueUnit> {
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) {
     final numberFormat = NumberFormat(format, context.locale);
-    final result = numberFormat.format(DecimalIntl(context.value));
+    final result = numberFormat
+        .format(DecimalIntl(context.value.toDecimal(scaleOnInfinitePrecision: numberFormat.decimalDigits ?? 10)));
     return result;
   }
 }
@@ -769,7 +772,7 @@ class _FixedRateUnitNameNode<TValueUnit> extends _FixedRateUnitNode<TValueUnit> 
 
 extension _StringExtensions on String {
   String pluralizeLastWordOnly({
-    required Decimal quantity,
+    required Rational quantity,
     required String locale,
   }) {
     final split = this.split(r' ');
@@ -794,7 +797,7 @@ class ComparableRatedValue implements Comparable<ComparableRatedValue> {
     this.rateUnit,
   );
 
-  final Decimal value;
+  final Rational value;
   final RateUnit rateUnit;
 
   @override
@@ -806,21 +809,26 @@ class ComparableRatedValue implements Comparable<ComparableRatedValue> {
     }
 
     if (value.hasFinitePrecision) {
-      final comparePrecision = value.precision.compareTo(other.value.precision);
+      assert(other.value.hasFinitePrecision);
+
+      final valueDecimal = value.toDecimal();
+      final otherValueDecimal = other.value.toDecimal();
+
+      final comparePrecision = valueDecimal.precision.compareTo(otherValueDecimal.precision);
 
       if (comparePrecision != 0) {
         return comparePrecision;
       }
 
-      final compareScale = value.scale.compareTo(other.value.scale);
+      final compareScale = valueDecimal.scale.compareTo(otherValueDecimal.scale);
 
       if (compareScale != 0) {
         return compareScale;
       }
     }
 
-    final currentDistanceFrom1 = (value - Decimals.one).abs();
-    final proposedDistanceFrom1 = (other.value - Decimals.one).abs();
+    final currentDistanceFrom1 = (value - Rationals.one).abs();
+    final proposedDistanceFrom1 = (other.value - Rationals.one).abs();
 
     return currentDistanceFrom1.compareTo(proposedDistanceFrom1);
   }

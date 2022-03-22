@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -26,9 +26,9 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: InformationSize.fromBytes(di(3)), expected: '3B');
-      verify(value: InformationSize.fromKibibytes(di(3)), expected: '3KiB');
-      verify(value: InformationSize.fromMegabytes(ds('812.7161')), expected: '775.07MiB');
+      verify(value: InformationSize.fromBytes(ri(3)), expected: '3B');
+      verify(value: InformationSize.fromKibibytes(ri(3)), expected: '3KiB');
+      verify(value: InformationSize.fromMegabytes(rs('812.7161')), expected: '775.07MiB');
     });
 
     test('InformationRate toString formats using defaults', () {
@@ -38,8 +38,8 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: InformationSize.fromBytes(di(30)).per(const Duration(minutes: 1)), expected: '0.5B/s');
-      verify(value: InformationSize.fromKibibytes(ds('0.1')).per(const Duration(minutes: 1)), expected: '6KiB/hr');
+      verify(value: InformationSize.fromBytes(ri(30)).per(const Duration(minutes: 1)), expected: '30B/min');
+      verify(value: InformationSize.fromKibibytes(rs('0.1')).per(const Duration(minutes: 1)), expected: '6KiB/hr');
     });
   });
 }

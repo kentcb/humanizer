@@ -1,212 +1,212 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
+import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a three-dimensional volume.
 class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
   /// Creates a [Volume] given a [unit] and decimal [value] for that unit.
-  Volume.fromUnits(VolumeUnit unit, Decimal value) : super.fromUnits(unit, value);
+  Volume.fromUnits(VolumeUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Volume] representing the specified number of [cubicNanometers].
-  factory Volume.fromCubicNanometers(Decimal cubicNanometers) =>
+  factory Volume.fromCubicNanometers(Rational cubicNanometers) =>
       Volume.fromUnits(VolumeUnit.cubicNanometer, cubicNanometers);
 
   /// Creates a [Volume] representing the specified number of [cubicThous].
-  factory Volume.fromCubicThous(Decimal cubicThous) => Volume.fromUnits(VolumeUnit.cubicThou, cubicThous);
+  factory Volume.fromCubicThous(Rational cubicThous) => Volume.fromUnits(VolumeUnit.cubicThou, cubicThous);
 
   /// Creates a [Volume] representing the specified number of [cubicMicrometers].
-  factory Volume.fromCubicMicrometers(Decimal cubicMicrometers) =>
+  factory Volume.fromCubicMicrometers(Rational cubicMicrometers) =>
       Volume.fromUnits(VolumeUnit.cubicMicrometer, cubicMicrometers);
 
   /// Creates a [Volume] representing the specified number of [cubicMillimeters].
-  factory Volume.fromCubicMillimeters(Decimal cubicMillimeters) =>
+  factory Volume.fromCubicMillimeters(Rational cubicMillimeters) =>
       Volume.fromUnits(VolumeUnit.cubicMillimeter, cubicMillimeters);
 
   /// Creates a [Volume] representing the specified number of [milliliters].
-  factory Volume.fromMilliliters(Decimal milliliters) => Volume.fromUnits(VolumeUnit.milliliter, milliliters);
+  factory Volume.fromMilliliters(Rational milliliters) => Volume.fromUnits(VolumeUnit.milliliter, milliliters);
 
   /// Creates a [Volume] representing the specified number of [imperialTeaspoons].
-  factory Volume.fromImperialTeaspoons(Decimal imperialTeaspoons) =>
+  factory Volume.fromImperialTeaspoons(Rational imperialTeaspoons) =>
       Volume.fromUnits(VolumeUnit.imperialTeaspoon, imperialTeaspoons);
 
   /// Creates a [Volume] representing the specified number of [usTeaspoons].
-  factory Volume.fromUsTeaspoons(Decimal usTeaspoons) => Volume.fromUnits(VolumeUnit.usTeaspoon, usTeaspoons);
+  factory Volume.fromUsTeaspoons(Rational usTeaspoons) => Volume.fromUnits(VolumeUnit.usTeaspoon, usTeaspoons);
 
   /// Creates a [Volume] representing the specified number of [usLegalCups].
-  factory Volume.fromUsLegalCups(Decimal usLegalCups) => Volume.fromUnits(VolumeUnit.usLegalCup, usLegalCups);
+  factory Volume.fromUsLegalCups(Rational usLegalCups) => Volume.fromUnits(VolumeUnit.usLegalCup, usLegalCups);
 
   /// Creates a [Volume] representing the specified number of [usFluidOunces].
-  factory Volume.fromUsFluidOunces(Decimal usFluidOunces) => Volume.fromUnits(VolumeUnit.usFluidOunce, usFluidOunces);
+  factory Volume.fromUsFluidOunces(Rational usFluidOunces) => Volume.fromUnits(VolumeUnit.usFluidOunce, usFluidOunces);
 
   /// Creates a [Volume] representing the specified number of [imperialFluidOunces].
-  factory Volume.fromImperialFluidOunces(Decimal imperialFluidOunces) =>
+  factory Volume.fromImperialFluidOunces(Rational imperialFluidOunces) =>
       Volume.fromUnits(VolumeUnit.imperialFluidOunce, imperialFluidOunces);
 
   /// Creates a [Volume] representing the specified number of [imperialTablespoons].
-  factory Volume.fromImperialTablespoons(Decimal imperialTablespoons) =>
+  factory Volume.fromImperialTablespoons(Rational imperialTablespoons) =>
       Volume.fromUnits(VolumeUnit.imperialTablespoon, imperialTablespoons);
 
   /// Creates a [Volume] representing the specified number of [cubicInches].
-  factory Volume.fromCubicInches(Decimal cubicInches) => Volume.fromUnits(VolumeUnit.cubicInch, cubicInches);
+  factory Volume.fromCubicInches(Rational cubicInches) => Volume.fromUnits(VolumeUnit.cubicInch, cubicInches);
 
   /// Creates a [Volume] representing the specified number of [usTablespoons].
-  factory Volume.fromUsTablespoons(Decimal usTablespoons) => Volume.fromUnits(VolumeUnit.usTablespoon, usTablespoons);
+  factory Volume.fromUsTablespoons(Rational usTablespoons) => Volume.fromUnits(VolumeUnit.usTablespoon, usTablespoons);
 
   /// Creates a [Volume] representing the specified number of [liters].
-  factory Volume.fromLiters(Decimal liters) => Volume.fromUnits(VolumeUnit.liter, liters);
+  factory Volume.fromLiters(Rational liters) => Volume.fromUnits(VolumeUnit.liter, liters);
 
   /// Creates a [Volume] representing the specified number of [usLiquidQuarts].
-  factory Volume.fromUsLiquidQuarts(Decimal usLiquidQuarts) =>
+  factory Volume.fromUsLiquidQuarts(Rational usLiquidQuarts) =>
       Volume.fromUnits(VolumeUnit.usLiquidQuart, usLiquidQuarts);
 
   /// Creates a [Volume] representing the specified number of [usCustomaryCups].
-  factory Volume.fromUsCustomaryCups(Decimal usCustomaryCups) =>
+  factory Volume.fromUsCustomaryCups(Rational usCustomaryCups) =>
       Volume.fromUnits(VolumeUnit.usCustomaryCup, usCustomaryCups);
 
   /// Creates a [Volume] representing the specified number of [imperialPints].
-  factory Volume.fromImperialPints(Decimal imperialPints) => Volume.fromUnits(VolumeUnit.imperialPint, imperialPints);
+  factory Volume.fromImperialPints(Rational imperialPints) => Volume.fromUnits(VolumeUnit.imperialPint, imperialPints);
 
   /// Creates a [Volume] representing the specified number of [usLiquidPints].
-  factory Volume.fromUsLiquidPints(Decimal usLiquidPints) => Volume.fromUnits(VolumeUnit.usLiquidPint, usLiquidPints);
+  factory Volume.fromUsLiquidPints(Rational usLiquidPints) => Volume.fromUnits(VolumeUnit.usLiquidPint, usLiquidPints);
 
   /// Creates a [Volume] representing the specified number of [imperialCups].
-  factory Volume.fromImperialCups(Decimal imperialCups) => Volume.fromUnits(VolumeUnit.imperialCup, imperialCups);
+  factory Volume.fromImperialCups(Rational imperialCups) => Volume.fromUnits(VolumeUnit.imperialCup, imperialCups);
 
   /// Creates a [Volume] representing the specified number of [imperialGallons].
-  factory Volume.fromImperialGallons(Decimal imperialGallons) =>
+  factory Volume.fromImperialGallons(Rational imperialGallons) =>
       Volume.fromUnits(VolumeUnit.imperialGallon, imperialGallons);
 
   /// Creates a [Volume] representing the specified number of [usLiquidGallons].
-  factory Volume.fromUsLiquidGallons(Decimal usLiquidGallons) =>
+  factory Volume.fromUsLiquidGallons(Rational usLiquidGallons) =>
       Volume.fromUnits(VolumeUnit.usLiquidGallon, usLiquidGallons);
 
   /// Creates a [Volume] representing the specified number of [imperialQuarts].
-  factory Volume.fromImperialQuarts(Decimal imperialQuarts) =>
+  factory Volume.fromImperialQuarts(Rational imperialQuarts) =>
       Volume.fromUnits(VolumeUnit.imperialQuart, imperialQuarts);
 
   /// Creates a [Volume] representing the specified number of [cubicFeet].
-  factory Volume.fromCubicFeet(Decimal cubicFeet) => Volume.fromUnits(VolumeUnit.cubicFoot, cubicFeet);
+  factory Volume.fromCubicFeet(Rational cubicFeet) => Volume.fromUnits(VolumeUnit.cubicFoot, cubicFeet);
 
   /// Creates a [Volume] representing the specified number of [cubicMeters].
-  factory Volume.fromCubicMeters(Decimal cubicMeters) => Volume.fromUnits(VolumeUnit.cubicMeter, cubicMeters);
+  factory Volume.fromCubicMeters(Rational cubicMeters) => Volume.fromUnits(VolumeUnit.cubicMeter, cubicMeters);
 
   /// Creates a [Volume] representing the specified number of [cubicYards].
-  factory Volume.fromCubicYards(Decimal cubicYards) => Volume.fromUnits(VolumeUnit.cubicYard, cubicYards);
+  factory Volume.fromCubicYards(Rational cubicYards) => Volume.fromUnits(VolumeUnit.cubicYard, cubicYards);
 
   /// Creates a [Volume] representing the specified number of [cubicDecameters].
-  factory Volume.fromCubicDecameters(Decimal cubicDecameters) =>
+  factory Volume.fromCubicDecameters(Rational cubicDecameters) =>
       Volume.fromUnits(VolumeUnit.cubicDecameter, cubicDecameters);
 
   /// Creates a [Volume] representing the specified number of [cubicKilometers].
-  factory Volume.fromCubicKilometers(Decimal cubicKilometers) =>
+  factory Volume.fromCubicKilometers(Rational cubicKilometers) =>
       Volume.fromUnits(VolumeUnit.cubicKilometer, cubicKilometers);
 
   /// Creates a [Volume] representing the specified number of [cubicMiles].
-  factory Volume.fromCubicMiles(Decimal cubicMiles) => Volume.fromUnits(VolumeUnit.cubicMile, cubicMiles);
+  factory Volume.fromCubicMiles(Rational cubicMiles) => Volume.fromUnits(VolumeUnit.cubicMile, cubicMiles);
 
   /// Creates a [Volume] representing the specified number of [cubicMegameters].
-  factory Volume.fromCubicMegameters(Decimal cubicMegameters) =>
+  factory Volume.fromCubicMegameters(Rational cubicMegameters) =>
       Volume.fromUnits(VolumeUnit.cubicMegameter, cubicMegameters);
 
   /// Creates a [Volume] representing the specified number of [cubicGigameters].
-  factory Volume.fromCubicGigameters(Decimal cubicGigameters) =>
+  factory Volume.fromCubicGigameters(Rational cubicGigameters) =>
       Volume.fromUnits(VolumeUnit.cubicGigameter, cubicGigameters);
 
   /// A [Volume] of size zero.
-  static final zero = Volume.fromCubicNanometers(Decimals.zero);
+  static final zero = Volume.fromCubicNanometers(Rationals.zero);
 
   static final _defaultFormat = VolumeFormat();
 
   /// Gets the number of cubic nanometers in this [Volume], including any fractional portion.
-  Decimal get cubicNanometers => getUnits(VolumeUnit.cubicNanometer);
+  Rational get cubicNanometers => getUnits(VolumeUnit.cubicNanometer);
 
   /// Gets the number of cubic thous in this [Volume], including any fractional portion.
-  Decimal get cubicThous => getUnits(VolumeUnit.cubicThou);
+  Rational get cubicThous => getUnits(VolumeUnit.cubicThou);
 
   /// Gets the number of cubic micrometers in this [Volume], including any fractional portion.
-  Decimal get cubicMicrometers => getUnits(VolumeUnit.cubicMicrometer);
+  Rational get cubicMicrometers => getUnits(VolumeUnit.cubicMicrometer);
 
   /// Gets the number of cubic millimeters in this [Volume], including any fractional portion.
-  Decimal get cubicMillimeters => getUnits(VolumeUnit.cubicMillimeter);
+  Rational get cubicMillimeters => getUnits(VolumeUnit.cubicMillimeter);
 
   /// Gets the number of milliliters in this [Volume], including any fractional portion.
-  Decimal get milliliters => getUnits(VolumeUnit.milliliter);
+  Rational get milliliters => getUnits(VolumeUnit.milliliter);
 
   /// Gets the number of imperial teaspoons in this [Volume], including any fractional portion.
-  Decimal get imperialTeaspoons => getUnits(VolumeUnit.imperialTeaspoon);
+  Rational get imperialTeaspoons => getUnits(VolumeUnit.imperialTeaspoon);
 
   /// Gets the number of US teaspoons in this [Volume], including any fractional portion.
-  Decimal get usTeaspoons => getUnits(VolumeUnit.usTeaspoon);
+  Rational get usTeaspoons => getUnits(VolumeUnit.usTeaspoon);
 
   /// Gets the number of US legal cups in this [Volume], including any fractional portion.
-  Decimal get usLegalCups => getUnits(VolumeUnit.usLegalCup);
+  Rational get usLegalCups => getUnits(VolumeUnit.usLegalCup);
 
   /// Gets the number of US fluid ounces in this [Volume], including any fractional portion.
-  Decimal get usFluidOunces => getUnits(VolumeUnit.usFluidOunce);
+  Rational get usFluidOunces => getUnits(VolumeUnit.usFluidOunce);
 
   /// Gets the number of imperial fluid ounces in this [Volume], including any fractional portion.
-  Decimal get imperialFluidOunces => getUnits(VolumeUnit.imperialFluidOunce);
+  Rational get imperialFluidOunces => getUnits(VolumeUnit.imperialFluidOunce);
 
   /// Gets the number of imperial tablespoons in this [Volume], including any fractional portion.
-  Decimal get imperialTablespoons => getUnits(VolumeUnit.imperialTablespoon);
+  Rational get imperialTablespoons => getUnits(VolumeUnit.imperialTablespoon);
 
   /// Gets the number of cubic inches in this [Volume], including any fractional portion.
-  Decimal get cubicInches => getUnits(VolumeUnit.cubicInch);
+  Rational get cubicInches => getUnits(VolumeUnit.cubicInch);
 
   /// Gets the number of US tablespoons in this [Volume], including any fractional portion.
-  Decimal get usTablespoons => getUnits(VolumeUnit.usTablespoon);
+  Rational get usTablespoons => getUnits(VolumeUnit.usTablespoon);
 
   /// Gets the number of liters in this [Volume], including any fractional portion.
-  Decimal get liters => getUnits(VolumeUnit.liter);
+  Rational get liters => getUnits(VolumeUnit.liter);
 
   /// Gets the number of US liquid quarts in this [Volume], including any fractional portion.
-  Decimal get usLiquidQuarts => getUnits(VolumeUnit.usLiquidQuart);
+  Rational get usLiquidQuarts => getUnits(VolumeUnit.usLiquidQuart);
 
   /// Gets the number of US customary cups in this [Volume], including any fractional portion.
-  Decimal get usCustomaryCups => getUnits(VolumeUnit.usCustomaryCup);
+  Rational get usCustomaryCups => getUnits(VolumeUnit.usCustomaryCup);
 
   /// Gets the number of imperial pints in this [Volume], including any fractional portion.
-  Decimal get imperialPints => getUnits(VolumeUnit.imperialPint);
+  Rational get imperialPints => getUnits(VolumeUnit.imperialPint);
 
   /// Gets the number of US liquid pints in this [Volume], including any fractional portion.
-  Decimal get usLiquidPints => getUnits(VolumeUnit.usLiquidPint);
+  Rational get usLiquidPints => getUnits(VolumeUnit.usLiquidPint);
 
   /// Gets the number of imperial cups in this [Volume], including any fractional portion.
-  Decimal get imperialCups => getUnits(VolumeUnit.imperialCup);
+  Rational get imperialCups => getUnits(VolumeUnit.imperialCup);
 
   /// Gets the number of imperial gallons in this [Volume], including any fractional portion.
-  Decimal get imperialGallons => getUnits(VolumeUnit.imperialGallon);
+  Rational get imperialGallons => getUnits(VolumeUnit.imperialGallon);
 
   /// Gets the number of US liquid gallons in this [Volume], including any fractional portion.
-  Decimal get usLiquidGallons => getUnits(VolumeUnit.usLiquidGallon);
+  Rational get usLiquidGallons => getUnits(VolumeUnit.usLiquidGallon);
 
   /// Gets the number of imperial quarts in this [Volume], including any fractional portion.
-  Decimal get imperialQuarts => getUnits(VolumeUnit.imperialQuart);
+  Rational get imperialQuarts => getUnits(VolumeUnit.imperialQuart);
 
   /// Gets the number of cubic feet in this [Volume], including any fractional portion.
-  Decimal get cubicFeet => getUnits(VolumeUnit.cubicFoot);
+  Rational get cubicFeet => getUnits(VolumeUnit.cubicFoot);
 
   /// Gets the number of cubic meters in this [Volume], including any fractional portion.
-  Decimal get cubicMeters => getUnits(VolumeUnit.cubicMeter);
+  Rational get cubicMeters => getUnits(VolumeUnit.cubicMeter);
 
   /// Gets the number of cubic yards in this [Volume], including any fractional portion.
-  Decimal get cubicYards => getUnits(VolumeUnit.cubicYard);
+  Rational get cubicYards => getUnits(VolumeUnit.cubicYard);
 
   /// Gets the number of cubic decameters in this [Volume], including any fractional portion.
-  Decimal get cubicDecameters => getUnits(VolumeUnit.cubicDecameter);
+  Rational get cubicDecameters => getUnits(VolumeUnit.cubicDecameter);
 
   /// Gets the number of cubic kilometers in this [Volume], including any fractional portion.
-  Decimal get cubicKilometers => getUnits(VolumeUnit.cubicKilometer);
+  Rational get cubicKilometers => getUnits(VolumeUnit.cubicKilometer);
 
   /// Gets the number of cubic miles in this [Volume], including any fractional portion.
-  Decimal get cubicMiles => getUnits(VolumeUnit.cubicMile);
+  Rational get cubicMiles => getUnits(VolumeUnit.cubicMile);
 
   /// Gets the number of cubic megameters in this [Volume], including any fractional portion.
-  Decimal get cubicMegameters => getUnits(VolumeUnit.cubicMegameter);
+  Rational get cubicMegameters => getUnits(VolumeUnit.cubicMegameter);
 
   /// Gets the number of cubic gigameters in this [Volume], including any fractional portion.
-  Decimal get cubicGigameters => getUnits(VolumeUnit.cubicGigameter);
+  Rational get cubicGigameters => getUnits(VolumeUnit.cubicGigameter);
 
   /// Creates a [VolumeRate] with the specified [period] from this value.
   VolumeRate per(Duration period) => VolumeRate._(
@@ -215,18 +215,18 @@ class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
       );
 
   @override
-  Decimal getUnits(VolumeUnit unit) => baseValue / unit._cubicMeterCount;
+  Rational getUnits(VolumeUnit unit) => baseValue / unit._cubicMeterCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  Volume createValue(Decimal baseValue) => Volume.fromCubicMeters(baseValue);
+  Volume createValue(Rational baseValue) => Volume.fromCubicMeters(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(VolumeUnit unit, Decimal value) => value * unit._cubicMeterCount;
+  Rational getBaseValue(VolumeUnit unit, Rational value) => value * unit._cubicMeterCount;
 }
 
 /// Defines supported units of volume.
@@ -409,38 +409,38 @@ class VolumeUnits {
 
 /// Contains extensions for [VolumeUnit].
 extension VolumeUnitExtensions on VolumeUnit {
-  static final _cubicMetersInCubicNanometer = ds('0.000000000000000000000000001');
-  static final _cubicMetersInCubicThou = ds('0.00000000000006387');
-  static final _cubicMetersInCubicMicrometer = ds('0.000000000000000001');
-  static final _cubicMetersInCubicMillimeter = ds('0.000000001');
-  static final _cubicMetersInMilliliter = ds('0.000001');
-  static final _cubicMetersInImperialTeaspoon = ds('0.0000059194');
-  static final _cubicMetersInUsTeaspoon = ds('0.0000049289');
-  static final _cubicMetersInUsLegalCup = ds('0.00024');
-  static final _cubicMetersInUsFluidOunce = ds('0.000029574');
-  static final _cubicMetersInImperialFluidOunce = ds('0.000028413');
-  static final _cubicMetersInImperialTablespoon = ds('0.000017758');
-  static final _cubicMetersInCubicInch = ds('0.000016387');
-  static final _cubicMetersInUsTablespoon = ds('0.000014787');
-  static final _cubicMetersInLiter = ds('0.001');
-  static final _cubicMetersInUsLiquidQuart = ds('0.000946353');
-  static final _cubicMetersInUsCustomaryCup = ds('0.00023658823');
-  static final _cubicMetersInImperialPint = ds('0.000568261');
-  static final _cubicMetersInUsLiquidPint = ds('0.000473176');
-  static final _cubicMetersInImperialCup = ds('0.000284131');
-  static final _cubicMetersInImperialGallon = ds('0.00454609');
-  static final _cubicMetersInUsLiquidGallon = ds('0.00378541');
-  static final _cubicMetersInImperialQuart = ds('0.00113652');
-  static final _cubicMetersInCubicFoot = ds('0.0283168');
-  static final _cubicMetersInCubicMeter = Decimals.one;
-  static final _cubicMetersInCubicYard = ds('0.764555');
-  static final _cubicMetersInCubicDecameter = di(1000);
-  static final _cubicMetersInCubicKilometer = di(1000000000);
-  static final _cubicMetersInCubicMile = di(4168000000);
-  static final _cubicMetersInCubicMegameter = di(1000000000000000000);
-  static final _cubicMetersInCubicGigameter = ds('1000000000000000000000000000');
+  static final _cubicMetersInCubicNanometer = rs('0.000000000000000000000000001');
+  static final _cubicMetersInCubicThou = rs('0.00000000000006387');
+  static final _cubicMetersInCubicMicrometer = rs('0.000000000000000001');
+  static final _cubicMetersInCubicMillimeter = rs('0.000000001');
+  static final _cubicMetersInMilliliter = rs('0.000001');
+  static final _cubicMetersInImperialTeaspoon = rs('0.0000059194');
+  static final _cubicMetersInUsTeaspoon = rs('0.0000049289');
+  static final _cubicMetersInUsLegalCup = rs('0.00024');
+  static final _cubicMetersInUsFluidOunce = rs('0.000029574');
+  static final _cubicMetersInImperialFluidOunce = rs('0.000028413');
+  static final _cubicMetersInImperialTablespoon = rs('0.000017758');
+  static final _cubicMetersInCubicInch = rs('0.000016387');
+  static final _cubicMetersInUsTablespoon = rs('0.000014787');
+  static final _cubicMetersInLiter = rs('0.001');
+  static final _cubicMetersInUsLiquidQuart = rs('0.000946353');
+  static final _cubicMetersInUsCustomaryCup = rs('0.00023658823');
+  static final _cubicMetersInImperialPint = rs('0.000568261');
+  static final _cubicMetersInUsLiquidPint = rs('0.000473176');
+  static final _cubicMetersInImperialCup = rs('0.000284131');
+  static final _cubicMetersInImperialGallon = rs('0.00454609');
+  static final _cubicMetersInUsLiquidGallon = rs('0.00378541');
+  static final _cubicMetersInImperialQuart = rs('0.00113652');
+  static final _cubicMetersInCubicFoot = rs('0.0283168');
+  static final _cubicMetersInCubicMeter = Rationals.one;
+  static final _cubicMetersInCubicYard = rs('0.764555');
+  static final _cubicMetersInCubicDecameter = ri(1000);
+  static final _cubicMetersInCubicKilometer = ri(1000000000);
+  static final _cubicMetersInCubicMile = ri(4168000000);
+  static final _cubicMetersInCubicMegameter = ri(1000000000000000000);
+  static final _cubicMetersInCubicGigameter = rs('1000000000000000000000000000');
 
-  Decimal get _cubicMeterCount {
+  Rational get _cubicMeterCount {
     switch (this) {
       case VolumeUnit.cubicNanometer:
         return _cubicMetersInCubicNanometer;
@@ -766,7 +766,7 @@ class VolumeFormat extends _BaseVolumeFormat<Volume> {
   VolumeUnit getLargestUnit(Volume input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Volume input, VolumeUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Volume input, VolumeUnit unit) => input.getUnits(unit);
 
   @override
   Volume scaleToRateUnit(Volume input, RateUnit rateUnit) =>
@@ -815,12 +815,12 @@ class VolumeRateFormat extends _BaseVolumeFormat<VolumeRate> {
   VolumeUnit getLargestUnit(VolumeRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(VolumeRate input, VolumeUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(VolumeRate input, VolumeUnit unit) => input.value.getUnits(unit);
 
   @override
   VolumeRate scaleToRateUnit(VolumeRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
     final result = Volume.fromCubicMeters(input.value.cubicMeters * scale).per(scaledPeriod);
     return result;
   }

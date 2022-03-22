@@ -1,264 +1,264 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
+import 'package:rational/rational.dart';
 
 /// A unit of measurement representing information size.
 class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize> {
-  /// Creates an [InformationSize] given a [unit] and decimal [value] for that unit.
-  InformationSize.fromUnits(InformationUnit unit, Decimal value) : super.fromUnits(unit, value);
+  /// Creates an [InformationSize] given a [unit] and rational [value] for that unit.
+  InformationSize.fromUnits(InformationUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates an [InformationSize] representing the specified number of [bits].
-  factory InformationSize.fromBits(Decimal bits) => InformationSize.fromUnits(InformationUnit.bit, bits);
+  factory InformationSize.fromBits(Rational bits) => InformationSize.fromUnits(InformationUnit.bit, bits);
 
   /// Creates an [InformationSize] representing the specified number of [crumbs].
-  factory InformationSize.fromCrumbs(Decimal crumbs) => InformationSize.fromUnits(InformationUnit.crumb, crumbs);
+  factory InformationSize.fromCrumbs(Rational crumbs) => InformationSize.fromUnits(InformationUnit.crumb, crumbs);
 
   /// Creates an [InformationSize] representing the specified number of [nibbles].
-  factory InformationSize.fromNibbles(Decimal nibbles) => InformationSize.fromUnits(InformationUnit.nibble, nibbles);
+  factory InformationSize.fromNibbles(Rational nibbles) => InformationSize.fromUnits(InformationUnit.nibble, nibbles);
 
   /// Creates an [InformationSize] representing the specified number of [bytes].
-  factory InformationSize.fromBytes(Decimal bytes) => InformationSize.fromUnits(InformationUnit.byte, bytes);
+  factory InformationSize.fromBytes(Rational bytes) => InformationSize.fromUnits(InformationUnit.byte, bytes);
 
   /// Creates an [InformationSize] representing the specified number of [kilobits].
-  factory InformationSize.fromKilobits(Decimal kilobits) =>
+  factory InformationSize.fromKilobits(Rational kilobits) =>
       InformationSize.fromUnits(InformationUnit.kilobit, kilobits);
 
   /// Creates an [InformationSize] representing the specified number of [kibibits].
-  factory InformationSize.fromKibibits(Decimal kibibits) =>
+  factory InformationSize.fromKibibits(Rational kibibits) =>
       InformationSize.fromUnits(InformationUnit.kibibit, kibibits);
 
   /// Creates an [InformationSize] representing the specified number of [kilobytes].
-  factory InformationSize.fromKilobytes(Decimal kilobytes) =>
+  factory InformationSize.fromKilobytes(Rational kilobytes) =>
       InformationSize.fromUnits(InformationUnit.kilobyte, kilobytes);
 
   /// Creates an [InformationSize] representing the specified number of [kibibytes].
-  factory InformationSize.fromKibibytes(Decimal kibibytes) =>
+  factory InformationSize.fromKibibytes(Rational kibibytes) =>
       InformationSize.fromUnits(InformationUnit.kibibyte, kibibytes);
 
   /// Creates an [InformationSize] representing the specified number of [megabits].
-  factory InformationSize.fromMegabits(Decimal megabits) =>
+  factory InformationSize.fromMegabits(Rational megabits) =>
       InformationSize.fromUnits(InformationUnit.megabit, megabits);
 
   /// Creates an [InformationSize] representing the specified number of [mebibits].
-  factory InformationSize.fromMebibits(Decimal mebibits) =>
+  factory InformationSize.fromMebibits(Rational mebibits) =>
       InformationSize.fromUnits(InformationUnit.mebibit, mebibits);
 
   /// Creates an [InformationSize] representing the specified number of [megabytes].
-  factory InformationSize.fromMegabytes(Decimal megabytes) =>
+  factory InformationSize.fromMegabytes(Rational megabytes) =>
       InformationSize.fromUnits(InformationUnit.megabyte, megabytes);
 
   /// Creates an [InformationSize] representing the specified number of [mebibytes].
-  factory InformationSize.fromMebibytes(Decimal mebibytes) =>
+  factory InformationSize.fromMebibytes(Rational mebibytes) =>
       InformationSize.fromUnits(InformationUnit.mebibyte, mebibytes);
 
   /// Creates an [InformationSize] representing the specified number of [gigabits].
-  factory InformationSize.fromGigabits(Decimal gigabits) =>
+  factory InformationSize.fromGigabits(Rational gigabits) =>
       InformationSize.fromUnits(InformationUnit.gigabit, gigabits);
 
   /// Creates an [InformationSize] representing the specified number of [gibibits].
-  factory InformationSize.fromGibibits(Decimal gibibits) =>
+  factory InformationSize.fromGibibits(Rational gibibits) =>
       InformationSize.fromUnits(InformationUnit.gibibit, gibibits);
 
   /// Creates an [InformationSize] representing the specified number of [gigabytes].
-  factory InformationSize.fromGigabytes(Decimal gigabytes) =>
+  factory InformationSize.fromGigabytes(Rational gigabytes) =>
       InformationSize.fromUnits(InformationUnit.gigabyte, gigabytes);
 
   /// Creates an [InformationSize] representing the specified number of [gibibytes].
-  factory InformationSize.fromGibibytes(Decimal gibibytes) =>
+  factory InformationSize.fromGibibytes(Rational gibibytes) =>
       InformationSize.fromUnits(InformationUnit.gibibyte, gibibytes);
 
   /// Creates an [InformationSize] representing the specified number of [terabits].
-  factory InformationSize.fromTerabits(Decimal terabits) =>
+  factory InformationSize.fromTerabits(Rational terabits) =>
       InformationSize.fromUnits(InformationUnit.terabit, terabits);
 
   /// Creates an [InformationSize] representing the specified number of [tebibits].
-  factory InformationSize.fromTebibits(Decimal tebibits) =>
+  factory InformationSize.fromTebibits(Rational tebibits) =>
       InformationSize.fromUnits(InformationUnit.tebibit, tebibits);
 
   /// Creates an [InformationSize] representing the specified number of [terabytes].
-  factory InformationSize.fromTerabytes(Decimal terabytes) =>
+  factory InformationSize.fromTerabytes(Rational terabytes) =>
       InformationSize.fromUnits(InformationUnit.terabyte, terabytes);
 
   /// Creates an [InformationSize] representing the specified number of [tebibytes].
-  factory InformationSize.fromTebibytes(Decimal tebibytes) =>
+  factory InformationSize.fromTebibytes(Rational tebibytes) =>
       InformationSize.fromUnits(InformationUnit.tebibyte, tebibytes);
 
   /// Creates an [InformationSize] representing the specified number of [petabits].
-  factory InformationSize.fromPetabits(Decimal petabits) =>
+  factory InformationSize.fromPetabits(Rational petabits) =>
       InformationSize.fromUnits(InformationUnit.petabit, petabits);
 
   /// Creates an [InformationSize] representing the specified number of [pebibits].
-  factory InformationSize.fromPebibits(Decimal pebibits) =>
+  factory InformationSize.fromPebibits(Rational pebibits) =>
       InformationSize.fromUnits(InformationUnit.pebibit, pebibits);
 
   /// Creates an [InformationSize] representing the specified number of [petabytes].
-  factory InformationSize.fromPetabytes(Decimal petabytes) =>
+  factory InformationSize.fromPetabytes(Rational petabytes) =>
       InformationSize.fromUnits(InformationUnit.petabyte, petabytes);
 
   /// Creates an [InformationSize] representing the specified number of [pebibytes].
-  factory InformationSize.fromPebibytes(Decimal pebibytes) =>
+  factory InformationSize.fromPebibytes(Rational pebibytes) =>
       InformationSize.fromUnits(InformationUnit.pebibyte, pebibytes);
 
   /// Creates an [InformationSize] representing the specified number of [exabits].
-  factory InformationSize.fromExabits(Decimal exabits) => InformationSize.fromUnits(InformationUnit.exabit, exabits);
+  factory InformationSize.fromExabits(Rational exabits) => InformationSize.fromUnits(InformationUnit.exabit, exabits);
 
   /// Creates an [InformationSize] representing the specified number of [exbibits].
-  factory InformationSize.fromExbibits(Decimal exbibits) =>
+  factory InformationSize.fromExbibits(Rational exbibits) =>
       InformationSize.fromUnits(InformationUnit.exbibit, exbibits);
 
   /// Creates an [InformationSize] representing the specified number of [exabytes].
-  factory InformationSize.fromExabytes(Decimal exabytes) =>
+  factory InformationSize.fromExabytes(Rational exabytes) =>
       InformationSize.fromUnits(InformationUnit.exabyte, exabytes);
 
   /// Creates an [InformationSize] representing the specified number of [exbibytes].
-  factory InformationSize.fromExbibytes(Decimal exbibytes) =>
+  factory InformationSize.fromExbibytes(Rational exbibytes) =>
       InformationSize.fromUnits(InformationUnit.exbibyte, exbibytes);
 
   /// Creates an [InformationSize] representing the specified number of [zettabits].
-  factory InformationSize.fromZettabits(Decimal zettabits) =>
+  factory InformationSize.fromZettabits(Rational zettabits) =>
       InformationSize.fromUnits(InformationUnit.zettabit, zettabits);
 
   /// Creates an [InformationSize] representing the specified number of [zebibits].
-  factory InformationSize.fromZebibits(Decimal zebibits) =>
+  factory InformationSize.fromZebibits(Rational zebibits) =>
       InformationSize.fromUnits(InformationUnit.zebibit, zebibits);
 
   /// Creates an [InformationSize] representing the specified number of [zettabytes].
-  factory InformationSize.fromZettabytes(Decimal zettabytes) =>
+  factory InformationSize.fromZettabytes(Rational zettabytes) =>
       InformationSize.fromUnits(InformationUnit.zettabyte, zettabytes);
 
   /// Creates an [InformationSize] representing the specified number of [zebibytes].
-  factory InformationSize.fromZebibytes(Decimal zebibytes) =>
+  factory InformationSize.fromZebibytes(Rational zebibytes) =>
       InformationSize.fromUnits(InformationUnit.zebibyte, zebibytes);
 
   /// Creates an [InformationSize] representing the specified number of [yottabits].
-  factory InformationSize.fromYottabits(Decimal yottabits) =>
+  factory InformationSize.fromYottabits(Rational yottabits) =>
       InformationSize.fromUnits(InformationUnit.yottabit, yottabits);
 
   /// Creates an [InformationSize] representing the specified number of [yobibits].
-  factory InformationSize.fromYobibits(Decimal yobibits) =>
+  factory InformationSize.fromYobibits(Rational yobibits) =>
       InformationSize.fromUnits(InformationUnit.yobibit, yobibits);
 
   /// Creates an [InformationSize] representing the specified number of [yottabytes].
-  factory InformationSize.fromYottabytes(Decimal yottabytes) =>
+  factory InformationSize.fromYottabytes(Rational yottabytes) =>
       InformationSize.fromUnits(InformationUnit.yottabyte, yottabytes);
 
   /// Creates an [InformationSize] representing the specified number of [yobibytes].
-  factory InformationSize.fromYobibytes(Decimal yobibytes) =>
+  factory InformationSize.fromYobibytes(Rational yobibytes) =>
       InformationSize.fromUnits(InformationUnit.yobibyte, yobibytes);
 
   /// An [InformationSize] of size zero.
-  static final zero = InformationSize.fromBits(Decimals.zero);
+  static final zero = InformationSize.fromBits(Rationals.zero);
 
   static final _defaultFormat = InformationSizeFormat();
 
   /// Gets the number of bits in this [InformationSize], including any fractional portion.
-  Decimal get bits => getUnits(InformationUnit.bit);
+  Rational get bits => getUnits(InformationUnit.bit);
 
   /// Gets the number of crumbs in this [InformationSize], including any fractional portion.
-  Decimal get crumbs => getUnits(InformationUnit.crumb);
+  Rational get crumbs => getUnits(InformationUnit.crumb);
 
   /// Gets the number of nibbles in this [InformationSize], including any fractional portion.
-  Decimal get nibbles => getUnits(InformationUnit.nibble);
+  Rational get nibbles => getUnits(InformationUnit.nibble);
 
   /// Gets the number of bytes in this [InformationSize], including any fractional portion.
-  Decimal get bytes => getUnits(InformationUnit.byte);
+  Rational get bytes => getUnits(InformationUnit.byte);
 
   /// Gets the number of kilobits in this [InformationSize], including any fractional portion.
-  Decimal get kilobits => getUnits(InformationUnit.kilobit);
+  Rational get kilobits => getUnits(InformationUnit.kilobit);
 
   /// Gets the number of kibibits in this [InformationSize], including any fractional portion.
-  Decimal get kibibits => getUnits(InformationUnit.kibibit);
+  Rational get kibibits => getUnits(InformationUnit.kibibit);
 
   /// Gets the number of kilobytes in this [InformationSize], including any fractional portion.
-  Decimal get kilobytes => getUnits(InformationUnit.kilobyte);
+  Rational get kilobytes => getUnits(InformationUnit.kilobyte);
 
   /// Gets the number of kibibytes in this [InformationSize], including any fractional portion.
-  Decimal get kibibytes => getUnits(InformationUnit.kibibyte);
+  Rational get kibibytes => getUnits(InformationUnit.kibibyte);
 
   /// Gets the number of megabits in this [InformationSize], including any fractional portion.
-  Decimal get megabits => getUnits(InformationUnit.megabit);
+  Rational get megabits => getUnits(InformationUnit.megabit);
 
   /// Gets the number of mebibits in this [InformationSize], including any fractional portion.
-  Decimal get mebibits => getUnits(InformationUnit.mebibit);
+  Rational get mebibits => getUnits(InformationUnit.mebibit);
 
   /// Gets the number of megabytes in this [InformationSize], including any fractional portion.
-  Decimal get megabytes => getUnits(InformationUnit.megabyte);
+  Rational get megabytes => getUnits(InformationUnit.megabyte);
 
   /// Gets the number of mebibytes in this [InformationSize], including any fractional portion.
-  Decimal get mebibytes => getUnits(InformationUnit.mebibyte);
+  Rational get mebibytes => getUnits(InformationUnit.mebibyte);
 
   /// Gets the number of gigabits in this [InformationSize], including any fractional portion.
-  Decimal get gigabits => getUnits(InformationUnit.gigabit);
+  Rational get gigabits => getUnits(InformationUnit.gigabit);
 
   /// Gets the number of gibibits in this [InformationSize], including any fractional portion.
-  Decimal get gibibits => getUnits(InformationUnit.gibibit);
+  Rational get gibibits => getUnits(InformationUnit.gibibit);
 
   /// Gets the number of gigabytes in this [InformationSize], including any fractional portion.
-  Decimal get gigabytes => getUnits(InformationUnit.gigabyte);
+  Rational get gigabytes => getUnits(InformationUnit.gigabyte);
 
   /// Gets the number of gibibytes in this [InformationSize], including any fractional portion.
-  Decimal get gibibytes => getUnits(InformationUnit.gibibyte);
+  Rational get gibibytes => getUnits(InformationUnit.gibibyte);
 
   /// Gets the number of terabits in this [InformationSize], including any fractional portion.
-  Decimal get terabits => getUnits(InformationUnit.terabit);
+  Rational get terabits => getUnits(InformationUnit.terabit);
 
   /// Gets the number of tebibits in this [InformationSize], including any fractional portion.
-  Decimal get tebibits => getUnits(InformationUnit.tebibit);
+  Rational get tebibits => getUnits(InformationUnit.tebibit);
 
   /// Gets the number of terabytes in this [InformationSize], including any fractional portion.
-  Decimal get terabytes => getUnits(InformationUnit.terabyte);
+  Rational get terabytes => getUnits(InformationUnit.terabyte);
 
   /// Gets the number of tebibytes in this [InformationSize], including any fractional portion.
-  Decimal get tebibytes => getUnits(InformationUnit.tebibyte);
+  Rational get tebibytes => getUnits(InformationUnit.tebibyte);
 
   /// Gets the number of petabits in this [InformationSize], including any fractional portion.
-  Decimal get petabits => getUnits(InformationUnit.petabit);
+  Rational get petabits => getUnits(InformationUnit.petabit);
 
   /// Gets the number of pebibits in this [InformationSize], including any fractional portion.
-  Decimal get pebibits => getUnits(InformationUnit.pebibit);
+  Rational get pebibits => getUnits(InformationUnit.pebibit);
 
   /// Gets the number of petabytes in this [InformationSize], including any fractional portion.
-  Decimal get petabytes => getUnits(InformationUnit.petabyte);
+  Rational get petabytes => getUnits(InformationUnit.petabyte);
 
   /// Gets the number of pebibytes in this [InformationSize], including any fractional portion.
-  Decimal get pebibytes => getUnits(InformationUnit.pebibyte);
+  Rational get pebibytes => getUnits(InformationUnit.pebibyte);
 
   /// Gets the number of exabits in this [InformationSize], including any fractional portion.
-  Decimal get exabits => getUnits(InformationUnit.exabit);
+  Rational get exabits => getUnits(InformationUnit.exabit);
 
   /// Gets the number of exbibits in this [InformationSize], including any fractional portion.
-  Decimal get exbibits => getUnits(InformationUnit.exbibit);
+  Rational get exbibits => getUnits(InformationUnit.exbibit);
 
   /// Gets the number of exabytes in this [InformationSize], including any fractional portion.
-  Decimal get exabytes => getUnits(InformationUnit.exabyte);
+  Rational get exabytes => getUnits(InformationUnit.exabyte);
 
   /// Gets the number of exbibytes in this [InformationSize], including any fractional portion.
-  Decimal get exbibytes => getUnits(InformationUnit.exbibyte);
+  Rational get exbibytes => getUnits(InformationUnit.exbibyte);
 
   /// Gets the number of zettabits in this [InformationSize], including any fractional portion.
-  Decimal get zettabits => getUnits(InformationUnit.zettabit);
+  Rational get zettabits => getUnits(InformationUnit.zettabit);
 
   /// Gets the number of zebibits in this [InformationSize], including any fractional portion.
-  Decimal get zebibits => getUnits(InformationUnit.zebibit);
+  Rational get zebibits => getUnits(InformationUnit.zebibit);
 
   /// Gets the number of zettabytes in this [InformationSize], including any fractional portion.
-  Decimal get zettabytes => getUnits(InformationUnit.zettabyte);
+  Rational get zettabytes => getUnits(InformationUnit.zettabyte);
 
   /// Gets the number of zebibytes in this [InformationSize], including any fractional portion.
-  Decimal get zebibytes => getUnits(InformationUnit.zebibyte);
+  Rational get zebibytes => getUnits(InformationUnit.zebibyte);
 
   /// Gets the number of yottabits in this [InformationSize], including any fractional portion.
-  Decimal get yottabits => getUnits(InformationUnit.yottabit);
+  Rational get yottabits => getUnits(InformationUnit.yottabit);
 
   /// Gets the number of yobibits in this [InformationSize], including any fractional portion.
-  Decimal get yobibits => getUnits(InformationUnit.yobibit);
+  Rational get yobibits => getUnits(InformationUnit.yobibit);
 
   /// Gets the number of yottabytes in this [InformationSize], including any fractional portion.
-  Decimal get yottabytes => getUnits(InformationUnit.yottabyte);
+  Rational get yottabytes => getUnits(InformationUnit.yottabyte);
 
   /// Gets the number of yobibytes in this [InformationSize], including any fractional portion.
-  Decimal get yobibytes => getUnits(InformationUnit.yobibyte);
+  Rational get yobibytes => getUnits(InformationUnit.yobibyte);
 
   /// Creates an [InformationRate] with the specified [period] from this value.
   InformationRate per(Duration period) => InformationRate._(
@@ -267,18 +267,18 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
       );
 
   @override
-  Decimal getUnits(InformationUnit unit) => baseValue / unit._byteCount;
+  Rational getUnits(InformationUnit unit) => baseValue / unit._byteCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  InformationSize createValue(Decimal baseValue) => InformationSize.fromBytes(baseValue);
+  InformationSize createValue(Rational baseValue) => InformationSize.fromBytes(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(InformationUnit unit, Decimal value) => value * unit._byteCount;
+  Rational getBaseValue(InformationUnit unit, Rational value) => value * unit._byteCount;
 }
 
 /// Defines supported units of information.
@@ -489,44 +489,44 @@ class InformationUnits {
 
 /// Contains extensions for [InformationUnit].
 extension InformationUnitExtensions on InformationUnit {
-  static final _bytesInBit = ds('0.125');
-  static final _bytesInCrumb = ds('0.25');
-  static final _bytesInNibble = ds('0.5');
-  static final _bytesInByte = Decimals.one;
-  static final _bytesInKilobit = di(125);
-  static final _bytesInKibibit = di(128);
-  static final _bytesInKilobyte = di(1000);
-  static final _bytesInKibibyte = di(1024);
-  static final _bytesInMegabit = di(125000);
-  static final _bytesInMebibit = di(128000);
-  static final _bytesInMegabyte = di(1000000);
-  static final _bytesInMebibyte = di(1048576);
-  static final _bytesInGigabit = di(125000000);
-  static final _bytesInGibibit = di(128000000);
-  static final _bytesInGigabyte = di(1000000000);
-  static final _bytesInGibibyte = di(1073741824);
-  static final _bytesInTerabit = di(125000000000);
-  static final _bytesInTebibit = di(128000000000);
-  static final _bytesInTerabyte = di(1000000000000);
-  static final _bytesInTebibyte = di(1099511627776);
-  static final _bytesInPetabit = di(125000000000000);
-  static final _bytesInPebibit = di(128000000000000);
-  static final _bytesInPetabyte = di(1000000000000000);
-  static final _bytesInPebibyte = di(1125899906842624);
-  static final _bytesInExabit = di(125000000000000000);
-  static final _bytesInExbibit = di(128000000000000000);
-  static final _bytesInExabyte = di(1000000000000000000);
-  static final _bytesInExbibyte = di(1152921504606846976);
-  static final _bytesInZettabit = ds('125000000000000000000');
-  static final _bytesInZebibit = ds('128000000000000000000');
-  static final _bytesInZettabyte = ds('1000000000000000000000');
-  static final _bytesInZebibyte = ds('1180591620717411303424');
-  static final _bytesInYottabit = ds('125000000000000000000000');
-  static final _bytesInYobibit = ds('128000000000000000000000');
-  static final _bytesInYottabyte = ds('1000000000000000000000000');
-  static final _bytesInYobibyte = ds('1208925819614629174706176');
+  static final _bytesInBit = rs('0.125');
+  static final _bytesInCrumb = rs('0.25');
+  static final _bytesInNibble = rs('0.5');
+  static final _bytesInByte = Rationals.one;
+  static final _bytesInKilobit = ri(125);
+  static final _bytesInKibibit = ri(128);
+  static final _bytesInKilobyte = ri(1000);
+  static final _bytesInKibibyte = ri(1024);
+  static final _bytesInMegabit = ri(125000);
+  static final _bytesInMebibit = ri(128000);
+  static final _bytesInMegabyte = ri(1000000);
+  static final _bytesInMebibyte = ri(1048576);
+  static final _bytesInGigabit = ri(125000000);
+  static final _bytesInGibibit = ri(128000000);
+  static final _bytesInGigabyte = ri(1000000000);
+  static final _bytesInGibibyte = ri(1073741824);
+  static final _bytesInTerabit = ri(125000000000);
+  static final _bytesInTebibit = ri(128000000000);
+  static final _bytesInTerabyte = ri(1000000000000);
+  static final _bytesInTebibyte = ri(1099511627776);
+  static final _bytesInPetabit = ri(125000000000000);
+  static final _bytesInPebibit = ri(128000000000000);
+  static final _bytesInPetabyte = ri(1000000000000000);
+  static final _bytesInPebibyte = ri(1125899906842624);
+  static final _bytesInExabit = ri(125000000000000000);
+  static final _bytesInExbibit = ri(128000000000000000);
+  static final _bytesInExabyte = ri(1000000000000000000);
+  static final _bytesInExbibyte = ri(1152921504606846976);
+  static final _bytesInZettabit = rs('125000000000000000000');
+  static final _bytesInZebibit = rs('128000000000000000000');
+  static final _bytesInZettabyte = rs('1000000000000000000000');
+  static final _bytesInZebibyte = rs('1180591620717411303424');
+  static final _bytesInYottabit = rs('125000000000000000000000');
+  static final _bytesInYobibit = rs('128000000000000000000000');
+  static final _bytesInYottabyte = rs('1000000000000000000000000');
+  static final _bytesInYobibyte = rs('1208925819614629174706176');
 
-  Decimal get _byteCount {
+  Rational get _byteCount {
     switch (this) {
       case InformationUnit.bit:
         return _bytesInBit;
@@ -866,7 +866,7 @@ class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
       input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(InformationSize input, InformationUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(InformationSize input, InformationUnit unit) => input.getUnits(unit);
 
   @override
   InformationSize scaleToRateUnit(InformationSize input, RateUnit rateUnit) =>
@@ -916,12 +916,12 @@ class InformationRateFormat extends _BaseInformationFormat<InformationRate> {
       input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(InformationRate input, InformationUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(InformationRate input, InformationUnit unit) => input.value.getUnits(unit);
 
   @override
   InformationRate scaleToRateUnit(InformationRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
     final result = InformationSize.fromBytes(input.value.bytes * scale).per(scaledPeriod);
     return result;
   }
