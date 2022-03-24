@@ -1,3 +1,7 @@
+## 2.0.0 - NOT YET RELEASED
+
+* Switched to using `Rational` as the basis for units of measurement rather than `Decimal`
+
 ## 1.0.0 - 16th Oct, 2021
 
 * Improved the design and implementation of units of measurement, particularly around formatting
