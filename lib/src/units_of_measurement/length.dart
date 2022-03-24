@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
-  /// Creates a [Length] given a [unit] and decimal [value] for that unit.
+  /// Creates a [Length] given a [unit] and rational [value] for that unit.
   Length.fromUnits(LengthUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Length] representing the specified number of [nanometers].

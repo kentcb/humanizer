@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a weight.
 class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
-  /// Creates a [Weight] given a [unit] and decimal [value] for that unit.
+  /// Creates a [Weight] given a [unit] and rational [value] for that unit.
   Weight.fromUnits(WeightUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Weight] representing the specified number of [nanograms].

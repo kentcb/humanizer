@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a two-dimensional area.
 class Area extends UnitOfMeasurement<AreaUnit, Area> {
-  /// Creates an [Area] given a [unit] and decimal [value] for that unit.
+  /// Creates an [Area] given a [unit] and rational [value] for that unit.
   Area.fromUnits(AreaUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates an [Area] representing the specified number of [squareNanometers].

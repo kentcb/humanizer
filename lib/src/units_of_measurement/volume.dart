@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 
 /// A unit of measurement representing a three-dimensional volume.
 class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
-  /// Creates a [Volume] given a [unit] and decimal [value] for that unit.
+  /// Creates a [Volume] given a [unit] and rational [value] for that unit.
   Volume.fromUnits(VolumeUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Volume] representing the specified number of [cubicNanometers].

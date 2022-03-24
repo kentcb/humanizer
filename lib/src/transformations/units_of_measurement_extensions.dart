@@ -414,8 +414,8 @@ extension UnitsOfMeasurementIntExtensions on int {
   Weight gigatonnes() => Rational.fromInt(this).gigatonnes();
 }
 
-/// Provides extensions on [int] related to units of measurement.
-extension UnitsOfMeasurementDecimalExtensions on Rational {
+/// Provides extensions on [Rational] related to units of measurement.
+extension UnitsOfMeasurementRationalExtensions on Rational {
   /// Gets an [Area] representing this number of square nanometers.
   Area squareNanometers() => Area.fromSquareNanometers(this);
 
