@@ -1,8 +1,7 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/time_constants.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A unit of measurement representing time.
 class Time extends UnitOfMeasurement<TimeUnit, Time> {
@@ -229,60 +228,42 @@ class TimeUnits {
 
 /// Contains extensions for [TimeUnit].
 extension TimeUnitExtensions on TimeUnit {
-  static final _secondsInNanosecond = rs('0.000000001');
-  static final _secondsInMicrosecond = rs('0.000001');
-  static final _secondsInMillisecond = rs('0.001');
-  static final _secondsInCentisecond = rs('0.01');
-  static final _secondsInDecisecond = rs('0.1');
-  static final _secondsInSecond = Rationals.one;
-  static final _secondsInDecasecond = ri(10);
-  static final _secondsInMinute = ri(60);
-  static final _secondsInHour = ri(3600);
-  static final _secondsInDay = ri(86400);
-  static final _secondsInWeek = ri(604800);
-  static final _secondsInFortnight = ri(1209600);
-  static final _secondsInMonth = rs('2628002.88');
-  static final _secondsInQuarter = rs('7884008.64');
-  static final _secondsInYear = ri(31557600);
-  static final _secondsInDecade = ri(315576000);
-  static final _secondsInCentury = ri(3155760000);
-
   Rational get _secondCount {
     switch (this) {
       case TimeUnit.nanosecond:
-        return _secondsInNanosecond;
+        return secondsInNanosecond;
       case TimeUnit.microsecond:
-        return _secondsInMicrosecond;
+        return secondsInMicrosecond;
       case TimeUnit.millisecond:
-        return _secondsInMillisecond;
+        return secondsInMillisecond;
       case TimeUnit.centisecond:
-        return _secondsInCentisecond;
+        return secondsInCentisecond;
       case TimeUnit.decisecond:
-        return _secondsInDecisecond;
+        return secondsInDecisecond;
       case TimeUnit.second:
-        return _secondsInSecond;
+        return secondsInSecond;
       case TimeUnit.decasecond:
-        return _secondsInDecasecond;
+        return secondsInDecasecond;
       case TimeUnit.minute:
-        return _secondsInMinute;
+        return secondsInMinute;
       case TimeUnit.hour:
-        return _secondsInHour;
+        return secondsInHour;
       case TimeUnit.day:
-        return _secondsInDay;
+        return secondsInDay;
       case TimeUnit.week:
-        return _secondsInWeek;
+        return secondsInWeek;
       case TimeUnit.fortnight:
-        return _secondsInFortnight;
+        return secondsInFortnight;
       case TimeUnit.month:
-        return _secondsInMonth;
+        return secondsInMonth;
       case TimeUnit.quarter:
-        return _secondsInQuarter;
+        return secondsInQuarter;
       case TimeUnit.year:
-        return _secondsInYear;
+        return secondsInYear;
       case TimeUnit.decade:
-        return _secondsInDecade;
+        return secondsInDecade;
       case TimeUnit.century:
-        return _secondsInCentury;
+        return secondsInCentury;
     }
   }
 
@@ -397,25 +378,25 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the [TimeUnit]
 /// pattern specifiers as required:
 ///
-/// | Specifier | Description |
+/// | Unit | Specifier |
 /// |-|-|
-/// | `ns` | nanosecond |
-/// | `μs` | microsecond |
-/// | `ms` | millisecond |
-/// | `cs` | centisecond |
-/// | `ds` | decisecond |
-/// | `s` | second |
-/// | `das` | decasecond |
-/// | `min` | minute |
-/// | `hr` | hour |
-/// | `d` | day |
-/// | `wk` | week |
-/// | `fn` | fortnight |
-/// | `mo` | month |
-/// | `qr` | quarter |
-/// | `yr` | year |
-/// | `dec` | decade |
-/// | `c` | century |
+/// | nanosecond | `ns` |
+/// | microsecond | `μs` |
+/// | millisecond | `ms` |
+/// | centisecond | `cs` |
+/// | decisecond | `ds` |
+/// | second | `s` |
+/// | decasecond | `das` |
+/// | minute | `min` |
+/// | hour | `hr` |
+/// | day | `d` |
+/// | week | `wk` |
+/// | fortnight | `fn` |
+/// | month | `mo` |
+/// | quarter | `qr` |
+/// | year | `yr` |
+/// | decade | `dec` |
+/// | century | `c` |
 ///
 /// ```
 /// final time = 42.minutes();
@@ -500,7 +481,7 @@ class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
   @override
   TimeRate scaleToRateUnit(TimeRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Time.fromSeconds(input.value.seconds * scale).per(scaledPeriod);
     return result;
   }

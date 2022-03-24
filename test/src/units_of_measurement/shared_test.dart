@@ -3,7 +3,6 @@
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:humanizer/src/units_of_measurement/shared.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -78,53 +77,53 @@ void _comparableRatedValue() {
 
     test('finite precision takes precedence over infinite precision', () {
       verifyComparableRateCompare(
-        firstValue: ri(10000000),
-        secondValue: ri(1) / ri(3),
+        firstValue: Rational.fromInt(10000000),
+        secondValue: Rational.fromInt(1) / Rational.fromInt(3),
         expected: _ComparisonResult.preferFirst,
       );
     });
 
     test('lower precision takes precedence over higher precision', () {
       verifyComparableRateCompare(
-        firstValue: rs('10.23'),
-        secondValue: rs('1.0234'),
+        firstValue: Rational.fromInt(1023, 100),
+        secondValue: Rational.fromInt(10234, 10000),
         expected: _ComparisonResult.preferFirst,
       );
     });
 
     test('lower scale takes precedence over higher scale', () {
       verifyComparableRateCompare(
-        firstValue: rs('10.123'),
-        secondValue: rs('1.1234'),
+        firstValue: Rational.fromInt(10123, 1000),
+        secondValue: Rational.fromInt(11234, 10000),
         expected: _ComparisonResult.preferFirst,
       );
     });
 
     test('closer to one takes precedence over further away', () {
       verifyComparableRateCompare(
-        firstValue: ri(2),
-        secondValue: ri(3),
+        firstValue: Rational.fromInt(2),
+        secondValue: Rational.fromInt(3),
         expected: _ComparisonResult.preferFirst,
       );
       verifyComparableRateCompare(
-        firstValue: ri(0),
-        secondValue: ri(2),
+        firstValue: Rational.fromInt(0),
+        secondValue: Rational.fromInt(2),
         // Both 1 away from 1.
         expected: _ComparisonResult.equalPreference,
       );
       verifyComparableRateCompare(
-        firstValue: ri(-1),
-        secondValue: ri(4),
+        firstValue: Rational.fromInt(-1),
+        secondValue: Rational.fromInt(4),
         expected: _ComparisonResult.preferFirst,
       );
       verifyComparableRateCompare(
-        firstValue: rs('1.123'),
-        secondValue: rs('2.123'),
+        firstValue: Rational.fromInt(1123, 1000),
+        secondValue: Rational.fromInt(2123, 1000),
         expected: _ComparisonResult.preferFirst,
       );
       verifyComparableRateCompare(
-        firstValue: ri(1) + (ri(1) / ri(3)),
-        secondValue: ri(1) + (ri(2) / ri(3)),
+        firstValue: Rational.fromInt(1) + (Rational.fromInt(1) / Rational.fromInt(3)),
+        secondValue: Rational.fromInt(1) + (Rational.fromInt(2) / Rational.fromInt(3)),
         expected: _ComparisonResult.preferFirst,
       );
     });
@@ -145,14 +144,14 @@ void _unitOfMeasurement() {
   group('unit of measurement', () {
     test('get units', () {
       QualityUnits.all.forEach((unit) {
-        final sut = Quality.fromUnits(unit, rs('42'));
-        expect(sut.getUnits(unit), rs('42'));
+        final sut = Quality.fromUnits(unit, Rational.fromInt(42));
+        expect(sut.getUnits(unit), Rational.fromInt(42));
       });
 
       QualityUnits.all.skip(1).forEach((unit) {
-        final sut = Quality.fromUnits(unit, rs('69')) + Quality.fromNanolovelaces(ri(1));
-        expect(sut.getUnits(unit), greaterThan(rs('69')));
-        expect(sut.getUnits(unit), lessThan(rs('69.1')));
+        final sut = Quality.fromUnits(unit, Rational.fromInt(69)) + Quality.fromNanolovelaces(Rational.fromInt(1));
+        expect(sut.getUnits(unit), greaterThan(Rational.fromInt(69)));
+        expect(sut.getUnits(unit), lessThan(Rational.fromInt(691, 10)));
       });
     });
 
@@ -166,17 +165,17 @@ void _unitOfMeasurement() {
 
       test('correctly identifies largest unit', () {
         final values = <Rational, QualityUnit>{
-          rs('1'): QualityUnit.nanolovelace,
-          rs('999'): QualityUnit.nanolovelace,
-          rs('1000'): QualityUnit.microlovelace,
-          rs('999999'): QualityUnit.microlovelace,
-          rs('1000000'): QualityUnit.millilovelace,
-          rs('9999999'): QualityUnit.millilovelace,
-          rs('10000000'): QualityUnit.centilovelace,
-          rs('99999999'): QualityUnit.centilovelace,
-          rs('100000000'): QualityUnit.decilovelace,
-          rs('999999999'): QualityUnit.decilovelace,
-          rs('1000000000'): QualityUnit.lovelace,
+          Rationals.one: QualityUnit.nanolovelace,
+          Rational.fromInt(999): QualityUnit.nanolovelace,
+          Rationals.thousand: QualityUnit.microlovelace,
+          Rational.fromInt(999999): QualityUnit.microlovelace,
+          Rationals.million: QualityUnit.millilovelace,
+          Rational.fromInt(9999999): QualityUnit.millilovelace,
+          Rational.fromInt(10000000): QualityUnit.centilovelace,
+          Rational.fromInt(99999999): QualityUnit.centilovelace,
+          Rational.fromInt(100000000): QualityUnit.decilovelace,
+          Rational.fromInt(999999999): QualityUnit.decilovelace,
+          Rationals.billion: QualityUnit.lovelace,
         };
 
         values.forEach((nanolovelaces, expected) {
@@ -186,7 +185,7 @@ void _unitOfMeasurement() {
       });
 
       test('can restrict permissible units', () {
-        final sut = Quality.fromCentilovelaces(ri(1));
+        final sut = Quality.fromCentilovelaces(Rational.fromInt(1));
 
         expect(
           sut.getLargestUnit(permissibleUnits: QualityUnits.all),
@@ -211,7 +210,7 @@ void _unitOfMeasurement() {
       });
 
       test('order of permissible units does not matter', () {
-        final sut = Quality.fromCentilovelaces(ri(1));
+        final sut = Quality.fromCentilovelaces(Rational.fromInt(1));
 
         expect(
           sut.getLargestUnit(permissibleUnits: <QualityUnit>{
@@ -240,7 +239,7 @@ void _unitOfMeasurement() {
       });
 
       test('smallest unit is returned if all permissible units are too large', () {
-        final sut = Quality.fromMicrolovelaces(ri(1));
+        final sut = Quality.fromMicrolovelaces(Rational.fromInt(1));
 
         expect(
           sut.getLargestUnit(permissibleUnits: <QualityUnit>{
@@ -323,8 +322,8 @@ void _unitOfMeasurement() {
         required int operand2,
         required bool expected,
       }) {
-        final first = Quality.fromUnits(unit1, ri(operand1));
-        final second = Quality.fromUnits(unit2, ri(operand2));
+        final first = Quality.fromUnits(unit1, Rational.fromInt(operand1));
+        final second = Quality.fromUnits(unit2, Rational.fromInt(operand2));
         final result = first == second;
         expect(result, expected, reason: '$first != $second');
         expect(first.compareTo(second) == 0, expected);
@@ -376,8 +375,8 @@ void _unitOfMeasurement() {
     });
 
     test('abs', () {
-      expect(rs('42'), Quality.fromNanolovelaces(rs('42')).abs().nanolovelaces);
-      expect(rs('42'), Quality.fromNanolovelaces(rs('-42')).abs().nanolovelaces);
+      expect(Rational.fromInt(42), Quality.fromNanolovelaces(Rational.fromInt(42)).abs().nanolovelaces);
+      expect(Rational.fromInt(42), Quality.fromNanolovelaces(Rational.fromInt(-42)).abs().nanolovelaces);
     });
 
     test('+', () {
@@ -388,15 +387,15 @@ void _unitOfMeasurement() {
         expect(result.nanolovelaces, expected);
       }
 
-      verifyAdd(ri(0), ri(0), ri(0));
-      verifyAdd(ri(1), ri(0), ri(1));
-      verifyAdd(ri(0), ri(1), ri(1));
-      verifyAdd(ri(1), ri(1), ri(2));
-      verifyAdd(ri(40), ri(2), ri(42));
-      verifyAdd(ri(2), ri(40), ri(42));
-      verifyAdd(ri(44), ri(-2), ri(42));
-      verifyAdd(ri(-2), ri(44), ri(42));
-      verifyAdd(rs('10.5'), rs('1.25'), rs('11.75'));
+      verifyAdd(Rational.fromInt(0), Rational.fromInt(0), Rational.fromInt(0));
+      verifyAdd(Rational.fromInt(1), Rational.fromInt(0), Rational.fromInt(1));
+      verifyAdd(Rational.fromInt(0), Rational.fromInt(1), Rational.fromInt(1));
+      verifyAdd(Rational.fromInt(1), Rational.fromInt(1), Rational.fromInt(2));
+      verifyAdd(Rational.fromInt(40), Rational.fromInt(2), Rational.fromInt(42));
+      verifyAdd(Rational.fromInt(2), Rational.fromInt(40), Rational.fromInt(42));
+      verifyAdd(Rational.fromInt(44), Rational.fromInt(-2), Rational.fromInt(42));
+      verifyAdd(Rational.fromInt(-2), Rational.fromInt(44), Rational.fromInt(42));
+      verifyAdd(Rational.fromInt(105, 10), Rational.fromInt(125, 100), Rational.fromInt(1175, 100));
     });
 
     test('-', () {
@@ -407,15 +406,15 @@ void _unitOfMeasurement() {
         expect(result.nanolovelaces, expected);
       }
 
-      verifySubtract(ri(0), ri(0), ri(0));
-      verifySubtract(ri(1), ri(0), ri(1));
-      verifySubtract(ri(0), ri(1), ri(-1));
-      verifySubtract(ri(1), ri(1), ri(0));
-      verifySubtract(ri(44), ri(2), ri(42));
-      verifySubtract(ri(2), ri(44), ri(-42));
-      verifySubtract(ri(40), ri(-2), ri(42));
-      verifySubtract(ri(-2), ri(40), ri(-42));
-      verifySubtract(rs('10.5'), rs('1.25'), rs('9.25'));
+      verifySubtract(Rational.fromInt(0), Rational.fromInt(0), Rational.fromInt(0));
+      verifySubtract(Rational.fromInt(1), Rational.fromInt(0), Rational.fromInt(1));
+      verifySubtract(Rational.fromInt(0), Rational.fromInt(1), Rational.fromInt(-1));
+      verifySubtract(Rational.fromInt(1), Rational.fromInt(1), Rational.fromInt(0));
+      verifySubtract(Rational.fromInt(44), Rational.fromInt(2), Rational.fromInt(42));
+      verifySubtract(Rational.fromInt(2), Rational.fromInt(44), Rational.fromInt(-42));
+      verifySubtract(Rational.fromInt(40), Rational.fromInt(-2), Rational.fromInt(42));
+      verifySubtract(Rational.fromInt(-2), Rational.fromInt(40), Rational.fromInt(-42));
+      verifySubtract(Rational.fromInt(105, 10), Rational.fromInt(125, 100), Rational.fromInt(925, 100));
     });
 
     test('unary -', () {
@@ -425,13 +424,13 @@ void _unitOfMeasurement() {
         expect(result.nanolovelaces, expected);
       }
 
-      verifyNegation(ri(0), ri(0));
-      verifyNegation(ri(1), ri(-1));
-      verifyNegation(ri(-1), ri(1));
-      verifyNegation(ri(42), ri(-42));
-      verifyNegation(ri(-42), ri(42));
-      verifyNegation(rs('10.5'), rs('-10.5'));
-      verifyNegation(rs('-10.5'), rs('10.5'));
+      verifyNegation(Rational.fromInt(0), Rational.fromInt(0));
+      verifyNegation(Rational.fromInt(1), Rational.fromInt(-1));
+      verifyNegation(Rational.fromInt(-1), Rational.fromInt(1));
+      verifyNegation(Rational.fromInt(42), Rational.fromInt(-42));
+      verifyNegation(Rational.fromInt(-42), Rational.fromInt(42));
+      verifyNegation(Rational.fromInt(105, 10), Rational.fromInt(-105, 10));
+      verifyNegation(Rational.fromInt(-105, 10), Rational.fromInt(105, 10));
     });
 
     test('*', () {
@@ -442,16 +441,16 @@ void _unitOfMeasurement() {
         expect(result.nanolovelaces, expected);
       }
 
-      verifyMultiply(ri(0), ri(0), ri(0));
-      verifyMultiply(ri(1), ri(0), ri(0));
-      verifyMultiply(ri(0), ri(1), ri(0));
-      verifyMultiply(ri(1), ri(1), ri(1));
-      verifyMultiply(ri(42), ri(1), ri(42));
-      verifyMultiply(ri(1), ri(42), ri(42));
-      verifyMultiply(ri(21), ri(2), ri(42));
-      verifyMultiply(ri(2), ri(21), ri(42));
-      verifyMultiply(ri(13), ri(-2), ri(-26));
-      verifyMultiply(rs('10.5'), rs('1.25'), rs('13.125'));
+      verifyMultiply(Rational.fromInt(0), Rational.fromInt(0), Rational.fromInt(0));
+      verifyMultiply(Rational.fromInt(1), Rational.fromInt(0), Rational.fromInt(0));
+      verifyMultiply(Rational.fromInt(0), Rational.fromInt(1), Rational.fromInt(0));
+      verifyMultiply(Rational.fromInt(1), Rational.fromInt(1), Rational.fromInt(1));
+      verifyMultiply(Rational.fromInt(42), Rational.fromInt(1), Rational.fromInt(42));
+      verifyMultiply(Rational.fromInt(1), Rational.fromInt(42), Rational.fromInt(42));
+      verifyMultiply(Rational.fromInt(21), Rational.fromInt(2), Rational.fromInt(42));
+      verifyMultiply(Rational.fromInt(2), Rational.fromInt(21), Rational.fromInt(42));
+      verifyMultiply(Rational.fromInt(13), Rational.fromInt(-2), Rational.fromInt(-26));
+      verifyMultiply(Rational.fromInt(105, 10), Rational.fromInt(125, 100), Rational.fromInt(13125, 1000));
     });
 
     test('/', () {
@@ -462,14 +461,14 @@ void _unitOfMeasurement() {
         expect(result.nanolovelaces, expected);
       }
 
-      verifyDivide(ri(1), ri(1), ri(1));
-      verifyDivide(ri(2), ri(1), ri(2));
-      verifyDivide(ri(3), ri(2), rs('1.5'));
-      verifyDivide(ri(4), ri(-2), rs('-2'));
-      verifyDivide(rs('10.5'), rs('1.25'), rs('8.4'));
+      verifyDivide(Rational.fromInt(1), Rational.fromInt(1), Rational.fromInt(1));
+      verifyDivide(Rational.fromInt(2), Rational.fromInt(1), Rational.fromInt(2));
+      verifyDivide(Rational.fromInt(3), Rational.fromInt(2), Rational.fromInt(15, 10));
+      verifyDivide(Rational.fromInt(4), Rational.fromInt(-2), Rational.fromInt(-2));
+      verifyDivide(Rational.fromInt(105, 10), Rational.fromInt(125, 100), Rational.fromInt(84, 10));
 
       expect(
-        () => Quality.fromNanolovelaces(ri(1)) / ri(0),
+        () => Quality.fromNanolovelaces(Rational.fromInt(1)) / Rational.fromInt(0),
         throwsA(isA<ArgumentError>()),
       );
     });
@@ -488,53 +487,53 @@ void _unitOfMeasurement() {
       }
 
       verifyLessThan(
-        operand1: ri(0),
-        operand2: ri(0),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(0),
         expected: false,
       );
       verifyLessThan(
-        operand1: ri(1),
-        operand2: ri(0),
+        operand1: Rational.fromInt(1),
+        operand2: Rational.fromInt(0),
         expected: false,
       );
       verifyLessThan(
-        operand1: ri(0),
-        operand2: ri(1),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(1),
         expected: true,
       );
       verifyLessThan(
-        operand1: ri(-1),
-        operand2: ri(1),
+        operand1: Rational.fromInt(-1),
+        operand2: Rational.fromInt(1),
         expected: true,
       );
       verifyLessThan(
-        operand1: ri(42),
-        operand2: ri(42),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(42),
         expected: false,
       );
       verifyLessThan(
-        operand1: ri(69),
-        operand2: ri(42),
+        operand1: Rational.fromInt(69),
+        operand2: Rational.fromInt(42),
         expected: false,
       );
       verifyLessThan(
-        operand1: ri(42),
-        operand2: ri(69),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(69),
         expected: true,
       );
       verifyLessThan(
-        operand1: rs('10.5'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(105, 10),
         expected: false,
       );
       verifyLessThan(
-        operand1: rs('1.25'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(125, 100),
+        operand2: Rational.fromInt(105, 10),
         expected: true,
       );
       verifyLessThan(
-        operand1: rs('10.5'),
-        operand2: rs('1.25'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(125, 100),
         expected: false,
       );
     });
@@ -553,53 +552,53 @@ void _unitOfMeasurement() {
       }
 
       verifyLessThanOrEqual(
-        operand1: ri(0),
-        operand2: ri(0),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(0),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: ri(1),
-        operand2: ri(0),
+        operand1: Rational.fromInt(1),
+        operand2: Rational.fromInt(0),
         expected: false,
       );
       verifyLessThanOrEqual(
-        operand1: ri(0),
-        operand2: ri(1),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(1),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: ri(-1),
-        operand2: ri(1),
+        operand1: Rational.fromInt(-1),
+        operand2: Rational.fromInt(1),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: ri(42),
-        operand2: ri(42),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(42),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: ri(69),
-        operand2: ri(42),
+        operand1: Rational.fromInt(69),
+        operand2: Rational.fromInt(42),
         expected: false,
       );
       verifyLessThanOrEqual(
-        operand1: ri(42),
-        operand2: ri(69),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(69),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: rs('10.5'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(105, 10),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: rs('1.25'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(125, 100),
+        operand2: Rational.fromInt(105, 10),
         expected: true,
       );
       verifyLessThanOrEqual(
-        operand1: rs('10.5'),
-        operand2: rs('1.25'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(125, 100),
         expected: false,
       );
     });
@@ -618,53 +617,53 @@ void _unitOfMeasurement() {
       }
 
       verifyGreaterThan(
-        operand1: ri(0),
-        operand2: ri(0),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(0),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: ri(1),
-        operand2: ri(0),
+        operand1: Rational.fromInt(1),
+        operand2: Rational.fromInt(0),
         expected: true,
       );
       verifyGreaterThan(
-        operand1: ri(0),
-        operand2: ri(1),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(1),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: ri(-1),
-        operand2: ri(1),
+        operand1: Rational.fromInt(-1),
+        operand2: Rational.fromInt(1),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: ri(42),
-        operand2: ri(42),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(42),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: ri(69),
-        operand2: ri(42),
+        operand1: Rational.fromInt(69),
+        operand2: Rational.fromInt(42),
         expected: true,
       );
       verifyGreaterThan(
-        operand1: ri(42),
-        operand2: ri(69),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(69),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: rs('10.5'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(105, 10),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: rs('1.25'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(125, 100),
+        operand2: Rational.fromInt(105, 10),
         expected: false,
       );
       verifyGreaterThan(
-        operand1: rs('10.5'),
-        operand2: rs('1.25'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(125, 100),
         expected: true,
       );
     });
@@ -683,53 +682,53 @@ void _unitOfMeasurement() {
       }
 
       verifyGreaterThanOrEqual(
-        operand1: ri(0),
-        operand2: ri(0),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(0),
         expected: true,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(1),
-        operand2: ri(0),
+        operand1: Rational.fromInt(1),
+        operand2: Rational.fromInt(0),
         expected: true,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(0),
-        operand2: ri(1),
+        operand1: Rational.fromInt(0),
+        operand2: Rational.fromInt(1),
         expected: false,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(-1),
-        operand2: ri(1),
+        operand1: Rational.fromInt(-1),
+        operand2: Rational.fromInt(1),
         expected: false,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(42),
-        operand2: ri(42),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(42),
         expected: true,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(69),
-        operand2: ri(42),
+        operand1: Rational.fromInt(69),
+        operand2: Rational.fromInt(42),
         expected: true,
       );
       verifyGreaterThanOrEqual(
-        operand1: ri(42),
-        operand2: ri(69),
+        operand1: Rational.fromInt(42),
+        operand2: Rational.fromInt(69),
         expected: false,
       );
       verifyGreaterThanOrEqual(
-        operand1: rs('10.5'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(105, 10),
         expected: true,
       );
       verifyGreaterThanOrEqual(
-        operand1: rs('1.25'),
-        operand2: rs('10.5'),
+        operand1: Rational.fromInt(125, 100),
+        operand2: Rational.fromInt(105, 10),
         expected: false,
       );
       verifyGreaterThanOrEqual(
-        operand1: rs('10.5'),
-        operand2: rs('1.25'),
+        operand1: Rational.fromInt(105, 10),
+        operand2: Rational.fromInt(125, 100),
         expected: true,
       );
     });
@@ -832,14 +831,14 @@ void _unitOfMeasurementFormat() {
           verifyQualityFormat(
             pattern: '',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('42')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(42)),
             expected: '',
           );
 
           verifyQualityFormat(
             pattern: '0.#',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1200')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1200)),
             expected: '1.2',
           );
         });
@@ -848,21 +847,21 @@ void _unitOfMeasurementFormat() {
           verifyQualityFormat(
             pattern: 'u',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1200')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1200)),
             expected: 'µll',
           );
 
           verifyQualityFormat(
             pattern: 'U',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1200')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1200)),
             expected: 'microlovelaces',
           );
 
           verifyQualityFormat(
             pattern: "0.# u '('0.## U', to be more precise)'",
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: '1.2 µll (1.21 microlovelaces, to be more precise)',
           );
         });
@@ -871,35 +870,35 @@ void _unitOfMeasurementFormat() {
           verifyQualityFormat(
             pattern: 'u:µll',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: 'µll',
           );
 
           verifyQualityFormat(
             pattern: 'U:µll',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: 'microlovelaces',
           );
 
           verifyQualityFormat(
             pattern: 'U:zl',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: 'compromised engineerings',
           );
 
           verifyQualityFormat(
             pattern: '0.# u:nll',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: '1210 nll',
           );
 
           verifyQualityFormat(
             pattern: '0.# u:µll',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: '1.2 µll',
           );
         });
@@ -908,7 +907,7 @@ void _unitOfMeasurementFormat() {
           verifyQualityFormat(
             pattern: '0.# u',
             valueUnits: QualityUnits.all,
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: '1.2 µll',
           );
 
@@ -918,7 +917,7 @@ void _unitOfMeasurementFormat() {
               QualityUnit.nanolovelace,
               QualityUnit.millilovelace,
             },
-            input: Quality.fromNanolovelaces(rs('1210')),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1210)),
             expected: '1210 nll',
           );
 
@@ -928,7 +927,7 @@ void _unitOfMeasurementFormat() {
               QualityUnit.nanolovelace,
               QualityUnit.millilovelace,
             },
-            input: Quality.fromLovelaces(ri(1)),
+            input: Quality.fromLovelaces(Rational.fromInt(1)),
             expected: '1000 mll',
           );
 
@@ -939,7 +938,7 @@ void _unitOfMeasurementFormat() {
               QualityUnit.millilovelace,
               QualityUnit.decilovelace,
             },
-            input: Quality.fromLovelaces(ri(1)),
+            input: Quality.fromLovelaces(Rational.fromInt(1)),
             expected: '10 dll',
           );
         });
@@ -969,7 +968,7 @@ void _unitOfMeasurementFormat() {
             pattern: '',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('42')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(42)).per(const Duration(seconds: 1)),
             expected: '',
           );
 
@@ -977,7 +976,7 @@ void _unitOfMeasurementFormat() {
             pattern: '0.#',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1200')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1200)).per(const Duration(seconds: 1)),
             expected: '72',
           );
         });
@@ -987,7 +986,7 @@ void _unitOfMeasurementFormat() {
             pattern: 'u r',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: 'µll min',
           );
 
@@ -995,7 +994,7 @@ void _unitOfMeasurementFormat() {
             pattern: 'U R',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: 'microlovelaces minute',
           );
 
@@ -1003,7 +1002,7 @@ void _unitOfMeasurementFormat() {
             pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
           );
 
@@ -1011,7 +1010,7 @@ void _unitOfMeasurementFormat() {
             pattern: "0.# u r '('0.## U 'per' R', to be more precise)'",
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(minutes: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(minutes: 1)),
             expected: '61.4 µll hr (61.44 microlovelaces per hour, to be more precise)',
           );
         });
@@ -1021,7 +1020,7 @@ void _unitOfMeasurementFormat() {
             pattern: 'u:cll r:min',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: 'cll min',
           );
 
@@ -1029,7 +1028,7 @@ void _unitOfMeasurementFormat() {
             pattern: 'U:cll R:min',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: 'centilovelaces minute',
           );
 
@@ -1037,7 +1036,7 @@ void _unitOfMeasurementFormat() {
             pattern: "0.# u:µll r:min '('0.## U:µll 'per' R:min', to be more precise)'",
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: '61.4 µll min (61.44 microlovelaces per minute, to be more precise)',
           );
         });
@@ -1047,7 +1046,7 @@ void _unitOfMeasurementFormat() {
             pattern: '0.# u:µll r:s',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.hourOrLess,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: '1 µll s',
           );
 
@@ -1055,7 +1054,7 @@ void _unitOfMeasurementFormat() {
             pattern: '0.# u:µll r:day',
             valueUnits: QualityUnits.all,
             rateUnits: RateUnits.all,
-            input: Quality.fromNanolovelaces(rs('1024')).per(const Duration(seconds: 1)),
+            input: Quality.fromNanolovelaces(Rational.fromInt(1024)).per(const Duration(seconds: 1)),
             expected: '88473.6 µll day',
           );
         });
@@ -1091,7 +1090,7 @@ class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
   factory Quality.fromWeirdlovelaces(Rational weirdlovelaces) =>
       Quality.fromUnits(QualityUnit.weirdlovelace, weirdlovelaces);
 
-  static final zero = Quality.fromNanolovelaces(ri(0));
+  static final zero = Quality.fromNanolovelaces(Rational.fromInt(0));
 
   Rational get nanolovelaces => getUnits(QualityUnit.nanolovelace);
   Rational get microlovelaces => getUnits(QualityUnit.microlovelace);
@@ -1163,7 +1162,7 @@ extension QualityUnitExtensions on QualityUnit {
   static final _lovelacesInDecilovelace = Rationals.tenth;
   static final _lovelacesInLovelace = Rationals.one;
   static final _lovelacesInCompromisedEngineering = Rationals.ten;
-  static final _lovelacesInWeirdlovelace = ri(3);
+  static final _lovelacesInWeirdlovelace = Rational.fromInt(3);
 
   Rational get _lovelaceCount {
     switch (this) {
@@ -1238,14 +1237,14 @@ extension QualityUnitExtensions on QualityUnit {
 }
 
 extension IntExtensions on int {
-  Quality nanolovelaces() => Quality.fromNanolovelaces(ri(this));
-  Quality microlovelaces() => Quality.fromMicrolovelaces(ri(this));
-  Quality millilovelaces() => Quality.fromMillilovelaces(ri(this));
-  Quality centilovelaces() => Quality.fromCentilovelaces(ri(this));
-  Quality decilovelaces() => Quality.fromDecilovelaces(ri(this));
-  Quality lovelaces() => Quality.fromLovelaces(ri(this));
-  Quality compromisedEngineerings() => Quality.fromCompromisedEngineerings(ri(this));
-  Quality weirdlovelaces() => Quality.fromWeirdlovelaces(ri(this));
+  Quality nanolovelaces() => Quality.fromNanolovelaces(Rational.fromInt(this));
+  Quality microlovelaces() => Quality.fromMicrolovelaces(Rational.fromInt(this));
+  Quality millilovelaces() => Quality.fromMillilovelaces(Rational.fromInt(this));
+  Quality centilovelaces() => Quality.fromCentilovelaces(Rational.fromInt(this));
+  Quality decilovelaces() => Quality.fromDecilovelaces(Rational.fromInt(this));
+  Quality lovelaces() => Quality.fromLovelaces(Rational.fromInt(this));
+  Quality compromisedEngineerings() => Quality.fromCompromisedEngineerings(Rational.fromInt(this));
+  Quality weirdlovelaces() => Quality.fromWeirdlovelaces(Rational.fromInt(this));
 }
 
 class QualityRate extends UnitOfMeasurementRate<Quality> {
@@ -1307,7 +1306,7 @@ class QualityRateFormat extends BaseQualityFormat<QualityRate> {
   @override
   QualityRate scaleToRateUnit(QualityRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Quality.fromLovelaces(input.value.lovelaces * scale).per(scaledPeriod);
     return result;
   }

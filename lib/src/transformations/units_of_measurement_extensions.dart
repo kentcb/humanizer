@@ -176,9 +176,6 @@ extension UnitsOfMeasurementIntExtensions on int {
   /// Gets a [Length] representing this number of millimeters.
   Length millimeters() => Rational.fromInt(this).millimeters();
 
-  /// Gets a [Length] representing this number of lines.
-  Length lines() => Rational.fromInt(this).lines();
-
   /// Gets a [Length] representing this number of centimeters.
   Length centimeters() => Rational.fromInt(this).centimeters();
 
@@ -589,9 +586,6 @@ extension UnitsOfMeasurementDecimalExtensions on Rational {
 
   /// Gets a [Length] representing this number of millimeters.
   Length millimeters() => Length.fromMillimeters(this);
-
-  /// Gets a [Length] representing this number of lines.
-  Length lines() => Length.fromLines(this);
 
   /// Gets a [Length] representing this number of centimeters.
   Length centimeters() => Length.fromCentimeters(this);

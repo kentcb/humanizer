@@ -1,7 +1,7 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/temperature_constants.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a temperature.
 class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
@@ -43,10 +43,10 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
 
   static final _defaultFormat = TemperatureFormat();
 
-  static final _kelvinToCelsiusBaseline = rs('273.15');
-  static final _kelvinToFahrenheitFactor = rs('1.8');
-  static final _kelvinToFahrenheitOffset = ri(32);
-  static final _fahrenheitToKelvinFactor = ri(5) / ri(9);
+  static final _kelvinToCelsiusBaseline = Rational.fromInt(27315, 100);
+  static final _kelvinToFahrenheitFactor = Rational.fromInt(18, 10);
+  static final _kelvinToFahrenheitOffset = Rational.fromInt(32);
+  static final _fahrenheitToKelvinFactor = Rational.fromInt(5) / Rational.fromInt(9);
 
   /// Gets the number of nanokelvins in this [Temperature], including the fractional portion.
   Rational get nanokelvins => getUnits(TemperatureUnit.nanokelvin);
@@ -179,27 +179,20 @@ class TemperatureUnits {
 
 /// Contains extensions for [TemperatureUnit].
 extension TemperatureUnitExtensions on TemperatureUnit {
-  static final _kelvinsInNanokelvin = rs('0.000000001');
-  static final _kelvinsInMicrokelvin = rs('0.000001');
-  static final _kelvinsInMillikelvin = rs('0.001');
-  static final _kelvinsInCentikelvin = rs('0.01');
-  static final _kelvinsInDecikelvin = rs('0.1');
-  static final _kelvinsInKelvin = Rationals.one;
-
   Rational get _kelvinCount {
     switch (this) {
       case TemperatureUnit.nanokelvin:
-        return _kelvinsInNanokelvin;
+        return kelvinsInNanokelvin;
       case TemperatureUnit.microkelvin:
-        return _kelvinsInMicrokelvin;
+        return kelvinsInMicrokelvin;
       case TemperatureUnit.millikelvin:
-        return _kelvinsInMillikelvin;
+        return kelvinsInMillikelvin;
       case TemperatureUnit.centikelvin:
-        return _kelvinsInCentikelvin;
+        return kelvinsInCentikelvin;
       case TemperatureUnit.decikelvin:
-        return _kelvinsInDecikelvin;
+        return kelvinsInDecikelvin;
       case TemperatureUnit.kelvin:
-        return _kelvinsInKelvin;
+        return kelvinsInKelvin;
       default:
         throw UnsupportedError('Cannot determine kelvins in $this');
     }
@@ -210,6 +203,7 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case TemperatureUnit.nanokelvin:
         return 'nanokelvin';
       case TemperatureUnit.microkelvin:
@@ -222,8 +216,12 @@ extension TemperatureUnitExtensions on TemperatureUnit {
         return 'decikelvin';
       case TemperatureUnit.kelvin:
         return 'kelvin';
+
+      // Celsius.
       case TemperatureUnit.celsius:
         return 'Celsius';
+
+      // Fahrenheit.
       case TemperatureUnit.fahrenheit:
         return 'Fahrenheit';
     }
@@ -234,6 +232,7 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case TemperatureUnit.nanokelvin:
         return 'nK';
       case TemperatureUnit.microkelvin:
@@ -246,8 +245,12 @@ extension TemperatureUnitExtensions on TemperatureUnit {
         return 'dK';
       case TemperatureUnit.kelvin:
         return 'K';
+
+      // Celsius.
       case TemperatureUnit.celsius:
         return '°C';
+
+      // Fahrenheit.
       case TemperatureUnit.fahrenheit:
         return '°F';
     }
@@ -280,16 +283,16 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the
 /// [TemperatureUnit] pattern specifiers as required:
 ///
-/// | Specifier | Description |
-/// |-|-|
-/// | `nK` | nanokelvin |
-/// | `μK` | microkelvin |
-/// | `mK` | millikelvin |
-/// | `cK` | centikelvin |
-/// | `dK` | decikelvin |
-/// | `K` | kelvin |
-/// | `°C` | Celsius |
-/// | `°F` | Fahrenheit |
+/// | | Unit | Specifier |
+/// |:-|:-|:-|
+/// | **S.I.** | nanokelvin | `nK` |
+/// | | microkelvin | `μK` |
+/// | | millikelvin | `mK` |
+/// | | centikelvin | `cK` |
+/// | | decikelvin | `dK` |
+/// | | kelvin | `K` |
+/// | **Celsius** | Degrees Celsius | `°C` |
+/// | **Fahrenheit** | Degrees Fahrenheit | `°F` |
 ///
 /// ```
 /// final temperature = 42.celsius();
@@ -380,7 +383,7 @@ class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
   @override
   TemperatureRate scaleToRateUnit(TemperatureRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Temperature.fromKelvins(input.value.kelvins * scale).per(scaledPeriod);
     return result;
   }

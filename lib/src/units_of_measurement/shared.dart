@@ -5,7 +5,6 @@ import 'package:humanizer/src/string_predicate_extensions.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// Base class for units of measurement.
 ///
@@ -273,27 +272,27 @@ extension RateUnitExtensions on RateUnit {
 /// The format is specified as a [pattern], which supports the following components:
 ///
 /// | Specifier | Description |
-/// |-|-|
+/// |:-|:-|
 /// | `u` | The symbol of the value's unit, automatically inferred based on the value being formatted. |
-/// | `u:$SPECIFIER` | The symbol of the value's unit, explicitly specified after the colon. |
+/// | `u:$UNIT_SPECIFIER` | The symbol of the value's unit, explicitly specified after the colon. |
 /// | `U` | The name of the value's unit, automatically inferred based on the value being formatted. |
-/// | `U:$SPECIFIER` | The name of the value's unit, explicitly specified after the colon. |
+/// | `U:$UNIT_SPECIFIER` | The name of the value's unit, explicitly specified after the colon. |
 /// | `r` | The symbol of the rate's unit (if applicable), automatically inferred based on the value being formatted. |
-/// | `r:$SPECIFIER` | The symbol of the rate's unit (if applicable), explicitly specified after the colon. |
+/// | `r:$RATE_SPECIFIER` | The symbol of the rate's unit (if applicable), explicitly specified after the colon. |
 /// | `R` | The name of the rate's unit (if applicable), automatically inferred based on the value being formatted. |
-/// | `R:$SPECIFIER` | The name of the rate's unit (if applicable), explicitly specified after the colon. |
+/// | `R:$RATE_SPECIFIER` | The name of the rate's unit (if applicable), explicitly specified after the colon. |
 /// | `'` | Used to demarcate verbatim output |
-///
-/// Any other characters are passed into a [NumberFormat].
+/// | (any other character) | Forwarded onto a [NumberFormat]. |
 ///
 /// Rate unit specifiers are common across all rated values:
 ///
-/// | Specifier | Description |
-/// | `s` | seconds |
-/// | `min` | minutes |
-/// | `hr` | hours |
-/// | `day` | days |
-/// | `wk` | weeks |
+/// | Unit | Specifier |
+/// |:-|:-|
+/// | seconds | `s` |
+/// | minutes | `min` |
+/// | hours | `hr` |
+/// | days | `day` |
+/// | weeks | `wk` |
 ///
 /// Value unit specifiers are specific to the unit of measurement value being formatted and can be found in the
 /// documentation for the relevant format implementation.

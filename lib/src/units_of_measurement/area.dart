@@ -1,7 +1,7 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/area_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a two-dimensional area.
 class Area extends UnitOfMeasurement<AreaUnit, Area> {
@@ -203,23 +203,26 @@ enum AreaUnit {
 class AreaUnits {
   /// Contains all defined [AreaUnit]s.
   static const all = <AreaUnit>{
+    // SI.
     AreaUnit.squareNanometer,
     AreaUnit.squareMicrometer,
-    AreaUnit.squareThou,
     AreaUnit.squareMillimeter,
     AreaUnit.squareCentimeter,
-    AreaUnit.squareInch,
     AreaUnit.squareDecimeter,
-    AreaUnit.squareFoot,
-    AreaUnit.squareYard,
     AreaUnit.squareMeter,
     AreaUnit.squareDecameter,
-    AreaUnit.acre,
     AreaUnit.hectare,
     AreaUnit.squareKilometer,
-    AreaUnit.squareMile,
     AreaUnit.squareMegameter,
     AreaUnit.squareGigameter,
+
+    // Imperial.
+    AreaUnit.squareThou,
+    AreaUnit.squareInch,
+    AreaUnit.squareFoot,
+    AreaUnit.squareYard,
+    AreaUnit.acre,
+    AreaUnit.squareMile,
   };
 
   /// Contains International System of Units (SI) [AreaUnit]s.
@@ -269,60 +272,45 @@ class AreaUnits {
 
 /// Contains extensions for [AreaUnit].
 extension AreaUnitExtensions on AreaUnit {
-  static final _squareMetersInSquareNanometer = rs('0.000000000000000001');
-  static final _squareMetersInSquareMicrometer = rs('0.000000000001');
-  static final _squareMetersInSquareThou = rs('0.00000000064516');
-  static final _squareMetersInSquareMillimeter = rs('0.000001');
-  static final _squareMetersInSquareCentimeter = rs('0.0001');
-  static final _squareMetersInSquareInch = rs('0.00064516');
-  static final _squareMetersInSquareDecimeter = rs('0.01');
-  static final _squareMetersInSquareFoot = rs('0.092903');
-  static final _squareMetersInSquareYard = rs('0.836127');
-  static final _squareMetersInSquareMeter = Rationals.one;
-  static final _squareMetersInSquareDecameter = ri(100);
-  static final _squareMetersInAcre = rs('4046.86');
-  static final _squareMetersInHectare = ri(10000);
-  static final _squareMetersInSquareKilometer = ri(1000000);
-  static final _squareMetersInSquareMile = ri(2590000);
-  static final _squareMetersInSquareMegameter = ri(1000000000000);
-  static final _squareMetersInSquareGigameter = ri(1000000000000000000);
-
   Rational get _squareMeterCount {
     switch (this) {
+      // SI.
       case AreaUnit.squareNanometer:
-        return _squareMetersInSquareNanometer;
+        return squareMetersInSquareNanometer;
       case AreaUnit.squareMicrometer:
-        return _squareMetersInSquareMicrometer;
-      case AreaUnit.squareThou:
-        return _squareMetersInSquareThou;
+        return squareMetersInSquareMicrometer;
       case AreaUnit.squareMillimeter:
-        return _squareMetersInSquareMillimeter;
+        return squareMetersInSquareMillimeter;
       case AreaUnit.squareCentimeter:
-        return _squareMetersInSquareCentimeter;
-      case AreaUnit.squareInch:
-        return _squareMetersInSquareInch;
+        return squareMetersInSquareCentimeter;
       case AreaUnit.squareDecimeter:
-        return _squareMetersInSquareDecimeter;
-      case AreaUnit.squareFoot:
-        return _squareMetersInSquareFoot;
-      case AreaUnit.squareYard:
-        return _squareMetersInSquareYard;
+        return squareMetersInSquareDecimeter;
       case AreaUnit.squareMeter:
-        return _squareMetersInSquareMeter;
+        return squareMetersInSquareMeter;
       case AreaUnit.squareDecameter:
-        return _squareMetersInSquareDecameter;
-      case AreaUnit.acre:
-        return _squareMetersInAcre;
+        return squareMetersInSquareDecameter;
       case AreaUnit.hectare:
-        return _squareMetersInHectare;
+        return squareMetersInHectare;
       case AreaUnit.squareKilometer:
-        return _squareMetersInSquareKilometer;
-      case AreaUnit.squareMile:
-        return _squareMetersInSquareMile;
+        return squareMetersInSquareKilometer;
       case AreaUnit.squareMegameter:
-        return _squareMetersInSquareMegameter;
+        return squareMetersInSquareMegameter;
       case AreaUnit.squareGigameter:
-        return _squareMetersInSquareGigameter;
+        return squareMetersInSquareGigameter;
+
+      // Imperial.
+      case AreaUnit.squareThou:
+        return squareMetersInSquareThou;
+      case AreaUnit.squareInch:
+        return squareMetersInSquareInch;
+      case AreaUnit.squareFoot:
+        return squareMetersInSquareFoot;
+      case AreaUnit.squareYard:
+        return squareMetersInSquareYard;
+      case AreaUnit.acre:
+        return squareMetersInAcre;
+      case AreaUnit.squareMile:
+        return squareMetersInSquareMile;
     }
   }
 
@@ -331,40 +319,43 @@ extension AreaUnitExtensions on AreaUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case AreaUnit.squareNanometer:
         return 'square nanometer';
       case AreaUnit.squareMicrometer:
         return 'square micrometer';
-      case AreaUnit.squareThou:
-        return 'square thou';
       case AreaUnit.squareMillimeter:
         return 'square millimeter';
       case AreaUnit.squareCentimeter:
         return 'square centimeter';
-      case AreaUnit.squareInch:
-        return 'square inch';
       case AreaUnit.squareDecimeter:
         return 'square decimeter';
-      case AreaUnit.squareFoot:
-        return 'square foot';
-      case AreaUnit.squareYard:
-        return 'square yard';
       case AreaUnit.squareMeter:
         return 'square meter';
       case AreaUnit.squareDecameter:
         return 'square decameter';
-      case AreaUnit.acre:
-        return 'acre';
       case AreaUnit.hectare:
         return 'hectare';
       case AreaUnit.squareKilometer:
         return 'square kilometer';
-      case AreaUnit.squareMile:
-        return 'square mile';
       case AreaUnit.squareMegameter:
         return 'square megameter';
       case AreaUnit.squareGigameter:
         return 'square gigameter';
+
+      // Imperial.
+      case AreaUnit.squareThou:
+        return 'square thou';
+      case AreaUnit.squareInch:
+        return 'square inch';
+      case AreaUnit.squareFoot:
+        return 'square foot';
+      case AreaUnit.squareYard:
+        return 'square yard';
+      case AreaUnit.acre:
+        return 'acre';
+      case AreaUnit.squareMile:
+        return 'square mile';
     }
   }
 
@@ -373,40 +364,43 @@ extension AreaUnitExtensions on AreaUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case AreaUnit.squareNanometer:
         return 'nm²';
       case AreaUnit.squareMicrometer:
         return 'μm²';
-      case AreaUnit.squareThou:
-        return 'thou²';
       case AreaUnit.squareMillimeter:
         return 'mm²';
       case AreaUnit.squareCentimeter:
         return 'cm²';
-      case AreaUnit.squareInch:
-        return 'in²';
       case AreaUnit.squareDecimeter:
         return 'dm²';
-      case AreaUnit.squareFoot:
-        return 'ft²';
-      case AreaUnit.squareYard:
-        return 'yd²';
       case AreaUnit.squareMeter:
         return 'm²';
       case AreaUnit.squareDecameter:
         return 'dam²';
-      case AreaUnit.acre:
-        return 'ac';
       case AreaUnit.hectare:
         return 'ha';
       case AreaUnit.squareKilometer:
         return 'km²';
-      case AreaUnit.squareMile:
-        return 'mi²';
       case AreaUnit.squareMegameter:
         return 'Mm²';
       case AreaUnit.squareGigameter:
         return 'Gm²';
+
+      // Imperial.
+      case AreaUnit.squareThou:
+        return 'thou²';
+      case AreaUnit.squareInch:
+        return 'in²';
+      case AreaUnit.squareFoot:
+        return 'ft²';
+      case AreaUnit.squareYard:
+        return 'yd²';
+      case AreaUnit.acre:
+        return 'ac';
+      case AreaUnit.squareMile:
+        return 'mi²';
     }
   }
 
@@ -437,25 +431,25 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the [AreaUnit]
 /// pattern specifiers as required:
 ///
-/// | Specifier | Description |
-/// |-|-|
-/// | `nm²` | square nanometers |
-/// | `μm²` | square micrometers |
-/// | `thou²` | square thous |
-/// | `mm²` | square millimeters |
-/// | `cm²` | square centimeters |
-/// | `in²` | square inches |
-/// | `dm²` | square decimeters |
-/// | `ft²` | square feet |
-/// | `yd²` | square yards |
-/// | `m²` | square meters |
-/// | `dam²` | square decameters |
-/// | `ac` | acres |
-/// | `ha` | hectares |
-/// | `km²` | square kilometers |
-/// | `mi²` | square miles |
-/// | `Mm²` | square megameters |
-/// | `Gm²` | square gigameters |
+/// | | Unit | Specifier |
+/// |:-|:-|:-|
+/// | **S.I.** | square nanometers | `nm²` |
+/// | | square micrometers | `μm²` |
+/// | | square millimeters | `mm²` |
+/// | | square centimeters | `cm²` |
+/// | | square decimeters | `dm²` |
+/// | | square meters | `m²` |
+/// | | square decameters | `dam²` |
+/// | | hectares | `ha` |
+/// | | square kilometers | `km²` |
+/// | | square megameters | `Mm²` |
+/// | | square gigameters | `Gm²` |
+/// | **Imperial** | square thous | `thou²` |
+/// | | square inches | `in²` |
+/// | | square feet | `ft²` |
+/// | | square yards | `yd²` |
+/// | | acres | `ac` |
+/// | | square miles | `mi²` |
 ///
 /// ```
 /// final area = 42.hectares();
@@ -537,7 +531,7 @@ class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
   @override
   AreaRate scaleToRateUnit(AreaRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Area.fromSquareMeters(input.value.squareMeters * scale).per(scaledPeriod);
     return result;
   }

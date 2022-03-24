@@ -1,7 +1,7 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/weight_constants.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a weight.
 class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
@@ -129,13 +129,13 @@ enum WeightUnit {
   /// A unit representing kilograms.
   kilogram,
 
-  /// A unit representing US tons.
+  /// A unit representing US tons, also known as a "short ton" or, coloquially, a "ton".
   usTon,
 
   /// A unit representing (metric) tonnes.
   tonne,
 
-  /// A unit representing imperial tons.
+  /// A unit representing imperial tons, also known as a "long ton" or "displacement ton".
   imperialTon,
 
   /// A unit representing megatonnes.
@@ -149,18 +149,23 @@ enum WeightUnit {
 class WeightUnits {
   /// Contains all defined [WeightUnit]s.
   static const all = <WeightUnit>{
+    // SI.
     WeightUnit.nanogram,
     WeightUnit.microgram,
     WeightUnit.milligram,
     WeightUnit.gram,
-    WeightUnit.ounce,
-    WeightUnit.pound,
     WeightUnit.kilogram,
-    WeightUnit.usTon,
     WeightUnit.tonne,
-    WeightUnit.imperialTon,
     WeightUnit.megatonne,
     WeightUnit.gigatonne,
+
+    // Imperial.
+    WeightUnit.ounce,
+    WeightUnit.pound,
+    WeightUnit.imperialTon,
+
+    // US.
+    WeightUnit.usTon,
   };
 
   /// Contains International System of Units (SI) [WeightUnit]s.
@@ -200,45 +205,37 @@ class WeightUnits {
 
 /// Contains extensions for [WeightUnit].
 extension WeightUnitExtensions on WeightUnit {
-  static final _gramsInNanogram = rs('0.000000001');
-  static final _gramsInMicrogram = rs('0.000001');
-  static final _gramsInMilligram = rs('0.001');
-  static final _gramsInGram = Rationals.one;
-  static final _gramsInOunce = rs('28.3495');
-  static final _gramsInPound = rs('453.592');
-  static final _gramsInKilogram = ri(1000);
-  static final _gramsInUsTon = ri(907185);
-  static final _gramsInTonne = ri(1000000);
-  static final _gramsInImperialTon = ri(1016000);
-  static final _gramsInMegatonne = ri(1000000000000);
-  static final _gramsInGigatonne = ri(1000000000000000);
-
   Rational get _gramCount {
     switch (this) {
+      // SI.
       case WeightUnit.nanogram:
-        return _gramsInNanogram;
+        return gramsInNanogram;
       case WeightUnit.microgram:
-        return _gramsInMicrogram;
+        return gramsInMicrogram;
       case WeightUnit.milligram:
-        return _gramsInMilligram;
+        return gramsInMilligram;
       case WeightUnit.gram:
-        return _gramsInGram;
-      case WeightUnit.ounce:
-        return _gramsInOunce;
-      case WeightUnit.pound:
-        return _gramsInPound;
+        return gramsInGram;
       case WeightUnit.kilogram:
-        return _gramsInKilogram;
-      case WeightUnit.usTon:
-        return _gramsInUsTon;
+        return gramsInKilogram;
       case WeightUnit.tonne:
-        return _gramsInTonne;
-      case WeightUnit.imperialTon:
-        return _gramsInImperialTon;
+        return gramsInTonne;
       case WeightUnit.megatonne:
-        return _gramsInMegatonne;
+        return gramsInMegatonne;
       case WeightUnit.gigatonne:
-        return _gramsInGigatonne;
+        return gramsInGigatonne;
+
+      // Imperial.
+      case WeightUnit.ounce:
+        return gramsInOunce;
+      case WeightUnit.pound:
+        return gramsInPound;
+      case WeightUnit.imperialTon:
+        return gramsInImperialTon;
+
+      // US.
+      case WeightUnit.usTon:
+        return gramsInUsTon;
     }
   }
 
@@ -247,6 +244,7 @@ extension WeightUnitExtensions on WeightUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case WeightUnit.nanogram:
         return 'nanogram';
       case WeightUnit.microgram:
@@ -255,22 +253,26 @@ extension WeightUnitExtensions on WeightUnit {
         return 'milligram';
       case WeightUnit.gram:
         return 'gram';
-      case WeightUnit.ounce:
-        return 'ounce';
-      case WeightUnit.pound:
-        return 'pound';
       case WeightUnit.kilogram:
         return 'kilogram';
-      case WeightUnit.usTon:
-        return 'ton';
       case WeightUnit.tonne:
         return 'tonne';
-      case WeightUnit.imperialTon:
-        return 'ton';
       case WeightUnit.megatonne:
         return 'megatonne';
       case WeightUnit.gigatonne:
         return 'gigatonne';
+
+      // Imperial.
+      case WeightUnit.ounce:
+        return 'ounce';
+      case WeightUnit.pound:
+        return 'pound';
+      case WeightUnit.imperialTon:
+        return 'ton';
+
+      // US.
+      case WeightUnit.usTon:
+        return 'ton';
     }
   }
 
@@ -279,6 +281,7 @@ extension WeightUnitExtensions on WeightUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case WeightUnit.nanogram:
         return 'ng';
       case WeightUnit.microgram:
@@ -287,32 +290,40 @@ extension WeightUnitExtensions on WeightUnit {
         return 'mg';
       case WeightUnit.gram:
         return 'g';
-      case WeightUnit.ounce:
-        return 'oz';
-      case WeightUnit.pound:
-        return 'lb';
       case WeightUnit.kilogram:
         return 'kg';
-      case WeightUnit.usTon:
-        return 'ton';
       case WeightUnit.tonne:
         return 't';
-      case WeightUnit.imperialTon:
-        return 'ton';
       case WeightUnit.megatonne:
         return 'Mt';
       case WeightUnit.gigatonne:
         return 'Gt';
+
+      // Imperial.
+      case WeightUnit.ounce:
+        return 'oz';
+      case WeightUnit.pound:
+        return 'lb';
+      case WeightUnit.imperialTon:
+        return 'ton';
+
+      // US.
+      case WeightUnit.usTon:
+        return 'ton';
     }
   }
 
   /// Gets the pattern specifier for this unit.
   String get patternSpecifier {
     switch (this) {
-      case WeightUnit.usTon:
-        return 't_us';
+      // Imperial.
       case WeightUnit.imperialTon:
         return 't_imp';
+
+      // US.
+      case WeightUnit.usTon:
+        return 't_us';
+
       default:
         return getSymbol(
           locale: 'en',
@@ -342,20 +353,20 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the [WeightUnit]
 /// pattern specifiers as required:
 ///
-/// | Specifier | Description |
-/// |-|-|
-/// | `ng` | nanogram |
-/// | `µg` | microgram |
-/// | `mg` | milligram |
-/// | `g ` | gram |
-/// | `oz` | ounce |
-/// | `lb` | pound |
-/// | `kg` | kilogram |
-/// | `t_us` | US ton |
-/// | `t` | tonne |
-/// | `t_imp` | imperial ton |
-/// | `Mt` | megatonne |
-/// | `Gt` | gigatonne |
+/// | | Unit | Specifier |
+/// |:-|:-|:-|
+/// | **S.I.** | nanogram | `ng` |
+/// | | microgram | `µg` |
+/// | | milligram | `mg` |
+/// | | gram | `g ` |
+/// | | kilogram | `kg` |
+/// | | tonne | `t` |
+/// | | megatonne | `Mt` |
+/// | | gigatonne | `Gt` |
+/// | **Imperial** | ounce | `oz` |
+/// | | pound | `lb` |
+/// | | imperial ton | `t_imp` |
+/// | **U.S.** | US ton | `t_us` |
 ///
 /// ```
 /// final weight = 42.kilograms();
@@ -441,7 +452,7 @@ class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
   @override
   WeightRate scaleToRateUnit(WeightRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Weight.fromGrams(input.value.grams * scale).per(scaledPeriod);
     return result;
   }

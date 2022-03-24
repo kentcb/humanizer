@@ -1,7 +1,6 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A transformation to convert a [Duration] representing an offset of time into an approximate, human-friendly
 /// description.
@@ -138,7 +137,7 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
     String? secondaryQuantifierText;
 
     if (secondaryUnit != null) {
-      final remainingTime = time - Time.fromUnits(primaryUnit, rbi(truncatedPrimaryValue));
+      final remainingTime = time - Time.fromUnits(primaryUnit, Rational(truncatedPrimaryValue));
       final secondaryValue = remainingTime.getUnits(secondaryUnit);
       truncatedSecondaryValue = secondaryValue.toBigInt();
       final fraction = primaryValue - Rational(primaryValue.truncate());

@@ -1,7 +1,7 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/length_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
-import 'package:rational/rational.dart';
 
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
@@ -19,9 +19,6 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
 
   /// Creates a [Length] representing the specified number of [millimeters].
   factory Length.fromMillimeters(Rational millimeters) => Length.fromUnits(LengthUnit.millimeter, millimeters);
-
-  /// Creates a [Length] representing the specified number of [lines].
-  factory Length.fromLines(Rational lines) => Length.fromUnits(LengthUnit.line, lines);
 
   /// Creates a [Length] representing the specified number of [centimeters].
   factory Length.fromCentimeters(Rational centimeters) => Length.fromUnits(LengthUnit.centimeter, centimeters);
@@ -75,9 +72,6 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
 
   /// Gets the number of millimeters in this [Length], including any fractional portion.
   Rational get millimeters => getUnits(LengthUnit.millimeter);
-
-  /// Gets the number of lines in this [Length], including any fractional portion.
-  Rational get lines => getUnits(LengthUnit.line);
 
   /// Gets the number of centimeters in this [Length], including any fractional portion.
   Rational get centimeters => getUnits(LengthUnit.centimeter);
@@ -150,9 +144,6 @@ enum LengthUnit {
   /// A unit representing millimeters.
   millimeter,
 
-  /// A unit representing lines.
-  line,
-
   /// A unit representing centimeters.
   centimeter,
 
@@ -194,23 +185,25 @@ enum LengthUnit {
 class LengthUnits {
   /// Contains all defined [LengthUnit]s.
   static const all = <LengthUnit>{
+    // SI.
     LengthUnit.nanometer,
     LengthUnit.micrometer,
-    LengthUnit.thou,
     LengthUnit.millimeter,
-    LengthUnit.line,
     LengthUnit.centimeter,
-    LengthUnit.inch,
     LengthUnit.decimeter,
-    LengthUnit.foot,
-    LengthUnit.yard,
     LengthUnit.meter,
     LengthUnit.decameter,
     LengthUnit.hectometer,
     LengthUnit.kilometer,
-    LengthUnit.mile,
     LengthUnit.megameter,
     LengthUnit.gigameter,
+
+    // Imperial.
+    LengthUnit.thou,
+    LengthUnit.inch,
+    LengthUnit.foot,
+    LengthUnit.yard,
+    LengthUnit.mile,
   };
 
   /// Contains International System of Units (SI) [LengthUnit]s.
@@ -231,7 +224,6 @@ class LengthUnits {
   /// Contains imperial [LengthUnit]s.
   static const imperial = <LengthUnit>{
     LengthUnit.thou,
-    LengthUnit.line,
     LengthUnit.inch,
     LengthUnit.foot,
     LengthUnit.yard,
@@ -258,60 +250,43 @@ class LengthUnits {
 
 /// Contains extensions for [LengthUnit].
 extension LengthUnitExtensions on LengthUnit {
-  static final _metersInNanometer = rs('0.000000001');
-  static final _metersInMicrometer = rs('0.000001');
-  static final _metersInThou = rs('0.0000254');
-  static final _metersInMillimeter = rs('0.001');
-  static final _metersInLine = rs('0.00211666');
-  static final _metersInCentimeter = rs('0.01');
-  static final _metersInInch = rs('0.0254');
-  static final _metersInDecimeter = rs('0.1');
-  static final _metersInFoot = rs('0.3048');
-  static final _metersInYard = rs('0.9144');
-  static final _metersInMeter = Rationals.one;
-  static final _metersInDecameter = Rationals.ten;
-  static final _metersInHectometer = ri(100);
-  static final _metersInKilometer = ri(1000);
-  static final _metersInMile = rs('1609.34');
-  static final _metersInMegameter = ri(1000000);
-  static final _metersInGigameter = ri(1000000000);
-
   Rational get _meterCount {
     switch (this) {
+      // SI.
       case LengthUnit.nanometer:
-        return _metersInNanometer;
+        return metersInNanometer;
       case LengthUnit.micrometer:
-        return _metersInMicrometer;
-      case LengthUnit.thou:
-        return _metersInThou;
+        return metersInMicrometer;
       case LengthUnit.millimeter:
-        return _metersInMillimeter;
-      case LengthUnit.line:
-        return _metersInLine;
+        return metersInMillimeter;
       case LengthUnit.centimeter:
-        return _metersInCentimeter;
-      case LengthUnit.inch:
-        return _metersInInch;
+        return metersInCentimeter;
       case LengthUnit.decimeter:
-        return _metersInDecimeter;
-      case LengthUnit.foot:
-        return _metersInFoot;
-      case LengthUnit.yard:
-        return _metersInYard;
+        return metersInDecimeter;
       case LengthUnit.meter:
-        return _metersInMeter;
+        return metersInMeter;
       case LengthUnit.decameter:
-        return _metersInDecameter;
+        return metersInDecameter;
       case LengthUnit.hectometer:
-        return _metersInHectometer;
+        return metersInHectometer;
       case LengthUnit.kilometer:
-        return _metersInKilometer;
-      case LengthUnit.mile:
-        return _metersInMile;
+        return metersInKilometer;
       case LengthUnit.megameter:
-        return _metersInMegameter;
+        return metersInMegameter;
       case LengthUnit.gigameter:
-        return _metersInGigameter;
+        return metersInGigameter;
+
+      // Imperial.
+      case LengthUnit.thou:
+        return metersInThou;
+      case LengthUnit.inch:
+        return metersInInch;
+      case LengthUnit.foot:
+        return metersInFoot;
+      case LengthUnit.yard:
+        return metersInYard;
+      case LengthUnit.mile:
+        return metersInMile;
     }
   }
 
@@ -320,26 +295,17 @@ extension LengthUnitExtensions on LengthUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case LengthUnit.nanometer:
         return 'nanometer';
       case LengthUnit.micrometer:
         return 'micrometer';
-      case LengthUnit.thou:
-        return 'thou';
       case LengthUnit.millimeter:
         return 'millimeter';
-      case LengthUnit.line:
-        return 'line';
       case LengthUnit.centimeter:
         return 'centimeter';
-      case LengthUnit.inch:
-        return 'inch';
       case LengthUnit.decimeter:
         return 'decimeter';
-      case LengthUnit.foot:
-        return 'foot';
-      case LengthUnit.yard:
-        return 'yard';
       case LengthUnit.meter:
         return 'meter';
       case LengthUnit.decameter:
@@ -348,12 +314,22 @@ extension LengthUnitExtensions on LengthUnit {
         return 'hectometer';
       case LengthUnit.kilometer:
         return 'kilometer';
-      case LengthUnit.mile:
-        return 'mile';
       case LengthUnit.megameter:
         return 'megameter';
       case LengthUnit.gigameter:
         return 'gigameter';
+
+      // Imperial.
+      case LengthUnit.thou:
+        return 'thou';
+      case LengthUnit.inch:
+        return 'inch';
+      case LengthUnit.foot:
+        return 'foot';
+      case LengthUnit.yard:
+        return 'yard';
+      case LengthUnit.mile:
+        return 'mile';
     }
   }
 
@@ -362,26 +338,17 @@ extension LengthUnitExtensions on LengthUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case LengthUnit.nanometer:
         return 'nm';
       case LengthUnit.micrometer:
         return 'μm';
-      case LengthUnit.thou:
-        return 'thou';
       case LengthUnit.millimeter:
         return 'mm';
-      case LengthUnit.line:
-        return 'L';
       case LengthUnit.centimeter:
         return 'cm';
-      case LengthUnit.inch:
-        return 'in';
       case LengthUnit.decimeter:
         return 'dm';
-      case LengthUnit.foot:
-        return 'ft';
-      case LengthUnit.yard:
-        return 'yd';
       case LengthUnit.meter:
         return 'm';
       case LengthUnit.decameter:
@@ -390,12 +357,22 @@ extension LengthUnitExtensions on LengthUnit {
         return 'hm';
       case LengthUnit.kilometer:
         return 'km';
-      case LengthUnit.mile:
-        return 'mi';
       case LengthUnit.megameter:
         return 'Mm';
       case LengthUnit.gigameter:
         return 'Gm';
+
+      // Imperial.
+      case LengthUnit.thou:
+        return 'thou';
+      case LengthUnit.inch:
+        return 'in';
+      case LengthUnit.foot:
+        return 'ft';
+      case LengthUnit.yard:
+        return 'yd';
+      case LengthUnit.mile:
+        return 'mi';
     }
   }
 
@@ -426,25 +403,24 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the [LengthUnit]
 /// pattern specifiers as required:
 ///
-/// | Specifier | Description |
-/// |-|-|
-/// | `nm` | nanometer |
-/// | `μm` | micrometer |
-/// | `thou` | thou |
-/// | `mm` | millimeter |
-/// | `L` | line |
-/// | `cm` | centimeter |
-/// | `in` | inch |
-/// | `dm` | decimeter |
-/// | `ft` | foot |
-/// | `yd` | yard |
-/// | `m` | meter |
-/// | `dam` | decameter |
-/// | `hm` | hectometer |
-/// | `km` | kilometer |
-/// | `mi` | mile |
-/// | `Mm` | megameter |
-/// | `Gm` | gigameter |
+/// | | Unit | Specifier |
+/// |:-|:-|:-|
+/// | **S.I.** | nanometer | `nm` |
+/// | | micrometer | `μm` |
+/// | | millimeter | `mm` |
+/// | | centimeter | `cm` |
+/// | | decimeter | `dm` |
+/// | | meter | `m` |
+/// | | decameter | `dam` |
+/// | | hectometer | `hm` |
+/// | | kilometer | `km` |
+/// | | megameter | `Mm` |
+/// | | gigameter | `Gm` |
+/// | **Imperial** | thou | `thou` |
+/// | | inch | `in` |
+/// | | foot | `ft` |
+/// | | yard | `yd` |
+/// | | mile | `mi` |
 ///
 /// ```
 /// final length = 42.kilometers();
@@ -530,7 +506,7 @@ class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
   @override
   LengthRate scaleToRateUnit(LengthRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = ri(scaledPeriod.inMicroseconds) / ri(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Length.fromMeters(input.value.meters * scale).per(scaledPeriod);
     return result;
   }
