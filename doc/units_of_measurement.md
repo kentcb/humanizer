@@ -18,10 +18,10 @@ It's difficult to understand the extensions and transformations layers without f
 
 ### Values
 
-Each unit of measurement has two corresponding value types, and each of those value types has a corresponding format type. To create values, you can use either factory methods on the type or extension methods against `int` and `Decimal`:
+Each unit of measurement has two corresponding value types, and each of those value types has a corresponding format type. To create values, you can use either factory methods on the type or extension methods against `int` and `Rational`:
 
 ```dart
-final l = Decimal.fromInt(42);
+final l = Rational.fromInt(42);
 
 final length1 = Length.fromMeters(l);
 
@@ -30,15 +30,15 @@ final length2 = 42.meters();
 final length3 = l.meters();
 ```
 
-Regardless of which approach you take, each unit of measurement value wraps a single `Decimal`, which is an amount in the most accurate unit for that unit of measurement. For example, the 42 meters above will be internally converted into nanometers, which is stored as a `Decimal` and wrapped by the `Length` instance. The implications here are that nanometers are the most accurate measurement for length, and you cannot represent anything smaller than a nanometer.
+Regardless of which approach you take, each unit of measurement value wraps a single `Rational`, which is an amount in the most accurate unit for that unit of measurement. For example, the 42 meters above will be internally converted into nanometers, which is stored as a `Rational` and wrapped by the `Length` instance. The implications here are that nanometers are the most accurate measurement for length, and you cannot represent anything smaller than a nanometer.
 
 
-Unfortunately, Dart does not have built-in decimal support and it [seems like it never will](https://github.com/dart-lang/sdk/issues/681). Dealing with decimals adds a bit of friction to the code, as you can see above. This is somewhat alleviated by the extensions layer.
+Unfortunately, Dart does not have built-in rational, or even decimal, support and it [seems like it never will](https://github.com/dart-lang/sdk/issues/681). Dealing with rationals adds a bit of friction to the code, as you can see above. This is somewhat alleviated by the extensions layer.
 
 Once you have a domain type like `Length`, there are many things you can do with it, some of which are demonstrated here:
 
 ```dart
-final length = Length.fromMeters(Decimal.fromInt(42));
+final length = Length.fromMeters(Rational.fromInt(42));
 
 // Determine how many feet are in the length (in this case, 137.795).
 final feet = length.feet;
@@ -46,7 +46,7 @@ final feet = length.feet;
 // You can also use the general getUnits method and pass in the desired unit.
 final yards = length.getUnits(LengthUnit.yard);
 
-final anotherLength = Length.fromFeet(Decimal.fromInt(137));
+final anotherLength = Length.fromFeet(Rational.fromInt(137));
 
 // Equality test (this is false).
 final equal = length == anotherLength;
@@ -55,13 +55,13 @@ final equal = length == anotherLength;
 final larger = length > anotherLength;
 
 // Divide a value (this is false).
-final halfIsLarger = (length / Decimal.fromInt(2)) > anotherLength;
+final halfIsLarger = (length / Rational.fromInt(2)) > anotherLength;
 
 // Determine the largest unit in the value (in this case, a yard).
 final largestUnit = length.getLargestUnit(permissibleUnits: LengthUnits.imperial);
 
 // Perform arithmetic against values (extendedLength is 42.5 meters).
-final extendedLength = length + Length.fromCentimeters(Decimal.fromInt(50));
+final extendedLength = length + Length.fromCentimeters(Rational.fromInt(50));
 
 // Round the value (rounded is 42 meters).
 final rounded = length.round(LengthUnit.meter);
@@ -110,7 +110,7 @@ You can find in-depth discussion on formatting in the API documentation for each
 The units of measurement feature provides a vast array of extension members; far too many to list individually. Instead, this code demonstrates the general usage via extensions:
 
 ```dart
-// Extensions on int (and Decimal) make it easier to create units of measurement values.
+// Extensions on int (and Rational) make it easier to create units of measurement values.
 final downloadSize = 7134872.bytes();
 
 // Simply invoke toString to format a value with default settings (in this case, '6.8MiB')

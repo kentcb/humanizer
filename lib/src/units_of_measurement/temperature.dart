@@ -1,77 +1,76 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/temperature_constants.dart';
 import 'package:meta/meta.dart';
-
-import 'decimals.dart';
 
 /// A unit of measurement representing a temperature.
 class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
-  /// Creates a [Temperature] given a [unit] and decimal [value] for that unit.
-  Temperature.fromUnits(TemperatureUnit unit, Decimal value) : super.fromUnits(unit, value);
+  /// Creates a [Temperature] given a [unit] and rational [value] for that unit.
+  Temperature.fromUnits(TemperatureUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Temperature] representing the specified number of [nanokelvins].
-  factory Temperature.fromNanokelvins(Decimal nanokelvins) =>
+  factory Temperature.fromNanokelvins(Rational nanokelvins) =>
       Temperature.fromUnits(TemperatureUnit.nanokelvin, nanokelvins);
 
   /// Creates a [Temperature] representing the specified number of [microkelvins].
-  factory Temperature.fromMicrokelvins(Decimal microkelvins) =>
+  factory Temperature.fromMicrokelvins(Rational microkelvins) =>
       Temperature.fromUnits(TemperatureUnit.microkelvin, microkelvins);
 
   /// Creates a [Temperature] representing the specified number of [millikelvins].
-  factory Temperature.fromMillikelvins(Decimal millikelvins) =>
+  factory Temperature.fromMillikelvins(Rational millikelvins) =>
       Temperature.fromUnits(TemperatureUnit.millikelvin, millikelvins);
 
   /// Creates a [Temperature] representing the specified number of [centikelvins].
-  factory Temperature.fromCentikelvins(Decimal centikelvins) =>
+  factory Temperature.fromCentikelvins(Rational centikelvins) =>
       Temperature.fromUnits(TemperatureUnit.centikelvin, centikelvins);
 
   /// Creates a [Temperature] representing the specified number of [decikelvins].
-  factory Temperature.fromDecikelvins(Decimal decikelvins) =>
+  factory Temperature.fromDecikelvins(Rational decikelvins) =>
       Temperature.fromUnits(TemperatureUnit.decikelvin, decikelvins);
 
   /// Creates a [Temperature] representing the specified number of [kelvins].
-  factory Temperature.fromKelvins(Decimal kelvins) => Temperature.fromUnits(TemperatureUnit.kelvin, kelvins);
+  factory Temperature.fromKelvins(Rational kelvins) => Temperature.fromUnits(TemperatureUnit.kelvin, kelvins);
 
   /// Creates a [Temperature] representing the specified number of [celsius].
-  factory Temperature.fromCelsius(Decimal celsius) => Temperature.fromUnits(TemperatureUnit.celsius, celsius);
+  factory Temperature.fromCelsius(Rational celsius) => Temperature.fromUnits(TemperatureUnit.celsius, celsius);
 
   /// Creates a [Temperature] representing the specified number of [fahrenheit].
-  factory Temperature.fromFahrenheit(Decimal fahrenheit) =>
+  factory Temperature.fromFahrenheit(Rational fahrenheit) =>
       Temperature.fromUnits(TemperatureUnit.fahrenheit, fahrenheit);
 
   /// A [Temperature] of zero kelvins.
-  static final zero = Temperature.fromNanokelvins(Decimals.zero);
+  static final zero = Temperature.fromNanokelvins(Rationals.zero);
 
   static final _defaultFormat = TemperatureFormat();
 
-  static final _kelvinToCelsiusBaseline = ds('273.15');
-  static final _kelvinToFahrenheitFactor = ds('1.8');
-  static final _kelvinToFahrenheitOffset = di(32);
-  static final _fahrenheitToKelvinFactor = di(5) / di(9);
+  static final _kelvinToCelsiusBaseline = Rational.fromInt(27315, 100);
+  static final _kelvinToFahrenheitFactor = Rational.fromInt(18, 10);
+  static final _kelvinToFahrenheitOffset = Rational.fromInt(32);
+  static final _fahrenheitToKelvinFactor = Rational.fromInt(5) / Rational.fromInt(9);
 
   /// Gets the number of nanokelvins in this [Temperature], including the fractional portion.
-  Decimal get nanokelvins => getUnits(TemperatureUnit.nanokelvin);
+  Rational get nanokelvins => getUnits(TemperatureUnit.nanokelvin);
 
   /// Gets the number of microkelvins in this [Temperature], including the fractional portion.
-  Decimal get microkelvins => getUnits(TemperatureUnit.microkelvin);
+  Rational get microkelvins => getUnits(TemperatureUnit.microkelvin);
 
   /// Gets the number of millikelvins in this [Temperature], including the fractional portion.
-  Decimal get millikelvins => getUnits(TemperatureUnit.millikelvin);
+  Rational get millikelvins => getUnits(TemperatureUnit.millikelvin);
 
   /// Gets the number of centikelvins in this [Temperature], including the fractional portion.
-  Decimal get centikelvins => getUnits(TemperatureUnit.centikelvin);
+  Rational get centikelvins => getUnits(TemperatureUnit.centikelvin);
 
   /// Gets the number of decikelvins in this [Temperature], including the fractional portion.
-  Decimal get decikelvins => getUnits(TemperatureUnit.decikelvin);
+  Rational get decikelvins => getUnits(TemperatureUnit.decikelvin);
 
   /// Gets the number of kelvins in this [Temperature], including the fractional portion.
-  Decimal get kelvins => getUnits(TemperatureUnit.kelvin);
+  Rational get kelvins => getUnits(TemperatureUnit.kelvin);
 
   /// Gets the number of celsius in this [Temperature], including the fractional portion.
-  Decimal get celsius => getUnits(TemperatureUnit.celsius);
+  Rational get celsius => getUnits(TemperatureUnit.celsius);
 
   /// Gets the number of fahrenheit in this [Temperature], including the fractional portion.
-  Decimal get fahrenheit => getUnits(TemperatureUnit.fahrenheit);
+  Rational get fahrenheit => getUnits(TemperatureUnit.fahrenheit);
 
   /// Creates a [TemperatureRate] with the specified [period] from this value.
   TemperatureRate per(Duration period) => TemperatureRate._(
@@ -83,7 +82,7 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
   String toString() => _defaultFormat.format(this);
 
   @override
-  Decimal getUnits(TemperatureUnit unit) {
+  Rational getUnits(TemperatureUnit unit) {
     switch (unit) {
       case TemperatureUnit.celsius:
         // C = k - 273.15
@@ -98,11 +97,11 @@ class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
 
   @override
   @protected
-  Temperature createValue(Decimal baseValue) => Temperature.fromKelvins(baseValue);
+  Temperature createValue(Rational baseValue) => Temperature.fromKelvins(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(TemperatureUnit unit, Decimal value) {
+  Rational getBaseValue(TemperatureUnit unit, Rational value) {
     switch (unit) {
       case TemperatureUnit.celsius:
         // k = C + 273.15
@@ -180,27 +179,20 @@ class TemperatureUnits {
 
 /// Contains extensions for [TemperatureUnit].
 extension TemperatureUnitExtensions on TemperatureUnit {
-  static final _kelvinsInNanokelvin = ds('0.000000001');
-  static final _kelvinsInMicrokelvin = ds('0.000001');
-  static final _kelvinsInMillikelvin = ds('0.001');
-  static final _kelvinsInCentikelvin = ds('0.01');
-  static final _kelvinsInDecikelvin = ds('0.1');
-  static final _kelvinsInKelvin = Decimals.one;
-
-  Decimal get _kelvinCount {
+  Rational get _kelvinCount {
     switch (this) {
       case TemperatureUnit.nanokelvin:
-        return _kelvinsInNanokelvin;
+        return kelvinsInNanokelvin;
       case TemperatureUnit.microkelvin:
-        return _kelvinsInMicrokelvin;
+        return kelvinsInMicrokelvin;
       case TemperatureUnit.millikelvin:
-        return _kelvinsInMillikelvin;
+        return kelvinsInMillikelvin;
       case TemperatureUnit.centikelvin:
-        return _kelvinsInCentikelvin;
+        return kelvinsInCentikelvin;
       case TemperatureUnit.decikelvin:
-        return _kelvinsInDecikelvin;
+        return kelvinsInDecikelvin;
       case TemperatureUnit.kelvin:
-        return _kelvinsInKelvin;
+        return kelvinsInKelvin;
       default:
         throw UnsupportedError('Cannot determine kelvins in $this');
     }
@@ -211,6 +203,7 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case TemperatureUnit.nanokelvin:
         return 'nanokelvin';
       case TemperatureUnit.microkelvin:
@@ -223,8 +216,12 @@ extension TemperatureUnitExtensions on TemperatureUnit {
         return 'decikelvin';
       case TemperatureUnit.kelvin:
         return 'kelvin';
+
+      // Celsius.
       case TemperatureUnit.celsius:
         return 'Celsius';
+
+      // Fahrenheit.
       case TemperatureUnit.fahrenheit:
         return 'Fahrenheit';
     }
@@ -235,6 +232,7 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     required String locale,
   }) {
     switch (this) {
+      // SI.
       case TemperatureUnit.nanokelvin:
         return 'nK';
       case TemperatureUnit.microkelvin:
@@ -247,8 +245,12 @@ extension TemperatureUnitExtensions on TemperatureUnit {
         return 'dK';
       case TemperatureUnit.kelvin:
         return 'K';
+
+      // Celsius.
       case TemperatureUnit.celsius:
         return '°C';
+
+      // Fahrenheit.
       case TemperatureUnit.fahrenheit:
         return '°F';
     }
@@ -281,16 +283,16 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the
 /// [TemperatureUnit] pattern specifiers as required:
 ///
-/// | Specifier | Description |
-/// |-|-|
-/// | `nK` | nanokelvin |
-/// | `μK` | microkelvin |
-/// | `mK` | millikelvin |
-/// | `cK` | centikelvin |
-/// | `dK` | decikelvin |
-/// | `K` | kelvin |
-/// | `°C` | Celsius |
-/// | `°F` | Fahrenheit |
+/// | | Unit | Specifier |
+/// |:-|:-|:-|
+/// | **S.I.** | nanokelvin | `nK` |
+/// | | microkelvin | `μK` |
+/// | | millikelvin | `mK` |
+/// | | centikelvin | `cK` |
+/// | | decikelvin | `dK` |
+/// | | kelvin | `K` |
+/// | **Celsius** | Degrees Celsius | `°C` |
+/// | **Fahrenheit** | Degrees Fahrenheit | `°F` |
 ///
 /// ```
 /// final temperature = 42.celsius();
@@ -326,7 +328,7 @@ class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
   TemperatureUnit getLargestUnit(Temperature input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Temperature input, TemperatureUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Temperature input, TemperatureUnit unit) => input.getUnits(unit);
 
   @override
   Temperature scaleToRateUnit(Temperature input, RateUnit rateUnit) =>
@@ -376,12 +378,12 @@ class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
       input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(TemperatureRate input, TemperatureUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(TemperatureRate input, TemperatureUnit unit) => input.value.getUnits(unit);
 
   @override
   TemperatureRate scaleToRateUnit(TemperatureRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Temperature.fromKelvins(input.value.kelvins * scale).per(scaledPeriod);
     return result;
   }

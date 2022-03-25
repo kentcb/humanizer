@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -26,9 +26,9 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Area.fromSquareMeters(di(3)), expected: '3m²');
-      verify(value: Area.fromSquareCentimeters(di(3)), expected: '3cm²');
-      verify(value: Area.fromSquareMeters(ds('812.7161')), expected: '812.72m²');
+      verify(value: Area.fromSquareMeters(Rational.fromInt(3)), expected: '3m²');
+      verify(value: Area.fromSquareCentimeters(Rational.fromInt(3)), expected: '3cm²');
+      verify(value: Area.fromSquareMeters(Rational.fromInt(8127161, 10000)), expected: '812.72m²');
     });
 
     test('AreaRate toString formats using defaults', () {
@@ -38,8 +38,8 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Area.fromSquareMeters(di(30)).per(const Duration(minutes: 1)), expected: '30m²/min');
-      verify(value: Area.fromSquareMeters(ds('0.1')).per(const Duration(minutes: 1)), expected: '6m²/hr');
+      verify(value: Area.fromSquareMeters(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '30m²/min');
+      verify(value: Area.fromSquareMeters(Rationals.tenth).per(const Duration(minutes: 1)), expected: '6m²/hr');
     });
   });
 }

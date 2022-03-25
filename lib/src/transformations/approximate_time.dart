@@ -1,5 +1,5 @@
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
 
 /// A transformation to convert a [Duration] representing an offset of time into an approximate, human-friendly
@@ -132,23 +132,23 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
     final secondaryUnit = granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
 
     final primaryValue = time.getUnits(primaryUnit);
-    var truncatedPrimaryValue = primaryValue.toInt();
-    int? truncatedSecondaryValue;
+    var truncatedPrimaryValue = primaryValue.toBigInt();
+    BigInt? truncatedSecondaryValue;
     String? secondaryQuantifierText;
 
     if (secondaryUnit != null) {
-      final remainingTime = time - Time.fromUnits(primaryUnit, di(truncatedPrimaryValue));
+      final remainingTime = time - Time.fromUnits(primaryUnit, Rational(truncatedPrimaryValue));
       final secondaryValue = remainingTime.getUnits(secondaryUnit);
-      truncatedSecondaryValue = secondaryValue.toInt();
-      final fraction = primaryValue - primaryValue.truncate();
+      truncatedSecondaryValue = secondaryValue.toBigInt();
+      final fraction = primaryValue - Rational(primaryValue.truncate());
       var secondaryQuantifier = _SecondaryQuantifier.none;
 
-      if (fraction != Decimals.zero) {
-        if (fraction >= Decimals.threeQuarters) {
+      if (fraction != Rationals.zero) {
+        if (fraction >= Rationals.threeQuarters) {
           secondaryQuantifier = _SecondaryQuantifier.justUnder;
-        } else if (fraction >= Decimals.half) {
+        } else if (fraction >= Rationals.half) {
           secondaryQuantifier = _SecondaryQuantifier.under;
-        } else if (fraction >= Decimals.quarter) {
+        } else if (fraction >= Rationals.quarter) {
           secondaryQuantifier = _SecondaryQuantifier.over;
         } else {
           secondaryQuantifier = _SecondaryQuantifier.justOver;
@@ -158,7 +158,7 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
       if (secondaryQuantifier == _SecondaryQuantifier.under || secondaryQuantifier == _SecondaryQuantifier.justUnder) {
         // If the secondary value is close enough to the next primary value, we increment the primary value so that
         // things read correctly.
-        truncatedPrimaryValue += 1;
+        truncatedPrimaryValue += BigInt.one;
       }
 
       secondaryQuantifierText = secondaryQuantifier.toLocalizedString(locale);
@@ -166,23 +166,23 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
 
     if (!isRelativeToNow && time == Time.zero) {
       return 'zero';
-    } else if (isRelativeToNow && primaryUnit == TimeUnit.second && truncatedPrimaryValue == 0) {
+    } else if (isRelativeToNow && primaryUnit == TimeUnit.second && truncatedPrimaryValue == BigInt.zero) {
       return 'now';
     } else if (isRelativeToNow &&
         primaryUnit == TimeUnit.day &&
-        truncatedPrimaryValue == 1 &&
+        truncatedPrimaryValue == BigInt.one &&
         (truncatedSecondaryValue ?? 0) == 0) {
       return sign == _Sign.negative ? 'yesterday' : 'tomorrow';
     } else {
       final primaryUnitName = primaryUnit.getName(locale: locale).toPluralFormForQuantity(
-            quantity: truncatedPrimaryValue,
+            quantity: truncatedPrimaryValue.toInt(),
             includeQuantity: false,
             locale: locale,
           );
 
       return <String>[
         if (secondaryQuantifierText != null) secondaryQuantifierText,
-        if (isRelativeToNow && truncatedPrimaryValue == 1)
+        if (isRelativeToNow && truncatedPrimaryValue == BigInt.one)
           // TODO: should be generalized and localized??
           if (primaryUnit == TimeUnit.hour) 'an' else 'a'
         else

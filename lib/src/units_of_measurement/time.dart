@@ -1,119 +1,119 @@
-import 'package:decimal/decimal.dart';
 import 'package:humanizer/humanizer.dart';
-import 'package:humanizer/src/units_of_measurement/decimals.dart';
+import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/time_constants.dart';
 import 'package:meta/meta.dart';
 
 /// A unit of measurement representing time.
 class Time extends UnitOfMeasurement<TimeUnit, Time> {
-  /// Creates a [Time] given a [unit] and decimal [value] for that unit.
-  Time.fromUnits(TimeUnit unit, Decimal value) : super.fromUnits(unit, value);
+  /// Creates a [Time] given a [unit] and rational [value] for that unit.
+  Time.fromUnits(TimeUnit unit, Rational value) : super.fromUnits(unit, value);
 
   /// Creates a [Time] representing the specified number of [nanoseconds].
-  factory Time.fromNanoseconds(Decimal nanoseconds) => Time.fromUnits(TimeUnit.nanosecond, nanoseconds);
+  factory Time.fromNanoseconds(Rational nanoseconds) => Time.fromUnits(TimeUnit.nanosecond, nanoseconds);
 
   /// Creates a [Time] representing the specified number of [microseconds].
-  factory Time.fromMicroseconds(Decimal microseconds) => Time.fromUnits(TimeUnit.microsecond, microseconds);
+  factory Time.fromMicroseconds(Rational microseconds) => Time.fromUnits(TimeUnit.microsecond, microseconds);
 
   /// Creates a [Time] representing the specified number of [milliseconds].
-  factory Time.fromMilliseconds(Decimal milliseconds) => Time.fromUnits(TimeUnit.millisecond, milliseconds);
+  factory Time.fromMilliseconds(Rational milliseconds) => Time.fromUnits(TimeUnit.millisecond, milliseconds);
 
   /// Creates a [Time] representing the specified number of [centiseconds].
-  factory Time.fromCentiseconds(Decimal centiseconds) => Time.fromUnits(TimeUnit.centisecond, centiseconds);
+  factory Time.fromCentiseconds(Rational centiseconds) => Time.fromUnits(TimeUnit.centisecond, centiseconds);
 
   /// Creates a [Time] representing the specified number of [deciseconds].
-  factory Time.fromDeciseconds(Decimal deciseconds) => Time.fromUnits(TimeUnit.decisecond, deciseconds);
+  factory Time.fromDeciseconds(Rational deciseconds) => Time.fromUnits(TimeUnit.decisecond, deciseconds);
 
   /// Creates a [Time] representing the specified number of [seconds].
-  factory Time.fromSeconds(Decimal seconds) => Time.fromUnits(TimeUnit.second, seconds);
+  factory Time.fromSeconds(Rational seconds) => Time.fromUnits(TimeUnit.second, seconds);
 
   /// Creates a [Time] representing the specified number of [decaseconds].
-  factory Time.fromDecaseconds(Decimal decaseconds) => Time.fromUnits(TimeUnit.decasecond, decaseconds);
+  factory Time.fromDecaseconds(Rational decaseconds) => Time.fromUnits(TimeUnit.decasecond, decaseconds);
 
   /// Creates a [Time] representing the specified number of [minutes].
-  factory Time.fromMinutes(Decimal minutes) => Time.fromUnits(TimeUnit.minute, minutes);
+  factory Time.fromMinutes(Rational minutes) => Time.fromUnits(TimeUnit.minute, minutes);
 
   /// Creates a [Time] representing the specified number of [hours].
-  factory Time.fromHours(Decimal hours) => Time.fromUnits(TimeUnit.hour, hours);
+  factory Time.fromHours(Rational hours) => Time.fromUnits(TimeUnit.hour, hours);
 
   /// Creates a [Time] representing the specified number of [days].
-  factory Time.fromDays(Decimal days) => Time.fromUnits(TimeUnit.day, days);
+  factory Time.fromDays(Rational days) => Time.fromUnits(TimeUnit.day, days);
 
   /// Creates a [Time] representing the specified number of [weeks].
-  factory Time.fromWeeks(Decimal weeks) => Time.fromUnits(TimeUnit.week, weeks);
+  factory Time.fromWeeks(Rational weeks) => Time.fromUnits(TimeUnit.week, weeks);
 
   /// Creates a [Time] representing the specified number of [fortnights].
-  factory Time.fromFortnights(Decimal fortnights) => Time.fromUnits(TimeUnit.fortnight, fortnights);
+  factory Time.fromFortnights(Rational fortnights) => Time.fromUnits(TimeUnit.fortnight, fortnights);
 
   /// Creates a [Time] representing the specified number of [months].
-  factory Time.fromMonths(Decimal months) => Time.fromUnits(TimeUnit.month, months);
+  factory Time.fromMonths(Rational months) => Time.fromUnits(TimeUnit.month, months);
 
   /// Creates a [Time] representing the specified number of [quarters].
-  factory Time.fromQuarters(Decimal quarters) => Time.fromUnits(TimeUnit.quarter, quarters);
+  factory Time.fromQuarters(Rational quarters) => Time.fromUnits(TimeUnit.quarter, quarters);
 
   /// Creates a [Time] representing the specified number of [years].
-  factory Time.fromYears(Decimal years) => Time.fromUnits(TimeUnit.year, years);
+  factory Time.fromYears(Rational years) => Time.fromUnits(TimeUnit.year, years);
 
   /// Creates a [Time] representing the specified number of [decades].
-  factory Time.fromDecades(Decimal decades) => Time.fromUnits(TimeUnit.decade, decades);
+  factory Time.fromDecades(Rational decades) => Time.fromUnits(TimeUnit.decade, decades);
 
   /// Creates a [Time] representing the specified number of [centuries].
-  factory Time.fromCenturies(Decimal centuries) => Time.fromUnits(TimeUnit.century, centuries);
+  factory Time.fromCenturies(Rational centuries) => Time.fromUnits(TimeUnit.century, centuries);
 
   /// A [Time] of zero duration.
-  static final zero = Time.fromSeconds(Decimals.zero);
+  static final zero = Time.fromSeconds(Rationals.zero);
 
   static final _defaultFormat = TimeFormat();
 
   /// Gets the number of nanoseconds in this [Time], including any fractional portion.
-  Decimal get nanoseconds => getUnits(TimeUnit.nanosecond);
+  Rational get nanoseconds => getUnits(TimeUnit.nanosecond);
 
   /// Gets the number of microseconds in this [Time], including any fractional portion.
-  Decimal get microseconds => getUnits(TimeUnit.microsecond);
+  Rational get microseconds => getUnits(TimeUnit.microsecond);
 
   /// Gets the number of milliseconds in this [Time], including any fractional portion.
-  Decimal get milliseconds => getUnits(TimeUnit.millisecond);
+  Rational get milliseconds => getUnits(TimeUnit.millisecond);
 
   /// Gets the number of centiseconds in this [Time], including any fractional portion.
-  Decimal get centiseconds => getUnits(TimeUnit.centisecond);
+  Rational get centiseconds => getUnits(TimeUnit.centisecond);
 
   /// Gets the number of deciseconds in this [Time], including any fractional portion.
-  Decimal get deciseconds => getUnits(TimeUnit.decisecond);
+  Rational get deciseconds => getUnits(TimeUnit.decisecond);
 
   /// Gets the number of seconds in this [Time], including any fractional portion.
-  Decimal get seconds => getUnits(TimeUnit.second);
+  Rational get seconds => getUnits(TimeUnit.second);
 
   /// Gets the number of decaseconds in this [Time], including any fractional portion.
-  Decimal get decaseconds => getUnits(TimeUnit.decasecond);
+  Rational get decaseconds => getUnits(TimeUnit.decasecond);
 
   /// Gets the number of minutes in this [Time], including any fractional portion.
-  Decimal get minutes => getUnits(TimeUnit.minute);
+  Rational get minutes => getUnits(TimeUnit.minute);
 
   /// Gets the number of hours in this [Time], including any fractional portion.
-  Decimal get hours => getUnits(TimeUnit.hour);
+  Rational get hours => getUnits(TimeUnit.hour);
 
   /// Gets the number of days in this [Time], including any fractional portion.
-  Decimal get days => getUnits(TimeUnit.day);
+  Rational get days => getUnits(TimeUnit.day);
 
   /// Gets the number of weeks in this [Time], including any fractional portion.
-  Decimal get weeks => getUnits(TimeUnit.week);
+  Rational get weeks => getUnits(TimeUnit.week);
 
   /// Gets the number of fortnights in this [Time], including any fractional portion.
-  Decimal get fortnights => getUnits(TimeUnit.fortnight);
+  Rational get fortnights => getUnits(TimeUnit.fortnight);
 
   /// Gets the number of months in this [Time], including any fractional portion.
-  Decimal get months => getUnits(TimeUnit.month);
+  Rational get months => getUnits(TimeUnit.month);
 
   /// Gets the number of quarters in this [Time], including any fractional portion.
-  Decimal get quarters => getUnits(TimeUnit.quarter);
+  Rational get quarters => getUnits(TimeUnit.quarter);
 
   /// Gets the number of years in this [Time], including any fractional portion.
-  Decimal get years => getUnits(TimeUnit.year);
+  Rational get years => getUnits(TimeUnit.year);
 
   /// Gets the number of decades in this [Time], including any fractional portion.
-  Decimal get decades => getUnits(TimeUnit.decade);
+  Rational get decades => getUnits(TimeUnit.decade);
 
   /// Gets the number of centuries in this [Time], including any fractional portion.
-  Decimal get centuries => getUnits(TimeUnit.century);
+  Rational get centuries => getUnits(TimeUnit.century);
 
   /// Creates a [TimeRate] with the specified [period] from this value.
   TimeRate per(Duration period) => TimeRate._(
@@ -122,18 +122,18 @@ class Time extends UnitOfMeasurement<TimeUnit, Time> {
       );
 
   @override
-  Decimal getUnits(TimeUnit unit) => baseValue / unit._secondCount;
+  Rational getUnits(TimeUnit unit) => baseValue / unit._secondCount;
 
   @override
   String toString() => _defaultFormat.format(this);
 
   @override
   @protected
-  Time createValue(Decimal baseValue) => Time.fromSeconds(baseValue);
+  Time createValue(Rational baseValue) => Time.fromSeconds(baseValue);
 
   @override
   @protected
-  Decimal getBaseValue(TimeUnit unit, Decimal value) => value * unit._secondCount;
+  Rational getBaseValue(TimeUnit unit, Rational value) => value * unit._secondCount;
 }
 
 /// Defines supported units of time.
@@ -228,60 +228,42 @@ class TimeUnits {
 
 /// Contains extensions for [TimeUnit].
 extension TimeUnitExtensions on TimeUnit {
-  static final _secondsInNanosecond = ds('0.000000001');
-  static final _secondsInMicrosecond = ds('0.000001');
-  static final _secondsInMillisecond = ds('0.001');
-  static final _secondsInCentisecond = ds('0.01');
-  static final _secondsInDecisecond = ds('0.1');
-  static final _secondsInSecond = Decimals.one;
-  static final _secondsInDecasecond = di(10);
-  static final _secondsInMinute = di(60);
-  static final _secondsInHour = di(3600);
-  static final _secondsInDay = di(86400);
-  static final _secondsInWeek = di(604800);
-  static final _secondsInFortnight = di(1209600);
-  static final _secondsInMonth = ds('2628002.88');
-  static final _secondsInQuarter = ds('7884008.64');
-  static final _secondsInYear = di(31557600);
-  static final _secondsInDecade = di(315576000);
-  static final _secondsInCentury = di(3155760000);
-
-  Decimal get _secondCount {
+  Rational get _secondCount {
     switch (this) {
       case TimeUnit.nanosecond:
-        return _secondsInNanosecond;
+        return secondsInNanosecond;
       case TimeUnit.microsecond:
-        return _secondsInMicrosecond;
+        return secondsInMicrosecond;
       case TimeUnit.millisecond:
-        return _secondsInMillisecond;
+        return secondsInMillisecond;
       case TimeUnit.centisecond:
-        return _secondsInCentisecond;
+        return secondsInCentisecond;
       case TimeUnit.decisecond:
-        return _secondsInDecisecond;
+        return secondsInDecisecond;
       case TimeUnit.second:
-        return _secondsInSecond;
+        return secondsInSecond;
       case TimeUnit.decasecond:
-        return _secondsInDecasecond;
+        return secondsInDecasecond;
       case TimeUnit.minute:
-        return _secondsInMinute;
+        return secondsInMinute;
       case TimeUnit.hour:
-        return _secondsInHour;
+        return secondsInHour;
       case TimeUnit.day:
-        return _secondsInDay;
+        return secondsInDay;
       case TimeUnit.week:
-        return _secondsInWeek;
+        return secondsInWeek;
       case TimeUnit.fortnight:
-        return _secondsInFortnight;
+        return secondsInFortnight;
       case TimeUnit.month:
-        return _secondsInMonth;
+        return secondsInMonth;
       case TimeUnit.quarter:
-        return _secondsInQuarter;
+        return secondsInQuarter;
       case TimeUnit.year:
-        return _secondsInYear;
+        return secondsInYear;
       case TimeUnit.decade:
-        return _secondsInDecade;
+        return secondsInDecade;
       case TimeUnit.century:
-        return _secondsInCentury;
+        return secondsInCentury;
     }
   }
 
@@ -396,25 +378,25 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// See [UnitOfMeasurementFormat] for general notes on the pattern syntax, which you can combine with the [TimeUnit]
 /// pattern specifiers as required:
 ///
-/// | Specifier | Description |
+/// | Unit | Specifier |
 /// |-|-|
-/// | `ns` | nanosecond |
-/// | `μs` | microsecond |
-/// | `ms` | millisecond |
-/// | `cs` | centisecond |
-/// | `ds` | decisecond |
-/// | `s` | second |
-/// | `das` | decasecond |
-/// | `min` | minute |
-/// | `hr` | hour |
-/// | `d` | day |
-/// | `wk` | week |
-/// | `fn` | fortnight |
-/// | `mo` | month |
-/// | `qr` | quarter |
-/// | `yr` | year |
-/// | `dec` | decade |
-/// | `c` | century |
+/// | nanosecond | `ns` |
+/// | microsecond | `μs` |
+/// | millisecond | `ms` |
+/// | centisecond | `cs` |
+/// | decisecond | `ds` |
+/// | second | `s` |
+/// | decasecond | `das` |
+/// | minute | `min` |
+/// | hour | `hr` |
+/// | day | `d` |
+/// | week | `wk` |
+/// | fortnight | `fn` |
+/// | month | `mo` |
+/// | quarter | `qr` |
+/// | year | `yr` |
+/// | decade | `dec` |
+/// | century | `c` |
 ///
 /// ```
 /// final time = 42.minutes();
@@ -447,7 +429,7 @@ class TimeFormat extends _BaseTimeFormat<Time> {
   TimeUnit getLargestUnit(Time input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(Time input, TimeUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Time input, TimeUnit unit) => input.getUnits(unit);
 
   @override
   Time scaleToRateUnit(Time input, RateUnit rateUnit) => throw UnsupportedError('Cannot scale Time to a RateUnit');
@@ -494,12 +476,12 @@ class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
   TimeUnit getLargestUnit(TimeRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Decimal getUnitQuantity(TimeRate input, TimeUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(TimeRate input, TimeUnit unit) => input.value.getUnits(unit);
 
   @override
   TimeRate scaleToRateUnit(TimeRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = di(scaledPeriod.inMicroseconds) / di(input.period.inMicroseconds);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
     final result = Time.fromSeconds(input.value.seconds * scale).per(scaledPeriod);
     return result;
   }
