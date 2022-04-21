@@ -942,6 +942,16 @@ void _unitOfMeasurementFormat() {
             expected: '10 dll',
           );
         });
+
+        test('trims whitespace', () {
+          verifyQualityFormat(
+            pattern: '0.# u',
+            valueUnits: QualityUnits.all,
+            input: Quality.fromLovelaces(Rational.one),
+            // Lovelaces have no unit symbol, so the space in the pattern should be removed.
+            expected: '1',
+          );
+        });
       });
 
       // The formatting logic for UoM rates is quite different in some respects, so tests are in a separate group.
@@ -1223,7 +1233,8 @@ extension QualityUnitExtensions on QualityUnit {
       case QualityUnit.decilovelace:
         return 'dll';
       case QualityUnit.lovelace:
-        return 'll';
+        // Intentionally no symbol.
+        return '';
       case QualityUnit.compromisedEngineering:
         return 'zl';
       case QualityUnit.weirdlovelace:

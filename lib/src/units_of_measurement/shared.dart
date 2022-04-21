@@ -347,6 +347,10 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
   @protected
   Set<RateUnit> getPermissibleRateUnits();
 
+  /// Determines whether value units should be pluralized. Defaults to `true`.
+  @protected
+  bool pluralizeValueUnits(String locale) => true;
+
   /// Gets the pattern specifier for the given value unit.
   @protected
   String getPatternSpecifierFor(TUnit valueUnit);
@@ -425,11 +429,12 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
       valueUnit: valueUnit,
       valueUnitName: getUnitName(valueUnit, locale),
       valueUnitSymbol: getUnitSymbol(valueUnit, locale),
+      pluralizeValueUnit: pluralizeValueUnits(locale),
       rateUnit: rateUnit,
       value: quantity,
       locale: locale,
     );
-    final result = _nodes.map((node) => node.evaluate(context)).join('');
+    final result = _nodes.map((node) => node.evaluate(context)).join('').trim();
     return result;
   }
 
@@ -637,6 +642,7 @@ class _NodeEvaluationContext<TValueUnit> {
     required this.valueUnit,
     required this.valueUnitSymbol,
     required this.valueUnitName,
+    required this.pluralizeValueUnit,
     required this.rateUnit,
     required this.value,
     required this.locale,
@@ -645,6 +651,7 @@ class _NodeEvaluationContext<TValueUnit> {
   final TValueUnit valueUnit;
   final String valueUnitSymbol;
   final String valueUnitName;
+  final bool pluralizeValueUnit;
   final RateUnit? rateUnit;
   final Rational value;
   final String locale;
@@ -694,10 +701,12 @@ class _DynamicValueUnitNameNode<TValueUnit> extends _DynamicValueUnitNode<TValue
   const _DynamicValueUnitNameNode();
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.valueUnitName.pluralizeLastWordOnly(
-        quantity: context.value,
-        locale: context.locale,
-      );
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.pluralizeValueUnit
+      ? context.valueUnitName.pluralizeLastWordOnly(
+          quantity: context.value,
+          locale: context.locale,
+        )
+      : context.valueUnitName;
 }
 
 abstract class _FixedValueUnitNode<TValueUnit> extends _Node<TValueUnit> {
@@ -717,10 +726,12 @@ class _FixedValueUnitNameNode<TValueUnit> extends _FixedValueUnitNode<TValueUnit
   _FixedValueUnitNameNode(TValueUnit unit) : super(unit);
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.valueUnitName.pluralizeLastWordOnly(
-        quantity: context.value,
-        locale: context.locale,
-      );
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.pluralizeValueUnit
+      ? context.valueUnitName.pluralizeLastWordOnly(
+          quantity: context.value,
+          locale: context.locale,
+        )
+      : context.valueUnitName;
 }
 
 abstract class _DynamicRateUnitNode<TValueUnit> extends _Node<TValueUnit> {

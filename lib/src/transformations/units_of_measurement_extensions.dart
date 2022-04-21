@@ -212,6 +212,21 @@ extension UnitsOfMeasurementIntExtensions on int {
   /// Gets a [Length] representing this number of gigameters.
   Length gigameters() => Rational.fromInt(this).gigameters();
 
+  /// Gets a [Quantity] representing this number of ones.
+  Quantity ones() => Rational.fromInt(this).ones();
+
+  /// Gets a [Quantity] representing this number of thousands.
+  Quantity thousand() => Rational.fromInt(this).thousand();
+
+  /// Gets a [Quantity] representing this number of millions.
+  Quantity million() => Rational.fromInt(this).million();
+
+  /// Gets a [Quantity] representing this number of billions.
+  Quantity billion() => Rational.fromInt(this).billion();
+
+  /// Gets a [Quantity] representing this number of trillions.
+  Quantity trillion() => Rational.fromInt(this).trillion();
+
   /// Gets a [Temperature] representing this number of nanokelvins.
   Temperature nanokelvins() => Rational.fromInt(this).nanokelvins();
 
@@ -622,6 +637,21 @@ extension UnitsOfMeasurementRationalExtensions on Rational {
 
   /// Gets a [Length] representing this number of gigameters.
   Length gigameters() => Length.fromGigameters(this);
+
+  /// Gets a [Quantity] representing this number of ones.
+  Quantity ones() => Quantity.fromOnes(this);
+
+  /// Gets a [Quantity] representing this number of thousands.
+  Quantity thousand() => Quantity.fromThousands(this);
+
+  /// Gets a [Quantity] representing this number of millions.
+  Quantity million() => Quantity.fromMillions(this);
+
+  /// Gets a [Quantity] representing this number of billions.
+  Quantity billion() => Quantity.fromBillions(this);
+
+  /// Gets a [Quantity] representing this number of trillions.
+  Quantity trillion() => Quantity.fromTrillions(this);
 
   /// Gets a [Temperature] representing this number of nanokelvins.
   Temperature nanokelvins() => Temperature.fromNanokelvins(this);
