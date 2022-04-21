@@ -429,6 +429,417 @@ extension UnitsOfMeasurementIntExtensions on int {
   Weight gigatonnes() => Rational.fromInt(this).gigatonnes();
 }
 
+/// Provides extensions on [Quantity] related to units of measurement.
+extension UnitsOfMeasurementQuantityExtensions on Quantity {
+  /// Gets an [Area] representing this number of square nanometers.
+  Area squareNanometers() => ones.squareNanometers();
+
+  /// Gets an [Area] representing this number of square micrometers.
+  Area squareMicrometers() => ones.squareMicrometers();
+
+  /// Gets an [Area] representing this number of square thous.
+  Area squareThous() => ones.squareThous();
+
+  /// Gets an [Area] representing this number of square millimeters.
+  Area squareMillimeters() => ones.squareMillimeters();
+
+  /// Gets an [Area] representing this number of square centimeters.
+  Area squareCentimeters() => ones.squareCentimeters();
+
+  /// Gets an [Area] representing this number of square inches.
+  Area squareInches() => ones.squareInches();
+
+  /// Gets an [Area] representing this number of square decimeters.
+  Area squareDecimeters() => ones.squareDecimeters();
+
+  /// Gets an [Area] representing this number of square feet.
+  Area squareFeet() => ones.squareFeet();
+
+  /// Gets an [Area] representing this number of square yards.
+  Area squareYards() => ones.squareYards();
+
+  /// Gets an [Area] representing this number of square meters.
+  Area squareMeters() => ones.squareMeters();
+
+  /// Gets an [Area] representing this number of square decameters.
+  Area squareDecameters() => ones.squareDecameters();
+
+  /// Gets an [Area] representing this number of acres.
+  Area acres() => ones.acres();
+
+  /// Gets an [Area] representing this number of hectares.
+  Area hectares() => ones.hectares();
+
+  /// Gets an [Area] representing this number of square kilometers.
+  Area squareKilometers() => ones.squareKilometers();
+
+  /// Gets an [Area] representing this number of square miles.
+  Area squareMiles() => ones.squareMiles();
+
+  /// Gets an [Area] representing this number of square megameters.
+  Area squareMegameters() => ones.squareMegameters();
+
+  /// Gets an [Area] representing this number of square gigameters.
+  Area squareGigameters() => ones.squareGigameters();
+
+  /// Gets an [InformationSize] representing this number of bits.
+  InformationSize bits() => ones.bits();
+
+  /// Gets an [InformationSize] representing this number of crumbs.
+  InformationSize crumbs() => ones.crumbs();
+
+  /// Gets an [InformationSize] representing this number of nibbles.
+  InformationSize nibbles() => ones.nibbles();
+
+  /// Gets an [InformationSize] representing this number of bytes.
+  InformationSize bytes() => ones.bytes();
+
+  /// Gets an [InformationSize] representing this number of kilobits.
+  InformationSize kilobits() => ones.kilobits();
+
+  /// Gets an [InformationSize] representing this number of kibibits.
+  InformationSize kibibits() => ones.kibibits();
+
+  /// Gets an [InformationSize] representing this number of kilobytes.
+  InformationSize kilobytes() => ones.kilobytes();
+
+  /// Gets an [InformationSize] representing this number of kibibytes.
+  InformationSize kibibytes() => ones.kibibytes();
+
+  /// Gets an [InformationSize] representing this number of megabits.
+  InformationSize megabits() => ones.megabits();
+
+  /// Gets an [InformationSize] representing this number of mebibits.
+  InformationSize mebibits() => ones.mebibits();
+
+  /// Gets an [InformationSize] representing this number of megabytes.
+  InformationSize megabytes() => ones.megabytes();
+
+  /// Gets an [InformationSize] representing this number of mebibytes.
+  InformationSize mebibytes() => ones.mebibytes();
+
+  /// Gets an [InformationSize] representing this number of gigabits.
+  InformationSize gigabits() => ones.gigabits();
+
+  /// Gets an [InformationSize] representing this number of gibibits.
+  InformationSize gibibits() => ones.gibibits();
+
+  /// Gets an [InformationSize] representing this number of gigabytes.
+  InformationSize gigabytes() => ones.gigabytes();
+
+  /// Gets an [InformationSize] representing this number of gibibytes.
+  InformationSize gibibytes() => ones.gibibytes();
+
+  /// Gets an [InformationSize] representing this number of terabits.
+  InformationSize terabits() => ones.terabits();
+
+  /// Gets an [InformationSize] representing this number of tebibits.
+  InformationSize tebibits() => ones.tebibits();
+
+  /// Gets an [InformationSize] representing this number of terabytes.
+  InformationSize terabytes() => ones.terabytes();
+
+  /// Gets an [InformationSize] representing this number of tebibytes.
+  InformationSize tebibytes() => ones.tebibytes();
+
+  /// Gets an [InformationSize] representing this number of petabits.
+  InformationSize petabits() => ones.petabits();
+
+  /// Gets an [InformationSize] representing this number of pebibits.
+  InformationSize pebibits() => ones.pebibits();
+
+  /// Gets an [InformationSize] representing this number of petabytes.
+  InformationSize petabytes() => ones.petabytes();
+
+  /// Gets an [InformationSize] representing this number of pebibytes.
+  InformationSize pebibytes() => ones.pebibytes();
+
+  /// Gets an [InformationSize] representing this number of exabits.
+  InformationSize exabits() => ones.exabits();
+
+  /// Gets an [InformationSize] representing this number of exbibits.
+  InformationSize exbibits() => ones.exbibits();
+
+  /// Gets an [InformationSize] representing this number of exabytes.
+  InformationSize exabytes() => ones.exabytes();
+
+  /// Gets an [InformationSize] representing this number of exbibytes.
+  InformationSize exbibytes() => ones.exbibytes();
+
+  /// Gets an [InformationSize] representing this number of zettabits.
+  InformationSize zettabits() => ones.zettabits();
+
+  /// Gets an [InformationSize] representing this number of zebibits.
+  InformationSize zebibits() => ones.zebibits();
+
+  /// Gets an [InformationSize] representing this number of zettabytes.
+  InformationSize zettabytes() => ones.zettabytes();
+
+  /// Gets an [InformationSize] representing this number of zebibytes.
+  InformationSize zebibytes() => ones.zebibytes();
+
+  /// Gets an [InformationSize] representing this number of yottabits.
+  InformationSize yottabits() => ones.yottabits();
+
+  /// Gets an [InformationSize] representing this number of yobibits.
+  InformationSize yobibits() => ones.yobibits();
+
+  /// Gets an [InformationSize] representing this number of yottabytes.
+  InformationSize yottabytes() => ones.yottabytes();
+
+  /// Gets an [InformationSize] representing this number of yobibytes.
+  InformationSize yobibytes() => ones.yobibytes();
+
+  /// Gets a [Length] representing this number of nanometers.
+  Length nanometers() => ones.nanometers();
+
+  /// Gets a [Length] representing this number of micrometers.
+  Length micrometers() => ones.micrometers();
+
+  /// Gets a [Length] representing this number of thous.
+  Length thous() => ones.thous();
+
+  /// Gets a [Length] representing this number of millimeters.
+  Length millimeters() => ones.millimeters();
+
+  /// Gets a [Length] representing this number of centimeters.
+  Length centimeters() => ones.centimeters();
+
+  /// Gets a [Length] representing this number of inches.
+  Length inches() => ones.inches();
+
+  /// Gets a [Length] representing this number of decimeters.
+  Length decimeters() => ones.decimeters();
+
+  /// Gets a [Length] representing this number of feet.
+  Length feet() => ones.feet();
+
+  /// Gets a [Length] representing this number of yards.
+  Length yards() => ones.yards();
+
+  /// Gets a [Length] representing this number of meters.
+  Length meters() => ones.meters();
+
+  /// Gets a [Length] representing this number of decameters.
+  Length decameters() => ones.decameters();
+
+  /// Gets a [Length] representing this number of hectometers.
+  Length hectometers() => ones.hectometers();
+
+  /// Gets a [Length] representing this number of kilometers.
+  Length kilometers() => ones.kilometers();
+
+  /// Gets a [Length] representing this number of miles.
+  Length miles() => ones.miles();
+
+  /// Gets a [Length] representing this number of megameters.
+  Length megameters() => ones.megameters();
+
+  /// Gets a [Length] representing this number of gigameters.
+  Length gigameters() => ones.gigameters();
+
+  /// Gets a [Temperature] representing this number of nanokelvins.
+  Temperature nanokelvins() => ones.nanokelvins();
+
+  /// Gets a [Temperature] representing this number of microkelvins.
+  Temperature microkelvins() => ones.microkelvins();
+
+  /// Gets a [Temperature] representing this number of millikelvins.
+  Temperature millikelvins() => ones.millikelvins();
+
+  /// Gets a [Temperature] representing this number of centikelvins.
+  Temperature centikelvins() => ones.centikelvins();
+
+  /// Gets a [Temperature] representing this number of decikelvins.
+  Temperature decikelvins() => ones.decikelvins();
+
+  /// Gets a [Temperature] representing this number of kelvins.
+  Temperature kelvins() => ones.kelvins();
+
+  /// Gets a [Temperature] representing this number of celsius.
+  Temperature celsius() => ones.celsius();
+
+  /// Gets a [Temperature] representing this number of fahrenheit.
+  Temperature fahrenheit() => ones.fahrenheit();
+
+  /// Gets a [Time] representing this number of nanoseconds.
+  Time nanoseconds() => ones.nanoseconds();
+
+  /// Gets a [Time] representing this number of microseconds.
+  Time microseconds() => ones.microseconds();
+
+  /// Gets a [Time] representing this number of milliseconds.
+  Time milliseconds() => ones.milliseconds();
+
+  /// Gets a [Time] representing this number of centiseconds.
+  Time centiseconds() => ones.centiseconds();
+
+  /// Gets a [Time] representing this number of deciseconds.
+  Time deciseconds() => ones.deciseconds();
+
+  /// Gets a [Time] representing this number of seconds.
+  Time seconds() => ones.seconds();
+
+  /// Gets a [Time] representing this number of decaseconds.
+  Time decaseconds() => ones.decaseconds();
+
+  /// Gets a [Time] representing this number of minutes.
+  Time minutes() => ones.minutes();
+
+  /// Gets a [Time] representing this number of hours.
+  Time hours() => ones.hours();
+
+  /// Gets a [Time] representing this number of days.
+  Time days() => ones.days();
+
+  /// Gets a [Time] representing this number of weeks.
+  Time weeks() => ones.weeks();
+
+  /// Gets a [Time] representing this number of fortnights.
+  Time fortnights() => ones.fortnights();
+
+  /// Gets a [Time] representing this number of months.
+  Time months() => ones.months();
+
+  /// Gets a [Time] representing this number of quarters.
+  Time quarters() => ones.quarters();
+
+  /// Gets a [Time] representing this number of years.
+  Time years() => ones.years();
+
+  /// Gets a [Time] representing this number of decades.
+  Time decades() => ones.decades();
+
+  /// Gets a [Time] representing this number of centuries.
+  Time centuries() => ones.centuries();
+
+  /// Gets a [Volume] representing this number of cubic nanometers.
+  Volume cubicNanometers() => ones.cubicNanometers();
+
+  /// Gets a [Volume] representing this number of cubic thous.
+  Volume cubicThous() => ones.cubicThous();
+
+  /// Gets a [Volume] representing this number of cubic micrometers.
+  Volume cubicMicrometers() => ones.cubicMicrometers();
+
+  /// Gets a [Volume] representing this number of cubic millimeters.
+  Volume cubicMillimeters() => ones.cubicMillimeters();
+
+  /// Gets a [Volume] representing this number of milliliters.
+  Volume milliliters() => ones.milliliters();
+
+  /// Gets a [Volume] representing this number of imperial teaspoons.
+  Volume imperialTeaspoons() => ones.imperialTeaspoons();
+
+  /// Gets a [Volume] representing this number of US teaspoons.
+  Volume usTeaspoons() => ones.usTeaspoons();
+
+  /// Gets a [Volume] representing this number of US legal cups.
+  Volume usLegalCups() => ones.usLegalCups();
+
+  /// Gets a [Volume] representing this number of US fluid ounces.
+  Volume usFluidOunces() => ones.usFluidOunces();
+
+  /// Gets a [Volume] representing this number of imperial fluid ounces.
+  Volume imperialFluidOunces() => ones.imperialFluidOunces();
+
+  /// Gets a [Volume] representing this number of imperial tablespoons.
+  Volume imperialTablespoons() => ones.imperialTablespoons();
+
+  /// Gets a [Volume] representing this number of cubic inches.
+  Volume cubicInches() => ones.cubicInches();
+
+  /// Gets a [Volume] representing this number of US tablespoons.
+  Volume usTablespoons() => ones.usTablespoons();
+
+  /// Gets a [Volume] representing this number of liters.
+  Volume liters() => ones.liters();
+
+  /// Gets a [Volume] representing this number of US liquid quarts.
+  Volume usLiquidQuarts() => ones.usLiquidQuarts();
+
+  /// Gets a [Volume] representing this number of US customary cups.
+  Volume usCustomaryCups() => ones.usCustomaryCups();
+
+  /// Gets a [Volume] representing this number of imperial pints.
+  Volume imperialPints() => ones.imperialPints();
+
+  /// Gets a [Volume] representing this number of US liquid pints.
+  Volume usLiquidPints() => ones.usLiquidPints();
+
+  /// Gets a [Volume] representing this number of imperial cups.
+  Volume imperialCups() => ones.imperialCups();
+
+  /// Gets a [Volume] representing this number of imperial gallons.
+  Volume imperialGallons() => ones.imperialGallons();
+
+  /// Gets a [Volume] representing this number of US liquid gallons.
+  Volume usLiquidGallons() => ones.usLiquidGallons();
+
+  /// Gets a [Volume] representing this number of imperial quarts.
+  Volume imperialQuarts() => ones.imperialQuarts();
+
+  /// Gets a [Volume] representing this number of cubic feet.
+  Volume cubicFeet() => ones.cubicFeet();
+
+  /// Gets a [Volume] representing this number of cubic meters.
+  Volume cubicMeters() => ones.cubicMeters();
+
+  /// Gets a [Volume] representing this number of cubic yards.
+  Volume cubicYards() => ones.cubicYards();
+
+  /// Gets a [Volume] representing this number of cubic decameters.
+  Volume cubicDecameters() => ones.cubicDecameters();
+
+  /// Gets a [Volume] representing this number of cubic kilometers.
+  Volume cubicKilometers() => ones.cubicKilometers();
+
+  /// Gets a [Volume] representing this number of cubic miles.
+  Volume cubicMiles() => ones.cubicMiles();
+
+  /// Gets a [Volume] representing this number of cubic megameters.
+  Volume cubicMegameters() => ones.cubicMegameters();
+
+  /// Gets a [Volume] representing this number of cubic gigameters.
+  Volume cubicGigameters() => ones.cubicGigameters();
+
+  /// Gets a [Weight] representing this number of nanograms.
+  Weight nanograms() => ones.nanograms();
+
+  /// Gets a [Weight] representing this number of micrograms.
+  Weight micrograms() => ones.micrograms();
+
+  /// Gets a [Weight] representing this number of milligrams.
+  Weight milligrams() => ones.milligrams();
+
+  /// Gets a [Weight] representing this number of grams.
+  Weight grams() => ones.grams();
+
+  /// Gets a [Weight] representing this number of ounces.
+  Weight ounces() => ones.ounces();
+
+  /// Gets a [Weight] representing this number of pounds.
+  Weight pounds() => ones.pounds();
+
+  /// Gets a [Weight] representing this number of kilograms.
+  Weight kilograms() => ones.kilograms();
+
+  /// Gets a [Weight] representing this number of US tons.
+  Weight usTons() => ones.usTons();
+
+  /// Gets a [Weight] representing this number of (metric) tonnes.
+  Weight tonnes() => ones.tonnes();
+
+  /// Gets a [Weight] representing this number of imperial tons.
+  Weight imperialTons() => ones.imperialTons();
+
+  /// Gets a [Weight] representing this number of megatonnes.
+  Weight megatonnes() => ones.megatonnes();
+
+  /// Gets a [Weight] representing this number of gigatonnes.
+  Weight gigatonnes() => ones.gigatonnes();
+}
+
 /// Provides extensions on [Rational] related to units of measurement.
 extension UnitsOfMeasurementRationalExtensions on Rational {
   /// Gets an [Area] representing this number of square nanometers.
