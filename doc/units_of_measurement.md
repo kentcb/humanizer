@@ -11,6 +11,7 @@ It's difficult to understand the extensions and transformations layers without f
 | Area | `Area` | `AreaFormat` | `AreaRate` | `AreaRateFormat` |
 | Information | `InformationSize` | `InformationSizeFormat` | `InformationRate` | `InformationRateFormat` |
 | Length | `Length` | `LengthFormat` | `LengthRate` | `LengthRateFormat` |
+| Quantity | `Quantity` | `QuantityFormat` | `QuantityRate` | `QuantityRateFormat` |
 | Temperature | `Temperature` | `TemperatureFormat` | `TemperatureRate` | `TemperatureRateFormat` |
 | Time | `Time` | `TimeFormat` | `TimeRate` | `TimeRateFormat` |
 | Volume | `Volume` | `VolumeFormat` | `VolumeRate` | `VolumeRateFormat` |
@@ -30,10 +31,7 @@ final length2 = 42.meters();
 final length3 = l.meters();
 ```
 
-Regardless of which approach you take, each unit of measurement value wraps a single `Rational`, which is an amount in the most accurate unit for that unit of measurement. For example, the 42 meters above will be internally converted into nanometers, which is stored as a `Rational` and wrapped by the `Length` instance. The implications here are that nanometers are the most accurate measurement for length, and you cannot represent anything smaller than a nanometer.
-
-
-Unfortunately, Dart does not have built-in rational, or even decimal, support and it [seems like it never will](https://github.com/dart-lang/sdk/issues/681). Dealing with rationals adds a bit of friction to the code, as you can see above. This is somewhat alleviated by the extensions layer.
+Regardless of which approach you take, each unit of measurement value wraps a single `Rational`. Unfortunately, Dart does not have built-in rational, or even decimal, support and it [seems like it never will](https://github.com/dart-lang/sdk/issues/681). Dealing with rationals adds a bit of friction to the code, as you can see above. This is somewhat alleviated by the extensions layer.
 
 Once you have a domain type like `Length`, there are many things you can do with it, some of which are demonstrated here:
 
@@ -66,6 +64,21 @@ final extendedLength = length + Length.fromCentimeters(Rational.fromInt(50));
 // Round the value (rounded is 42 meters).
 final rounded = length.round(LengthUnit.meter);
 ```
+
+### Dimensionless Quantities
+
+One special entry in the above table is `Quantity`, which represents a dimensionless quantity (a quantity not tied to any particular dimension, such as length or weight). A `Quantity` is useful for humanizing large numbers, and for moving between other units of measurement when performing calculations. As an example, suppose you need to calculate how many kilograms of concrete you require for a footpath. You know that you need 90kg per square meter and that the footpath will be 1.2m wide and 15m long. Here's some code that calculates the required weight of concrete:
+
+```dart
+final width = 120.centimeters();
+final length = 15.meters();
+final area = (width.centimeters * length.centimeters).squareCentimeters();
+
+// You'll need 1620kg, in case you're wondering.
+final weight = (area.squareMeters * Rational.fromInt(90)).kilograms();
+```
+
+> NOTE: future versions of Humanizer may allow more seamless transition between dimensional and dimensionless values. For example, multiplying two `Length` values to yield an `Area`, or dividing a `Length` by another `Length` to yield a `Quantity`. The main challenge with achieving this is the lack of method/operator overloading in Dart.
 
 ### Rated Values
 
@@ -101,6 +114,11 @@ final anotherFormattedRate = LengthRateFormat(
   pattern: "#0.## U:cm 'per' r:hr",
   permissibleRateUnits: RateUnits.all,
 ).format(speed);
+
+final quantity = 42.million() + 100.thousand();
+
+// 42.1M (you'll get the same calling toString on quantity)
+final formattedQuantity = QuantityFormat().format(quantity);
 ```
 
 You can find in-depth discussion on formatting in the API documentation for each format type.

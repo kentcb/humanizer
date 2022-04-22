@@ -1,8 +1,8 @@
 ## 2.0.0 - NOT YET RELEASED
 
 * Switched to using `Rational` as the basis for units of measurement rather than `Decimal`
-
-> This is a breaking change. It allows for running calculations to be performed without loss of precision. A `Decimal` is a wrapper around `Rational`, so most call sites can be fixed by simple substitution.
+  > This is a breaking change. It allows for running calculations to be performed without loss of precision. A `Decimal` is a wrapper around `Rational`, so most call sites can be fixed by simple substitution.
+* Added support for dimensionless quantities to units of measurement feature, which allows you to humanize large numbers
 
 ## 1.0.0 - 16th Oct, 2021
 
