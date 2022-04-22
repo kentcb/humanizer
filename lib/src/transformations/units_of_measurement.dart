@@ -137,7 +137,7 @@ class InformationRateTransformation extends Transformation<InformationRate, Stri
   }
 }
 
-/// A transformation to convert an [Length] to a human-readable [String] by using a [LengthFormat].
+/// A transformation to convert a [Length] to a human-readable [String] by using a [LengthFormat].
 ///
 /// See also:
 /// * [LengthFormat]
@@ -167,7 +167,7 @@ class LengthTransformation extends Transformation<Length, String> {
   }
 }
 
-/// A transformation to convert an [LengthRate] to a human-readable [String] by using a [LengthRateFormat].
+/// A transformation to convert a [LengthRate] to a human-readable [String] by using a [LengthRateFormat].
 ///
 /// See also:
 /// * [LengthRateFormat]
@@ -202,7 +202,72 @@ class LengthRateTransformation extends Transformation<LengthRate, String> {
   }
 }
 
-/// A transformation to convert an [Temperature] to a human-readable [String] by using a [TemperatureFormat].
+/// A transformation to convert a [Quantity] to a human-readable [String] by using a [QuantityFormat].
+///
+/// See also:
+/// * [QuantityFormat]
+class QuantityTransformation extends Transformation<Quantity, String> {
+  /// Creates a [QuantityTransformation] that will format values using the specified [pattern], only using
+  /// [permissibleValueUnits].
+  const QuantityTransformation({
+    this.pattern = defaultValuePattern,
+    this.permissibleValueUnits = QuantityUnits.all,
+  });
+
+  /// The pattern passed through to the [QuantityFormat].
+  final String pattern;
+
+  /// The permissible value units.
+  final Set<QuantityUnit> permissibleValueUnits;
+
+  @override
+  String transform(Quantity input, String locale) {
+    final format = QuantityFormat(
+      pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      locale: locale,
+    );
+    final result = format.format(input);
+    return result;
+  }
+}
+
+/// A transformation to convert a [QuantityRate] to a human-readable [String] by using a [QuantityRateFormat].
+///
+/// See also:
+/// * [QuantityRateFormat]
+class QuantityRateTransformation extends Transformation<QuantityRate, String> {
+  /// Creates a [QuantityRateTransformation] that will format values using the specified [pattern], only using
+  /// [permissibleValueUnits] and [permissibleRateUnits].
+  const QuantityRateTransformation({
+    this.pattern = defaultRatePattern,
+    this.permissibleValueUnits = QuantityUnits.all,
+    this.permissibleRateUnits = RateUnits.hourOrLess,
+  });
+
+  /// The pattern passed through to the [QuantityRateFormat].
+  final String pattern;
+
+  /// The permissible value units.
+  final Set<QuantityUnit> permissibleValueUnits;
+
+  /// The permissible rate units.
+  final Set<RateUnit> permissibleRateUnits;
+
+  @override
+  String transform(QuantityRate input, String locale) {
+    final format = QuantityRateFormat(
+      pattern: pattern,
+      permissibleValueUnits: permissibleValueUnits,
+      permissibleRateUnits: permissibleRateUnits,
+      locale: locale,
+    );
+    final result = format.format(input);
+    return result;
+  }
+}
+
+/// A transformation to convert a [Temperature] to a human-readable [String] by using a [TemperatureFormat].
 ///
 /// See also:
 /// * [TemperatureFormat]
@@ -232,7 +297,7 @@ class TemperatureTransformation extends Transformation<Temperature, String> {
   }
 }
 
-/// A transformation to convert an [TemperatureRate] to a human-readable [String] by using a [TemperatureRateFormat].
+/// A transformation to convert a [TemperatureRate] to a human-readable [String] by using a [TemperatureRateFormat].
 ///
 /// See also:
 /// * [TemperatureRateFormat]
@@ -267,7 +332,7 @@ class TemperatureRateTransformation extends Transformation<TemperatureRate, Stri
   }
 }
 
-/// A transformation to convert an [Time] to a human-readable [String] by using a [TimeFormat].
+/// A transformation to convert a [Time] to a human-readable [String] by using a [TimeFormat].
 ///
 /// See also:
 /// * [TimeFormat]
@@ -297,7 +362,7 @@ class TimeTransformation extends Transformation<Time, String> {
   }
 }
 
-/// A transformation to convert an [TimeRate] to a human-readable [String] by using a [TimeRateFormat].
+/// A transformation to convert a [TimeRate] to a human-readable [String] by using a [TimeRateFormat].
 ///
 /// See also:
 /// * [TimeRateFormat]
@@ -332,7 +397,7 @@ class TimeRateTransformation extends Transformation<TimeRate, String> {
   }
 }
 
-/// A transformation to convert an [Volume] to a human-readable [String] by using a [VolumeFormat].
+/// A transformation to convert a [Volume] to a human-readable [String] by using a [VolumeFormat].
 ///
 /// See also:
 /// * [VolumeFormat]
@@ -362,7 +427,7 @@ class VolumeTransformation extends Transformation<Volume, String> {
   }
 }
 
-/// A transformation to convert an [VolumeRate] to a human-readable [String] by using a [VolumeRateFormat].
+/// A transformation to convert a [VolumeRate] to a human-readable [String] by using a [VolumeRateFormat].
 ///
 /// See also:
 /// * [VolumeRateFormat]
@@ -397,7 +462,7 @@ class VolumeRateTransformation extends Transformation<VolumeRate, String> {
   }
 }
 
-/// A transformation to convert an [Weight] to a human-readable [String] by using a [WeightFormat].
+/// A transformation to convert a [Weight] to a human-readable [String] by using a [WeightFormat].
 ///
 /// See also:
 /// * [WeightFormat]
@@ -427,7 +492,7 @@ class WeightTransformation extends Transformation<Weight, String> {
   }
 }
 
-/// A transformation to convert an [WeightRate] to a human-readable [String] by using a [WeightRateFormat].
+/// A transformation to convert a [WeightRate] to a human-readable [String] by using a [WeightRateFormat].
 ///
 /// See also:
 /// * [WeightRateFormat]
