@@ -78,7 +78,7 @@ final area = (width.centimeters * length.centimeters).squareCentimeters();
 final weight = (area.squareMeters * Rational.fromInt(90)).kilograms();
 ```
 
-> NOTE: future versions of Humanizer may allow more seamless transition between dimensioned and dimensionless values. For example, multiplying two `Length` values to yield an `Area`, or dividing a `Length` by another `Length` to yield a `Quantity`. The main challenge with achieving this is the lack of method/operator overloading in Dart.
+> NOTE: future versions of Humanizer may allow more seamless transition between dimensional and dimensionless values. For example, multiplying two `Length` values to yield an `Area`, or dividing a `Length` by another `Length` to yield a `Quantity`. The main challenge with achieving this is the lack of method/operator overloading in Dart.
 
 ### Rated Values
 
