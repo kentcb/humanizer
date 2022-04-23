@@ -27,8 +27,11 @@ void _toString() {
           expect(value.toString(), expected);
 
       verify(value: Length.fromMeters(Rational.fromInt(3)), expected: '3m');
-      verify(value: Length.fromCentimeters(Rational.fromInt(3)), expected: '3cm');
-      verify(value: Length.fromMeters(Rational.fromInt(8127161, 10000)), expected: '812.72m');
+      verify(
+          value: Length.fromCentimeters(Rational.fromInt(3)), expected: '3cm');
+      verify(
+          value: Length.fromMeters(Rational.fromInt(8127161, 10000)),
+          expected: '812.72m');
     });
 
     test('LengthRate toString formats using defaults', () {
@@ -38,8 +41,14 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Length.fromMeters(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '30m/min');
-      verify(value: Length.fromMeters(Rationals.tenth).per(const Duration(minutes: 1)), expected: '6m/hr');
+      verify(
+          value: Length.fromMeters(Rational.fromInt(30))
+              .per(const Duration(minutes: 1)),
+          expected: '30m/min');
+      verify(
+          value: Length.fromMeters(Rationals.tenth)
+              .per(const Duration(minutes: 1)),
+          expected: '6m/hr');
     });
   });
 }

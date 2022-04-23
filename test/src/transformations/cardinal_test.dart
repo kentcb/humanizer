@@ -56,7 +56,8 @@ void _cardinalWords() {
       verify(input: 123, expected: 'one hundred and twenty-three');
       verify(
         input: 13238189,
-        expected: 'thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
+        expected:
+            'thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
       );
     });
 
@@ -98,7 +99,8 @@ void _cardinalWords() {
       verify(input: -123, expected: 'negative one hundred and twenty-three');
       verify(
         input: -13238189,
-        expected: 'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
+        expected:
+            'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-nine',
       );
     });
   });

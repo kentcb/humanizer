@@ -17,11 +17,13 @@ extension SymbolNameExtensions on SymbolName {
   /// See also:
   /// * [SymbolToHumanizedNameTransformation]
   String toHumanizedName({String? locale}) =>
-      const SymbolToHumanizedNameTransformation().transform(this, locale ?? Intl.getCurrentLocale());
+      const SymbolToHumanizedNameTransformation()
+          .transform(this, locale ?? Intl.getCurrentLocale());
 }
 
 /// Provides symbol-related humanizing extensions on [Enum].
 extension EnumExtensions on Enum {
   /// Returns a human-readable value of this enumeration value.
-  String toHumanizedName({String? locale}) => SymbolName(toString().split('.').last).toHumanizedName(locale: locale);
+  String toHumanizedName({String? locale}) =>
+      SymbolName(toString().split('.').last).toHumanizedName(locale: locale);
 }

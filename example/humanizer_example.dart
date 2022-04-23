@@ -25,7 +25,8 @@ void _symbols() {
   ];
 
   for (final symbolName in symbolNames) {
-    print("SymbolName('$symbolName').toHumanizedName() => '${SymbolName(symbolName).toHumanizedName()}'");
+    print(
+        "SymbolName('$symbolName').toHumanizedName() => '${SymbolName(symbolName).toHumanizedName()}'");
   }
 }
 
@@ -51,13 +52,16 @@ void _stringTruncation() {
   ];
 
   for (final input in inputs) {
-    print("'$input'.truncateToFixedLength(12) => '${input.truncateToFixedLength(12)}'");
+    print(
+        "'$input'.truncateToFixedLength(12) => '${input.truncateToFixedLength(12)}'");
     print(
         "'$input'.truncateToFixedLength(12, truncateAt: TruncateAt.start) => '${input.truncateToFixedLength(12, truncateAt: TruncateAt.start)}'");
-    print("'$input'.truncateToFixedNonWhitespaceLength(12) => '${input.truncateToFixedNonWhitespaceLength(12)}'");
+    print(
+        "'$input'.truncateToFixedNonWhitespaceLength(12) => '${input.truncateToFixedNonWhitespaceLength(12)}'");
     print(
         "'$input'.truncateToFixedNonWhitespaceLength(12, truncateAt: TruncateAt.start) => '${input.truncateToFixedNonWhitespaceLength(12, truncateAt: TruncateAt.start)}'");
-    print("'$input'.truncateToFixedWordLength(3) => '${input.truncateToFixedWordLength(3)}'");
+    print(
+        "'$input'.truncateToFixedWordLength(3) => '${input.truncateToFixedWordLength(3)}'");
     print(
         "'$input'.truncateToFixedWordLength(3, truncateAt: TruncateAt.start) => '${input.truncateToFixedWordLength(3, truncateAt: TruncateAt.start)}'");
   }
@@ -66,13 +70,16 @@ void _stringTruncation() {
 void _approximateTime() {
   _printTitle('Approximate Time');
 
-  print("Duration.zero.toApproximateTime() => '${Duration.zero.toApproximateTime()}'");
+  print(
+      "Duration.zero.toApproximateTime() => '${Duration.zero.toApproximateTime()}'");
   print(
       "Duration.zero.toApproximateTime(isRelativeToNow: false) => '${Duration.zero.toApproximateTime(isRelativeToNow: false)}'");
-  print("const Duration(seconds: 28).toApproximateTime() => '${const Duration(seconds: 28).toApproximateTime()}'");
+  print(
+      "const Duration(seconds: 28).toApproximateTime() => '${const Duration(seconds: 28).toApproximateTime()}'");
   print(
       "const Duration(seconds: 28).toApproximateTime(isRelativeToNow: false) => '${const Duration(seconds: 28).toApproximateTime(isRelativeToNow: false)}'");
-  print("const Duration(seconds: -28).toApproximateTime() => '${const Duration(seconds: -28).toApproximateTime()}'");
+  print(
+      "const Duration(seconds: -28).toApproximateTime() => '${const Duration(seconds: -28).toApproximateTime()}'");
   print(
       "const Duration(seconds: -28).toApproximateTime(isRelativeToNow: false) => '${const Duration(seconds: -28).toApproximateTime(isRelativeToNow: false)}'");
   print(
@@ -147,7 +154,8 @@ void _unitsOfMeasurement() {
 
   final fileSize = 3417885.bytes();
   print("fileSize.toString() => '$fileSize'");
-  print("InformationSizeFormat().format(fileSize) => '${InformationSizeFormat().format(fileSize)}'");
+  print(
+      "InformationSizeFormat().format(fileSize) => '${InformationSizeFormat().format(fileSize)}'");
   print(
       "InformationSizeFormat(permissibleValueUnits: InformationUnits.siBytes).format(fileSize) => '${InformationSizeFormat(permissibleValueUnits: InformationUnits.siBytes).format(fileSize)}'");
   print(

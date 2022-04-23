@@ -20,7 +20,8 @@ import 'package:meta/meta.dart';
 /// For example, the [Length] unit of measurement uses [LengthUnit], which includes [LengthUnit.meter],
 /// [LengthUnit.inch], and many more.
 @immutable
-abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, dynamic>>
+abstract class UnitOfMeasurement<TUnit,
+        TValue extends UnitOfMeasurement<TUnit, dynamic>>
     implements Comparable<TValue> {
   /// Creates a unit of measurement value with the specified [unit] and [value].
   @protected
@@ -69,7 +70,8 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
       // Logic is counterintuitive. If the number of units for a given unit is less than the current largest units,
       // and is more than one, that means we have at least one of those units and it is larger than the currently
       // selected unit because there are fewer of them.
-      if (units >= Rationals.one && (largestUnits == null || units < largestUnits)) {
+      if (units >= Rationals.one &&
+          (largestUnits == null || units < largestUnits)) {
         largestUnit = unit;
         largestUnits = units;
       }
@@ -102,7 +104,8 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
   /// Two units of measurement values are considered equal only if they are of the same type and their [baseValue] is
   /// the same.
   @override
-  bool operator ==(Object other) => other is TValue && baseValue == other.baseValue;
+  bool operator ==(Object other) =>
+      other is TValue && baseValue == other.baseValue;
 
   @override
   int get hashCode => baseValue.hashCode;
@@ -145,7 +148,8 @@ abstract class UnitOfMeasurement<TUnit, TValue extends UnitOfMeasurement<TUnit, 
 ///
 /// A unit of measurement rate is the combination of a unit of measurement [value] and a [period] that indicates how
 /// often that value is occurring or compounding.
-abstract class UnitOfMeasurementRate<TValue extends UnitOfMeasurement<dynamic, dynamic>> {
+abstract class UnitOfMeasurementRate<
+    TValue extends UnitOfMeasurement<dynamic, dynamic>> {
   /// Creates a unit of measurement rate with the specified [value] and [period].
   const UnitOfMeasurementRate({
     required this.value,
@@ -160,7 +164,9 @@ abstract class UnitOfMeasurementRate<TValue extends UnitOfMeasurement<dynamic, d
 
   @override
   bool operator ==(Object other) =>
-      other is UnitOfMeasurementRate<TValue> && value == other.value && period == other.period;
+      other is UnitOfMeasurementRate<TValue> &&
+      value == other.value &&
+      period == other.period;
 
   @override
   int get hashCode => value.hashCode * period.hashCode;
@@ -378,12 +384,16 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
   String getUnitName(TUnit unit, String locale);
 
   /// Formats [input] according to the [pattern] and [locale] of this format.
-  String format(TValue input) => _formatWithLocale(input, locale ?? Intl.getCurrentLocale());
+  String format(TValue input) =>
+      _formatWithLocale(input, locale ?? Intl.getCurrentLocale());
 
   String _formatWithLocale(TValue input, String locale) {
     final fixedValueUnit = _nodes
-        .where((node) => node is _DynamicValueUnitNode<TUnit> || node is _FixedValueUnitNode<TUnit>)
-        .map((node) => node is _FixedValueUnitNode<TUnit> ? node.valueUnit : null)
+        .where((node) =>
+            node is _DynamicValueUnitNode<TUnit> ||
+            node is _FixedValueUnitNode<TUnit>)
+        .map((node) =>
+            node is _FixedValueUnitNode<TUnit> ? node.valueUnit : null)
         .firstWhere(
           (element) => true,
           orElse: () => null,
@@ -393,8 +403,11 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
 
     if (_supportsRateUnits) {
       final fixedRateUnit = _nodes
-          .where((node) => node is _DynamicRateUnitNode<TUnit> || node is _FixedRateUnitNode<TUnit>)
-          .map((node) => node is _FixedRateUnitNode<TUnit> ? node.rateUnit : null)
+          .where((node) =>
+              node is _DynamicRateUnitNode<TUnit> ||
+              node is _FixedRateUnitNode<TUnit>)
+          .map((node) =>
+              node is _FixedRateUnitNode<TUnit> ? node.rateUnit : null)
           .firstWhere(
             (element) => true,
             orElse: () => null,
@@ -405,15 +418,16 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
       if (rateUnit == null) {
         // Find the best rate unit to use by determining what the scaled value would be for each rate, then sorting
         // those values by how human-readable they are.
-        final preferredRatedValue = (getPermissibleRateUnits().map((supportedRateUnit) {
+        final preferredRatedValue =
+            (getPermissibleRateUnits().map((supportedRateUnit) {
           final scaled = scaleToRateUnit(input, supportedRateUnit);
           final valueUnit = fixedValueUnit ?? getLargestUnit(scaled);
           final quantity = getUnitQuantity(scaled, valueUnit);
 
           return ComparableRatedValue(quantity, supportedRateUnit);
         }).toList(growable: false)
-              ..sort())
-            .first;
+                  ..sort())
+                .first;
 
         rateUnit = preferredRatedValue.rateUnit;
       }
@@ -442,23 +456,31 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     // Given the simplicity of the syntax, we can parse directly into nodes rather than transforming to tokens first.
     final supportedValueUnits = getPermissibleValueUnits();
     final supportedRateUnits = getPermissibleRateUnits();
-    final supportedValueUnitSymbolPatternSpecifiers = Map.fromEntries(<MapEntry<String, TUnit?>>[
+    final supportedValueUnitSymbolPatternSpecifiers =
+        Map.fromEntries(<MapEntry<String, TUnit?>>[
       const MapEntry(valueUnitSymbolFormatSpecifier, null),
-      ...supportedValueUnits
-          .map((unit) => MapEntry('$valueUnitSymbolFormatSpecifier:${getPatternSpecifierFor(unit)}', unit)),
+      ...supportedValueUnits.map((unit) => MapEntry(
+          '$valueUnitSymbolFormatSpecifier:${getPatternSpecifierFor(unit)}',
+          unit)),
     ]);
-    final supportedValueUnitNamePatternSpecifiers = Map.fromEntries(<MapEntry<String, TUnit?>>[
+    final supportedValueUnitNamePatternSpecifiers =
+        Map.fromEntries(<MapEntry<String, TUnit?>>[
       const MapEntry(valueUnitNameFormatSpecifier, null),
-      ...supportedValueUnits
-          .map((unit) => MapEntry('$valueUnitNameFormatSpecifier:${getPatternSpecifierFor(unit)}', unit)),
+      ...supportedValueUnits.map((unit) => MapEntry(
+          '$valueUnitNameFormatSpecifier:${getPatternSpecifierFor(unit)}',
+          unit)),
     ]);
-    final supportedRateUnitSymbolPatternSpecifiers = Map.fromEntries(<MapEntry<String, RateUnit?>>[
+    final supportedRateUnitSymbolPatternSpecifiers =
+        Map.fromEntries(<MapEntry<String, RateUnit?>>[
       const MapEntry(rateUnitSymbolFormatSpecifier, null),
-      ...supportedRateUnits.map((unit) => MapEntry('$rateUnitSymbolFormatSpecifier:${unit.patternSpecifier}', unit)),
+      ...supportedRateUnits.map((unit) => MapEntry(
+          '$rateUnitSymbolFormatSpecifier:${unit.patternSpecifier}', unit)),
     ]);
-    final supportedRateUnitNamePatternSpecifiers = Map.fromEntries(<MapEntry<String, RateUnit?>>[
+    final supportedRateUnitNamePatternSpecifiers =
+        Map.fromEntries(<MapEntry<String, RateUnit?>>[
       const MapEntry(rateUnitNameFormatSpecifier, null),
-      ...supportedRateUnits.map((unit) => MapEntry('$rateUnitNameFormatSpecifier:${unit.patternSpecifier}', unit)),
+      ...supportedRateUnits.map((unit) => MapEntry(
+          '$rateUnitNameFormatSpecifier:${unit.patternSpecifier}', unit)),
     ]);
 
     var index = 0;
@@ -525,7 +547,8 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
       }
     }
 
-    bool isWhitespace(String ch) => ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
+    bool isWhitespace(String ch) =>
+        ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
 
     bool isNumberFormat(String ch) =>
         ch == '0' ||
@@ -556,7 +579,8 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     String parseNumberFormat() {
       final value = StringBuffer()..write(pattern[index]);
 
-      while (index < (pattern.length - 1) && isNumberFormat(pattern[index + 1])) {
+      while (
+          index < (pattern.length - 1) && isNumberFormat(pattern[index + 1])) {
         ++index;
         value.write(pattern[index]);
       }
@@ -601,19 +625,28 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
 
         if (supportedValueUnitSymbolPatternSpecifiers.containsKey(value)) {
           final unit = supportedValueUnitSymbolPatternSpecifiers[value];
-          final node = unit == null ? _DynamicValueUnitSymbolNode<TUnit>() : _FixedValueUnitSymbolNode<TUnit>(unit);
+          final node = unit == null
+              ? _DynamicValueUnitSymbolNode<TUnit>()
+              : _FixedValueUnitSymbolNode<TUnit>(unit);
           result.add(node);
         } else if (supportedValueUnitNamePatternSpecifiers.containsKey(value)) {
           final unit = supportedValueUnitNamePatternSpecifiers[value];
-          final node = unit == null ? _DynamicValueUnitNameNode<TUnit>() : _FixedValueUnitNameNode<TUnit>(unit);
+          final node = unit == null
+              ? _DynamicValueUnitNameNode<TUnit>()
+              : _FixedValueUnitNameNode<TUnit>(unit);
           result.add(node);
-        } else if (supportedRateUnitSymbolPatternSpecifiers.containsKey(value)) {
+        } else if (supportedRateUnitSymbolPatternSpecifiers
+            .containsKey(value)) {
           final unit = supportedRateUnitSymbolPatternSpecifiers[value];
-          final node = unit == null ? _DynamicRateUnitSymbolNode<TUnit>() : _FixedRateUnitSymbolNode<TUnit>(unit);
+          final node = unit == null
+              ? _DynamicRateUnitSymbolNode<TUnit>()
+              : _FixedRateUnitSymbolNode<TUnit>(unit);
           result.add(node);
         } else if (supportedRateUnitNamePatternSpecifiers.containsKey(value)) {
           final unit = supportedRateUnitNamePatternSpecifiers[value];
-          final node = unit == null ? _DynamicRateUnitNameNode<TUnit>() : _FixedRateUnitNameNode<TUnit>(unit);
+          final node = unit == null
+              ? _DynamicRateUnitNameNode<TUnit>()
+              : _FixedRateUnitNameNode<TUnit>(unit);
           result.add(node);
         } else {
           throw FormatException('Unsupported unit specifier: $value');
@@ -624,13 +657,18 @@ abstract class UnitOfMeasurementFormat<TValue, TUnit> {
     }
 
     final hasDynamicUnit = result.any((node) => node is _DynamicValueUnitNode);
-    final fixedUnits = result.whereType<_FixedValueUnitNode>().map((node) => node.valueUnit).toList();
+    final fixedUnits = result
+        .whereType<_FixedValueUnitNode>()
+        .map((node) => node.valueUnit)
+        .toList();
     final hasFixedUnits = fixedUnits.isNotEmpty;
 
     if (hasDynamicUnit && hasFixedUnits) {
-      throw const FormatException('Cannot include both dynamic and fixed units in the format string');
+      throw const FormatException(
+          'Cannot include both dynamic and fixed units in the format string');
     } else if (fixedUnits.toSet().length > 1) {
-      throw const FormatException('Cannot include more than one unique fixed unit');
+      throw const FormatException(
+          'Cannot include more than one unique fixed unit');
     }
 
     return result;
@@ -680,8 +718,8 @@ class _NumberFormatNode<TValueUnit> extends _Node<TValueUnit> {
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) {
     final numberFormat = NumberFormat(format, context.locale);
-    final result = numberFormat
-        .format(DecimalIntl(context.value.toDecimal(scaleOnInfinitePrecision: numberFormat.decimalDigits ?? 10)));
+    final result = numberFormat.format(DecimalIntl(context.value.toDecimal(
+        scaleOnInfinitePrecision: numberFormat.decimalDigits ?? 10)));
     return result;
   }
 }
@@ -690,23 +728,27 @@ abstract class _DynamicValueUnitNode<TValueUnit> extends _Node<TValueUnit> {
   const _DynamicValueUnitNode();
 }
 
-class _DynamicValueUnitSymbolNode<TValueUnit> extends _DynamicValueUnitNode<TValueUnit> {
+class _DynamicValueUnitSymbolNode<TValueUnit>
+    extends _DynamicValueUnitNode<TValueUnit> {
   const _DynamicValueUnitSymbolNode();
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.valueUnitSymbol;
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.valueUnitSymbol;
 }
 
-class _DynamicValueUnitNameNode<TValueUnit> extends _DynamicValueUnitNode<TValueUnit> {
+class _DynamicValueUnitNameNode<TValueUnit>
+    extends _DynamicValueUnitNode<TValueUnit> {
   const _DynamicValueUnitNameNode();
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.pluralizeValueUnit
-      ? context.valueUnitName.pluralizeLastWordOnly(
-          quantity: context.value,
-          locale: context.locale,
-        )
-      : context.valueUnitName;
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.pluralizeValueUnit
+          ? context.valueUnitName.pluralizeLastWordOnly(
+              quantity: context.value,
+              locale: context.locale,
+            )
+          : context.valueUnitName;
 }
 
 abstract class _FixedValueUnitNode<TValueUnit> extends _Node<TValueUnit> {
@@ -715,43 +757,51 @@ abstract class _FixedValueUnitNode<TValueUnit> extends _Node<TValueUnit> {
   final TValueUnit valueUnit;
 }
 
-class _FixedValueUnitSymbolNode<TValueUnit> extends _FixedValueUnitNode<TValueUnit> {
+class _FixedValueUnitSymbolNode<TValueUnit>
+    extends _FixedValueUnitNode<TValueUnit> {
   _FixedValueUnitSymbolNode(TValueUnit unit) : super(unit);
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.valueUnitSymbol;
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.valueUnitSymbol;
 }
 
-class _FixedValueUnitNameNode<TValueUnit> extends _FixedValueUnitNode<TValueUnit> {
+class _FixedValueUnitNameNode<TValueUnit>
+    extends _FixedValueUnitNode<TValueUnit> {
   _FixedValueUnitNameNode(TValueUnit unit) : super(unit);
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.pluralizeValueUnit
-      ? context.valueUnitName.pluralizeLastWordOnly(
-          quantity: context.value,
-          locale: context.locale,
-        )
-      : context.valueUnitName;
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.pluralizeValueUnit
+          ? context.valueUnitName.pluralizeLastWordOnly(
+              quantity: context.value,
+              locale: context.locale,
+            )
+          : context.valueUnitName;
 }
 
 abstract class _DynamicRateUnitNode<TValueUnit> extends _Node<TValueUnit> {
   const _DynamicRateUnitNode();
 }
 
-class _DynamicRateUnitSymbolNode<TValueUnit> extends _DynamicRateUnitNode<TValueUnit> {
+class _DynamicRateUnitSymbolNode<TValueUnit>
+    extends _DynamicRateUnitNode<TValueUnit> {
   const _DynamicRateUnitSymbolNode();
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.rateUnit!.getSymbol(
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.rateUnit!.getSymbol(
         locale: context.locale,
       );
 }
 
-class _DynamicRateUnitNameNode<TValueUnit> extends _DynamicRateUnitNode<TValueUnit> {
+class _DynamicRateUnitNameNode<TValueUnit>
+    extends _DynamicRateUnitNode<TValueUnit> {
   const _DynamicRateUnitNameNode();
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.rateUnit!.getName(
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.rateUnit!.getName(
         locale: context.locale,
       );
 }
@@ -762,20 +812,24 @@ abstract class _FixedRateUnitNode<TValueUnit> extends _Node<TValueUnit> {
   final RateUnit rateUnit;
 }
 
-class _FixedRateUnitSymbolNode<TValueUnit> extends _FixedRateUnitNode<TValueUnit> {
+class _FixedRateUnitSymbolNode<TValueUnit>
+    extends _FixedRateUnitNode<TValueUnit> {
   _FixedRateUnitSymbolNode(RateUnit unit) : super(unit);
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => rateUnit.getSymbol(
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      rateUnit.getSymbol(
         locale: context.locale,
       );
 }
 
-class _FixedRateUnitNameNode<TValueUnit> extends _FixedRateUnitNode<TValueUnit> {
+class _FixedRateUnitNameNode<TValueUnit>
+    extends _FixedRateUnitNode<TValueUnit> {
   _FixedRateUnitNameNode(RateUnit unit) : super(unit);
 
   @override
-  String evaluate(_NodeEvaluationContext<TValueUnit> context) => context.rateUnit!.getName(
+  String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
+      context.rateUnit!.getName(
         locale: context.locale,
       );
 }
@@ -824,13 +878,15 @@ class ComparableRatedValue implements Comparable<ComparableRatedValue> {
       final valueDecimal = value.toDecimal();
       final otherValueDecimal = other.value.toDecimal();
 
-      final comparePrecision = valueDecimal.precision.compareTo(otherValueDecimal.precision);
+      final comparePrecision =
+          valueDecimal.precision.compareTo(otherValueDecimal.precision);
 
       if (comparePrecision != 0) {
         return comparePrecision;
       }
 
-      final compareScale = valueDecimal.scale.compareTo(otherValueDecimal.scale);
+      final compareScale =
+          valueDecimal.scale.compareTo(otherValueDecimal.scale);
 
       if (compareScale != 0) {
         return compareScale;

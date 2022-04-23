@@ -4,21 +4,27 @@ import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
 
 /// A unit of measurement representing information size.
-class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize> {
+class InformationSize
+    extends UnitOfMeasurement<InformationUnit, InformationSize> {
   /// Creates an [InformationSize] given a [unit] and rational [value] for that unit.
-  InformationSize.fromUnits(InformationUnit unit, Rational value) : super.fromUnits(unit, value);
+  InformationSize.fromUnits(InformationUnit unit, Rational value)
+      : super.fromUnits(unit, value);
 
   /// Creates an [InformationSize] representing the specified number of [bits].
-  factory InformationSize.fromBits(Rational bits) => InformationSize.fromUnits(InformationUnit.bit, bits);
+  factory InformationSize.fromBits(Rational bits) =>
+      InformationSize.fromUnits(InformationUnit.bit, bits);
 
   /// Creates an [InformationSize] representing the specified number of [crumbs].
-  factory InformationSize.fromCrumbs(Rational crumbs) => InformationSize.fromUnits(InformationUnit.crumb, crumbs);
+  factory InformationSize.fromCrumbs(Rational crumbs) =>
+      InformationSize.fromUnits(InformationUnit.crumb, crumbs);
 
   /// Creates an [InformationSize] representing the specified number of [nibbles].
-  factory InformationSize.fromNibbles(Rational nibbles) => InformationSize.fromUnits(InformationUnit.nibble, nibbles);
+  factory InformationSize.fromNibbles(Rational nibbles) =>
+      InformationSize.fromUnits(InformationUnit.nibble, nibbles);
 
   /// Creates an [InformationSize] representing the specified number of [bytes].
-  factory InformationSize.fromBytes(Rational bytes) => InformationSize.fromUnits(InformationUnit.byte, bytes);
+  factory InformationSize.fromBytes(Rational bytes) =>
+      InformationSize.fromUnits(InformationUnit.byte, bytes);
 
   /// Creates an [InformationSize] representing the specified number of [kilobits].
   factory InformationSize.fromKilobits(Rational kilobits) =>
@@ -101,7 +107,8 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
       InformationSize.fromUnits(InformationUnit.pebibyte, pebibytes);
 
   /// Creates an [InformationSize] representing the specified number of [exabits].
-  factory InformationSize.fromExabits(Rational exabits) => InformationSize.fromUnits(InformationUnit.exabit, exabits);
+  factory InformationSize.fromExabits(Rational exabits) =>
+      InformationSize.fromUnits(InformationUnit.exabit, exabits);
 
   /// Creates an [InformationSize] representing the specified number of [exbibits].
   factory InformationSize.fromExbibits(Rational exbibits) =>
@@ -274,11 +281,13 @@ class InformationSize extends UnitOfMeasurement<InformationUnit, InformationSize
 
   @override
   @protected
-  InformationSize createValue(Rational baseValue) => InformationSize.fromBytes(baseValue);
+  InformationSize createValue(Rational baseValue) =>
+      InformationSize.fromBytes(baseValue);
 
   @override
   @protected
-  Rational getBaseValue(InformationUnit unit, Rational value) => value * unit._byteCount;
+  Rational getBaseValue(InformationUnit unit, Rational value) =>
+      value * unit._byteCount;
 }
 
 /// Defines supported units of information.
@@ -826,7 +835,8 @@ class InformationRate extends UnitOfMeasurementRate<InformationSize> {
 /// * [UnitOfMeasurementFormat]
 class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
   InformationSizeFormat({
-    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
     String? locale,
   }) : super._(
@@ -841,7 +851,8 @@ class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
       input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(InformationSize input, InformationUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(InformationSize input, InformationUnit unit) =>
+      input.getUnits(unit);
 
   @override
   InformationSize scaleToRateUnit(InformationSize input, RateUnit rateUnit) =>
@@ -891,18 +902,22 @@ class InformationRateFormat extends _BaseInformationFormat<InformationRate> {
       input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(InformationRate input, InformationUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(InformationRate input, InformationUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   InformationRate scaleToRateUnit(InformationRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
-    final result = InformationSize.fromBytes(input.value.bytes * scale).per(scaledPeriod);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) /
+        Rational.fromInt(input.period.inMicroseconds);
+    final result =
+        InformationSize.fromBytes(input.value.bytes * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseInformationFormat<TInput> extends UnitOfMeasurementFormat<TInput, InformationUnit> {
+abstract class _BaseInformationFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, InformationUnit> {
   _BaseInformationFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -917,7 +932,8 @@ abstract class _BaseInformationFormat<TInput> extends UnitOfMeasurementFormat<TI
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(InformationUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(InformationUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -926,8 +942,10 @@ abstract class _BaseInformationFormat<TInput> extends UnitOfMeasurementFormat<TI
   Set<InformationUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(InformationUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(InformationUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(InformationUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(InformationUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

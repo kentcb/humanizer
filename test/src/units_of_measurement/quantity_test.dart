@@ -88,8 +88,14 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Quantity.fromOnes(Rational.fromInt(30)).per(const Duration(seconds: 1)), expected: '30/s');
-      verify(value: Quantity.fromThousands(Rational.fromInt(15)).per(const Duration(minutes: 1)), expected: '15K/min');
+      verify(
+          value: Quantity.fromOnes(Rational.fromInt(30))
+              .per(const Duration(seconds: 1)),
+          expected: '30/s');
+      verify(
+          value: Quantity.fromThousands(Rational.fromInt(15))
+              .per(const Duration(minutes: 1)),
+          expected: '15K/min');
     });
   });
 }

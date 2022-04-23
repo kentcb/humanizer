@@ -7,22 +7,28 @@ import 'package:meta/meta.dart';
 /// means it is a quantity that has no corresponding physical dimension associated with it.
 class Quantity extends UnitOfMeasurement<QuantityUnit, Quantity> {
   /// Creates a [Quantity] given a [unit] and rational [value] for that unit.
-  Quantity.fromUnits(QuantityUnit unit, Rational value) : super.fromUnits(unit, value);
+  Quantity.fromUnits(QuantityUnit unit, Rational value)
+      : super.fromUnits(unit, value);
 
   /// Creates a [Quantity] representing the specified number of [ones].
-  factory Quantity.fromOnes(Rational ones) => Quantity.fromUnits(QuantityUnit.one, ones);
+  factory Quantity.fromOnes(Rational ones) =>
+      Quantity.fromUnits(QuantityUnit.one, ones);
 
   /// Creates a [Quantity] representing the specified number of [thousands].
-  factory Quantity.fromThousands(Rational thousands) => Quantity.fromUnits(QuantityUnit.thousand, thousands);
+  factory Quantity.fromThousands(Rational thousands) =>
+      Quantity.fromUnits(QuantityUnit.thousand, thousands);
 
   /// Creates a [Quantity] representing the specified number of [millions].
-  factory Quantity.fromMillions(Rational millions) => Quantity.fromUnits(QuantityUnit.million, millions);
+  factory Quantity.fromMillions(Rational millions) =>
+      Quantity.fromUnits(QuantityUnit.million, millions);
 
   /// Creates a [Quantity] representing the specified number of [billions].
-  factory Quantity.fromBillions(Rational billions) => Quantity.fromUnits(QuantityUnit.billion, billions);
+  factory Quantity.fromBillions(Rational billions) =>
+      Quantity.fromUnits(QuantityUnit.billion, billions);
 
   /// Creates a [Quantity] representing the specified number of [trillions].
-  factory Quantity.fromTrillions(Rational trillions) => Quantity.fromUnits(QuantityUnit.trillion, trillions);
+  factory Quantity.fromTrillions(Rational trillions) =>
+      Quantity.fromUnits(QuantityUnit.trillion, trillions);
 
   /// A [Quantity] of zero.
   static final zero = Quantity.fromOnes(Rational.zero);
@@ -62,7 +68,8 @@ class Quantity extends UnitOfMeasurement<QuantityUnit, Quantity> {
 
   @override
   @protected
-  Rational getBaseValue(QuantityUnit unit, Rational value) => value * unit._unitCount;
+  Rational getBaseValue(QuantityUnit unit, Rational value) =>
+      value * unit._unitCount;
 }
 
 /// Defines supported units for dimensionless quantities.
@@ -203,7 +210,8 @@ class QuantityRate extends UnitOfMeasurementRate<Quantity> {
 /// * [UnitOfMeasurementFormat]
 class QuantityFormat extends _BaseQuantityFormat<Quantity> {
   QuantityFormat({
-    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<QuantityUnit> permissibleValueUnits = QuantityUnits.all,
     String? locale,
   }) : super._(
@@ -217,10 +225,12 @@ class QuantityFormat extends _BaseQuantityFormat<Quantity> {
   bool pluralizeValueUnits(String locale) => false;
 
   @override
-  QuantityUnit getLargestUnit(Quantity input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  QuantityUnit getLargestUnit(Quantity input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(Quantity input, QuantityUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Quantity input, QuantityUnit unit) =>
+      input.getUnits(unit);
 
   @override
   Quantity scaleToRateUnit(Quantity input, RateUnit rateUnit) =>
@@ -270,18 +280,22 @@ class QuantityRateFormat extends _BaseQuantityFormat<QuantityRate> {
       input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(QuantityRate input, QuantityUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(QuantityRate input, QuantityUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   QuantityRate scaleToRateUnit(QuantityRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
-    final result = Quantity.fromOnes(input.value.ones * scale).per(scaledPeriod);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) /
+        Rational.fromInt(input.period.inMicroseconds);
+    final result =
+        Quantity.fromOnes(input.value.ones * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseQuantityFormat<TInput> extends UnitOfMeasurementFormat<TInput, QuantityUnit> {
+abstract class _BaseQuantityFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, QuantityUnit> {
   _BaseQuantityFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -296,7 +310,8 @@ abstract class _BaseQuantityFormat<TInput> extends UnitOfMeasurementFormat<TInpu
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(QuantityUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(QuantityUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -305,8 +320,10 @@ abstract class _BaseQuantityFormat<TInput> extends UnitOfMeasurementFormat<TInpu
   Set<QuantityUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(QuantityUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(QuantityUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(QuantityUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(QuantityUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

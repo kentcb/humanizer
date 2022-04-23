@@ -164,7 +164,10 @@ class _PluralizationRules {
     final singularAsPlural = _applyRules(singular, _pluralRules);
 
     // Figure out whether we actually started with plural form and, if so, return that.
-    if (singular != word && '${singular}s' != word && singularAsPlural == word && result != word) {
+    if (singular != word &&
+        '${singular}s' != word &&
+        singularAsPlural == word &&
+        result != word) {
       return word;
     }
 
@@ -190,14 +193,18 @@ class _PluralizationRules {
     final pluralAsSingular = _applyRules(plural, _singularRules);
 
     // Figure out whether we actually started with singular form and, if so, return that.
-    if (plural != word && '${word}s' != plural && pluralAsSingular == word && result != word) {
+    if (plural != word &&
+        '${word}s' != plural &&
+        pluralAsSingular == word &&
+        result != word) {
       return word;
     }
 
     return result;
   }
 
-  bool _isUncountable(String word) => _uncountables.contains(word.toLowerCase());
+  bool _isUncountable(String word) =>
+      _uncountables.contains(word.toLowerCase());
 
   String _applyRules(String word, Iterable<_PluralizationRule> rules) {
     final trimmedWord = word.trim();
@@ -250,26 +257,29 @@ typedef _ReplaceMatch = String Function(Match match);
 
 final _replacementsExpression = RegExp(r'\$(\d+)');
 
-_ReplaceMatch _getReplaceMatch(String pattern) => (match) => pattern.replaceAllMapped(_replacementsExpression, (m) {
-      final groupNumber = int.parse(m[1]!);
-      final result = match[groupNumber] ?? '';
-      return result;
-    });
+_ReplaceMatch _getReplaceMatch(String pattern) =>
+    (match) => pattern.replaceAllMapped(_replacementsExpression, (m) {
+          final groupNumber = int.parse(m[1]!);
+          final result = match[groupNumber] ?? '';
+          return result;
+        });
 
 _PluralizationRules _createEnglishPluralizationRules() {
   final result = _PluralizationRules();
 
-  _irregularWordsWithMatchEnding.forEach((singular, plural) => result.addIrregularRule(
-        singular: singular,
-        plural: plural,
-        matchEnding: true,
-      ));
+  _irregularWordsWithMatchEnding
+      .forEach((singular, plural) => result.addIrregularRule(
+            singular: singular,
+            plural: plural,
+            matchEnding: true,
+          ));
 
-  _irregularWordsWithoutMatchEnding.forEach((singular, plural) => result.addIrregularRule(
-        singular: singular,
-        plural: plural,
-        matchEnding: false,
-      ));
+  _irregularWordsWithoutMatchEnding
+      .forEach((singular, plural) => result.addIrregularRule(
+            singular: singular,
+            plural: plural,
+            matchEnding: false,
+          ));
 
   _pluralRules.forEach((pattern, replacement) => result.addPluralRule(
         pattern: RegExp(
@@ -293,7 +303,8 @@ _PluralizationRules _createEnglishPluralizationRules() {
 }
 
 final _pluralRules = <String, String>{
-  r'(apheli|hyperbat|periheli|asyndet|noumen|phenomen|criteri|organ|prolegomen|hedr|automat)(?:a|on)\b': r'$1a',
+  r'(apheli|hyperbat|periheli|asyndet|noumen|phenomen|criteri|organ|prolegomen|hedr|automat)(?:a|on)\b':
+      r'$1a',
   r'(alumn|alg|larv|vertebr)a\b': r'$1ae',
   r'(hoo|lea|loa|thie)f\b': r'$1ves',
   r'(buz|blit|walt)z\b': r'$1zes',
@@ -307,7 +318,8 @@ final _pluralRules = <String, String>{
   r'sis\b': 'ses',
   r'([dti])um\b': r'$1a',
   r'(buffal|tomat|volcan|ech|embarg|her|mosquit|potat|torped|vet)o\b': r'$1oes',
-  r'(alias|bias|hippopotamus|octopus|iris|status|campus|apparatus|virus|walrus|trellis)\b': r'$1es',
+  r'(alias|bias|hippopotamus|octopus|iris|status|campus|apparatus|virus|walrus|trellis)\b':
+      r'$1es',
   r'(vir|alumn|fung|cact|foc|radi|stimul|syllab|nucle)us\b': r'$1i',
   r'(ax|test)is\b': r'$1es',
   r'(seraph|cherub)(?:im)?\b': r'$1im',
@@ -323,7 +335,8 @@ final _singularRules = <String, String>{
   r'(quiz)zes\b': r'$1',
   r'(vert|ind)ices\b': r'$1ex',
   r'(matr|d)ices\b': r'$1ix',
-  r'(alias|bias|hippopotamus|octopus|iris|status|campus|apparatus|virus|walrus|trellis)es\b': r'$1',
+  r'(alias|bias|hippopotamus|octopus|iris|status|campus|apparatus|virus|walrus|trellis)es\b':
+      r'$1',
   r'(vir|alumn|fung|cact|foc|radi|stimul|syllab|nucle)i\b': r'$1us',
   r'(cris|ax|test)es\b': r'$1is',
   r'(shoe)s\b': r'$1',
@@ -337,7 +350,8 @@ final _singularRules = <String, String>{
   r'(tive)s\b': r'$1',
   r'(hive)s\b': r'$1',
   r'(wi|kni|(?:after|half|high|low|mid|non|night|[^\w]|^)li)ves\b': r'$1fe',
-  r'(analy|ba|diagno|parenthe|progno|synop|the|ellip|empha|neuro|oa|paraly)ses\b': r'$1sis',
+  r'(analy|ba|diagno|parenthe|progno|synop|the|ellip|empha|neuro|oa|paraly)ses\b':
+      r'$1sis',
   r'([dti])a\b': r'$1um',
   r'(n)ews\b': r'$1ews',
   r'(seraph|cherub)im\b': r'$1',

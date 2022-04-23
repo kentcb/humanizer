@@ -28,7 +28,9 @@ void _toString() {
 
       verify(value: Weight.fromKilograms(Rational.fromInt(3)), expected: '3kg');
       verify(value: Weight.fromTonnes(Rational.fromInt(3)), expected: '3t');
-      verify(value: Weight.fromKilograms(Rational.fromInt(8127161, 10000)), expected: '812.72kg');
+      verify(
+          value: Weight.fromKilograms(Rational.fromInt(8127161, 10000)),
+          expected: '812.72kg');
     });
 
     test('WeightRate toString formats using defaults', () {
@@ -38,8 +40,14 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Weight.fromKilograms(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '30kg/min');
-      verify(value: Weight.fromKilograms(Rationals.tenth).per(const Duration(minutes: 1)), expected: '6kg/hr');
+      verify(
+          value: Weight.fromKilograms(Rational.fromInt(30))
+              .per(const Duration(minutes: 1)),
+          expected: '30kg/min');
+      verify(
+          value: Weight.fromKilograms(Rationals.tenth)
+              .per(const Duration(minutes: 1)),
+          expected: '6kg/hr');
     });
   });
 }

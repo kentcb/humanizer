@@ -215,7 +215,8 @@ void _ordinalWords() {
       verifyTransform(input: 123, expected: 'hundred and twenty-third');
       verifyTransform(
         input: 13238189,
-        expected: 'thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
+        expected:
+            'thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
       );
     });
 
@@ -254,10 +255,12 @@ void _ordinalWords() {
       verifyTransform(input: -103, expected: 'negative hundred and third');
       verifyTransform(input: -105, expected: 'negative hundred and fifth');
       verifyTransform(input: -111, expected: 'negative hundred and eleventh');
-      verifyTransform(input: -123, expected: 'negative hundred and twenty-third');
+      verifyTransform(
+          input: -123, expected: 'negative hundred and twenty-third');
       verifyTransform(
         input: -13238189,
-        expected: 'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
+        expected:
+            'negative thirteen million two hundred and thirty-eight thousand one hundred and eighty-ninth',
       );
     });
   });

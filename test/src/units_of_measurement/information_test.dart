@@ -26,9 +26,16 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: InformationSize.fromBytes(Rational.fromInt(3)), expected: '3B');
-      verify(value: InformationSize.fromKibibytes(Rational.fromInt(3)), expected: '3KiB');
-      verify(value: InformationSize.fromMegabytes(Rational.fromInt(8127161, 10000)), expected: '775.07MiB');
+      verify(
+          value: InformationSize.fromBytes(Rational.fromInt(3)),
+          expected: '3B');
+      verify(
+          value: InformationSize.fromKibibytes(Rational.fromInt(3)),
+          expected: '3KiB');
+      verify(
+          value:
+              InformationSize.fromMegabytes(Rational.fromInt(8127161, 10000)),
+          expected: '775.07MiB');
     });
 
     test('InformationRate toString formats using defaults', () {
@@ -39,9 +46,13 @@ void _toString() {
           expect(value.toString(), expected);
 
       verify(
-          value: InformationSize.fromBytes(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '30B/min');
+          value: InformationSize.fromBytes(Rational.fromInt(30))
+              .per(const Duration(minutes: 1)),
+          expected: '30B/min');
       verify(
-          value: InformationSize.fromKibibytes(Rationals.tenth).per(const Duration(minutes: 1)), expected: '6KiB/hr');
+          value: InformationSize.fromKibibytes(Rationals.tenth)
+              .per(const Duration(minutes: 1)),
+          expected: '6KiB/hr');
     });
   });
 }
