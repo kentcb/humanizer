@@ -128,8 +128,10 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
     _Sign sign,
     String locale,
   ) {
-    final primaryUnit = time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
-    final secondaryUnit = granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
+    final primaryUnit =
+        time.getLargestUnit(permissibleUnits: _supportedTimeUnits);
+    final secondaryUnit =
+        granularity == Granularity.primaryUnit ? null : primaryUnit.nextSmaller;
 
     final primaryValue = time.getUnits(primaryUnit);
     var truncatedPrimaryValue = primaryValue.toBigInt();
@@ -137,7 +139,8 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
     String? secondaryQuantifierText;
 
     if (secondaryUnit != null) {
-      final remainingTime = time - Time.fromUnits(primaryUnit, Rational(truncatedPrimaryValue));
+      final remainingTime =
+          time - Time.fromUnits(primaryUnit, Rational(truncatedPrimaryValue));
       final secondaryValue = remainingTime.getUnits(secondaryUnit);
       truncatedSecondaryValue = secondaryValue.toBigInt();
       final fraction = primaryValue - Rational(primaryValue.truncate());
@@ -155,7 +158,8 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
         }
       }
 
-      if (secondaryQuantifier == _SecondaryQuantifier.under || secondaryQuantifier == _SecondaryQuantifier.justUnder) {
+      if (secondaryQuantifier == _SecondaryQuantifier.under ||
+          secondaryQuantifier == _SecondaryQuantifier.justUnder) {
         // If the secondary value is close enough to the next primary value, we increment the primary value so that
         // things read correctly.
         truncatedPrimaryValue += BigInt.one;
@@ -166,7 +170,9 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
 
     if (!isRelativeToNow && time == Time.zero) {
       return 'zero';
-    } else if (isRelativeToNow && primaryUnit == TimeUnit.second && truncatedPrimaryValue == BigInt.zero) {
+    } else if (isRelativeToNow &&
+        primaryUnit == TimeUnit.second &&
+        truncatedPrimaryValue == BigInt.zero) {
       return 'now';
     } else if (isRelativeToNow &&
         primaryUnit == TimeUnit.day &&
@@ -174,11 +180,12 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
         (truncatedSecondaryValue ?? 0) == 0) {
       return sign == _Sign.negative ? 'yesterday' : 'tomorrow';
     } else {
-      final primaryUnitName = primaryUnit.getName(locale: locale).toPluralFormForQuantity(
-            quantity: truncatedPrimaryValue.toInt(),
-            includeQuantity: false,
-            locale: locale,
-          );
+      final primaryUnitName =
+          primaryUnit.getName(locale: locale).toPluralFormForQuantity(
+                quantity: truncatedPrimaryValue.toInt(),
+                includeQuantity: false,
+                locale: locale,
+              );
 
       return <String>[
         if (secondaryQuantifierText != null) secondaryQuantifierText,

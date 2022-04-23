@@ -52,8 +52,11 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Temperature.fromCelsius(Rational.fromInt(3)), expected: '3°C');
-      verify(value: Temperature.fromFahrenheit(Rational.fromInt(8127161, 10000)), expected: '433.73°C');
+      verify(
+          value: Temperature.fromCelsius(Rational.fromInt(3)), expected: '3°C');
+      verify(
+          value: Temperature.fromFahrenheit(Rational.fromInt(8127161, 10000)),
+          expected: '433.73°C');
     });
 
     test('TemperatureRate toString formats using defaults', () {
@@ -64,9 +67,13 @@ void _toString() {
           expect(value.toString(), expected);
 
       verify(
-          value: Temperature.fromCelsius(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '30°C/min');
+          value: Temperature.fromCelsius(Rational.fromInt(30))
+              .per(const Duration(minutes: 1)),
+          expected: '30°C/min');
       verify(
-          value: Temperature.fromFahrenheit(Rationals.tenth).per(const Duration(minutes: 1)), expected: '-17.72°C/min');
+          value: Temperature.fromFahrenheit(Rationals.tenth)
+              .per(const Duration(minutes: 1)),
+          expected: '-17.72°C/min');
     });
   });
 }

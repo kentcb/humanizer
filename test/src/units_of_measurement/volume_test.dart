@@ -26,9 +26,14 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Volume.fromCubicMeters(Rational.fromInt(3)), expected: '3000L');
-      verify(value: Volume.fromMilliliters(Rational.fromInt(3)), expected: '3mL');
-      verify(value: Volume.fromCubicMeters(Rational.fromInt(81271615, 100000)), expected: '812716.15L');
+      verify(
+          value: Volume.fromCubicMeters(Rational.fromInt(3)),
+          expected: '3000L');
+      verify(
+          value: Volume.fromMilliliters(Rational.fromInt(3)), expected: '3mL');
+      verify(
+          value: Volume.fromCubicMeters(Rational.fromInt(81271615, 100000)),
+          expected: '812716.15L');
     });
 
     test('VolumeRate toString formats using defaults', () {
@@ -38,8 +43,14 @@ void _toString() {
       }) =>
           expect(value.toString(), expected);
 
-      verify(value: Volume.fromCubicMeters(Rational.fromInt(30)).per(const Duration(minutes: 1)), expected: '500L/s');
-      verify(value: Volume.fromCubicMeters(Rationals.tenth).per(const Duration(minutes: 1)), expected: '100L/min');
+      verify(
+          value: Volume.fromCubicMeters(Rational.fromInt(30))
+              .per(const Duration(minutes: 1)),
+          expected: '500L/s');
+      verify(
+          value: Volume.fromCubicMeters(Rationals.tenth)
+              .per(const Duration(minutes: 1)),
+          expected: '100L/min');
     });
   });
 }

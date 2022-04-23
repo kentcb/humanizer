@@ -17,7 +17,8 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
       Area.fromUnits(AreaUnit.squareMicrometer, squareMicrometers);
 
   /// Creates an [Area] representing the specified number of [squareThous].
-  factory Area.fromSquareThous(Rational squareThous) => Area.fromUnits(AreaUnit.squareThou, squareThous);
+  factory Area.fromSquareThous(Rational squareThous) =>
+      Area.fromUnits(AreaUnit.squareThou, squareThous);
 
   /// Creates an [Area] representing the specified number of [squareMillimeters].
   factory Area.fromSquareMillimeters(Rational squareMillimeters) =>
@@ -28,37 +29,44 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
       Area.fromUnits(AreaUnit.squareCentimeter, squareCentimeters);
 
   /// Creates an [Area] representing the specified number of [squareInches].
-  factory Area.fromSquareInches(Rational squareInches) => Area.fromUnits(AreaUnit.squareInch, squareInches);
+  factory Area.fromSquareInches(Rational squareInches) =>
+      Area.fromUnits(AreaUnit.squareInch, squareInches);
 
   /// Creates an [Area] representing the specified number of [squareDecimeters].
   factory Area.fromSquareDecimeters(Rational squareDecimeters) =>
       Area.fromUnits(AreaUnit.squareDecimeter, squareDecimeters);
 
   /// Creates an [Area] representing the specified number of [squareFeet].
-  factory Area.fromSquareFeet(Rational squareFeet) => Area.fromUnits(AreaUnit.squareFoot, squareFeet);
+  factory Area.fromSquareFeet(Rational squareFeet) =>
+      Area.fromUnits(AreaUnit.squareFoot, squareFeet);
 
   /// Creates an [Area] representing the specified number of [squareYards].
-  factory Area.fromSquareYards(Rational squareYards) => Area.fromUnits(AreaUnit.squareYard, squareYards);
+  factory Area.fromSquareYards(Rational squareYards) =>
+      Area.fromUnits(AreaUnit.squareYard, squareYards);
 
   /// Creates an [Area] representing the specified number of [squareMeters].
-  factory Area.fromSquareMeters(Rational squareMeters) => Area.fromUnits(AreaUnit.squareMeter, squareMeters);
+  factory Area.fromSquareMeters(Rational squareMeters) =>
+      Area.fromUnits(AreaUnit.squareMeter, squareMeters);
 
   /// Creates an [Area] representing the specified number of [squareDecameters].
   factory Area.fromSquareDecameters(Rational squareDecameters) =>
       Area.fromUnits(AreaUnit.squareDecameter, squareDecameters);
 
   /// Creates an [Area] representing the specified number of [acres].
-  factory Area.fromAcres(Rational acres) => Area.fromUnits(AreaUnit.acre, acres);
+  factory Area.fromAcres(Rational acres) =>
+      Area.fromUnits(AreaUnit.acre, acres);
 
   /// Creates an [Area] representing the specified number of [hectares].
-  factory Area.fromHectares(Rational hectares) => Area.fromUnits(AreaUnit.hectare, hectares);
+  factory Area.fromHectares(Rational hectares) =>
+      Area.fromUnits(AreaUnit.hectare, hectares);
 
   /// Creates an [Area] representing the specified number of [squareKilometers].
   factory Area.fromSquareKilometers(Rational squareKilometers) =>
       Area.fromUnits(AreaUnit.squareKilometer, squareKilometers);
 
   /// Creates an [Area] representing the specified number of [squareMiles].
-  factory Area.fromSquareMiles(Rational squareMiles) => Area.fromUnits(AreaUnit.squareMile, squareMiles);
+  factory Area.fromSquareMiles(Rational squareMiles) =>
+      Area.fromUnits(AreaUnit.squareMile, squareMiles);
 
   /// Creates an [Area] representing the specified number of [squareMegameters].
   factory Area.fromSquareMegameters(Rational squareMegameters) =>
@@ -142,7 +150,8 @@ class Area extends UnitOfMeasurement<AreaUnit, Area> {
 
   @override
   @protected
-  Rational getBaseValue(AreaUnit unit, Rational value) => value * unit._squareMeterCount;
+  Rational getBaseValue(AreaUnit unit, Rational value) =>
+      value * unit._squareMeterCount;
 }
 
 /// Defines supported units of area.
@@ -468,7 +477,8 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
 /// * [UnitOfMeasurementFormat]
 class AreaFormat extends _BaseAreaFormat<Area> {
   AreaFormat({
-    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
     String? locale,
   }) : super._(
@@ -479,13 +489,15 @@ class AreaFormat extends _BaseAreaFormat<Area> {
         );
 
   @override
-  AreaUnit getLargestUnit(Area input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  AreaUnit getLargestUnit(Area input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
   Rational getUnitQuantity(Area input, AreaUnit unit) => input.getUnits(unit);
 
   @override
-  Area scaleToRateUnit(Area input, RateUnit rateUnit) => throw UnsupportedError('Cannot scale Area to a RateUnit');
+  Area scaleToRateUnit(Area input, RateUnit rateUnit) =>
+      throw UnsupportedError('Cannot scale Area to a RateUnit');
 }
 
 /// Allows an [AreaRate] to be formatted.
@@ -523,21 +535,26 @@ class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
         );
 
   @override
-  AreaUnit getLargestUnit(AreaRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  AreaUnit getLargestUnit(AreaRate input) =>
+      input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(AreaRate input, AreaUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(AreaRate input, AreaUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   AreaRate scaleToRateUnit(AreaRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
-    final result = Area.fromSquareMeters(input.value.squareMeters * scale).per(scaledPeriod);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) /
+        Rational.fromInt(input.period.inMicroseconds);
+    final result = Area.fromSquareMeters(input.value.squareMeters * scale)
+        .per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseAreaFormat<TInput> extends UnitOfMeasurementFormat<TInput, AreaUnit> {
+abstract class _BaseAreaFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, AreaUnit> {
   _BaseAreaFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -552,7 +569,8 @@ abstract class _BaseAreaFormat<TInput> extends UnitOfMeasurementFormat<TInput, A
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(AreaUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(AreaUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -561,8 +579,10 @@ abstract class _BaseAreaFormat<TInput> extends UnitOfMeasurementFormat<TInput, A
   Set<AreaUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(AreaUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(AreaUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(AreaUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(AreaUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

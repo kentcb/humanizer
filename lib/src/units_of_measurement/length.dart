@@ -6,55 +6,72 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
   /// Creates a [Length] given a [unit] and rational [value] for that unit.
-  Length.fromUnits(LengthUnit unit, Rational value) : super.fromUnits(unit, value);
+  Length.fromUnits(LengthUnit unit, Rational value)
+      : super.fromUnits(unit, value);
 
   /// Creates a [Length] representing the specified number of [nanometers].
-  factory Length.fromNanometers(Rational nanometers) => Length.fromUnits(LengthUnit.nanometer, nanometers);
+  factory Length.fromNanometers(Rational nanometers) =>
+      Length.fromUnits(LengthUnit.nanometer, nanometers);
 
   /// Creates a [Length] representing the specified number of [micrometers].
-  factory Length.fromMicrometers(Rational micrometers) => Length.fromUnits(LengthUnit.micrometer, micrometers);
+  factory Length.fromMicrometers(Rational micrometers) =>
+      Length.fromUnits(LengthUnit.micrometer, micrometers);
 
   /// Creates a [Length] representing the specified number of [thous].
-  factory Length.fromThous(Rational thous) => Length.fromUnits(LengthUnit.thou, thous);
+  factory Length.fromThous(Rational thous) =>
+      Length.fromUnits(LengthUnit.thou, thous);
 
   /// Creates a [Length] representing the specified number of [millimeters].
-  factory Length.fromMillimeters(Rational millimeters) => Length.fromUnits(LengthUnit.millimeter, millimeters);
+  factory Length.fromMillimeters(Rational millimeters) =>
+      Length.fromUnits(LengthUnit.millimeter, millimeters);
 
   /// Creates a [Length] representing the specified number of [centimeters].
-  factory Length.fromCentimeters(Rational centimeters) => Length.fromUnits(LengthUnit.centimeter, centimeters);
+  factory Length.fromCentimeters(Rational centimeters) =>
+      Length.fromUnits(LengthUnit.centimeter, centimeters);
 
   /// Creates a [Length] representing the specified number of [inches].
-  factory Length.fromInches(Rational inches) => Length.fromUnits(LengthUnit.inch, inches);
+  factory Length.fromInches(Rational inches) =>
+      Length.fromUnits(LengthUnit.inch, inches);
 
   /// Creates a [Length] representing the specified number of [decimeters].
-  factory Length.fromDecimeters(Rational decimeters) => Length.fromUnits(LengthUnit.decimeter, decimeters);
+  factory Length.fromDecimeters(Rational decimeters) =>
+      Length.fromUnits(LengthUnit.decimeter, decimeters);
 
   /// Creates a [Length] representing the specified number of [feet].
-  factory Length.fromFeet(Rational feet) => Length.fromUnits(LengthUnit.foot, feet);
+  factory Length.fromFeet(Rational feet) =>
+      Length.fromUnits(LengthUnit.foot, feet);
 
   /// Creates a [Length] representing the specified number of [yards].
-  factory Length.fromYards(Rational yards) => Length.fromUnits(LengthUnit.yard, yards);
+  factory Length.fromYards(Rational yards) =>
+      Length.fromUnits(LengthUnit.yard, yards);
 
   /// Creates a [Length] representing the specified number of [meters].
-  factory Length.fromMeters(Rational meters) => Length.fromUnits(LengthUnit.meter, meters);
+  factory Length.fromMeters(Rational meters) =>
+      Length.fromUnits(LengthUnit.meter, meters);
 
   /// Creates a [Length] representing the specified number of [decameters].
-  factory Length.fromDecameters(Rational decameters) => Length.fromUnits(LengthUnit.decameter, decameters);
+  factory Length.fromDecameters(Rational decameters) =>
+      Length.fromUnits(LengthUnit.decameter, decameters);
 
   /// Creates a [Length] representing the specified number of [hectometers].
-  factory Length.fromHectometers(Rational hectometers) => Length.fromUnits(LengthUnit.hectometer, hectometers);
+  factory Length.fromHectometers(Rational hectometers) =>
+      Length.fromUnits(LengthUnit.hectometer, hectometers);
 
   /// Creates a [Length] representing the specified number of [kilometers].
-  factory Length.fromKilometers(Rational kilometers) => Length.fromUnits(LengthUnit.kilometer, kilometers);
+  factory Length.fromKilometers(Rational kilometers) =>
+      Length.fromUnits(LengthUnit.kilometer, kilometers);
 
   /// Creates a [Length] representing the specified number of [miles].
-  factory Length.fromMiles(Rational miles) => Length.fromUnits(LengthUnit.mile, miles);
+  factory Length.fromMiles(Rational miles) =>
+      Length.fromUnits(LengthUnit.mile, miles);
 
   /// Creates a [Length] representing the specified number of [megameters].
-  factory Length.fromMegameters(Rational megameters) => Length.fromUnits(LengthUnit.megameter, megameters);
+  factory Length.fromMegameters(Rational megameters) =>
+      Length.fromUnits(LengthUnit.megameter, megameters);
 
   /// Creates a [Length] representing the specified number of [gigameters].
-  factory Length.fromGigameters(Rational gigameters) => Length.fromUnits(LengthUnit.gigameter, gigameters);
+  factory Length.fromGigameters(Rational gigameters) =>
+      Length.fromUnits(LengthUnit.gigameter, gigameters);
 
   /// A [Length] of size zero.
   static final zero = Length.fromNanometers(Rationals.zero);
@@ -127,7 +144,8 @@ class Length extends UnitOfMeasurement<LengthUnit, Length> {
 
   @override
   @protected
-  Rational getBaseValue(LengthUnit unit, Rational value) => value * unit._meterCount;
+  Rational getBaseValue(LengthUnit unit, Rational value) =>
+      value * unit._meterCount;
 }
 
 /// Defines supported units of length.
@@ -439,7 +457,8 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
 /// * [UnitOfMeasurementFormat]
 class LengthFormat extends _BaseLengthFormat<Length> {
   LengthFormat({
-    String pattern = '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
+    String pattern =
+        '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
     Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
     String? locale,
   }) : super._(
@@ -450,10 +469,12 @@ class LengthFormat extends _BaseLengthFormat<Length> {
         );
 
   @override
-  LengthUnit getLargestUnit(Length input) => input.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  LengthUnit getLargestUnit(Length input) =>
+      input.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(Length input, LengthUnit unit) => input.getUnits(unit);
+  Rational getUnitQuantity(Length input, LengthUnit unit) =>
+      input.getUnits(unit);
 
   @override
   Length scaleToRateUnit(Length input, RateUnit rateUnit) =>
@@ -498,21 +519,26 @@ class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
         );
 
   @override
-  LengthUnit getLargestUnit(LengthRate input) => input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
+  LengthUnit getLargestUnit(LengthRate input) =>
+      input.value.getLargestUnit(permissibleUnits: permissibleValueUnits);
 
   @override
-  Rational getUnitQuantity(LengthRate input, LengthUnit unit) => input.value.getUnits(unit);
+  Rational getUnitQuantity(LengthRate input, LengthUnit unit) =>
+      input.value.getUnits(unit);
 
   @override
   LengthRate scaleToRateUnit(LengthRate input, RateUnit rateUnit) {
     final scaledPeriod = rateUnit.duration;
-    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) / Rational.fromInt(input.period.inMicroseconds);
-    final result = Length.fromMeters(input.value.meters * scale).per(scaledPeriod);
+    final scale = Rational.fromInt(scaledPeriod.inMicroseconds) /
+        Rational.fromInt(input.period.inMicroseconds);
+    final result =
+        Length.fromMeters(input.value.meters * scale).per(scaledPeriod);
     return result;
   }
 }
 
-abstract class _BaseLengthFormat<TInput> extends UnitOfMeasurementFormat<TInput, LengthUnit> {
+abstract class _BaseLengthFormat<TInput>
+    extends UnitOfMeasurementFormat<TInput, LengthUnit> {
   _BaseLengthFormat._({
     required String pattern,
     required this.permissibleValueUnits,
@@ -527,7 +553,8 @@ abstract class _BaseLengthFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   final Set<RateUnit> permissibleRateUnits;
 
   @override
-  String getPatternSpecifierFor(LengthUnit valueUnit) => valueUnit.patternSpecifier;
+  String getPatternSpecifierFor(LengthUnit valueUnit) =>
+      valueUnit.patternSpecifier;
 
   @override
   Set<RateUnit> getPermissibleRateUnits() => permissibleRateUnits;
@@ -536,8 +563,10 @@ abstract class _BaseLengthFormat<TInput> extends UnitOfMeasurementFormat<TInput,
   Set<LengthUnit> getPermissibleValueUnits() => permissibleValueUnits;
 
   @override
-  String getUnitName(LengthUnit unit, String locale) => unit.getName(locale: locale);
+  String getUnitName(LengthUnit unit, String locale) =>
+      unit.getName(locale: locale);
 
   @override
-  String getUnitSymbol(LengthUnit unit, String locale) => unit.getSymbol(locale: locale);
+  String getUnitSymbol(LengthUnit unit, String locale) =>
+      unit.getSymbol(locale: locale);
 }

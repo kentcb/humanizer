@@ -16,7 +16,8 @@ void _toSentenceCase() {
       test(
         '$input → $expected',
         () {
-          final transformation = ToSentenceCaseTransformation(convertAcronyms: convertAcronyms);
+          final transformation =
+              ToSentenceCaseTransformation(convertAcronyms: convertAcronyms);
           final result = transformation.transform(input, '');
           expect(result, expected);
         },
@@ -29,15 +30,29 @@ void _toSentenceCase() {
     verify(input: 'ABC', expected: 'ABC');
     verify(input: 'ABC', expected: 'Abc', convertAcronyms: true);
     verify(input: 'ACRONYM first', expected: 'ACRONYM first');
-    verify(input: 'ACRONYM first', expected: 'Acronym first', convertAcronyms: true);
-    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
-    verify(input: 'acronym SECOND', expected: 'Acronym second', convertAcronyms: true);
-    verify(input: 'first sentence. second sentence.', expected: 'First sentence. Second sentence.');
-    verify(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST sentence. SECOND sentence.');
     verify(
-        input: 'FIRST sentence. SECOND sentence.', expected: 'First sentence. Second sentence.', convertAcronyms: true);
+        input: 'ACRONYM first',
+        expected: 'Acronym first',
+        convertAcronyms: true);
+    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
+    verify(
+        input: 'acronym SECOND',
+        expected: 'Acronym second',
+        convertAcronyms: true);
+    verify(
+        input: 'first sentence. second sentence.',
+        expected: 'First sentence. Second sentence.');
+    verify(
+        input: 'FIRST sentence. SECOND sentence.',
+        expected: 'FIRST sentence. SECOND sentence.');
+    verify(
+        input: 'FIRST sentence. SECOND sentence.',
+        expected: 'First sentence. Second sentence.',
+        convertAcronyms: true);
     verify(input: 'first. \tsecond.', expected: 'First. \tSecond.');
-    verify(input: 'extra whitespace .   second .  ', expected: 'Extra whitespace .   Second .  ');
+    verify(
+        input: 'extra whitespace .   second .  ',
+        expected: 'Extra whitespace .   Second .  ');
     verify(
         input: 'alternative punctuation! see? cool: one — two',
         expected: 'Alternative punctuation! See? Cool: One — Two');
@@ -57,7 +72,8 @@ void _toTitleCase() {
       test(
         '$input → $expected',
         () {
-          final transformation = ToTitleCaseTransformation(convertAcronyms: convertAcronyms);
+          final transformation =
+              ToTitleCaseTransformation(convertAcronyms: convertAcronyms);
           final result = transformation.transform(input, '');
           expect(result, expected);
         },
@@ -70,15 +86,29 @@ void _toTitleCase() {
     verify(input: 'ABC', expected: 'ABC');
     verify(input: 'ABC', expected: 'Abc', convertAcronyms: true);
     verify(input: 'ACRONYM first', expected: 'ACRONYM First');
-    verify(input: 'ACRONYM first', expected: 'Acronym First', convertAcronyms: true);
-    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
-    verify(input: 'acronym SECOND', expected: 'Acronym Second', convertAcronyms: true);
-    verify(input: 'first sentence. second sentence.', expected: 'First Sentence. Second Sentence.');
-    verify(input: 'FIRST sentence. SECOND sentence.', expected: 'FIRST Sentence. SECOND Sentence.');
     verify(
-        input: 'FIRST sentence. SECOND sentence.', expected: 'First Sentence. Second Sentence.', convertAcronyms: true);
+        input: 'ACRONYM first',
+        expected: 'Acronym First',
+        convertAcronyms: true);
+    verify(input: 'acronym SECOND', expected: 'Acronym SECOND');
+    verify(
+        input: 'acronym SECOND',
+        expected: 'Acronym Second',
+        convertAcronyms: true);
+    verify(
+        input: 'first sentence. second sentence.',
+        expected: 'First Sentence. Second Sentence.');
+    verify(
+        input: 'FIRST sentence. SECOND sentence.',
+        expected: 'FIRST Sentence. SECOND Sentence.');
+    verify(
+        input: 'FIRST sentence. SECOND sentence.',
+        expected: 'First Sentence. Second Sentence.',
+        convertAcronyms: true);
     verify(input: 'first. \tsecond.', expected: 'First. \tSecond.');
-    verify(input: 'extra whitespace .   second .  ', expected: 'Extra Whitespace .   Second .  ');
+    verify(
+        input: 'extra whitespace .   second .  ',
+        expected: 'Extra Whitespace .   Second .  ');
     verify(
         input: 'alternative punctuation! see? cool: one — two',
         expected: 'Alternative Punctuation! See? Cool: One — Two');

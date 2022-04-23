@@ -42,7 +42,8 @@ class SymbolName {
 /// // 'you and I are awesome'
 /// transformation.transform(SymbolName('youAndIAreAwesome'), 'en_US');
 /// ```
-class SymbolToHumanizedNameTransformation extends Transformation<SymbolName, String> {
+class SymbolToHumanizedNameTransformation
+    extends Transformation<SymbolName, String> {
   const SymbolToHumanizedNameTransformation();
 
   static final _camelOrPascalCaseWordPartsExpression = RegExp(
@@ -54,7 +55,8 @@ class SymbolToHumanizedNameTransformation extends Transformation<SymbolName, Str
     unicode: true,
   );
   static final _underscoreOrHyphenExpression = RegExp(r'[_-]');
-  static final _underscoreOrHyphenWithSurroundingSpaceExpression = RegExp(r'\s[_-]|[_-]\s');
+  static final _underscoreOrHyphenWithSurroundingSpaceExpression =
+      RegExp(r'\s[_-]|[_-]\s');
 
   @override
   String transform(SymbolName input, String locale) {
@@ -64,11 +66,14 @@ class SymbolToHumanizedNameTransformation extends Transformation<SymbolName, Str
       return name;
     }
 
-    final isCamelOrPascalCased = !name.contains(_underscoreOrHyphenExpression) ||
-        name.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
+    final isCamelOrPascalCased =
+        !name.contains(_underscoreOrHyphenExpression) ||
+            name.contains(_underscoreOrHyphenWithSurroundingSpaceExpression);
     final result = _determineUsingRegExp(
       name,
-      isCamelOrPascalCased ? _camelOrPascalCaseWordPartsExpression : _snakeOrKebabCaseWordPartsExpression,
+      isCamelOrPascalCased
+          ? _camelOrPascalCaseWordPartsExpression
+          : _snakeOrKebabCaseWordPartsExpression,
     );
 
     return result;
@@ -83,7 +88,9 @@ class SymbolToHumanizedNameTransformation extends Transformation<SymbolName, Str
       }
 
       if (value.isUpperCase() &&
-          (value.length > 1 || (match.start > 0 && input[match.start - 1] == ' ') || value == 'I')) {
+          (value.length > 1 ||
+              (match.start > 0 && input[match.start - 1] == ' ') ||
+              value == 'I')) {
         return value;
       } else {
         return value.toLowerCase();

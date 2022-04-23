@@ -109,7 +109,8 @@ String _transformSentence(
 }) {
   final wordMatches = _wordExpression.allMatches(sentence).toList();
 
-  final convertedSentence = wordMatches.fold<_RunningSentence>(_RunningSentence.initial(), (runningSentence, next) {
+  final convertedSentence = wordMatches.fold<_RunningSentence>(
+      _RunningSentence.initial(), (runningSentence, next) {
     final leadingWhitespace = next.group(1);
     final word = next.group(2);
     final trailingWhitespace = next.group(3);
@@ -122,7 +123,10 @@ String _transformSentence(
 
     if (preserveCasing) {
       // Don't convert the word because we want to preserve its casing.
-      return runningSentence.appendIfNonNull(leadingWhitespace).append(word).appendIfNonNull(trailingWhitespace);
+      return runningSentence
+          .appendIfNonNull(leadingWhitespace)
+          .append(word)
+          .appendIfNonNull(trailingWhitespace);
     } else {
       final isFirstWordInSentence = runningSentence.isBlank;
 
@@ -137,11 +141,14 @@ String _transformSentence(
 }
 
 String _capitalizeWord(String word) {
-  final result = word.isEmpty ? word : '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}';
+  final result = word.isEmpty
+      ? word
+      : '${word[0].toUpperCase()}${word.substring(1).toLowerCase()}';
   return result;
 }
 
-typedef _TransformWord = String Function(String word, bool isFirstWordInSentence);
+typedef _TransformWord = String Function(
+    String word, bool isFirstWordInSentence);
 
 class _RunningSentence {
   _RunningSentence._({
