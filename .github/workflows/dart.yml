@@ -26,4 +26,4 @@ jobs:
           pub global activate pana
 
           # Require full points to pass.
-          pana --no-warning --line-length=120 --exit-code-threshold=0
+          pana --no-warning --exit-code-threshold=0
