@@ -23,7 +23,7 @@ jobs:
 
       - name: Analyze package with Pana
         run: |
-          pub global activate pana
+          dart pub global activate pana
 
           # Require full points to pass.
           pana --no-warning --exit-code-threshold=0

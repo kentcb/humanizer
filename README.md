@@ -5,7 +5,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-> Humanizer is currently in preview. APIs are not yet finalized. We welcome feedback and suggestions as we work towards a stable release.
 ## What?
 
 A Dart library to convert values into human-friendly representations.
