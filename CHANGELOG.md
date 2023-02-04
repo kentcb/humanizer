@@ -1,4 +1,8 @@
-## 2.0.0 - NOT YET RELEASED
+## 2.1.0 - 4th Feb, 2023
+
+* Update dependencies
+
+## 2.0.0 - 23rd Apr, 2022
 
 * Switched to using `Rational` as the basis for units of measurement rather than `Decimal`
   > This is a breaking change. It allows for running calculations to be performed without loss of precision. A `Decimal` is a wrapper around `Rational`, so most call sites can be fixed by simple substitution.
