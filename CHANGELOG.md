@@ -1,3 +1,7 @@
+## 2.2.0 - 8th Jul, 2023
+
+* Fix SDK dependency
+
 ## 2.1.0 - 4th Feb, 2023
 
 * Update dependencies
