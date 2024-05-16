@@ -1,3 +1,9 @@
+## 2.3.0 - 16th May, 2024
+
+* Update dependencies
+* Up intl from ^0.18.0 to ^0.19.0
+* Up SDK to 4.0.0
+
 ## 2.2.0 - 8th Jul, 2023
 
 * Fix SDK dependency
