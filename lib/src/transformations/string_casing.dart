@@ -29,7 +29,7 @@ class ToSentenceCaseTransformation extends Transformation<String, String> {
     final result = _transformSentences(
       input,
       convertAcronyms: convertAcronyms,
-      transformWord: (word, isFirstWordInSentence) =>
+      transformWord: (word, {isFirstWordInSentence = false}) =>
           isFirstWordInSentence ? _capitalizeWord(word) : word.toLowerCase(),
     );
     return result;
@@ -64,7 +64,8 @@ class ToTitleCaseTransformation extends Transformation<String, String> {
     final result = _transformSentences(
       input,
       convertAcronyms: convertAcronyms,
-      transformWord: (word, isFirstWordInSentence) => _capitalizeWord(word),
+      transformWord: (word, {isFirstWordInSentence = false}) =>
+          _capitalizeWord(word),
     );
     return result;
   }
@@ -132,7 +133,8 @@ String _transformSentence(
 
       return runningSentence
           .appendIfNonNull(leadingWhitespace)
-          .append(transformWord(word, isFirstWordInSentence))
+          .append(
+              transformWord(word, isFirstWordInSentence: isFirstWordInSentence))
           .appendIfNonNull(trailingWhitespace);
     }
   });
@@ -147,8 +149,8 @@ String _capitalizeWord(String word) {
   return result;
 }
 
-typedef _TransformWord = String Function(
-    String word, bool isFirstWordInSentence);
+typedef _TransformWord = String Function(String word,
+    {bool isFirstWordInSentence});
 
 class _RunningSentence {
   _RunningSentence._({
