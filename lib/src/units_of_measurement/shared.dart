@@ -718,8 +718,9 @@ class _NumberFormatNode<TValueUnit> extends _Node<TValueUnit> {
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) {
     final numberFormat = NumberFormat(format, context.locale);
-    final result = numberFormat.format(DecimalIntl(context.value.toDecimal(
-        scaleOnInfinitePrecision: numberFormat.decimalDigits ?? 10)));
+    final decimalFormatter = DecimalFormatter(numberFormat);
+    final result = decimalFormatter.format(context.value
+        .toDecimal(scaleOnInfinitePrecision: numberFormat.decimalDigits ?? 10));
     return result;
   }
 }
