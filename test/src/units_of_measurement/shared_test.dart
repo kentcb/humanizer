@@ -1144,8 +1144,7 @@ void _unitOfMeasurementFormat() {
 
 // https://en.wikipedia.org/wiki/List_of_humorous_units_of_measurement#Quality:_Lovelace
 class Quality extends UnitOfMeasurement<QualityUnit, Quality> {
-  Quality.fromUnits(QualityUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Quality.fromUnits(super.unit, super.value) : super.fromUnits();
 
   factory Quality.fromNanolovelaces(Rational nanolovelaces) =>
       Quality.fromUnits(QualityUnit.nanolovelace, nanolovelaces);
@@ -1339,12 +1338,9 @@ extension IntExtensions on int {
 
 class QualityRate extends UnitOfMeasurementRate<Quality> {
   const QualityRate({
-    required Quality value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   @override
   String toString() => QualityRateFormat().format(this);
@@ -1352,15 +1348,12 @@ class QualityRate extends UnitOfMeasurementRate<Quality> {
 
 class QualityFormat extends BaseQualityFormat<Quality> {
   QualityFormat({
-    String pattern =
+    super.pattern =
         '0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<QualityUnit> valueUnits = QualityUnits.all,
-    String? locale,
+    super.valueUnits = QualityUnits.all,
+    super.locale,
   }) : super(
-          pattern: pattern,
-          valueUnits: valueUnits,
           rateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -1378,17 +1371,12 @@ class QualityFormat extends BaseQualityFormat<Quality> {
 
 class QualityRateFormat extends BaseQualityFormat<QualityRate> {
   QualityRateFormat({
-    String pattern =
+    super.pattern =
         "0.## ${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<QualityUnit> valueUnits = QualityUnits.all,
-    Set<RateUnit> rateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super(
-          pattern: pattern,
-          valueUnits: valueUnits,
-          rateUnits: rateUnits,
-          locale: locale,
-        );
+    super.valueUnits = QualityUnits.all,
+    super.rateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super();
 
   @override
   QualityUnit getLargestUnit(QualityRate input) =>
@@ -1412,14 +1400,11 @@ class QualityRateFormat extends BaseQualityFormat<QualityRate> {
 abstract class BaseQualityFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, QualityUnit> {
   BaseQualityFormat({
-    required String pattern,
+    required super.pattern,
     required this.valueUnits,
     required this.rateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<QualityUnit> valueUnits;
   final Set<RateUnit> rateUnits;

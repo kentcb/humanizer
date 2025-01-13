@@ -7,8 +7,7 @@ import 'package:meta/meta.dart';
 class InformationSize
     extends UnitOfMeasurement<InformationUnit, InformationSize> {
   /// Creates an [InformationSize] given a [unit] and rational [value] for that unit.
-  InformationSize.fromUnits(InformationUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  InformationSize.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates an [InformationSize] representing the specified number of [bits].
   factory InformationSize.fromBits(Rational bits) =>
@@ -756,12 +755,9 @@ extension InformationUnitExtensions on InformationUnit {
 /// Represents a rate of transfer of [InformationSize].
 class InformationRate extends UnitOfMeasurementRate<InformationSize> {
   const InformationRate._({
-    required InformationSize value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = InformationRateFormat();
 
@@ -835,15 +831,12 @@ class InformationRate extends UnitOfMeasurementRate<InformationSize> {
 /// * [UnitOfMeasurementFormat]
 class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
   InformationSizeFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
-    String? locale,
+    super.permissibleValueUnits = InformationUnits.iecBytes,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -885,17 +878,12 @@ class InformationSizeFormat extends _BaseInformationFormat<InformationSize> {
 /// * [InformationSizeFormat]
 class InformationRateFormat extends _BaseInformationFormat<InformationRate> {
   InformationRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<InformationUnit> permissibleValueUnits = InformationUnits.iecBytes,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = InformationUnits.iecBytes,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   InformationUnit getLargestUnit(InformationRate input) =>
@@ -919,14 +907,11 @@ class InformationRateFormat extends _BaseInformationFormat<InformationRate> {
 abstract class _BaseInformationFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, InformationUnit> {
   _BaseInformationFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<InformationUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

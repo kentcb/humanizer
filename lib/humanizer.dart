@@ -1,5 +1,5 @@
 /// A Dart library to convert values into human-friendly [String]s.
-library humanizer;
+library;
 
 export 'src/transformations/approximate_time.dart';
 export 'src/transformations/approximate_time_extensions.dart';

@@ -5,7 +5,6 @@ linter:
   #       See this related issue: https://github.com/dart-lang/pedantic/issues/23
   rules:
     # Error rules
-    - avoid_returning_null_for_future
     - avoid_slow_async_io
     - cancel_subscriptions
     - close_sinks
@@ -13,8 +12,6 @@ linter:
     - control_flow_in_finally
     - empty_statements
     - hash_and_equals
-    - iterable_contains_unrelated_type
-    - list_remove_unrelated_type
     - literal_only_boolean_expressions
     - no_adjacent_strings_in_list
     - prefer_void_to_null
@@ -28,7 +25,6 @@ linter:
     - always_declare_return_types
     - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first
-    - always_require_non_null_named_parameters
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catches_without_on_clauses

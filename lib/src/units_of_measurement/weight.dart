@@ -6,8 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a weight.
 class Weight extends UnitOfMeasurement<WeightUnit, Weight> {
   /// Creates a [Weight] given a [unit] and rational [value] for that unit.
-  Weight.fromUnits(WeightUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Weight.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Weight] representing the specified number of [nanograms].
   factory Weight.fromNanograms(Rational nanograms) =>
@@ -349,12 +348,9 @@ extension WeightUnitExtensions on WeightUnit {
 /// Represents a rate of change in [Weight].
 class WeightRate extends UnitOfMeasurementRate<Weight> {
   const WeightRate._({
-    required Weight value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = WeightRateFormat();
 
@@ -399,15 +395,12 @@ class WeightRate extends UnitOfMeasurementRate<Weight> {
 /// * [UnitOfMeasurementFormat]
 class WeightFormat extends _BaseWeightFormat<Weight> {
   WeightFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
-    String? locale,
+    super.permissibleValueUnits = WeightUnits.commonSi,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -448,17 +441,12 @@ class WeightFormat extends _BaseWeightFormat<Weight> {
 /// * [WeightFormat]
 class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
   WeightRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<WeightUnit> permissibleValueUnits = WeightUnits.commonSi,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = WeightUnits.commonSi,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   WeightUnit getLargestUnit(WeightRate input) =>
@@ -482,14 +470,11 @@ class WeightRateFormat extends _BaseWeightFormat<WeightRate> {
 abstract class _BaseWeightFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, WeightUnit> {
   _BaseWeightFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<WeightUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing time.
 class Time extends UnitOfMeasurement<TimeUnit, Time> {
   /// Creates a [Time] given a [unit] and rational [value] for that unit.
-  Time.fromUnits(TimeUnit unit, Rational value) : super.fromUnits(unit, value);
+  Time.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Time] representing the specified number of [nanoseconds].
   factory Time.fromNanoseconds(Rational nanoseconds) =>
@@ -377,12 +377,9 @@ extension TimeUnitExtensions on TimeUnit {
 /// Represents a rate of change in [Time].
 class TimeRate extends UnitOfMeasurementRate<Time> {
   const TimeRate._({
-    required Time value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = TimeRateFormat();
 
@@ -432,15 +429,12 @@ class TimeRate extends UnitOfMeasurementRate<Time> {
 /// * [UnitOfMeasurementFormat]
 class TimeFormat extends _BaseTimeFormat<Time> {
   TimeFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
-    String? locale,
+    super.permissibleValueUnits = TimeUnits.common,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -480,17 +474,12 @@ class TimeFormat extends _BaseTimeFormat<Time> {
 /// * [TimeFormat]
 class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
   TimeRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<TimeUnit> permissibleValueUnits = TimeUnits.common,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = TimeUnits.common,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   TimeUnit getLargestUnit(TimeRate input) =>
@@ -514,14 +503,11 @@ class TimeRateFormat extends _BaseTimeFormat<TimeRate> {
 abstract class _BaseTimeFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, TimeUnit> {
   _BaseTimeFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<TimeUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

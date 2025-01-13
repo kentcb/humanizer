@@ -6,8 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a three-dimensional volume.
 class Volume extends UnitOfMeasurement<VolumeUnit, Volume> {
   /// Creates a [Volume] given a [unit] and rational [value] for that unit.
-  Volume.fromUnits(VolumeUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Volume.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Volume] representing the specified number of [cubicNanometers].
   factory Volume.fromCubicNanometers(Rational cubicNanometers) =>
@@ -691,12 +690,9 @@ extension VolumeUnitExtensions on VolumeUnit {
 /// Represents a rate of change in [Volume].
 class VolumeRate extends UnitOfMeasurementRate<Volume> {
   const VolumeRate._({
-    required Volume value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = VolumeRateFormat();
 
@@ -762,15 +758,12 @@ class VolumeRate extends UnitOfMeasurementRate<Volume> {
 /// * [UnitOfMeasurementFormat]
 class VolumeFormat extends _BaseVolumeFormat<Volume> {
   VolumeFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
-    String? locale,
+    super.permissibleValueUnits = VolumeUnits.commonSi,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -812,17 +805,12 @@ class VolumeFormat extends _BaseVolumeFormat<Volume> {
 /// * [VolumeRate]
 class VolumeRateFormat extends _BaseVolumeFormat<VolumeRate> {
   VolumeRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<VolumeUnit> permissibleValueUnits = VolumeUnits.commonSi,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = VolumeUnits.commonSi,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   VolumeUnit getLargestUnit(VolumeRate input) =>
@@ -846,14 +834,11 @@ class VolumeRateFormat extends _BaseVolumeFormat<VolumeRate> {
 abstract class _BaseVolumeFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, VolumeUnit> {
   _BaseVolumeFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<VolumeUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

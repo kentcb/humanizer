@@ -6,8 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a temperature.
 class Temperature extends UnitOfMeasurement<TemperatureUnit, Temperature> {
   /// Creates a [Temperature] given a [unit] and rational [value] for that unit.
-  Temperature.fromUnits(TemperatureUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Temperature.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Temperature] representing the specified number of [nanokelvins].
   factory Temperature.fromNanokelvins(Rational nanokelvins) =>
@@ -273,12 +272,9 @@ extension TemperatureUnitExtensions on TemperatureUnit {
 /// Represents a rate of change in [Temperature].
 class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
   const TemperatureRate._({
-    required Temperature value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = TemperatureRateFormat();
 
@@ -322,15 +318,12 @@ class TemperatureRate extends UnitOfMeasurementRate<Temperature> {
 /// * [UnitOfMeasurementFormat]
 class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
   TemperatureFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
-    String? locale,
+    super.permissibleValueUnits = TemperatureUnits.celsius,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -372,17 +365,12 @@ class TemperatureFormat extends _BaseTemperatureFormat<Temperature> {
 /// * [TemperatureFormat]
 class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
   TemperatureRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<TemperatureUnit> permissibleValueUnits = TemperatureUnits.celsius,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = TemperatureUnits.celsius,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   TemperatureUnit getLargestUnit(TemperatureRate input) =>
@@ -406,14 +394,11 @@ class TemperatureRateFormat extends _BaseTemperatureFormat<TemperatureRate> {
 abstract class _BaseTemperatureFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, TemperatureUnit> {
   _BaseTemperatureFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<TemperatureUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

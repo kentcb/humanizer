@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a two-dimensional area.
 class Area extends UnitOfMeasurement<AreaUnit, Area> {
   /// Creates an [Area] given a [unit] and rational [value] for that unit.
-  Area.fromUnits(AreaUnit unit, Rational value) : super.fromUnits(unit, value);
+  Area.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates an [Area] representing the specified number of [squareNanometers].
   factory Area.fromSquareNanometers(Rational squareNanometers) =>
@@ -422,12 +422,9 @@ extension AreaUnitExtensions on AreaUnit {
 /// Represents a rate of change in [Area].
 class AreaRate extends UnitOfMeasurementRate<Area> {
   const AreaRate._({
-    required Area value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = AreaRateFormat();
 
@@ -477,15 +474,12 @@ class AreaRate extends UnitOfMeasurementRate<Area> {
 /// * [UnitOfMeasurementFormat]
 class AreaFormat extends _BaseAreaFormat<Area> {
   AreaFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
-    String? locale,
+    super.permissibleValueUnits = AreaUnits.commonSi,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -522,17 +516,12 @@ class AreaFormat extends _BaseAreaFormat<Area> {
 /// * [AreaFormat]
 class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
   AreaRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<AreaUnit> permissibleValueUnits = AreaUnits.commonSi,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = AreaUnits.commonSi,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   AreaUnit getLargestUnit(AreaRate input) =>
@@ -556,14 +545,11 @@ class AreaRateFormat extends _BaseAreaFormat<AreaRate> {
 abstract class _BaseAreaFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, AreaUnit> {
   _BaseAreaFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<AreaUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

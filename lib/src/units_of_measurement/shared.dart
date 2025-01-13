@@ -760,7 +760,7 @@ abstract class _FixedValueUnitNode<TValueUnit> extends _Node<TValueUnit> {
 
 class _FixedValueUnitSymbolNode<TValueUnit>
     extends _FixedValueUnitNode<TValueUnit> {
-  _FixedValueUnitSymbolNode(TValueUnit unit) : super(unit);
+  _FixedValueUnitSymbolNode(super.unit) : super();
 
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
@@ -769,7 +769,7 @@ class _FixedValueUnitSymbolNode<TValueUnit>
 
 class _FixedValueUnitNameNode<TValueUnit>
     extends _FixedValueUnitNode<TValueUnit> {
-  _FixedValueUnitNameNode(TValueUnit unit) : super(unit);
+  _FixedValueUnitNameNode(super.unit) : super();
 
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
@@ -815,7 +815,7 @@ abstract class _FixedRateUnitNode<TValueUnit> extends _Node<TValueUnit> {
 
 class _FixedRateUnitSymbolNode<TValueUnit>
     extends _FixedRateUnitNode<TValueUnit> {
-  _FixedRateUnitSymbolNode(RateUnit unit) : super(unit);
+  _FixedRateUnitSymbolNode(super.unit) : super();
 
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) =>
@@ -826,7 +826,7 @@ class _FixedRateUnitSymbolNode<TValueUnit>
 
 class _FixedRateUnitNameNode<TValueUnit>
     extends _FixedRateUnitNode<TValueUnit> {
-  _FixedRateUnitNameNode(RateUnit unit) : super(unit);
+  _FixedRateUnitNameNode(super.unit) : super();
 
   @override
   String evaluate(_NodeEvaluationContext<TValueUnit> context) =>

@@ -7,8 +7,7 @@ import 'package:meta/meta.dart';
 /// means it is a quantity that has no corresponding physical dimension associated with it.
 class Quantity extends UnitOfMeasurement<QuantityUnit, Quantity> {
   /// Creates a [Quantity] given a [unit] and rational [value] for that unit.
-  Quantity.fromUnits(QuantityUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Quantity.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Quantity] representing the specified number of [ones].
   factory Quantity.fromOnes(Rational ones) =>
@@ -167,12 +166,9 @@ extension QuantityUnitExtensions on QuantityUnit {
 /// Represents a rate of change in [Quantity].
 class QuantityRate extends UnitOfMeasurementRate<Quantity> {
   const QuantityRate._({
-    required Quantity value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = QuantityRateFormat();
 
@@ -210,15 +206,12 @@ class QuantityRate extends UnitOfMeasurementRate<Quantity> {
 /// * [UnitOfMeasurementFormat]
 class QuantityFormat extends _BaseQuantityFormat<Quantity> {
   QuantityFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<QuantityUnit> permissibleValueUnits = QuantityUnits.all,
-    String? locale,
+    super.permissibleValueUnits = QuantityUnits.all,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -263,17 +256,12 @@ class QuantityFormat extends _BaseQuantityFormat<Quantity> {
 /// * [QuantityFormat]
 class QuantityRateFormat extends _BaseQuantityFormat<QuantityRate> {
   QuantityRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<QuantityUnit> permissibleValueUnits = QuantityUnits.all,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = QuantityUnits.all,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   QuantityUnit getLargestUnit(QuantityRate input) =>
@@ -297,14 +285,11 @@ class QuantityRateFormat extends _BaseQuantityFormat<QuantityRate> {
 abstract class _BaseQuantityFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, QuantityUnit> {
   _BaseQuantityFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<QuantityUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;

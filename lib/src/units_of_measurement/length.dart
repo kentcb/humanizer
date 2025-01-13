@@ -6,8 +6,7 @@ import 'package:meta/meta.dart';
 /// A unit of measurement representing a one-dimensional length.
 class Length extends UnitOfMeasurement<LengthUnit, Length> {
   /// Creates a [Length] given a [unit] and rational [value] for that unit.
-  Length.fromUnits(LengthUnit unit, Rational value)
-      : super.fromUnits(unit, value);
+  Length.fromUnits(super.unit, super.value) : super.fromUnits();
 
   /// Creates a [Length] representing the specified number of [nanometers].
   factory Length.fromNanometers(Rational nanometers) =>
@@ -403,12 +402,9 @@ extension LengthUnitExtensions on LengthUnit {
 /// Represents a rate of change in [Length] (a.k.a. a speed).
 class LengthRate extends UnitOfMeasurementRate<Length> {
   const LengthRate._({
-    required Length value,
-    required Duration period,
-  }) : super(
-          value: value,
-          period: period,
-        );
+    required super.value,
+    required super.period,
+  }) : super();
 
   static final _defaultFormat = LengthRateFormat();
 
@@ -457,15 +453,12 @@ class LengthRate extends UnitOfMeasurementRate<Length> {
 /// * [UnitOfMeasurementFormat]
 class LengthFormat extends _BaseLengthFormat<Length> {
   LengthFormat({
-    String pattern =
+    super.pattern =
         '0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}',
-    Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
-    String? locale,
+    super.permissibleValueUnits = LengthUnits.commonSi,
+    super.locale,
   }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
           permissibleRateUnits: const <RateUnit>{},
-          locale: locale,
         );
 
   @override
@@ -506,17 +499,12 @@ class LengthFormat extends _BaseLengthFormat<Length> {
 /// * [LengthFormat]
 class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
   LengthRateFormat({
-    String pattern =
+    super.pattern =
         "0.##${UnitOfMeasurementFormat.valueUnitSymbolFormatSpecifier}'/'${UnitOfMeasurementFormat.rateUnitSymbolFormatSpecifier}",
-    Set<LengthUnit> permissibleValueUnits = LengthUnits.commonSi,
-    Set<RateUnit> permissibleRateUnits = RateUnits.hourOrLess,
-    String? locale,
-  }) : super._(
-          pattern: pattern,
-          permissibleValueUnits: permissibleValueUnits,
-          permissibleRateUnits: permissibleRateUnits,
-          locale: locale,
-        );
+    super.permissibleValueUnits = LengthUnits.commonSi,
+    super.permissibleRateUnits = RateUnits.hourOrLess,
+    super.locale,
+  }) : super._();
 
   @override
   LengthUnit getLargestUnit(LengthRate input) =>
@@ -540,14 +528,11 @@ class LengthRateFormat extends _BaseLengthFormat<LengthRate> {
 abstract class _BaseLengthFormat<TInput>
     extends UnitOfMeasurementFormat<TInput, LengthUnit> {
   _BaseLengthFormat._({
-    required String pattern,
+    required super.pattern,
     required this.permissibleValueUnits,
     required this.permissibleRateUnits,
-    required String? locale,
-  }) : super(
-          pattern: pattern,
-          locale: locale,
-        );
+    required super.locale,
+  }) : super();
 
   final Set<LengthUnit> permissibleValueUnits;
   final Set<RateUnit> permissibleRateUnits;
