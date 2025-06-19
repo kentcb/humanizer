@@ -1,5 +1,6 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/time.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/time_constants.dart';
 import 'package:meta/meta.dart';
 
@@ -290,39 +291,39 @@ extension TimeUnitExtensions on TimeUnit {
   }) {
     switch (this) {
       case TimeUnit.nanosecond:
-        return 'nanosecond';
+        return nanosecond.i18n(locale: locale);
       case TimeUnit.microsecond:
-        return 'microsecond';
+        return microsecond.i18n(locale: locale);
       case TimeUnit.millisecond:
-        return 'millisecond';
+        return millisecond.i18n(locale: locale);
       case TimeUnit.centisecond:
-        return 'centisecond';
+        return centisecond.i18n(locale: locale);
       case TimeUnit.decisecond:
-        return 'decisecond';
+        return decisecond.i18n(locale: locale);
       case TimeUnit.second:
-        return 'second';
+        return second.i18n(locale: locale);
       case TimeUnit.decasecond:
-        return 'decasecond';
+        return decasecond.i18n(locale: locale);
       case TimeUnit.minute:
-        return 'minute';
+        return minute.i18n(locale: locale);
       case TimeUnit.hour:
-        return 'hour';
+        return hour.i18n(locale: locale);
       case TimeUnit.day:
-        return 'day';
+        return day.i18n(locale: locale);
       case TimeUnit.week:
-        return 'week';
+        return week.i18n(locale: locale);
       case TimeUnit.fortnight:
-        return 'fortnight';
+        return fortnight.i18n(locale: locale);
       case TimeUnit.month:
-        return 'month';
+        return month.i18n(locale: locale);
       case TimeUnit.quarter:
-        return 'quarter';
+        return quarter.i18n(locale: locale);
       case TimeUnit.year:
-        return 'year';
+        return year.i18n(locale: locale);
       case TimeUnit.decade:
-        return 'decade';
+        return decade.i18n(locale: locale);
       case TimeUnit.century:
-        return 'century';
+        return century.i18n(locale: locale);
     }
   }
 
@@ -332,39 +333,39 @@ extension TimeUnitExtensions on TimeUnit {
   }) {
     switch (this) {
       case TimeUnit.nanosecond:
-        return 'ns';
+        return ns.i18n(locale: locale);
       case TimeUnit.microsecond:
-        return 'μs';
+        return us.i18n(locale: locale);
       case TimeUnit.millisecond:
-        return 'ms';
+        return ms.i18n(locale: locale);
       case TimeUnit.centisecond:
-        return 'cs';
+        return cs.i18n(locale: locale);
       case TimeUnit.decisecond:
-        return 'ds';
+        return ds.i18n(locale: locale);
       case TimeUnit.second:
-        return 's';
+        return s.i18n(locale: locale);
       case TimeUnit.decasecond:
-        return 'das';
+        return das.i18n(locale: locale);
       case TimeUnit.minute:
-        return 'min';
+        return min.i18n(locale: locale);
       case TimeUnit.hour:
-        return 'hr';
+        return hr.i18n(locale: locale);
       case TimeUnit.day:
-        return 'd';
+        return d.i18n(locale: locale);
       case TimeUnit.week:
-        return 'wk';
+        return wk.i18n(locale: locale);
       case TimeUnit.fortnight:
-        return 'fn';
+        return fn.i18n(locale: locale);
       case TimeUnit.month:
-        return 'mo';
+        return mo.i18n(locale: locale);
       case TimeUnit.quarter:
-        return 'qr';
+        return qr.i18n(locale: locale);
       case TimeUnit.year:
-        return 'yr';
+        return yr.i18n(locale: locale);
       case TimeUnit.decade:
-        return 'dec';
+        return dec.i18n(locale: locale);
       case TimeUnit.century:
-        return 'c';
+        return c.i18n(locale: locale);
     }
   }
 

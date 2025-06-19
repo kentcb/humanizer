@@ -1,4 +1,5 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/area.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/area_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
@@ -330,41 +331,41 @@ extension AreaUnitExtensions on AreaUnit {
     switch (this) {
       // SI.
       case AreaUnit.squareNanometer:
-        return 'square nanometer';
+        return squareNanometer.i18n(locale: locale);
       case AreaUnit.squareMicrometer:
-        return 'square micrometer';
+        return squareMicrometer.i18n(locale: locale);
       case AreaUnit.squareMillimeter:
-        return 'square millimeter';
+        return squareMillimeter.i18n(locale: locale);
       case AreaUnit.squareCentimeter:
-        return 'square centimeter';
+        return squareCentimeter.i18n(locale: locale);
       case AreaUnit.squareDecimeter:
-        return 'square decimeter';
+        return squareDecimeter.i18n(locale: locale);
       case AreaUnit.squareMeter:
-        return 'square meter';
+        return squareMeter.i18n(locale: locale);
       case AreaUnit.squareDecameter:
-        return 'square decameter';
+        return squareDecameter.i18n(locale: locale);
       case AreaUnit.hectare:
-        return 'hectare';
+        return hectare.i18n(locale: locale);
       case AreaUnit.squareKilometer:
-        return 'square kilometer';
+        return squareKilometer.i18n(locale: locale);
       case AreaUnit.squareMegameter:
-        return 'square megameter';
+        return squareMegameter.i18n(locale: locale);
       case AreaUnit.squareGigameter:
-        return 'square gigameter';
+        return squareGigameter.i18n(locale: locale);
 
       // Imperial.
       case AreaUnit.squareThou:
-        return 'square thou';
+        return squareThou.i18n(locale: locale);
       case AreaUnit.squareInch:
-        return 'square inch';
+        return squareInch.i18n(locale: locale);
       case AreaUnit.squareFoot:
-        return 'square foot';
+        return squareFoot.i18n(locale: locale);
       case AreaUnit.squareYard:
-        return 'square yard';
+        return squareYard.i18n(locale: locale);
       case AreaUnit.acre:
-        return 'acre';
+        return acre.i18n(locale: locale);
       case AreaUnit.squareMile:
-        return 'square mile';
+        return squareMile.i18n(locale: locale);
     }
   }
 
@@ -375,41 +376,41 @@ extension AreaUnitExtensions on AreaUnit {
     switch (this) {
       // SI.
       case AreaUnit.squareNanometer:
-        return 'nm²';
+        return squareNanometerSymbol.i18n(locale: locale);
       case AreaUnit.squareMicrometer:
-        return 'μm²';
+        return squareMicrometerSymbol.i18n(locale: locale);
       case AreaUnit.squareMillimeter:
-        return 'mm²';
+        return squareMillimeterSymbol.i18n(locale: locale);
       case AreaUnit.squareCentimeter:
-        return 'cm²';
+        return squareCentimeterSymbol.i18n(locale: locale);
       case AreaUnit.squareDecimeter:
-        return 'dm²';
+        return squareDecimeterSymbol.i18n(locale: locale);
       case AreaUnit.squareMeter:
-        return 'm²';
+        return squareMeterSymbol.i18n(locale: locale);
       case AreaUnit.squareDecameter:
-        return 'dam²';
+        return squareDecameterSymbol.i18n(locale: locale);
       case AreaUnit.hectare:
-        return 'ha';
+        return hectareSymbol.i18n(locale: locale);
       case AreaUnit.squareKilometer:
-        return 'km²';
+        return squareKilometerSymbol.i18n(locale: locale);
       case AreaUnit.squareMegameter:
-        return 'Mm²';
+        return squareMegameterSymbol.i18n(locale: locale);
       case AreaUnit.squareGigameter:
-        return 'Gm²';
+        return squareGigameterSymbol.i18n(locale: locale);
 
       // Imperial.
       case AreaUnit.squareThou:
-        return 'thou²';
+        return squareThouSymbol.i18n(locale: locale);
       case AreaUnit.squareInch:
-        return 'in²';
+        return squareInchSymbol.i18n(locale: locale);
       case AreaUnit.squareFoot:
-        return 'ft²';
+        return squareFootSymbol.i18n(locale: locale);
       case AreaUnit.squareYard:
-        return 'yd²';
+        return squareYardSymbol.i18n(locale: locale);
       case AreaUnit.acre:
-        return 'ac';
+        return acreSymbol.i18n(locale: locale);
       case AreaUnit.squareMile:
-        return 'mi²';
+        return squareMileSymbol.i18n(locale: locale);
     }
   }
 

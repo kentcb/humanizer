@@ -1,5 +1,6 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/temperature.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/temperature_constants.dart';
 import 'package:meta/meta.dart';
 
@@ -212,25 +213,25 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     switch (this) {
       // SI.
       case TemperatureUnit.nanokelvin:
-        return 'nanokelvin';
+        return nanokelvin.i18n(locale: locale);
       case TemperatureUnit.microkelvin:
-        return 'microkelvin';
+        return microkelvin.i18n(locale: locale);
       case TemperatureUnit.millikelvin:
-        return 'millikelvin';
+        return millikelvin.i18n(locale: locale);
       case TemperatureUnit.centikelvin:
-        return 'centikelvin';
+        return centikelvin.i18n(locale: locale);
       case TemperatureUnit.decikelvin:
-        return 'decikelvin';
+        return decikelvin.i18n(locale: locale);
       case TemperatureUnit.kelvin:
-        return 'kelvin';
+        return kelvin.i18n(locale: locale);
 
       // Celsius.
       case TemperatureUnit.celsius:
-        return 'Celsius';
+        return celsius.i18n(locale: locale);
 
       // Fahrenheit.
       case TemperatureUnit.fahrenheit:
-        return 'Fahrenheit';
+        return fahrenheit.i18n(locale: locale);
     }
   }
 
@@ -241,25 +242,25 @@ extension TemperatureUnitExtensions on TemperatureUnit {
     switch (this) {
       // SI.
       case TemperatureUnit.nanokelvin:
-        return 'nK';
+        return nanokelvinSymbol.i18n(locale: locale);
       case TemperatureUnit.microkelvin:
-        return 'μK';
+        return microkelvinSymbol.i18n(locale: locale);
       case TemperatureUnit.millikelvin:
-        return 'mK';
+        return millikelvinSymbol.i18n(locale: locale);
       case TemperatureUnit.centikelvin:
-        return 'cK';
+        return centikelvinSymbol.i18n(locale: locale);
       case TemperatureUnit.decikelvin:
-        return 'dK';
+        return decikelvinSymbol.i18n(locale: locale);
       case TemperatureUnit.kelvin:
-        return 'K';
+        return kelvinSymbol.i18n(locale: locale);
 
       // Celsius.
       case TemperatureUnit.celsius:
-        return '°C';
+        return celsiusSymbol.i18n(locale: locale);
 
       // Fahrenheit.
       case TemperatureUnit.fahrenheit:
-        return '°F';
+        return fahrenheitSymbol.i18n(locale: locale);
     }
   }
 

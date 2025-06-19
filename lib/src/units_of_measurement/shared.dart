@@ -3,6 +3,7 @@ import 'package:decimal/intl.dart';
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/string_predicate_extensions.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/shared.i18n.dart';
 import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 
@@ -233,15 +234,15 @@ extension RateUnitExtensions on RateUnit {
   }) {
     switch (this) {
       case RateUnit.second:
-        return 'second';
+        return second.i18n(locale: locale);
       case RateUnit.minute:
-        return 'minute';
+        return minute.i18n(locale: locale);
       case RateUnit.hour:
-        return 'hour';
+        return hour.i18n(locale: locale);
       case RateUnit.day:
-        return 'day';
+        return day.i18n(locale: locale);
       case RateUnit.week:
-        return 'week';
+        return week.i18n(locale: locale);
     }
   }
 
@@ -249,15 +250,15 @@ extension RateUnitExtensions on RateUnit {
   String getSymbol({required String locale}) {
     switch (this) {
       case RateUnit.second:
-        return 's';
+        return s.i18n(locale: locale);
       case RateUnit.minute:
-        return 'min';
+        return min.i18n(locale: locale);
       case RateUnit.hour:
-        return 'hr';
+        return hr.i18n(locale: locale);
       case RateUnit.day:
-        return 'day';
+        return day.i18n(locale: locale);
       case RateUnit.week:
-        return 'wk';
+        return wk.i18n(locale: locale);
     }
   }
 
