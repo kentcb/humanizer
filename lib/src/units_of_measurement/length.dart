@@ -1,4 +1,5 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/length.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/length_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
@@ -314,39 +315,39 @@ extension LengthUnitExtensions on LengthUnit {
     switch (this) {
       // SI.
       case LengthUnit.nanometer:
-        return 'nanometer';
+        return nanometer.i18n(locale: locale);
       case LengthUnit.micrometer:
-        return 'micrometer';
+        return micrometer.i18n(locale: locale);
       case LengthUnit.millimeter:
-        return 'millimeter';
+        return millimeter.i18n(locale: locale);
       case LengthUnit.centimeter:
-        return 'centimeter';
+        return centimeter.i18n(locale: locale);
       case LengthUnit.decimeter:
-        return 'decimeter';
+        return decimeter.i18n(locale: locale);
       case LengthUnit.meter:
-        return 'meter';
+        return meter.i18n(locale: locale);
       case LengthUnit.decameter:
-        return 'decameter';
+        return decameter.i18n(locale: locale);
       case LengthUnit.hectometer:
-        return 'hectometer';
+        return hectometer.i18n(locale: locale);
       case LengthUnit.kilometer:
-        return 'kilometer';
+        return kilometer.i18n(locale: locale);
       case LengthUnit.megameter:
-        return 'megameter';
+        return megameter.i18n(locale: locale);
       case LengthUnit.gigameter:
-        return 'gigameter';
+        return gigameter.i18n(locale: locale);
 
       // Imperial.
       case LengthUnit.thou:
-        return 'thou';
+        return thou.i18n(locale: locale);
       case LengthUnit.inch:
-        return 'inch';
+        return inch.i18n(locale: locale);
       case LengthUnit.foot:
-        return 'foot';
+        return foot.i18n(locale: locale);
       case LengthUnit.yard:
-        return 'yard';
+        return yard.i18n(locale: locale);
       case LengthUnit.mile:
-        return 'mile';
+        return mile.i18n(locale: locale);
     }
   }
 
@@ -357,39 +358,39 @@ extension LengthUnitExtensions on LengthUnit {
     switch (this) {
       // SI.
       case LengthUnit.nanometer:
-        return 'nm';
+        return nanometerSymbol.i18n(locale: locale);
       case LengthUnit.micrometer:
-        return 'μm';
+        return micrometerSymbol.i18n(locale: locale);
       case LengthUnit.millimeter:
-        return 'mm';
+        return millimeterSymbol.i18n(locale: locale);
       case LengthUnit.centimeter:
-        return 'cm';
+        return centimeterSymbol.i18n(locale: locale);
       case LengthUnit.decimeter:
-        return 'dm';
+        return decimeterSymbol.i18n(locale: locale);
       case LengthUnit.meter:
-        return 'm';
+        return meterSymbol.i18n(locale: locale);
       case LengthUnit.decameter:
-        return 'dam';
+        return decameterSymbol.i18n(locale: locale);
       case LengthUnit.hectometer:
-        return 'hm';
+        return hectometerSymbol.i18n(locale: locale);
       case LengthUnit.kilometer:
-        return 'km';
+        return kilometerSymbol.i18n(locale: locale);
       case LengthUnit.megameter:
-        return 'Mm';
+        return megameterSymbol.i18n(locale: locale);
       case LengthUnit.gigameter:
-        return 'Gm';
+        return gigameterSymbol.i18n(locale: locale);
 
       // Imperial.
       case LengthUnit.thou:
-        return 'thou';
+        return thouUnitSymbol.i18n(locale: locale);
       case LengthUnit.inch:
-        return 'in';
+        return inchSymbol.i18n(locale: locale);
       case LengthUnit.foot:
-        return 'ft';
+        return footSymbol.i18n(locale: locale);
       case LengthUnit.yard:
-        return 'yd';
+        return yardSymbol.i18n(locale: locale);
       case LengthUnit.mile:
-        return 'mi';
+        return mileSymbol.i18n(locale: locale);
     }
   }
 

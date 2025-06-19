@@ -1,5 +1,6 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/weight.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/weight_constants.dart';
 import 'package:meta/meta.dart';
 
@@ -259,33 +260,33 @@ extension WeightUnitExtensions on WeightUnit {
     switch (this) {
       // SI.
       case WeightUnit.nanogram:
-        return 'nanogram';
+        return nanogram.i18n(locale: locale);
       case WeightUnit.microgram:
-        return 'microgram';
+        return microgram.i18n(locale: locale);
       case WeightUnit.milligram:
-        return 'milligram';
+        return milligram.i18n(locale: locale);
       case WeightUnit.gram:
-        return 'gram';
+        return gram.i18n(locale: locale);
       case WeightUnit.kilogram:
-        return 'kilogram';
+        return kilogram.i18n(locale: locale);
       case WeightUnit.tonne:
-        return 'tonne';
+        return tonne.i18n(locale: locale);
       case WeightUnit.megatonne:
-        return 'megatonne';
+        return megatonne.i18n(locale: locale);
       case WeightUnit.gigatonne:
-        return 'gigatonne';
+        return gigatonne.i18n(locale: locale);
 
       // Imperial.
       case WeightUnit.ounce:
-        return 'ounce';
+        return ounce.i18n(locale: locale);
       case WeightUnit.pound:
-        return 'pound';
+        return pound.i18n(locale: locale);
       case WeightUnit.imperialTon:
-        return 'ton';
+        return imperialTon.i18n(locale: locale);
 
       // US.
       case WeightUnit.usTon:
-        return 'ton';
+        return usTon.i18n(locale: locale);
     }
   }
 
@@ -296,33 +297,33 @@ extension WeightUnitExtensions on WeightUnit {
     switch (this) {
       // SI.
       case WeightUnit.nanogram:
-        return 'ng';
+        return nanogramSymbol.i18n(locale: locale);
       case WeightUnit.microgram:
-        return 'µg';
+        return microgramSymbol.i18n(locale: locale);
       case WeightUnit.milligram:
-        return 'mg';
+        return milligramSymbol.i18n(locale: locale);
       case WeightUnit.gram:
-        return 'g';
+        return gramSymbol.i18n(locale: locale);
       case WeightUnit.kilogram:
-        return 'kg';
+        return kilogramSymbol.i18n(locale: locale);
       case WeightUnit.tonne:
-        return 't';
+        return tonneSymbol.i18n(locale: locale);
       case WeightUnit.megatonne:
-        return 'Mt';
+        return megatonneSymbol.i18n(locale: locale);
       case WeightUnit.gigatonne:
-        return 'Gt';
+        return gigatonneSymbol.i18n(locale: locale);
 
       // Imperial.
       case WeightUnit.ounce:
-        return 'oz';
+        return ounceSymbol.i18n(locale: locale);
       case WeightUnit.pound:
-        return 'lb';
+        return poundSymbol.i18n(locale: locale);
       case WeightUnit.imperialTon:
-        return 'ton';
+        return imperialTonSymbol.i18n(locale: locale);
 
       // US.
       case WeightUnit.usTon:
-        return 'ton';
+        return usTonSymbol.i18n(locale: locale);
     }
   }
 

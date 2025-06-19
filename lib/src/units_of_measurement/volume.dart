@@ -1,5 +1,6 @@
 import 'package:humanizer/humanizer.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
+import 'package:humanizer/src/units_of_measurement/volume.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/volume_constants.dart';
 import 'package:meta/meta.dart';
 
@@ -507,69 +508,69 @@ extension VolumeUnitExtensions on VolumeUnit {
     switch (this) {
       // SI.
       case VolumeUnit.cubicNanometer:
-        return 'cubic nanometer';
+        return cubicNanometer.i18n(locale: locale);
       case VolumeUnit.cubicMicrometer:
-        return 'cubic micrometer';
+        return cubicMicrometer.i18n(locale: locale);
       case VolumeUnit.cubicMillimeter:
-        return 'cubic millimeter';
+        return cubicMillimeter.i18n(locale: locale);
       case VolumeUnit.milliliter:
-        return 'milliliter';
+        return milliliter.i18n(locale: locale);
       case VolumeUnit.liter:
-        return 'Liter';
+        return liter.i18n(locale: locale);
       case VolumeUnit.cubicMeter:
-        return 'Cubic meter';
+        return cubicMeter.i18n(locale: locale);
       case VolumeUnit.cubicDecameter:
-        return 'Cubic decameter';
+        return cubicDecameter.i18n(locale: locale);
       case VolumeUnit.cubicKilometer:
-        return 'Cubic kilometer';
+        return cubicKilometer.i18n(locale: locale);
       case VolumeUnit.cubicMegameter:
-        return 'Cubic megameter';
+        return cubicMegameter.i18n(locale: locale);
       case VolumeUnit.cubicGigameter:
-        return 'Cubic gigameter';
+        return cubicGigameter.i18n(locale: locale);
 
       // Imperial.
       case VolumeUnit.cubicThou:
-        return 'cubic thou';
+        return cubicThou.i18n(locale: locale);
       case VolumeUnit.imperialTeaspoon:
-        return 'imperial teaspoon';
+        return imperialTeaspoon.i18n(locale: locale);
       case VolumeUnit.imperialTablespoon:
-        return 'Imperial tablespoon';
+        return imperialTablespoon.i18n(locale: locale);
       case VolumeUnit.imperialFluidOunce:
-        return 'Imperial fluid ounce';
+        return imperialFluidOunce.i18n(locale: locale);
       case VolumeUnit.imperialCup:
-        return 'Imperial cup';
+        return imperialCup.i18n(locale: locale);
       case VolumeUnit.imperialPint:
-        return 'Imperial pint';
+        return imperialPint.i18n(locale: locale);
       case VolumeUnit.imperialQuart:
-        return 'Imperial quart';
+        return imperialQuart.i18n(locale: locale);
       case VolumeUnit.imperialGallon:
-        return 'Imperial gallon';
+        return imperialGallon.i18n(locale: locale);
       case VolumeUnit.cubicInch:
-        return 'Cubic inch';
+        return cubicInch.i18n(locale: locale);
       case VolumeUnit.cubicFoot:
-        return 'Cubic foot';
+        return cubicFoot.i18n(locale: locale);
       case VolumeUnit.cubicYard:
-        return 'Cubic yard';
+        return cubicYard.i18n(locale: locale);
       case VolumeUnit.cubicMile:
-        return 'Cubic mile';
+        return cubicMile.i18n(locale: locale);
 
       // US.
       case VolumeUnit.usTeaspoon:
-        return 'US teaspoon';
+        return usTeaspoon.i18n(locale: locale);
       case VolumeUnit.usTablespoon:
-        return 'US tablespoon';
+        return usTablespoon.i18n(locale: locale);
       case VolumeUnit.usFluidOunce:
-        return 'US fluid ounce';
+        return usFluidOunce.i18n(locale: locale);
       case VolumeUnit.usCustomaryCup:
-        return 'US customary cup';
+        return usCustomaryCup.i18n(locale: locale);
       case VolumeUnit.usLegalCup:
-        return 'US legal cup';
+        return usLegalCup.i18n(locale: locale);
       case VolumeUnit.usLiquidPint:
-        return 'US liquid pint';
+        return usLiquidPint.i18n(locale: locale);
       case VolumeUnit.usLiquidQuart:
-        return 'US liquid quart';
+        return usLiquidQuart.i18n(locale: locale);
       case VolumeUnit.usLiquidGallon:
-        return 'US liquid gallon';
+        return usLiquidGallon.i18n(locale: locale);
     }
   }
 
@@ -580,69 +581,69 @@ extension VolumeUnitExtensions on VolumeUnit {
     switch (this) {
       // SI.
       case VolumeUnit.cubicNanometer:
-        return 'nm³';
+        return cubicNanometerSymbol.i18n(locale: locale);
       case VolumeUnit.cubicMicrometer:
-        return 'μm³';
+        return cubicMicrometerSymbol.i18n(locale: locale);
       case VolumeUnit.cubicMillimeter:
-        return 'mm³';
+        return cubicMillimeterSymbol.i18n(locale: locale);
       case VolumeUnit.milliliter:
-        return 'mL';
+        return milliliterSymbol.i18n(locale: locale);
       case VolumeUnit.liter:
-        return 'L';
+        return literSymbol.i18n(locale: locale);
       case VolumeUnit.cubicMeter:
-        return 'm³';
+        return cubicMeterSymbol.i18n(locale: locale);
       case VolumeUnit.cubicDecameter:
-        return 'dam³';
+        return cubicDecameterSymbol.i18n(locale: locale);
       case VolumeUnit.cubicKilometer:
-        return 'km³';
+        return cubicKilometerSymbol.i18n(locale: locale);
       case VolumeUnit.cubicMegameter:
-        return 'Mm³';
+        return cubicMegameterSymbol.i18n(locale: locale);
       case VolumeUnit.cubicGigameter:
-        return 'Gm³';
+        return cubicGigameterSymbol.i18n(locale: locale);
 
       // Imperial.
       case VolumeUnit.cubicThou:
-        return 'thou³';
+        return cubicThouSymbol.i18n(locale: locale);
       case VolumeUnit.imperialTeaspoon:
-        return 'tsp';
+        return imperialTeaspoonSymbol.i18n(locale: locale);
       case VolumeUnit.imperialTablespoon:
-        return 'Tbsp';
+        return imperialTablespoonSymbol.i18n(locale: locale);
       case VolumeUnit.imperialFluidOunce:
-        return 'fl oz';
+        return imperialFluidOunceSymbol.i18n(locale: locale);
       case VolumeUnit.imperialCup:
-        return 'c';
+        return imperialCupSymbol.i18n(locale: locale);
       case VolumeUnit.imperialPint:
-        return 'pt';
+        return imperialPintSymbol.i18n(locale: locale);
       case VolumeUnit.imperialQuart:
-        return 'qt';
+        return imperialQuartSymbol.i18n(locale: locale);
       case VolumeUnit.imperialGallon:
-        return 'gal';
+        return imperialGallonSymbol.i18n(locale: locale);
       case VolumeUnit.cubicInch:
-        return 'in³';
+        return cubicInchSymbol.i18n(locale: locale);
       case VolumeUnit.cubicFoot:
-        return 'ft³';
+        return cubicFootSymbol.i18n(locale: locale);
       case VolumeUnit.cubicYard:
-        return 'yd³';
+        return cubicYardSymbol.i18n(locale: locale);
       case VolumeUnit.cubicMile:
-        return 'mi³';
+        return cubicMileSymbol.i18n(locale: locale);
 
       // US.
       case VolumeUnit.usTeaspoon:
-        return 'tsp';
+        return usTeaspoonSymbol.i18n(locale: locale);
       case VolumeUnit.usTablespoon:
-        return 'Tbsp';
+        return usTablespoonSymbol.i18n(locale: locale);
       case VolumeUnit.usFluidOunce:
-        return 'fl oz';
+        return usFluidOunceSymbol.i18n(locale: locale);
       case VolumeUnit.usCustomaryCup:
-        return 'c';
+        return usCustomaryCupSymbol.i18n(locale: locale);
       case VolumeUnit.usLegalCup:
-        return 'c';
+        return usLegalCupSymbol.i18n(locale: locale);
       case VolumeUnit.usLiquidPint:
-        return 'pt';
+        return usLiquidPintSymbol.i18n(locale: locale);
       case VolumeUnit.usLiquidQuart:
-        return 'qt';
+        return usLiquidQuartSymbol.i18n(locale: locale);
       case VolumeUnit.usLiquidGallon:
-        return 'gal';
+        return usLiquidGallonSymbol.i18n(locale: locale);
     }
   }
 
@@ -651,33 +652,33 @@ extension VolumeUnitExtensions on VolumeUnit {
     switch (this) {
       // Imperial.
       case VolumeUnit.imperialTeaspoon:
-        return 'tsp_imp';
+        return imperialTeaspoonPattern.i18n();
       case VolumeUnit.imperialTablespoon:
-        return 'Tbsp_imp';
+        return imperialTablespoonPattern.i18n();
       case VolumeUnit.imperialFluidOunce:
-        return 'fl_oz_imp';
+        return imperialFluidOuncePattern.i18n();
       case VolumeUnit.imperialCup:
-        return 'c_imp';
+        return imperialCupPattern.i18n();
       case VolumeUnit.imperialPint:
-        return 'pt_imp';
+        return imperialPintPattern.i18n();
       case VolumeUnit.imperialGallon:
-        return 'gal_imp';
+        return imperialGallonPattern.i18n();
 
       // US.
       case VolumeUnit.usTeaspoon:
-        return 'tsp_us';
+        return usTeaspoonPattern.i18n();
       case VolumeUnit.usTablespoon:
-        return 'Tbsp_us';
+        return usTablespoonPattern.i18n();
       case VolumeUnit.usCustomaryCup:
-        return 'c_us_customary';
+        return usCustomaryCupPattern.i18n();
       case VolumeUnit.usLegalCup:
-        return 'c_us_legal';
+        return usLegalCupPattern.i18n();
       case VolumeUnit.usFluidOunce:
-        return 'fl_oz_us';
+        return usFluidOuncePattern.i18n();
       case VolumeUnit.usLiquidPint:
-        return 'pt_us';
+        return usLiquidPintPattern.i18n();
       case VolumeUnit.usLiquidGallon:
-        return 'gal_us';
+        return usLiquidGallonPattern.i18n();
 
       default:
         return getSymbol(

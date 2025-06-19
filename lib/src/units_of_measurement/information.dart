@@ -1,4 +1,5 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/information.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/information_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
@@ -587,79 +588,79 @@ extension InformationUnitExtensions on InformationUnit {
     switch (this) {
       // SI.
       case InformationUnit.bit:
-        return 'bit';
+        return bit.i18n(locale: locale);
       case InformationUnit.crumb:
-        return 'crumb';
+        return crumb.i18n(locale: locale);
       case InformationUnit.nibble:
-        return 'nibble';
+        return nibble.i18n(locale: locale);
       case InformationUnit.kilobit:
-        return 'kilobit';
+        return kilobit.i18n(locale: locale);
       case InformationUnit.megabit:
-        return 'megabit';
+        return megabit.i18n(locale: locale);
       case InformationUnit.gigabit:
-        return 'gigabit';
+        return gigabit.i18n(locale: locale);
       case InformationUnit.terabit:
-        return 'terabit';
+        return terabit.i18n(locale: locale);
       case InformationUnit.petabit:
-        return 'petabit';
+        return petabit.i18n(locale: locale);
       case InformationUnit.exabit:
-        return 'exabit';
+        return exabit.i18n(locale: locale);
       case InformationUnit.zettabit:
-        return 'zettabit';
+        return zettabit.i18n(locale: locale);
       case InformationUnit.yottabit:
-        return 'yottabit';
+        return yottabit.i18n(locale: locale);
       case InformationUnit.byte:
-        return 'byte';
+        return byte.i18n(locale: locale);
       case InformationUnit.kilobyte:
-        return 'kilobyte';
+        return kilobyte.i18n(locale: locale);
       case InformationUnit.megabyte:
-        return 'megabyte';
+        return megabyte.i18n(locale: locale);
       case InformationUnit.gigabyte:
-        return 'gigabyte';
+        return gigabyte.i18n(locale: locale);
       case InformationUnit.terabyte:
-        return 'terabyte';
+        return terabyte.i18n(locale: locale);
       case InformationUnit.petabyte:
-        return 'petabyte';
+        return petabyte.i18n(locale: locale);
       case InformationUnit.exabyte:
-        return 'exabyte';
+        return exabyte.i18n(locale: locale);
       case InformationUnit.zettabyte:
-        return 'zettabyte';
+        return zettabyte.i18n(locale: locale);
       case InformationUnit.yottabyte:
-        return 'yottabyte';
+        return yottabyte.i18n(locale: locale);
 
       // IEC.
       case InformationUnit.kibibit:
-        return 'kibibit';
+        return kibibit.i18n(locale: locale);
       case InformationUnit.mebibit:
-        return 'mebibit';
+        return mebibit.i18n(locale: locale);
       case InformationUnit.gibibit:
-        return 'gibibit';
+        return gibibit.i18n(locale: locale);
       case InformationUnit.tebibit:
-        return 'tebibit';
+        return tebibit.i18n(locale: locale);
       case InformationUnit.pebibit:
-        return 'pebibit';
+        return pebibit.i18n(locale: locale);
       case InformationUnit.exbibit:
-        return 'exbibit';
+        return exbibit.i18n(locale: locale);
       case InformationUnit.zebibit:
-        return 'zebibit';
+        return zebibit.i18n(locale: locale);
       case InformationUnit.yobibit:
-        return 'yobibit';
+        return yobibit.i18n(locale: locale);
       case InformationUnit.kibibyte:
-        return 'kibibyte';
+        return kibibyte.i18n(locale: locale);
       case InformationUnit.mebibyte:
-        return 'mebibyte';
+        return mebibyte.i18n(locale: locale);
       case InformationUnit.gibibyte:
-        return 'gibibyte';
+        return gibibyte.i18n(locale: locale);
       case InformationUnit.tebibyte:
-        return 'tebibyte';
+        return tebibyte.i18n(locale: locale);
       case InformationUnit.pebibyte:
-        return 'pebibyte';
+        return pebibyte.i18n(locale: locale);
       case InformationUnit.exbibyte:
-        return 'exbibyte';
+        return exbibyte.i18n(locale: locale);
       case InformationUnit.zebibyte:
-        return 'zebibyte';
+        return zebibyte.i18n(locale: locale);
       case InformationUnit.yobibyte:
-        return 'yobibyte';
+        return yobibyte.i18n(locale: locale);
     }
   }
 
@@ -670,79 +671,79 @@ extension InformationUnitExtensions on InformationUnit {
     switch (this) {
       // SI.
       case InformationUnit.bit:
-        return 'b';
+        return bitSymbol.i18n(locale: locale);
       case InformationUnit.crumb:
-        return 'crumb';
+        return crumbSymbol.i18n(locale: locale);
       case InformationUnit.nibble:
-        return 'nibble';
+        return nibbleSymbol.i18n(locale: locale);
       case InformationUnit.kilobit:
-        return 'kbit';
+        return kilobitSymbol.i18n(locale: locale);
       case InformationUnit.megabit:
-        return 'Mbit';
+        return megabitSymbol.i18n(locale: locale);
       case InformationUnit.gigabit:
-        return 'Gbit';
+        return gigabitSymbol.i18n(locale: locale);
       case InformationUnit.terabit:
-        return 'Tbit';
+        return terabitSymbol.i18n(locale: locale);
       case InformationUnit.petabit:
-        return 'Pbit';
+        return petabitSymbol.i18n(locale: locale);
       case InformationUnit.exabit:
-        return 'Ebit';
+        return exabitSymbol.i18n(locale: locale);
       case InformationUnit.zettabit:
-        return 'Zbit';
+        return zettabitSymbol.i18n(locale: locale);
       case InformationUnit.yottabit:
-        return 'Ybit';
+        return yottabitSymbol.i18n(locale: locale);
       case InformationUnit.byte:
-        return 'B';
+        return byteSymbol.i18n(locale: locale);
       case InformationUnit.kilobyte:
-        return 'KB';
+        return kilobyteSymbol.i18n(locale: locale);
       case InformationUnit.megabyte:
-        return 'MB';
+        return megabyteSymbol.i18n(locale: locale);
       case InformationUnit.gigabyte:
-        return 'GB';
+        return gigabyteSymbol.i18n(locale: locale);
       case InformationUnit.terabyte:
-        return 'TB';
+        return terabyteSymbol.i18n(locale: locale);
       case InformationUnit.petabyte:
-        return 'PB';
+        return petabyteSymbol.i18n(locale: locale);
       case InformationUnit.exabyte:
-        return 'EB';
+        return exabyteSymbol.i18n(locale: locale);
       case InformationUnit.zettabyte:
-        return 'ZB';
+        return zettabyteSymbol.i18n(locale: locale);
       case InformationUnit.yottabyte:
-        return 'YB';
+        return yottabyteSymbol.i18n(locale: locale);
 
       // IEC.
       case InformationUnit.kibibit:
-        return 'Kibit';
+        return kibibitSymbol.i18n(locale: locale);
       case InformationUnit.mebibit:
-        return 'Mibit';
+        return mebibitSymbol.i18n(locale: locale);
       case InformationUnit.gibibit:
-        return 'Gibit';
+        return gibibitSymbol.i18n(locale: locale);
       case InformationUnit.tebibit:
-        return 'Tibit';
+        return tebibitSymbol.i18n(locale: locale);
       case InformationUnit.pebibit:
-        return 'Pibit';
+        return pebibitSymbol.i18n(locale: locale);
       case InformationUnit.exbibit:
-        return 'Eibit';
+        return exbibitSymbol.i18n(locale: locale);
       case InformationUnit.zebibit:
-        return 'Zibit';
+        return zebibitSymbol.i18n(locale: locale);
       case InformationUnit.yobibit:
-        return 'Yibit';
+        return yobibitSymbol.i18n(locale: locale);
       case InformationUnit.kibibyte:
-        return 'KiB';
+        return kibibyteSymbol.i18n(locale: locale);
       case InformationUnit.mebibyte:
-        return 'MiB';
+        return mebibyteSymbol.i18n(locale: locale);
       case InformationUnit.gibibyte:
-        return 'GiB';
+        return gibibyteSymbol.i18n(locale: locale);
       case InformationUnit.tebibyte:
-        return 'TiB';
+        return tebibyteSymbol.i18n(locale: locale);
       case InformationUnit.pebibyte:
-        return 'PiB';
+        return pebibyteSymbol.i18n(locale: locale);
       case InformationUnit.exbibyte:
-        return 'EiB';
+        return exbibyteSymbol.i18n(locale: locale);
       case InformationUnit.zebibyte:
-        return 'ZiB';
+        return zebibyteSymbol.i18n(locale: locale);
       case InformationUnit.yobibyte:
-        return 'YiB';
+        return yobibyteSymbol.i18n(locale: locale);
     }
   }
 

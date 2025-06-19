@@ -1,4 +1,5 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/units_of_measurement/quantity.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/quantity_constants.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
@@ -118,15 +119,15 @@ extension QuantityUnitExtensions on QuantityUnit {
   }) {
     switch (this) {
       case QuantityUnit.one:
-        return '';
+        return quantityOne.i18n(locale: locale);
       case QuantityUnit.thousand:
-        return 'thousand';
+        return quantityThousand.i18n(locale: locale);
       case QuantityUnit.million:
-        return 'million';
+        return quantityMillion.i18n(locale: locale);
       case QuantityUnit.billion:
-        return 'billion';
+        return quantityBillion.i18n(locale: locale);
       case QuantityUnit.trillion:
-        return 'trillion';
+        return quantityTrillion.i18n(locale: locale);
     }
   }
 
@@ -138,15 +139,23 @@ extension QuantityUnitExtensions on QuantityUnit {
 
     switch (this) {
       case QuantityUnit.one:
-        return '';
+        return quantityOne.i18n(locale: locale); // Ainda vazio
       case QuantityUnit.thousand:
-        return isUnitedKingdom ? 'k' : 'K';
+        return isUnitedKingdom
+            ? quantityThousandSymbolUK.i18n(locale: locale)
+            : quantityThousandSymbolUS.i18n(locale: locale);
       case QuantityUnit.million:
-        return isUnitedKingdom ? 'm' : 'M';
+        return isUnitedKingdom
+            ? quantityMillionSymbolUK.i18n(locale: locale)
+            : quantityMillionSymbolUS.i18n(locale: locale);
       case QuantityUnit.billion:
-        return isUnitedKingdom ? 'bn' : 'B';
+        return isUnitedKingdom
+            ? quantityBillionSymbolUK.i18n(locale: locale)
+            : quantityBillionSymbolUS.i18n(locale: locale);
       case QuantityUnit.trillion:
-        return isUnitedKingdom ? 'tn' : 'T';
+        return isUnitedKingdom
+            ? quantityTrillionSymbolUK.i18n(locale: locale)
+            : quantityTrillionSymbolUS.i18n(locale: locale);
     }
   }
 
