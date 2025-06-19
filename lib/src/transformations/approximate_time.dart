@@ -1,4 +1,5 @@
 import 'package:humanizer/humanizer.dart';
+import 'package:humanizer/src/transformations/approximate_time.i18n.dart';
 import 'package:humanizer/src/units_of_measurement/rationals.dart';
 import 'package:meta/meta.dart';
 
@@ -169,16 +170,18 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
     }
 
     if (!isRelativeToNow && time == Time.zero) {
-      return 'zero';
+      return zero.i18n(locale: locale);
     } else if (isRelativeToNow &&
         primaryUnit == TimeUnit.second &&
         truncatedPrimaryValue == BigInt.zero) {
-      return 'now';
+      return now.i18n(locale: locale);
     } else if (isRelativeToNow &&
         primaryUnit == TimeUnit.day &&
         truncatedPrimaryValue == BigInt.one &&
         (truncatedSecondaryValue ?? 0) == 0) {
-      return sign == _Sign.negative ? 'yesterday' : 'tomorrow';
+      return sign == _Sign.negative
+          ? yesterday.i18n(locale: locale)
+          : tomorrow.i18n(locale: locale);
     } else {
       final primaryUnitName =
           primaryUnit.getName(locale: locale).toPluralFormForQuantity(
@@ -190,13 +193,18 @@ class ApproximateTimeTransformation extends Transformation<Duration, String> {
       return <String>[
         if (secondaryQuantifierText != null) secondaryQuantifierText,
         if (isRelativeToNow && truncatedPrimaryValue == BigInt.one)
-          // TODO: should be generalized and localized??
-          if (primaryUnit == TimeUnit.hour) 'an' else 'a'
+          if (primaryUnit == TimeUnit.hour)
+            an.i18n(locale: locale)
+          else
+            a.i18n(locale: locale)
         else
           truncatedPrimaryValue.toString(),
         primaryUnitName,
         if (isRelativeToNow)
-          if (sign == _Sign.negative) 'ago' else 'from now',
+          if (sign == _Sign.negative)
+            ago.i18n(locale: locale)
+          else
+            fromNow.i18n(locale: locale),
       ].join(' ');
     }
   }
@@ -230,13 +238,13 @@ extension _SecondaryQuantifierExtensions on _SecondaryQuantifier {
       case _SecondaryQuantifier.none:
         return '';
       case _SecondaryQuantifier.justOver:
-        return 'just over';
+        return justOver.i18n(locale: locale);
       case _SecondaryQuantifier.over:
-        return 'over';
+        return over.i18n(locale: locale);
       case _SecondaryQuantifier.under:
-        return 'under';
+        return under.i18n(locale: locale);
       case _SecondaryQuantifier.justUnder:
-        return 'just under';
+        return justUnder.i18n(locale: locale);
     }
   }
 }
